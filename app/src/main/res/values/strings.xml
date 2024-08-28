@@ -3,4 +3,8 @@
     <string name="title_home">홈</string>
     <string name="title_spirits_collection">술 도감</string>
     <string name="title_undefined">미정</string>
+    <string name="icon_menu">메뉴</string>
+    <string name="text_welcome_comment">%1$s 님,\n안녕하세요!</string>
+    <string name="text_home_title_top_bar"> </string>
+    <string name="description_user_profile_img">유저 프로필 이미지</string>
 </resources>
