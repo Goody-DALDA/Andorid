@@ -2,6 +2,7 @@ package com.goody.dalda.ui.home.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +22,7 @@ import com.goody.dalda.R
 @Composable
 fun WelcomeBanner(userName: String, modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     ) {
         WelcomeComment(
             userName = userName,
