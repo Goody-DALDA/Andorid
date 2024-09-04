@@ -6,5 +6,7 @@
     <string name="icon_menu">메뉴</string>
     <string name="text_welcome_comment">%1$s 님,\n안녕하세요!</string>
     <string name="text_home_title_top_bar"> </string>
+    <string name="text_my_favorite_alcohol">내가 좋아하는 술</string>
+    <string name="text_whole_view">전체보기</string>
     <string name="description_user_profile_img">유저 프로필 이미지</string>
 </resources>
