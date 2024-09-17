@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -13,11 +14,12 @@ import com.goody.dalda.data.AlcoholType
 
 @Composable
 fun FavoriteAlcohol(
+    modifier: Modifier = Modifier,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
     onActionClick: () -> Unit = {}
 ) {
-
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ContentsTitle(
@@ -26,9 +28,12 @@ fun FavoriteAlcohol(
             onActionClick = { onActionClick() }
         )
 
-        LazyRow {
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
             items(alcoholInfoList.size) { idx ->
                 AlcoholCard(
+                    imgUrl = alcoholInfoList[idx].imgUrl,
                     name = alcoholInfoList[idx].name,
                     category = alcoholInfoList[idx].type.alcoholName,
                     alcohol = alcoholInfoList[idx].abv.toString(),
@@ -45,6 +50,7 @@ private fun FavoriteAlcoholPreview() {
     val alcoholInfoList = listOf(
         AlcoholInfo(
             id = 0,
+            imgUrl = "",
             name = "소주",
             type = AlcoholType.SOJU,
             abv = 20.0f,
@@ -52,6 +58,7 @@ private fun FavoriteAlcoholPreview() {
         ),
         AlcoholInfo(
             id = 1,
+            imgUrl = "",
             name = "맥주",
             type = AlcoholType.BEER,
             abv = 4.5f,
@@ -59,6 +66,7 @@ private fun FavoriteAlcoholPreview() {
         ),
         AlcoholInfo(
             id = 2,
+            imgUrl = "",
             name = "와인",
             type = AlcoholType.WINE,
             abv = 13.0f,
@@ -66,6 +74,7 @@ private fun FavoriteAlcoholPreview() {
         ),
         AlcoholInfo(
             id = 3,
+            imgUrl = "",
             name = "위스키",
             type = AlcoholType.WHISKEY,
             abv = 40.0f,
@@ -73,6 +82,7 @@ private fun FavoriteAlcoholPreview() {
         ),
         AlcoholInfo(
             id = 4,
+            imgUrl = "",
             name = "위스키",
             type = AlcoholType.WHISKEY,
             abv = 40.0f,

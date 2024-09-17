@@ -27,7 +27,7 @@ fun ContentsTitle(
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.headlineLarge,
+                style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
 
@@ -35,7 +35,7 @@ fun ContentsTitle(
 
             Text(
                 text = actionText,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .clickable { onActionClick() }
