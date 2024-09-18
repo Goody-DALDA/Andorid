@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.home.component.AlcoholCategory
+import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.AlcoholSearchBar
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
 import com.goody.dalda.ui.home.component.HomeTopBar
@@ -21,6 +22,7 @@ import com.goody.dalda.ui.home.component.WelcomeBanner
 fun HomeScreen(
     modifier: Modifier = Modifier,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
+    alcoholRecommendImgList: List<String> = emptyList()
 ) {
     Scaffold(
         modifier = modifier,
@@ -66,6 +68,13 @@ fun HomeScreen(
                 onActionClick = { /*TODO*/ }
             )
 
+            AlcoholRecommendation(
+                modifier = Modifier.fillMaxWidth(),
+                recommendImg = alcoholRecommendImgList,
+                onActionClick = { /*TODO*/ },
+                onContentsClick = { /*TODO*/ }
+            )
+
         }
     }
 }
@@ -100,6 +109,11 @@ private fun HomeScreenPreview() {
                 abv = 20.0f,
                 starScore = 4.5f
             )
+        ),
+        alcoholRecommendImgList = listOf(
+            "https://picsum.photos/id/217/100/100",
+            "https://picsum.photos/id/2/100/100",
+            "https://picsum.photos/id/237/100/100"
         )
     )
 }
