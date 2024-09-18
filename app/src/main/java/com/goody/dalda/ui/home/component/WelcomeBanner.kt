@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -41,7 +40,8 @@ fun WelcomeBanner(userName: String, modifier: Modifier = Modifier) {
             model = "",
             contentDescription = stringResource(id = R.string.description_user_profile_img),
             placeholder = ColorPainter(Color.Blue),
-            modifier = Modifier.height(70.dp)
+            modifier = Modifier
+                .height(70.dp)
                 .weight(1f)
                 .align(alignment = Alignment.CenterVertically)
         )
