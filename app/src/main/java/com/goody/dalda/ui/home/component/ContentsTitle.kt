@@ -6,36 +6,37 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.goody.dalda.R
+import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun ContentsTitle(
     title: String,
     actionText: String,
+    modifier: Modifier = Modifier,
     onActionClick: () -> Unit = {}
 ) {
-    Column {
+    Column(modifier = modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Text(
+            AutoResizedText(
                 text = title,
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Text(
+            AutoResizedText(
                 text = actionText,
-                style = MaterialTheme.typography.titleSmall,
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .clickable { onActionClick() }
@@ -52,3 +53,4 @@ private fun ContentsTitlePreview() {
         actionText = stringResource(id = R.string.text_whole_view)
     )
 }
+
