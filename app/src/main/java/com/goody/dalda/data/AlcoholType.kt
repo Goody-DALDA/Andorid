@@ -1,6 +1,7 @@
 package com.goody.dalda.data
 
 import androidx.annotation.DrawableRes
+import com.goody.dalda.R
 
 enum class AlcoholType(
     val alcoholName: String,
@@ -9,47 +10,42 @@ enum class AlcoholType(
 ) {
     SOJU(
         alcoholName = "소주",
-        image = 0,
+        image = R.drawable.img_soju,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
     BEER(
         alcoholName = "맥주",
-        image = 0,
+        image = R.drawable.img_beer,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
     TRADITIONAL(
         alcoholName = "전통주",
-        image = 0,
+        image = R.drawable.img_traditional_alcohol,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
     BOILERMAKER(
         alcoholName = "폭탄주",
-        image = 0,
+        image = R.drawable.img_bomb,
         categoryStatus = AlcoholCategoryStatus.WAITING
     ),
     WINE(
         alcoholName = "와인",
-        image = 0,
+        image = R.drawable.img_wine,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
     WHISKEY(
         alcoholName = "위스키",
-        image = 0,
+        image = R.drawable.img_wisky,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
-    LIQUOR(
-        alcoholName = "양주",
-        image = 0,
+    SAKE(
+        alcoholName = "사케",
+        image = R.drawable.img_sake,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
     COCKTAIL(
         alcoholName = "칵테일",
-        image = 0,
+        image = R.drawable.img_cocktail,
         categoryStatus = AlcoholCategoryStatus.WAITING
-    ),
-    ETC(
-        alcoholName = "기타",
-        image = 0,
-        categoryStatus = AlcoholCategoryStatus.NONE
     )
 }
