@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
@@ -26,11 +25,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.isTraversalGroup
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.goody.dalda.R
+import com.goody.dalda.ui.home.component.iconpack.IcCamera
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,9 +62,13 @@ fun AlcoholSearchBar(
                     },
                     expanded = expanded,
                     onExpandedChange = onExpandedChange,
-                    placeholder = { Text("Hinted search text") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                    trailingIcon = { Icon(Icons.Default.MoreVert, contentDescription = null) },
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.text_search_alcohol)
+                        )
+                    },
+                    leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = null) },
+                    trailingIcon = { Icon(IconPack.IcCamera, contentDescription = null) },
                 )
             },
             expanded = expanded,
