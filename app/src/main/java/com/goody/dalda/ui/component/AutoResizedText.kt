@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.isUnspecified
 
 @Composable
 fun AutoResizedText(
+    modifier: Modifier = Modifier,
     text: String,
     style: TextStyle = MaterialTheme.typography.bodyMedium,
-    modifier: Modifier = Modifier,
     color: Color = style.color
 ) {
     var resizedTextStyle by remember {
@@ -39,14 +39,13 @@ fun AutoResizedText(
 
     Text(
         text = text,
-        color = color,
         modifier = modifier.drawWithContent {
             if (shouldDraw) {
                 drawContent()
             }
         },
+        color = color,
         softWrap = false,
-        style = resizedTextStyle,
         onTextLayout = { result ->
             if (result.didOverflowWidth) {
                 if (style.fontSize.isUnspecified) {
@@ -60,7 +59,8 @@ fun AutoResizedText(
             } else {
                 shouldDraw = true
             }
-        }
+        },
+        style = resizedTextStyle
     )
 }
 

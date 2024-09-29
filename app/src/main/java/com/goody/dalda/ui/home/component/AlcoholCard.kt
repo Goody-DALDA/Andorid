@@ -18,11 +18,11 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun AlcoholCard(
+    modifier: Modifier = Modifier,
     imgUrl: String,
     name: String,
     category: String,
-    alcohol: String,
-    modifier: Modifier = Modifier
+    alcohol: String
 ) {
     Column(
         modifier = modifier
@@ -62,6 +62,9 @@ fun AlcoholCard(
 @Composable
 private fun AlcoholCardPreview() {
     AlcoholCard(
-        imgUrl = "", name = "소주", category = "소주", alcohol = "13.00"
+        imgUrl = "",
+        name = "소주",
+        category = "소주",
+        alcohol = "13.00"
     )
 }

@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlcoholSearchBar(
+    modifier: Modifier = Modifier,
     query: String,
     expanded: Boolean,
-    modifier: Modifier = Modifier,
     onQueryChange: (String) -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onSearch: (String) -> Unit
@@ -75,18 +75,18 @@ fun AlcoholSearchBar(
             ) {
                 repeat(4) { idx ->
                     val resultText = "Suggestion $idx"
+
                     ListItem(
                         headlineContent = { Text(resultText) },
-                        supportingContent = { Text("Additional info") },
-                        leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
-                        colors = ListItemDefaults.colors(containerColor = Color.Transparent),
-                        modifier =
-                        Modifier
+                        modifier = Modifier
                             .clickable {
                                 onQueryChange(resultText)
                                 onExpandedChange(false)
                             }
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
+                            .padding(horizontal = 16.dp, vertical = 4.dp),
+                        supportingContent = { Text("Additional info") },
+                        leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
+                        colors = ListItemDefaults.colors(containerColor = Color.Transparent)
                     )
                 }
             }
@@ -102,11 +102,11 @@ private fun SearchBarPreview() {
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     AlcoholSearchBar(
+        modifier = Modifier,
         query = text,
         expanded = expanded,
         onQueryChange = { text = it },
         onExpandedChange = { expanded = it },
         onSearch = {},
-        modifier = Modifier
     )
 }

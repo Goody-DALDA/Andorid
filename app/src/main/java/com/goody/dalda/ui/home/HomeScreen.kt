@@ -44,8 +44,8 @@ fun HomeScreen(
     when (homeUiState) {
         is HomeUiState.CommonState -> {
             HomeScreen(
-                query = query,
                 modifier = modifier,
+                query = query,
                 alcoholInfoList = alcoholInfoList,
                 recommendAlcoholList = recommendAlcoholList,
                 onExpandedChange = {
@@ -83,10 +83,10 @@ fun HomeScreen(
 
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
     query: String,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
-    modifier: Modifier = Modifier,
     onExpandedChange: () -> Unit = {},
     onQueryChange: (String) -> Unit = {}
 ) {
@@ -105,29 +105,25 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             WelcomeBanner(
-                userName = "Dalda",
                 modifier = Modifier
                     .padding(bottom = 30.dp)
                     .fillMaxWidth()
-                    .height(70.dp)
+                    .height(70.dp),
+                userName = "Dalda"
             )
 
-
             AlcoholSearchBar(
-                query = query,
-                expanded = false,
                 modifier = Modifier
                     .padding(bottom = 30.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .wrapContentHeight(),
+                query = query,
+                expanded = false,
                 onQueryChange = { onQueryChange(it) },
-                onExpandedChange = {
-                    onExpandedChange()
-                },
-                onSearch = {},
-
-                )
+                onExpandedChange = { onExpandedChange() },
+                onSearch = {}
+            )
 
             AlcoholCategory(
                 modifier = Modifier

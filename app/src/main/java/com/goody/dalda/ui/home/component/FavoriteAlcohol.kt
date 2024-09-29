@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,10 +25,10 @@ fun FavoriteAlcohol(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ContentsTitle(
-            title = stringResource(id = R.string.text_my_favorite_alcohol),
-            actionText = stringResource(id = R.string.text_whole_view),
             modifier = Modifier
                 .height(30.dp),
+            title = stringResource(id = R.string.text_my_favorite_alcohol),
+            actionText = stringResource(id = R.string.text_whole_view),
             onActionClick = { onActionClick() }
         )
 

@@ -22,16 +22,19 @@ import com.goody.dalda.R
 import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
-fun WelcomeBanner(userName: String, modifier: Modifier = Modifier) {
+fun WelcomeBanner(
+    modifier: Modifier = Modifier,
+    userName: String
+) {
     Row(
         modifier = modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         WelcomeComment(
-            userName = userName,
             modifier = Modifier
-                .weight(224f)
+                .weight(224f),
+            userName = userName
         )
 
         Spacer(
@@ -42,16 +45,19 @@ fun WelcomeBanner(userName: String, modifier: Modifier = Modifier) {
         AsyncImage(
             model = "",
             contentDescription = stringResource(id = R.string.description_user_profile_img),
-            placeholder = ColorPainter(Color.Blue),
             modifier = Modifier
                 .weight(70f)
-                .padding(vertical = 10.dp)
+                .padding(vertical = 10.dp),
+            placeholder = ColorPainter(Color.Blue)
         )
     }
 }
 
 @Composable
-private fun WelcomeComment(userName: String, modifier: Modifier = Modifier) {
+private fun WelcomeComment(
+    userName: String,
+    modifier: Modifier = Modifier
+) {
     val welcomeMessage = stringResource(id = R.string.text_welcome_comment, userName)
 
     val annotatedString = buildAnnotatedString {
@@ -68,9 +74,9 @@ private fun WelcomeComment(userName: String, modifier: Modifier = Modifier) {
     }.toString()
 
     AutoResizedText(
+        modifier = modifier,
         text = annotatedString,
         style = MaterialTheme.typography.titleLarge,
-        modifier = modifier
     )
 }
 

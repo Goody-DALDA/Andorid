@@ -50,12 +50,12 @@ fun AlcoholRecommendation(
                     AsyncImage(
                         model = recommendAlcoholList[idx].imgRes,
                         contentDescription = "",
-                        placeholder = painterResource(R.drawable.ic_launcher_foreground),
-                        contentScale = ContentScale.FillWidth,
                         modifier = Modifier
                             .width(240.dp)
                             .height(176.dp)
-                            .clickable { onContentsClick() }
+                            .clickable { onContentsClick() },
+                        placeholder = painterResource(R.drawable.ic_launcher_foreground),
+                        contentScale = ContentScale.FillWidth,
                     )
 
                     AutoResizedText(

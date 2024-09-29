@@ -26,8 +26,8 @@ import com.goody.dalda.ui.component.AutoResizedText
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AlcoholCategory(
-    columnCount: Int = 4,
     modifier: Modifier = Modifier,
+    columnCount: Int = 4,
     onClickAlcohol: () -> Unit = {},
 ) {
     FlowRow(
@@ -49,7 +49,11 @@ fun AlcoholCategory(
 }
 
 @Composable
-fun AlcoholTap(alcoholType: AlcoholType, modifier: Modifier, onClick: () -> Unit) {
+fun AlcoholTap(
+    modifier: Modifier,
+    alcoholType: AlcoholType,
+    onClick: () -> Unit
+) {
     Column(
         modifier = modifier
             .clickable { onClick() }
