@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.home
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,9 +11,15 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
@@ -26,8 +33,62 @@ import com.goody.dalda.ui.home.component.WelcomeBanner
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel()
+) {
+    val alcoholInfoList by viewModel.alcoholInfoList.collectAsStateWithLifecycle()
+    val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
+    val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
+    var query by rememberSaveable { mutableStateOf("") }
+    var expanded by rememberSaveable { mutableStateOf(true) }
+
+    when (homeUiState) {
+        is HomeUiState.CommonState -> {
+            HomeScreen(
+                query = query,
+                modifier = modifier,
+                alcoholInfoList = alcoholInfoList,
+                recommendAlcoholList = recommendAlcoholList,
+                onExpandedChange = {
+                    viewModel.setHomeUiState(HomeUiState.SearchState)
+                },
+                onQueryChange = { query = it }
+            )
+        }
+
+        is HomeUiState.SearchState -> {
+            AlcoholSearchBar(
+                query = query,
+                expanded = expanded,
+                modifier = Modifier
+                    .padding(bottom = 30.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .wrapContentHeight(),
+                onQueryChange = { query = it },
+                onExpandedChange = {
+                    expanded = it
+                    if (!expanded) {
+                        viewModel.setHomeUiState(HomeUiState.CommonState)
+                    }
+                },
+                onSearch = {},
+            )
+        }
+
+        is HomeUiState.ErrorState -> {
+            // TODO : Error UI
+        }
+    }
+}
+
+@Composable
+fun HomeScreen(
+    query: String,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
-    recommendAlcoholList: List<RecommendAlcohol> = emptyList()
+    recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
+    modifier: Modifier = Modifier,
+    onExpandedChange: () -> Unit = {},
+    onQueryChange: (String) -> Unit = {}
 ) {
     Scaffold(
         modifier = modifier,
@@ -51,18 +112,22 @@ fun HomeScreen(
                     .height(70.dp)
             )
 
+
             AlcoholSearchBar(
-                query = "",
-                onQueryChange = { /*TODO*/ },
-                onSearch = { /*TODO*/ },
-                active = false,
-                onActiveChange = { /*TODO*/ },
+                query = query,
+                expanded = false,
                 modifier = Modifier
                     .padding(bottom = 30.dp)
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .fillMaxHeight()
+                    .wrapContentHeight(),
+                onQueryChange = { onQueryChange(it) },
+                onExpandedChange = {
+                    onExpandedChange()
+                },
+                onSearch = {},
 
-            )
+                )
 
             AlcoholCategory(
                 modifier = Modifier
@@ -88,7 +153,6 @@ fun HomeScreen(
                 onActionClick = { /*TODO*/ },
                 onContentsClick = { /*TODO*/ }
             )
-
         }
     }
 }
@@ -96,9 +160,9 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen(
-        modifier = Modifier.padding(horizontal = 20.dp),
-        alcoholInfoList = listOf(
+    val viewModel = HomeViewModel()
+    viewModel.setAlcoholInfoList(
+        listOf(
             AlcoholInfo(
                 id = 0,
                 imgUrl = "https://picsum.photos/id/217/100/100",
@@ -120,8 +184,10 @@ private fun HomeScreenPreview() {
                 type = AlcoholType.TRADITIONAL,
                 abv = 20.0f,
             )
-        ),
-        recommendAlcoholList = listOf(
+        )
+    )
+    viewModel.setRecommendAlcoholList(
+        listOf(
             RecommendAlcohol(
                 imgRes = "https://picsum.photos/id/217/100/100",
                 comment = "이건 무슨 맛이래유?"
@@ -135,5 +201,8 @@ private fun HomeScreenPreview() {
                 comment = "이건 어때요?"
             )
         )
+    )
+    HomeScreen(
+        viewModel = viewModel
     )
 }
