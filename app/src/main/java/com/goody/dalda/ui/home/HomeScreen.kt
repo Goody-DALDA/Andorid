@@ -6,13 +6,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -29,6 +36,8 @@ import com.goody.dalda.ui.home.component.AlcoholSearchBar
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
 import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.WelcomeBanner
+import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -38,14 +47,19 @@ fun HomeScreen(
     val alcoholInfoList by viewModel.alcoholInfoList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
+    val userName by viewModel.userName.collectAsStateWithLifecycle()
+    val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
     var query by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(true) }
+
 
     when (homeUiState) {
         is HomeUiState.CommonState -> {
             HomeScreen(
                 modifier = modifier,
                 query = query,
+                userName = userName,
+                userEmail = userEmail,
                 alcoholInfoList = alcoholInfoList,
                 recommendAlcoholList = recommendAlcoholList,
                 onExpandedChange = {
@@ -81,76 +95,115 @@ fun HomeScreen(
     }
 }
 
+// TODO 사이드 메뉴 관련 컴포넌트화
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     query: String,
+    userName: String,
+    userEmail: String,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     onExpandedChange: () -> Unit = {},
     onQueryChange: (String) -> Unit = {}
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            HomeTopBar(
-                onClickMenu = { /*TODO*/ },
-            )
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+        var selectedItemIndex by rememberSaveable {
+            mutableStateOf(0)
         }
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
+
+        ModalNavigationDrawer(
+            drawerContent = {
+                HomeDrawerSheet(
+                    modifier = Modifier.width(250.dp),
+                    userName = userName,
+                    userEmail = userEmail,
+                    selectedItemIndex = selectedItemIndex,
+                    onChangeDrawerState = {
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    },
+                    onChangeSelectedItemIndex = {
+                        selectedItemIndex = it
+                    }
+                )
+            },
+            drawerState = drawerState
         ) {
-            WelcomeBanner(
-                modifier = Modifier
-                    .padding(bottom = 30.dp)
-                    .fillMaxWidth()
-                    .height(70.dp),
-                userName = "Dalda"
-            )
+            Scaffold(
+                topBar = {
+                    HomeTopBar(
+                        onClickMenu = {
+                            scope.launch {
+                                drawerState.open()
+                            }
+                        },
+                    )
+                },
+            ) { innerPadding ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    WelcomeBanner(
+                        modifier = Modifier
+                            .padding(bottom = 30.dp)
+                            .fillMaxWidth()
+                            .height(70.dp),
+                        userName = "Dalda"
+                    )
 
-            AlcoholSearchBar(
-                modifier = Modifier
-                    .padding(bottom = 30.dp)
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .wrapContentHeight(),
-                query = query,
-                expanded = false,
-                onQueryChange = { onQueryChange(it) },
-                onExpandedChange = { onExpandedChange() },
-                onSearch = {}
-            )
+                    AlcoholSearchBar(
+                        modifier = Modifier
+                            .padding(bottom = 30.dp)
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .wrapContentHeight(),
+                        query = query,
+                        expanded = false,
+                        onQueryChange = { onQueryChange(it) },
+                        onExpandedChange = { onExpandedChange() },
+                        onSearch = {}
+                    )
 
-            AlcoholCategory(
-                modifier = Modifier
-                    .padding(bottom = 40.dp)
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-            )
+                    AlcoholCategory(
+                        modifier = Modifier
+                            .padding(bottom = 40.dp)
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                    )
 
-            FavoriteAlcohol(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .fillMaxWidth(),
-                alcoholInfoList = alcoholInfoList,
-                onActionClick = { /*TODO*/ }
-            )
+                    FavoriteAlcohol(
+                        modifier = Modifier
+                            .wrapContentHeight()
+                            .fillMaxWidth(),
+                        alcoholInfoList = alcoholInfoList,
+                        onActionClick = { /*TODO*/ }
+                    )
 
-            AlcoholRecommendation(
-                modifier = Modifier
-                    .padding(bottom = 40.dp)
-                    .wrapContentHeight()
-                    .fillMaxWidth(),
-                recommendAlcoholList = recommendAlcoholList,
-                onActionClick = { /*TODO*/ },
-                onContentsClick = { /*TODO*/ }
-            )
+                    AlcoholRecommendation(
+                        modifier = Modifier
+                            .padding(bottom = 40.dp)
+                            .wrapContentHeight()
+                            .fillMaxWidth(),
+                        recommendAlcoholList = recommendAlcoholList,
+                        onActionClick = { /*TODO*/ },
+                        onContentsClick = { /*TODO*/ }
+                    )
+                }
+
+            }
         }
     }
+// -----------
 }
 
 @Preview

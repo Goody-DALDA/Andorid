@@ -27,6 +27,13 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
 
+    private val _userName = MutableStateFlow("")
+    val userName: StateFlow<String> = _userName
+
+    private val _userEmail = MutableStateFlow("")
+    val userEmail: StateFlow<String> = _userEmail
+
+
     fun setAlcoholInfoList(alcoholInfoList: List<AlcoholInfo>) {
         _alcoholInfoList.value = alcoholInfoList
     }
