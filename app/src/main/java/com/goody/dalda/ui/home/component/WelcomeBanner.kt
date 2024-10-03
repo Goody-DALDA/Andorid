@@ -1,7 +1,9 @@
 package com.goody.dalda.ui.home.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -10,6 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -42,13 +46,14 @@ fun WelcomeBanner(
                 .weight(26f)
         )
 
-        AsyncImage(
-            model = "",
+        Image(
+            painter = painterResource(id = R.drawable.ic_profile_sample) ,
             contentDescription = stringResource(id = R.string.description_user_profile_img),
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .weight(70f)
+                .fillMaxHeight()
                 .padding(vertical = 10.dp),
-            placeholder = ColorPainter(Color.Blue)
         )
     }
 }
