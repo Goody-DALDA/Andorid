@@ -41,7 +41,7 @@ fun HomeDrawerSheet(
     ) {
         // 헤더
         NavigationHeader(
-            modifier = Modifier.padding(start = 16.dp, end = 24.dp),
+            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 24.dp),
             userName = userName,
             userEmail = userEmail,
             onClickCloseIcon = { onChangeDrawerState() }

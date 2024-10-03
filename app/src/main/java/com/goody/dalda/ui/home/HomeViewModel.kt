@@ -33,6 +33,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private val _userEmail = MutableStateFlow("")
     val userEmail: StateFlow<String> = _userEmail
 
+    private val _selectedItemIndex = MutableStateFlow(0)
+    val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
+
 
     fun setAlcoholInfoList(alcoholInfoList: List<AlcoholInfo>) {
         _alcoholInfoList.value = alcoholInfoList
@@ -42,7 +45,19 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         _recommendAlcoholList.value = recommendAlcoholList
     }
 
+    fun setUserName(userName: String) {
+        _userName.value = userName
+    }
+
+    fun setUserEmail(userEmail: String) {
+        _userEmail.value = userEmail
+    }
+
     fun setHomeUiState(homeUiState: HomeUiState) {
         _homeUiState.value = homeUiState
+    }
+
+    fun setSelectedItemIndex(itemIndex: Int) {
+        _selectedItemIndex.value = itemIndex
     }
 }

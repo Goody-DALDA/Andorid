@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
@@ -51,7 +52,10 @@ fun HomeScreen(
     val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
     var query by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(true) }
+    val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
 
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
     when (homeUiState) {
         is HomeUiState.CommonState -> {
@@ -62,10 +66,23 @@ fun HomeScreen(
                 userEmail = userEmail,
                 alcoholInfoList = alcoholInfoList,
                 recommendAlcoholList = recommendAlcoholList,
+                drawerState = drawerState,
+                selectedItemIndex = selectedItemIndex,
                 onExpandedChange = {
                     viewModel.setHomeUiState(HomeUiState.SearchState)
                 },
-                onQueryChange = { query = it }
+                onQueryChange = { query = it },
+                onChangeSelectedItemIndex = { viewModel.setSelectedItemIndex(it) },
+                onChangeDrawerState = {
+                    scope.launch {
+                        drawerState.close()
+                    }
+                },
+                onClickMenu = {
+                    scope.launch {
+                        drawerState.open()
+                    }
+                }
             )
         }
 
@@ -95,7 +112,6 @@ fun HomeScreen(
     }
 }
 
-// TODO 사이드 메뉴 관련 컴포넌트화
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
@@ -104,19 +120,18 @@ fun HomeScreen(
     userEmail: String,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
-    onExpandedChange: () -> Unit = {},
-    onQueryChange: (String) -> Unit = {}
+    drawerState: DrawerState,
+    selectedItemIndex: Int,
+    onExpandedChange: (Boolean) -> Unit = {},
+    onQueryChange: (String) -> Unit = {},
+    onChangeSelectedItemIndex: (Int) -> Unit = {},
+    onChangeDrawerState: () -> Unit = {},
+    onClickMenu: () -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-        val scope = rememberCoroutineScope()
-        var selectedItemIndex by rememberSaveable {
-            mutableStateOf(0)
-        }
-
         ModalNavigationDrawer(
             drawerContent = {
                 HomeDrawerSheet(
@@ -125,25 +140,18 @@ fun HomeScreen(
                     userEmail = userEmail,
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = {
-                        scope.launch {
-                            drawerState.close()
-                        }
+                        onChangeDrawerState()
                     },
-                    onChangeSelectedItemIndex = {
-                        selectedItemIndex = it
-                    }
+                    onChangeSelectedItemIndex = onChangeSelectedItemIndex
                 )
             },
             drawerState = drawerState
         ) {
             Scaffold(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 topBar = {
                     HomeTopBar(
-                        onClickMenu = {
-                            scope.launch {
-                                drawerState.open()
-                            }
-                        },
+                        onClickMenu = onClickMenu,
                     )
                 },
             ) { innerPadding ->
@@ -169,8 +177,8 @@ fun HomeScreen(
                             .wrapContentHeight(),
                         query = query,
                         expanded = false,
-                        onQueryChange = { onQueryChange(it) },
-                        onExpandedChange = { onExpandedChange() },
+                        onQueryChange = onQueryChange,
+                        onExpandedChange = onExpandedChange,
                         onSearch = {}
                     )
 
@@ -203,7 +211,6 @@ fun HomeScreen(
             }
         }
     }
-// -----------
 }
 
 @Preview
@@ -251,7 +258,13 @@ private fun HomeScreenPreview() {
             )
         )
     )
+
+    viewModel.setUserName("삼겹살에 소주")
+    viewModel.setUserEmail("oyj7677@gmail.com")
+
     HomeScreen(
-        viewModel = viewModel
+        modifier = Modifier,
+        viewModel = viewModel,
     )
 }
+
