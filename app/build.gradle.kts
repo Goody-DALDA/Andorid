@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
     implementation(libs.camera.extensions)
+    implementation(libs.mlkit.text.recognition)
     ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)

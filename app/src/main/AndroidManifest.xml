@@ -18,6 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dalda"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr,ocr_korean"/>
+
         <activity
             android:name=".ui.label_search.LabelSearchActivity"
             android:exported="false" />
