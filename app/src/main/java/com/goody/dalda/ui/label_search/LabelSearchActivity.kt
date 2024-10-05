@@ -2,6 +2,7 @@ package com.goody.dalda.ui.label_search
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,12 @@ import com.goody.dalda.extention.cropBitmap
 import com.goody.dalda.extention.resizeWidth
 import com.goody.dalda.extention.rotate
 import com.goody.dalda.extention.toBitmap
+import com.goody.dalda.ui.custom.GraphicOverlay
+import com.goody.dalda.ui.custom.TextGraphic
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.Text
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.text.SimpleDateFormat
@@ -89,7 +96,6 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
     private fun setupCaptureClickListener() {
         binding.imageCaptureButton.setOnClickListener {
-            binding.labelSearchPreviewImageView.setImageBitmap(null)
             photoFile.delete()
             takePhoto()
         }
@@ -116,9 +122,8 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                         .resizeWidth(binding.viewFinder)
                         .cropBitmap(binding.viewFinder, binding.labelSearchGuideBox)
 
-                    binding.labelSearchPreviewImageView.setImageBitmap(bitmap)
                     image.close()
-
+                    runTextRecognition(bitmap)
                 }
             }
         )
@@ -177,6 +182,53 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
             baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /**
+     * 텍스트 인식 감지기를 구성하고 processTextRecognitionResult 응답으로 함수를 호출
+     */
+    private fun runTextRecognition(selectedImage: Bitmap) {
+        val image = InputImage.fromBitmap(selectedImage, 0)
+        val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+        binding.imageCaptureButton.isEnabled = false
+        recognizer.process(image)
+            .addOnSuccessListener { texts ->
+                binding.imageCaptureButton.isEnabled = true
+                processTextRecognitionResult(texts)
+            }
+            .addOnFailureListener { e -> // Task failed with an exception
+                binding.imageCaptureButton.isEnabled = true
+                e.printStackTrace()
+            }
+    }
+
+    private fun processTextRecognitionResult(texts: Text) {
+        val blocks = texts.textBlocks
+        if (blocks.size == 0) {
+            Toast.makeText(baseContext, "No text found", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        binding.graphicOverlay.clear()
+        for (i in blocks.indices) {
+            val lines = blocks[i].lines
+            for (j in lines.indices) {
+                val elements = lines[j].elements
+                val rect = lines[j].boundingBox
+
+                if (rect != null) {
+                    Log.d(TAG, "kch [" + lines[j].text + "] rect Height : " + (rect.bottom - rect.top))
+                }
+
+                for (k in elements.indices) {
+                    val textGraphic: GraphicOverlay.Graphic =
+                        TextGraphic(binding.graphicOverlay, elements[k])
+                    binding.graphicOverlay.add(textGraphic)
+
+                    Log.d(TAG, "kch [" + lines[j].text + "] element : " + elements[k].text)
+                }
+            }
+        }
     }
 
     companion object {
