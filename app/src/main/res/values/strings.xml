@@ -3,4 +3,6 @@
     <string name="title_home">홈</string>
     <string name="title_spirits_collection">술 도감</string>
     <string name="title_undefined">미정</string>
+    <string name="label_search_camera_button">카메라 버튼</string>
+    <string name="label_search_album_button">앨범 버튼</string>
 </resources>

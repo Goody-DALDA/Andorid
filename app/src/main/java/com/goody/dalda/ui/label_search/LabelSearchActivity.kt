@@ -2,13 +2,13 @@ package com.goody.dalda.ui.label_search
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.util.Rational
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.camera.core.CameraSelector
@@ -48,6 +48,19 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     private lateinit var photoFile: File
     private lateinit var cameraExecutor: ExecutorService
 
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            Log.d("PhotoPicker", "Selected URI: $uri")
+            val inputImage = InputImage.fromFilePath(baseContext, uri)
+            runTextRecognition(inputImage)
+        } else {
+            Log.d("PhotoPicker", "No media selected")
+        }
+    }
+
+
     private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             // Handle Permission granted/rejected
@@ -81,6 +94,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
         createCacheFile()
         setupCaptureClickListener()
+        setupAlbumClickListener()
     }
 
     override fun onDestroy() {
@@ -107,6 +121,12 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         }
     }
 
+    private fun setupAlbumClickListener() {
+        binding.labelSearchAlbumBtn.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+    }
+
     private fun takePhoto(imageCapture: ImageCapture) {
         // Set up image capture listener, which is triggered after photo has
         // been taken
@@ -127,7 +147,9 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                         .cropBitmap(binding.viewFinder, binding.labelSearchGuideBox)
 
                     image.close()
-                    runTextRecognition(bitmap)
+
+                    val inputImage = InputImage.fromBitmap(bitmap, 0)
+                    runTextRecognition(inputImage)
                 }
             }
         )
@@ -191,8 +213,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     /**
      * 텍스트 인식 감지기를 구성하고 processTextRecognitionResult 응답으로 함수를 호출
      */
-    private fun runTextRecognition(selectedImage: Bitmap) {
-        val image = InputImage.fromBitmap(selectedImage, 0)
+    private fun runTextRecognition(image: InputImage) {
         val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
         recognizer.process(image)
             .addOnSuccessListener { texts ->
