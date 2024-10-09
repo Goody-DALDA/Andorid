@@ -96,15 +96,18 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
     private fun setupCaptureClickListener() {
         binding.imageCaptureButton.setOnClickListener {
+            binding.imageCaptureButton.isEnabled = false
             photoFile.delete()
-            takePhoto()
+
+            if (imageCapture == null) {
+                binding.imageCaptureButton.isEnabled = true
+            } else {
+                takePhoto(imageCapture!!)
+            }
         }
     }
 
-    private fun takePhoto() {
-        // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
-
+    private fun takePhoto(imageCapture: ImageCapture) {
         // Set up image capture listener, which is triggered after photo has
         // been taken
         imageCapture.takePicture(
@@ -112,6 +115,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
             object : ImageCapture.OnImageCapturedCallback() {
                 override fun onError(exc: ImageCaptureException) {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                    binding.imageCaptureButton.isEnabled = true
                 }
 
                 override fun onCaptureSuccess(image: ImageProxy) {
@@ -190,7 +194,6 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     private fun runTextRecognition(selectedImage: Bitmap) {
         val image = InputImage.fromBitmap(selectedImage, 0)
         val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
-        binding.imageCaptureButton.isEnabled = false
         recognizer.process(image)
             .addOnSuccessListener { texts ->
                 binding.imageCaptureButton.isEnabled = true
