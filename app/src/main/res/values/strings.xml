@@ -3,6 +3,26 @@
     <string name="title_home">홈</string>
     <string name="title_spirits_collection">술 도감</string>
     <string name="title_undefined">미정</string>
+    <string name="icon_menu">메뉴</string>
+    <string name="text_welcome_comment">%1$s 님,\n안녕하세요!</string>
+    <string name="text_home_title_top_bar"> </string>
+    <string name="text_my_favorite_alcohol">내가 좋아하는 술</string>
+    <string name="text_whole_view">전체보기</string>
+    <string name="text_alcohol_recommendation">이런 술은 어때요?</string>
+    <string name="text_more_contents">콘텐츠 더보기</string>
+    <string name="text_search_alcohol">궁금한 술을 검색해보세요</string>
+    <string name="text_notice">공지사항</string>
+    <string name="text_event">이벤트</string>
+    <string name="text_inquire">문의하기</string>
+    <string name="text_personal_information_processing_policy">개인정보처리방침</string>
+    <string name="text_terms_and_conditions">이용약관</string>
+    <string name="text_copyright">Copyright ⓒ 2024 by Dalda</string>
+    <string name="description_user_profile_img">유저 프로필 이미지</string>
+    <string name="description_search_icon">검색 아이콘</string>
+    <string name="description_search_camera_icon">검색 카메라 아이콘</string>
+    <string name="description_close_icon">닫기 아이콘</string>
+    <string name="description_instagram_icon">인스타그램 아이콘</string>
+    <string name="description_link_icon">링크 아이콘</string>
     <string name="label_search_camera_button">카메라 버튼</string>
     <string name="label_search_album_button">앨범 버튼</string>
 </resources>

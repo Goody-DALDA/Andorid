@@ -1,0 +1,96 @@
+package com.goody.dalda.ui.home.component
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.data.AlcoholType
+
+@Composable
+fun FavoriteAlcohol(
+    modifier: Modifier = Modifier,
+    alcoholInfoList: List<AlcoholInfo> = emptyList(),
+    onActionClick: () -> Unit = {}
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        ContentsTitle(
+            modifier = Modifier
+                .height(30.dp),
+            title = stringResource(id = R.string.text_my_favorite_alcohol),
+            actionText = stringResource(id = R.string.text_whole_view),
+            onActionClick = { onActionClick() }
+        )
+
+        LazyRow(
+            modifier = Modifier
+                .height(231.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            items(alcoholInfoList.size) { idx ->
+                AlcoholCard(
+                    imgUrl = alcoholInfoList[idx].imgUrl,
+                    name = alcoholInfoList[idx].name,
+                    category = alcoholInfoList[idx].type.alcoholName,
+                    alcohol = alcoholInfoList[idx].abv.toString(),
+                )
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FavoriteAlcoholPreview() {
+    val alcoholInfoList = listOf(
+        AlcoholInfo(
+            id = 0,
+            imgUrl = "",
+            name = "소주",
+            type = AlcoholType.SOJU,
+            abv = 20.0f,
+        ),
+        AlcoholInfo(
+            id = 1,
+            imgUrl = "",
+            name = "맥주",
+            type = AlcoholType.BEER,
+            abv = 4.5f,
+        ),
+        AlcoholInfo(
+            id = 2,
+            imgUrl = "",
+            name = "와인",
+            type = AlcoholType.WINE,
+            abv = 13.0f,
+        ),
+        AlcoholInfo(
+            id = 3,
+            imgUrl = "",
+            name = "위스키",
+            type = AlcoholType.WHISKEY,
+            abv = 40.0f,
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "",
+            name = "위스키",
+            type = AlcoholType.WHISKEY,
+            abv = 40.0f,
+        )
+    )
+    FavoriteAlcohol(
+        alcoholInfoList = alcoholInfoList
+    )
+}
