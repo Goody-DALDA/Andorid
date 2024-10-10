@@ -230,6 +230,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         val blocks = texts.textBlocks
         if (blocks.size == 0) {
             Toast.makeText(baseContext, "No text found", Toast.LENGTH_SHORT).show()
+            binding.imageCaptureButton.isEnabled = true
             return
         }
 
