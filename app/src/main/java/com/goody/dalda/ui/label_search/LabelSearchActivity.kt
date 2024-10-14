@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Rational
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +21,7 @@ import androidx.camera.core.UseCaseGroup
 import androidx.camera.core.ViewPort
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.goody.dalda.R
 import com.goody.dalda.base.BaseActivity
 import com.goody.dalda.databinding.ActivityLabelSearchBinding
 import com.goody.dalda.extention.cropBitmap
@@ -95,11 +97,28 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         createCacheFile()
         setupCaptureClickListener()
         setupAlbumClickListener()
+        setupToolbar()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         photoFile.deleteOnExit()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (android.R.id.home == item.itemId) {
+            finish()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.labelSearchToolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.arrow_left)
     }
 
     private fun createCacheFile() {

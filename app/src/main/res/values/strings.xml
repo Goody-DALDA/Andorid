@@ -26,4 +26,5 @@
     <string name="label_search_camera_button">카메라 버튼</string>
     <string name="label_search_album_button">앨범 버튼</string>
     <string name="label_search_guide_text">술 전면의 라벨을 촬영해 주세요.</string>
+    <string name="label_search_title">사진으로 술 검색</string>
 </resources>
