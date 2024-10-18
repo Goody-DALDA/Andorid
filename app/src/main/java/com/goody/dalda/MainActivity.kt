@@ -3,8 +3,6 @@ package com.goody.dalda
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.goody.dalda.base.BaseActivity
 import com.goody.dalda.databinding.ActivityMainBinding
@@ -19,12 +17,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_spirits_collection, R.id.navigation_undefined
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }
 }

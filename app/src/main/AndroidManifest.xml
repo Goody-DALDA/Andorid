@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:name=".DaldaApplication"
@@ -15,6 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dalda"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr,ocr_korean"/>
+
+        <activity
+            android:name=".ui.label_search.LabelSearchActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
