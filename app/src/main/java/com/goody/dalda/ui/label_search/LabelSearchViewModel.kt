@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.goody.dalda.ui.dialog.SpiritsSearchResult
 import com.goody.dalda.ui.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,12 +15,13 @@ import javax.inject.Inject
 @HiltViewModel
 class LabelSearchViewModel @Inject constructor(): ViewModel() {
 
-    private val _state = MutableLiveData<UiState<Unit>>(UiState.Uninitialized)
-    val state: LiveData<UiState<Unit>> get() = _state
+    private val _state = MutableLiveData<UiState<List<SpiritsSearchResult>>>(UiState.Uninitialized)
+    val state: LiveData<UiState<List<SpiritsSearchResult>>> get() = _state
 
     fun requestSearchApi() {
         viewModelScope.launch(Dispatchers.IO) {
-            _state.postValue(UiState.Empty)
+            val results = listOf(SpiritsSearchResult("대선", "소주", 20, ""))
+            _state.postValue(UiState.Success(results))
         }
     }
 }

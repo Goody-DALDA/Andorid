@@ -3,6 +3,8 @@
     <style name="Base.Theme.Dalda" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
     </style>
 
     <style name="Theme.Dalda" parent="Base.Theme.Dalda" />

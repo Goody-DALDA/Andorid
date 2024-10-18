@@ -8,6 +8,7 @@ import android.util.Log
 import android.util.Rational
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +21,7 @@ import androidx.camera.core.Preview
 import androidx.camera.core.UseCaseGroup
 import androidx.camera.core.ViewPort
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.goody.dalda.R
 import com.goody.dalda.base.BaseActivity
@@ -31,7 +33,11 @@ import com.goody.dalda.extention.toBitmap
 import com.goody.dalda.ui.custom.GraphicOverlay
 import com.goody.dalda.ui.custom.TextGraphic
 import com.goody.dalda.ui.dialog.NoResultsDialog
+import com.goody.dalda.ui.dialog.SearchResultsDialog
+import com.goody.dalda.ui.dialog.SpiritsSearchResult
 import com.goody.dalda.ui.state.UiState
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -108,14 +114,21 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
             when (state) {
                 is UiState.Uninitialized -> {}
                 is UiState.Empty -> {
-                    val dialog = NoResultsDialog(this)
-                    dialog.show()
+                    showEmptyDialog()
                 }
                 is UiState.Error -> {}
                 is UiState.Loading -> {}
-                is UiState.Success -> {}
+                is UiState.Success -> {
+                    val bottomSheet = SearchResultsDialog(state.data)
+                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                }
             }
         }
+    }
+
+    private fun showEmptyDialog() {
+        val dialog = NoResultsDialog(this)
+        dialog.show()
     }
 
     override fun onDestroy() {
@@ -267,6 +280,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         val blocks = texts.textBlocks
         if (blocks.size == 0) {
             Toast.makeText(baseContext, "No text found", Toast.LENGTH_SHORT).show()
+            showEmptyDialog()
             binding.imageCaptureButton.isEnabled = true
             return
         }

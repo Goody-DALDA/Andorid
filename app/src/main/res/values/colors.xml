@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary">#FF9200</color>
+
     <color name="text">#171719</color>
 
     <color name="black">#FF000000</color>
@@ -10,5 +12,12 @@
     <color name="gray_90">#EFEFF0</color>
 
     <color name="white">#FFFFFFFF</color>
+
+    <color name="positive">#00C75B</color>
+    <color name="error">#FF2A2A</color>
+
     <color name="label_search_focus_background">#8000252B</color>
+
+    <color name="category_soju_text">@color/positive</color>
+    <color name="category_soju_background">#D0FFBA</color>
 </resources>

@@ -31,4 +31,6 @@
     <string name="dialog_no_results_image_icon">검색 결과 없음 아이콘</string>
     <string name="dialog_no_results_retry_button_title">다시 검색하기</string>
     <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
+    <string name="dialog_search_results_spirits_image">주류 이미지</string>
+    <string name="dialog_search_results_spirits_title">검색결과</string>
 </resources>
