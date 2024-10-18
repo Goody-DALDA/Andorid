@@ -30,6 +30,8 @@ import com.goody.dalda.extention.rotate
 import com.goody.dalda.extention.toBitmap
 import com.goody.dalda.ui.custom.GraphicOverlay
 import com.goody.dalda.ui.custom.TextGraphic
+import com.goody.dalda.ui.dialog.NoResultsDialog
+import com.goody.dalda.ui.state.UiState
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -98,6 +100,22 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         setupCaptureClickListener()
         setupAlbumClickListener()
         setupToolbar()
+        subscribe()
+    }
+
+    private fun subscribe() {
+        viewModel.state.observe(this) { state ->
+            when (state) {
+                is UiState.Uninitialized -> {}
+                is UiState.Empty -> {
+                    val dialog = NoResultsDialog(this)
+                    dialog.show()
+                }
+                is UiState.Error -> {}
+                is UiState.Loading -> {}
+                is UiState.Success -> {}
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -273,6 +291,8 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                 }
             }
         }
+
+        viewModel.requestSearchApi()
     }
 
     companion object {

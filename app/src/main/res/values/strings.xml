@@ -27,4 +27,8 @@
     <string name="label_search_album_button">앨범 버튼</string>
     <string name="label_search_guide_text">술 전면의 라벨을 촬영해 주세요.</string>
     <string name="label_search_title">사진으로 술 검색</string>
+    <string name="dialog_no_results_title">검색 결과가 없어요.</string>
+    <string name="dialog_no_results_image_icon">검색 결과 없음 아이콘</string>
+    <string name="dialog_no_results_retry_button_title">다시 검색하기</string>
+    <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
 </resources>

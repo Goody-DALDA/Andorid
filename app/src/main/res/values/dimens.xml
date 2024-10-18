@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dialog_min_width_major">95%</dimen>
+    <dimen name="dialog_min_width_minor">95%</dimen>
+
+    <dimen name="empty_dialog_min_width_major">85%</dimen>
+    <dimen name="empty_dialog_min_width_minor">85%</dimen>
+</resources>
