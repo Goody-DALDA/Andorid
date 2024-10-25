@@ -1,15 +1,22 @@
 package com.goody.dalda.ui.home.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
@@ -31,20 +38,43 @@ fun FavoriteAlcohol(
             actionText = stringResource(id = R.string.text_whole_view),
             onActionClick = { onActionClick() }
         )
-
-        LazyRow(
-            modifier = Modifier
-                .height(231.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            items(alcoholInfoList.size) { idx ->
-                AlcoholCard(
-                    imgUrl = alcoholInfoList[idx].imgUrl,
-                    name = alcoholInfoList[idx].name,
-                    category = alcoholInfoList[idx].type.alcoholName,
-                    alcohol = alcoholInfoList[idx].abv.toString(),
+        if (alcoholInfoList.isEmpty()) {
+            Column(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+            ) {
+                Image(
+                    modifier = Modifier
+                        .height(190.dp)
+                        .width(190.dp)
+                        .align(Alignment.CenterHorizontally),
+                    painter = painterResource(id = R.drawable.img_alcohols),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillWidth
                 )
+
+                Text(
+                    text = "좋아하는 술을 저장해 보세요",
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
+
+        } else {
+            LazyRow(
+                modifier = Modifier
+                    .height(231.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                items(alcoholInfoList.size) { idx ->
+                    AlcoholCard(
+                        imgUrl = alcoholInfoList[idx].imgUrl,
+                        name = alcoholInfoList[idx].name,
+                        category = alcoholInfoList[idx].type.alcoholName,
+                        alcohol = alcoholInfoList[idx].abv.toString(),
+                    )
+                }
             }
         }
     }
@@ -93,4 +123,10 @@ private fun FavoriteAlcoholPreview() {
     FavoriteAlcohol(
         alcoholInfoList = alcoholInfoList
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EmptyFavoriteAlcoholPreview() {
+    FavoriteAlcohol()
 }
