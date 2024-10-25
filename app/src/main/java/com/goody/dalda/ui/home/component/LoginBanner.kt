@@ -24,12 +24,13 @@ fun LoginBanner(
         horizontalAlignment = Alignment.Start
     ) {
         AutoResizedText(
-            modifier = Modifier.padding(bottom = 16.dp),
+            modifier = Modifier.padding(bottom = 16.dp).weight(2f),
             text = text,
             style = MaterialTheme.typography.titleLarge,
         )
 
         OrangeColorButton(
+            modifier = Modifier.weight(1f),
             text = "로그인하기 >",
             onClick = onClick
         )
