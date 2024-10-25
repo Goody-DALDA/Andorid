@@ -142,12 +142,10 @@ fun HomeScreen(
             drawerContent = {
                 HomeDrawerSheet(
                     modifier = Modifier.width(250.dp),
-                    userName = userName,
-                    userEmail = userEmail,
+                    userName = if (authState == AuthState.SignIn) userName else stringResource(R.string.text_do_sign_in),
+                    userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
                     selectedItemIndex = selectedItemIndex,
-                    onChangeDrawerState = {
-                        onChangeDrawerState()
-                    },
+                    onChangeDrawerState = onChangeDrawerState,
                     onChangeSelectedItemIndex = onChangeSelectedItemIndex
                 )
             },
