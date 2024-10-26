@@ -22,4 +22,10 @@
         android:name="com.goody.dalda.ui.undefined.UndefinedFragment"
         android:label="@string/title_undefined"
         tools:layout="@layout/fragment_undefined" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.goody.dalda.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

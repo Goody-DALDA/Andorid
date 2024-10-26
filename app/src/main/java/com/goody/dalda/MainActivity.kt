@@ -2,6 +2,7 @@ package com.goody.dalda
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.goody.dalda.base.BaseActivity
@@ -15,8 +16,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initNavigation()
+    }
 
+    private fun initNavigation() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         binding.navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.navView.visibility =
+                if (isBottomNavVisible(destination.id)) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun isBottomNavVisible(destinationId: Int): Boolean {
+        return when (destinationId) {
+            R.id.navigation_home, R.id.navigation_spirits_collection, R.id.navigation_undefined -> true
+            else -> false
+        }
     }
 }
