@@ -33,4 +33,8 @@
     <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
     <string name="dialog_search_results_spirits_image">주류 이미지</string>
     <string name="dialog_search_results_spirits_title">검색결과</string>
+    <string name="login_background">주류 배경</string>
+    <string name="login_welcome_text">달다에\n어서오세요!</string>
+    <string name="login_kakao_button_text">카카오로 로그인</string>
+    <string name="login_kakao_skip_button_text">로그인 없이 둘러보기</string>
 </resources>
