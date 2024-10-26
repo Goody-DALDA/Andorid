@@ -16,10 +16,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initNavigation()
+        setupNavigation()
     }
 
-    private fun initNavigation() {
+    private fun setupNavigation() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         binding.navView.setupWithNavController(navController)
 
