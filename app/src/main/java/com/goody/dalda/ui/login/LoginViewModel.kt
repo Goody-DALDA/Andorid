@@ -25,7 +25,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun login(accessToken: String) {
         Log.i(TAG, "카카오계정으로 로그인 성공 ${accessToken}")
         viewModelScope.launch {
-            val isShowConfettiScreen = false
+            val isShowConfettiScreen = true
             _state.postValue(UiState.Success(isShowConfettiScreen))
         }
     }

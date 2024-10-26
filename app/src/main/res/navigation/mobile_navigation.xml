@@ -33,5 +33,21 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/loginFragment"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_confettiFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"
+            app:destination="@id/confettiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confettiFragment"
+        android:name="com.goody.dalda.ui.ConfettiFragment"
+        android:label="fragment_confetti"
+        tools:layout="@layout/fragment_confetti" >
+        <action
+            android:id="@+id/action_confettiFragment_to_navigation_home"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/confettiFragment"
+            app:destination="@id/navigation_home" />
     </fragment>
 </navigation>

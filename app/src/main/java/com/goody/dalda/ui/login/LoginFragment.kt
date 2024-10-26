@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goody.dalda.R
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentLoginBinding
+import com.goody.dalda.ui.ConfettiFragment
 import com.goody.dalda.ui.state.UiState
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -59,6 +61,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                     if (isShowConfettiScreen) {
                         // Confetti
+                        findNavController().navigate(R.id.action_loginFragment_to_confettiFragment, bundleOf(ConfettiFragment.NICKNAME_KEY to "삼겹살에소주"))
                     } else {
                         // Main
                         findNavController().navigate(R.id.action_loginFragment_to_navigation_home)

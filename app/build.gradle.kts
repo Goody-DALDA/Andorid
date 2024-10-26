@@ -85,6 +85,7 @@ dependencies {
     implementation(libs.camera.extensions)
     implementation(libs.mlkit.text.recognition)
     implementation(libs.kakao.v2.user)
+    implementation(libs.konfetti.xml)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
