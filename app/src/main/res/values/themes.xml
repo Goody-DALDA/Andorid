@@ -8,4 +8,11 @@
     </style>
 
     <style name="Theme.Dalda" parent="Base.Theme.Dalda" />
+
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_dalda</item>
+        <item name="postSplashScreenTheme">@style/Theme.Dalda</item>
+    </style>
+
 </resources>
