@@ -22,4 +22,8 @@
     <color name="category_soju_text">@color/positive</color>
     <color name="category_soju_background">#D0FFBA</color>
     <color name="kakao_color">#FEE500</color>
+
+    <color name="indication_select_color">@color/primary</color>
+    <color name="indication_default_color">@color/gray_80</color>
+
 </resources>
