@@ -1,4 +1,4 @@
-package com.goody.dalda.ui
+package com.goody.dalda.ui.confetti
 
 import android.os.Bundle
 import android.view.LayoutInflater

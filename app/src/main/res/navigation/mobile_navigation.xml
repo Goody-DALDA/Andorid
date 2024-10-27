@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/confettiFragment"
-        android:name="com.goody.dalda.ui.ConfettiFragment"
+        android:name="com.goody.dalda.ui.confetti.ConfettiFragment"
         android:label="fragment_confetti"
         tools:layout="@layout/fragment_confetti" >
         <action
