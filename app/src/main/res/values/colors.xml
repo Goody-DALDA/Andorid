@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary">#FF9200</color>
+    <color name="primary_dark">#E68405</color>
 
     <color name="text">#171719</color>
 
     <color name="black">#FF000000</color>
+    <color name="gray_40">#75757B</color>
     <color name="gray_50">#8E8E93</color>
     <color name="gray_60">#A9A9AD</color>
     <color name="gray_70">#C3C3C6</color>
@@ -20,4 +22,9 @@
 
     <color name="category_soju_text">@color/positive</color>
     <color name="category_soju_background">#D0FFBA</color>
+    <color name="kakao_color">#FEE500</color>
+
+    <color name="indication_select_color">@color/primary</color>
+    <color name="indication_default_color">@color/gray_80</color>
+
 </resources>

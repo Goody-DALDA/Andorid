@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/loginFragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -22,4 +22,48 @@
         android:name="com.goody.dalda.ui.undefined.UndefinedFragment"
         android:label="@string/title_undefined"
         tools:layout="@layout/fragment_undefined" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.goody.dalda.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_home"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_confettiFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"
+            app:destination="@id/confettiFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_onboardingFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/loginFragment"
+            app:destination="@id/onboardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confettiFragment"
+        android:name="com.goody.dalda.ui.confetti.ConfettiFragment"
+        android:label="fragment_confetti"
+        tools:layout="@layout/fragment_confetti" >
+        <action
+            android:id="@+id/action_confettiFragment_to_navigation_home"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/confettiFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.goody.dalda.ui.onboarding.OnboardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" >
+        <action
+            android:id="@+id/action_onboardingFragment_to_loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/onboardingFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

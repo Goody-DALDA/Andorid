@@ -7,4 +7,5 @@
     <dimen name="empty_dialog_min_width_minor">85%</dimen>
 
     <dimen name="bottom_sheet_toolbar_height">48dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
 </resources>
