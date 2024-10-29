@@ -44,8 +44,8 @@ fun FavoriteAlcohol(
             ) {
                 Image(
                     modifier = Modifier
-                        .height(190.dp)
-                        .width(190.dp)
+                        .height(150.dp)
+                        .width(150.dp)
                         .align(Alignment.CenterHorizontally),
                     painter = painterResource(id = R.drawable.img_alcohols),
                     contentDescription = "",
@@ -54,7 +54,7 @@ fun FavoriteAlcohol(
 
                 Text(
                     text = "좋아하는 술을 저장해 보세요",
-                    fontSize = 24.sp,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                 )
