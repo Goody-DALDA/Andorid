@@ -19,6 +19,8 @@
     <string name="text_copyright">Copyright ⓒ 2024 by Dalda</string>
     <string name="text_sign_in_banner">달다에 로그인하고\n나만의 술도감을 만들어보세요</string>
     <string name="text_do_sign_in">로그인하기</string>
+    <string name="text_recent_search_work">최근 검색어</string>
+
     <string name="text_sign_in_recommendation">달다의 모든 기능을 즐겨보세요!</string>
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>
