@@ -28,7 +28,7 @@ fun SearchAlcoholTab(
     selectedIndex: Int,
     categoryCount: Map<AlcoholType, Int>,
     category: List<AlcoholType>,
-    onSelectedIndex: () -> Unit = {}
+    onSelectedIndex: (Int) -> Unit = {}
 ) {
     TabRow(
         selectedTabIndex = selectedIndex,
@@ -42,7 +42,7 @@ fun SearchAlcoholTab(
         category.forEachIndexed { index, type ->
             Tab(
                 selected = selectedIndex == index,
-                onClick = onSelectedIndex,
+                onClick = { onSelectedIndex(index) },
                 modifier = Modifier.padding(16.dp),
                 unselectedContentColor = Color.Gray
             ) {
