@@ -27,11 +27,12 @@ fun SearchResult(
             selectedIndex = selectedIndex.value,
             categoryCount = categoryCount,
             category = category,
-            onSelectedIndex = { selectedIndex.value = it  }
+            onSelectedIndex = { selectedIndex.value = it }
         )
         AlcoholCardListComponent(
             modifier = Modifier,
             alcoholInfoList = alcoholInfoList
+                .filter { it.type == category[selectedIndex.value] }
         )
     }
 }
