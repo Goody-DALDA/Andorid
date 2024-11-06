@@ -11,17 +11,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
@@ -42,14 +37,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
+import com.goody.dalda.ui.search.SearchResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlcoholSearchBar(
     modifier: Modifier = Modifier,
     query: String,
-    searchResultList: List<String> = emptyList(),
+    searchResultList: List<AlcoholInfo> = emptyList(),
     recentSearchWordList: List<String> = emptyList(),
     expanded: Boolean,
     onQueryChange: (String) -> Unit,
@@ -107,26 +105,10 @@ fun AlcoholSearchBar(
                     )
                 }
             } else {
-                Column(
-                    Modifier
-                        .weight(1f)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    for (searchResult in searchResultList) {
-                        ListItem(
-                            headlineContent = { Text(searchResult) },
-                            modifier = Modifier
-                                .clickable {
-                                    onQueryChange(searchResult)
-                                    onExpandedChange(false)
-                                }
-                                .padding(horizontal = 16.dp, vertical = 4.dp),
-                            supportingContent = { Text("Additional info") },
-                            leadingContent = { Icon(Icons.Filled.Star, contentDescription = null) },
-                            colors = ListItemDefaults.colors(containerColor = Color.Transparent)
-                        )
-                    }
-                }
+                SearchResult(
+                    modifier = Modifier,
+                    alcoholInfoList = searchResultList
+                )
             }
         }
     }
@@ -184,12 +166,55 @@ private fun SearchBarPreview() {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
     val recentSearchWordList = listOf("소주", "맥주", "막걸리")
-    val searchResultList = listOf("테스트1", "테스트2", "테스트3")
+    val alcoholInfoList = listOf(
+        AlcoholInfo(
+            id = 1,
+            imgUrl = "https://picsum.photos/id/237/200/300",
+            name = "SOJU_1",
+            type = AlcoholType.SOJU,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 2,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "WHISKEY_1",
+            type = AlcoholType.WHISKEY,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 3,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "WHISKEY_2",
+            type = AlcoholType.WHISKEY,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_1",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_2",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_3",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+    )
 
     AlcoholSearchBar(
         modifier = Modifier,
         query = text,
-        searchResultList = searchResultList,
+        searchResultList = alcoholInfoList,
         recentSearchWordList = recentSearchWordList,
         expanded = expanded,
         onQueryChange = { text = it },
