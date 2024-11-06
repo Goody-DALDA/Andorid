@@ -1,26 +1,14 @@
 package com.goody.dalda.ui.search
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.ui.search.component.SearchAlcoholTab
 
 @Composable
 fun SearchResult(
@@ -32,38 +20,13 @@ fun SearchResult(
     val categoryCount = alcoholInfoList.groupBy { it.type }
         .mapValues { it.value.size }
 
-    TabRow(
-        selectedTabIndex = selectedIndex.value,
-        indicator = { tabPositions ->
-            TabRowDefaults.SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(tabPositions[selectedIndex.value]),
-                color = Color.Black
-            )
-        }
-    ) {
-        category.forEachIndexed { index, type ->
-            Tab(
-                selected = selectedIndex.value == index,
-                onClick = { selectedIndex.value = index },
-                modifier = Modifier.padding(16.dp),
-                unselectedContentColor = Color.Gray
-            ) {
-                Row {
-                    Text(
-                        modifier = Modifier.fillMaxHeight(),
-                        text = type.alcoholName,
-                        color = Color.Black,
-                        fontSize = 18.sp
-                    )
-                    Text(
-                        modifier = Modifier.align(Alignment.Bottom),
-                        text = " ${categoryCount[type]}",
-                        color = colorResource(id = R.color.buttonBackground),
-                        fontSize = 20.sp
-                    )
-                }
-            }
-        }
+    Column {
+        SearchAlcoholTab(
+            modifier = Modifier,
+            selectedIndex = selectedIndex.value,
+            categoryCount = categoryCount,
+            category = category
+        )
     }
 }
 
