@@ -18,7 +18,7 @@ import coil.compose.AsyncImage
 import com.goody.dalda.R
 
 @Composable
-fun LiquorImageSection(
+fun LiquorInfoSection(
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -45,6 +45,8 @@ fun LiquorImageSection(
             // 주소장
             Text("대선 주조")
         }
+
+        // 도수 / 용량
         Row(
             modifier = Modifier.padding(bottom = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -87,5 +89,5 @@ fun SecondFloorText(
 )
 @Composable
 private fun LiquorImageSectionPrev() {
-    LiquorImageSection()
+    LiquorInfoSection()
 }
