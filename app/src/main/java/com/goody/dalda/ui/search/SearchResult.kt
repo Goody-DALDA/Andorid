@@ -11,6 +11,7 @@ import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
+import com.goody.dalda.ui.search.component.RequestAdditional
 import com.goody.dalda.ui.search.component.SearchAlcoholTab
 
 @Composable
@@ -27,23 +28,28 @@ fun SearchResult(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        SearchAlcoholTab(
-            modifier = Modifier,
-            selectedIndex = selectedIndex.value,
-            categoryCount = categoryCount,
-            category = category,
-            onSelectedIndex = { selectedIndex.value = it }
-        )
-        AlcoholCardListComponent(
-            modifier = Modifier,
-            alcoholInfoList = alcoholInfoList
-                .filter { it.type == category[selectedIndex.value] },
-            footer = {
-                OtherAlcoholRecommend(
-                    category = category[selectedIndex.value].alcoholName
-                )
-            }
-        )
+        if (alcoholInfoList.isEmpty()) {
+            RequestAdditional()
+
+        } else {
+            SearchAlcoholTab(
+                modifier = Modifier,
+                selectedIndex = selectedIndex.value,
+                categoryCount = categoryCount,
+                category = category,
+                onSelectedIndex = { selectedIndex.value = it }
+            )
+            AlcoholCardListComponent(
+                modifier = Modifier,
+                alcoholInfoList = alcoholInfoList
+                    .filter { it.type == category[selectedIndex.value] },
+                footer = {
+                    OtherAlcoholRecommend(
+                        category = category[selectedIndex.value].alcoholName
+                    )
+                }
+            )
+        }
     }
 }
 
@@ -128,4 +134,10 @@ private fun SearchResultScreenPreview() {
     SearchResult(
         alcoholInfoList = alcoholInfoList
     )
+}
+
+@Preview
+@Composable
+private fun EmptySearchResultScreenPreview() {
+    SearchResult()
 }

@@ -223,3 +223,21 @@ private fun SearchBarPreview() {
         onSearch = {},
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun EmptySearchBarPreview() {
+    var text by rememberSaveable { mutableStateOf("") }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    val recentSearchWordList = listOf("소주", "맥주", "막걸리")
+
+    AlcoholSearchBar(
+        modifier = Modifier,
+        query = text,
+        recentSearchWordList = recentSearchWordList,
+        expanded = expanded,
+        onQueryChange = { text = it },
+        onExpandedChange = { expanded = it },
+        onSearch = {},
+    )
+}
