@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.search
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -9,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
+import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 import com.goody.dalda.ui.search.component.SearchAlcoholTab
 
 @Composable
@@ -21,7 +23,10 @@ fun SearchResult(
     val categoryCount = alcoholInfoList.groupBy { it.type }
         .mapValues { it.value.size }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         SearchAlcoholTab(
             modifier = Modifier,
             selectedIndex = selectedIndex.value,
@@ -32,7 +37,12 @@ fun SearchResult(
         AlcoholCardListComponent(
             modifier = Modifier,
             alcoholInfoList = alcoholInfoList
-                .filter { it.type == category[selectedIndex.value] }
+                .filter { it.type == category[selectedIndex.value] },
+            footer = {
+                OtherAlcoholRecommend(
+                    category = category[selectedIndex.value].alcoholName
+                )
+            }
         )
     }
 }
@@ -85,7 +95,36 @@ private fun SearchResultScreenPreview() {
             type = AlcoholType.BEER,
             abv = 2.3f
         ),
-    )
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_3",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_3",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_3",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+        AlcoholInfo(
+            id = 4,
+            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
+            name = "BEER_3",
+            type = AlcoholType.BEER,
+            abv = 2.3f
+        ),
+
+        )
     SearchResult(
         alcoholInfoList = alcoholInfoList
     )
