@@ -17,6 +17,8 @@
     <string name="text_personal_information_processing_policy">개인정보처리방침</string>
     <string name="text_terms_and_conditions">이용약관</string>
     <string name="text_copyright">Copyright ⓒ 2024 by Dalda</string>
+    <string name="text_drop_down_menu_request_info">정보 수정 요청하기</string>
+    <string name="text_drop_down_menu_share">공유하기</string>
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>
     <string name="description_search_camera_icon">검색 카메라 아이콘</string>
