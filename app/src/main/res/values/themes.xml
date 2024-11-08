@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Dalda" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Base.Theme.Dalda" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
     </style>
 
     <style name="Theme.Dalda" parent="Base.Theme.Dalda" />
+
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_dalda</item>
+        <item name="postSplashScreenTheme">@style/Theme.Dalda</item>
+    </style>
+
 </resources>

@@ -30,4 +30,26 @@
     <string name="description_close_icon">닫기 아이콘</string>
     <string name="description_instagram_icon">인스타그램 아이콘</string>
     <string name="description_link_icon">링크 아이콘</string>
+    <string name="label_search_camera_button">카메라 버튼</string>
+    <string name="label_search_album_button">앨범 버튼</string>
+    <string name="label_search_guide_text">술 전면의 라벨을 촬영해 주세요.</string>
+    <string name="label_search_title">사진으로 술 검색</string>
+    <string name="dialog_no_results_title">검색 결과가 없어요.</string>
+    <string name="dialog_no_results_image_icon">검색 결과 없음 아이콘</string>
+    <string name="dialog_no_results_retry_button_title">다시 검색하기</string>
+    <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
+    <string name="dialog_search_results_spirits_image">주류 이미지</string>
+    <string name="dialog_search_results_spirits_title">검색결과</string>
+    <string name="description_login_background">주류 배경</string>
+    <string name="login_welcome_text">달다에\n어서오세요!</string>
+    <string name="login_kakao_button_text">카카오로 로그인</string>
+    <string name="login_kakao_skip_button_text">로그인 없이 둘러보기</string>
+    <string name="confetti_welcome_text">%s님\n반가워요!</string>
+    <string name="confetti_welcome_sub_text">오늘의 달달한 한잔을 기록해보세요.</string>
+    <string name="confetti_button_text">홈으로 이동</string>
+    <string name="onboarding_first_guide">찾고싶은 술의 정보를 간편하게 찾아보세요.</string>
+    <string name="onboarding_second_guide">마신 술의 정보를 남겨 추억으로 저장하세요.</string>
+    <string name="onboarding_third_guide">술의 정보를 하나하나 기록해 나만의 술도감을 완성하세요.</string>
+    <string name="onboarding_skip">건너뛰기</string>
+    <string name="description_onboarding_image">소개 이미지</string>
 </resources>
