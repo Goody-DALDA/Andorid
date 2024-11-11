@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,7 +23,12 @@ fun LiquorInfoDetailSection(
     alcoholData: AlcoholData
 ) {
     when (alcoholData) {
-        is AlcoholData.Beer -> TODO()
+        is AlcoholData.Beer -> {
+            DetailSectionBeer(
+                modifier = modifier,
+                alcoholData = alcoholData
+            )
+        }
         is AlcoholData.Sake -> TODO()
         is AlcoholData.Soju -> TODO()
         is AlcoholData.TraditionalLiquor -> TODO()
@@ -35,14 +42,39 @@ fun DetailSectionBeer(
     modifier: Modifier = Modifier,
     alcoholData: AlcoholData.Beer
 ) {
+    val valueList = listOf(
+        "아로마" to alcoholData.aroma,
+        "색감" to alcoholData.appearance,
+        "맛" to alcoholData.flavor,
+        "바디감" to alcoholData.mouthfeel
+    )
+
+
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        val valueList = listOf(
-            "아로마" to alcoholData.aroma,
-            "색감" to alcoholData.appearance,
-            "맛" to alcoholData.flavor,
-            "바디감" to alcoholData.mouthfeel
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "술정보",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        TextTitleValue(
+            modifier = Modifier,
+            title = "스타일",
+            value = alcoholData.type
+        )
+
+        TextTitleValue(
+            modifier = Modifier,
+            title = "제조지역",
+            value = alcoholData.country
+        )
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "맛표현",
+            style = MaterialTheme.typography.headlineSmall
         )
 
         for (value in valueList) {
@@ -54,6 +86,27 @@ fun DetailSectionBeer(
     }
 }
 
+@Composable
+fun TextTitleValue(
+    modifier: Modifier = Modifier,
+    title: String,
+    value: String
+) {
+    Row(
+        modifier = Modifier,
+        horizontalArrangement = Arrangement.spacedBy(36.dp)
+    ) {
+        Text(
+            modifier = Modifier.weight(1f),
+            text = title,
+        )
+        Text(
+            modifier = Modifier.weight(6f),
+            text = value
+        )
+    }
+
+}
 
 @Composable
 fun DrawBarGraph(
@@ -147,24 +200,11 @@ fun DrawBarGraphWithTitle(
     }
 }
 
-@Preview
-@Composable
-private fun LiquorInfoDetailSectionPrev() {
-//    LiquorInfoDetailSection()
-}
-
-@Preview
-@Composable
-private fun DrawBarGraphPrev() {
-    DrawBarGraph(
-        value = 5f
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
-private fun DetailSectionBeerPrev() {
-    DetailSectionBeer(
+private fun LiquorInfoDetailSectionPrev() {
+    LiquorInfoDetailSection(
+        modifier = Modifier,
         alcoholData = AlcoholData.Beer(
             id = 0,
             name = "카스",
