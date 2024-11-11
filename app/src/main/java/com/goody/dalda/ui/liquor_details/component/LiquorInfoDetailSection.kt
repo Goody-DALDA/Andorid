@@ -101,7 +101,7 @@ fun TextTitleValue(
             text = title,
         )
         Text(
-            modifier = Modifier.weight(6f),
+            modifier = Modifier.weight(5f),
             text = value
         )
     }
@@ -194,7 +194,7 @@ fun DrawBarGraphWithTitle(
             text = value.first
         )
         DrawBarGraph(
-            modifier = Modifier.weight(9f),
+            modifier = Modifier.weight(7f),
             value = value.second
         )
     }

@@ -26,7 +26,7 @@ fun LiquorInfoSection(
     alcoholData: AlcoholData
 ) {
     Column(
-        modifier = modifier.padding(horizontal = 20.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -34,11 +34,12 @@ fun LiquorInfoSection(
             model = "https://picsum.photos/id/217/100/100",
             contentDescription = "설명",
             contentScale = ContentScale.FillWidth,
-            modifier = Modifier.height(200.dp),
+            modifier = Modifier.weight(360f),
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
         )
 
         BasicInfo(
+            modifier = Modifier.weight(207f),
             alcoholData = alcoholData
         )
     }
@@ -55,6 +56,7 @@ fun BasicInfo(
         is AlcoholData.Sake,
         is AlcoholData.Whiskey -> {
             BasicInfoWithCountry(
+                modifier = modifier,
                 alcoholData = alcoholData
             )
         }
@@ -62,6 +64,7 @@ fun BasicInfo(
         is AlcoholData.TraditionalLiquor,
         is AlcoholData.Wine -> {
             BasicInfoWithBrewery(
+                modifier = modifier,
                 alcoholData = alcoholData
             )
         }
@@ -74,6 +77,7 @@ fun BasicInfoWithCountry(
     alcoholData: AlcoholData
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -104,6 +108,7 @@ fun BasicInfoWithBrewery(
     alcoholData: AlcoholData
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -202,7 +207,7 @@ private fun LiquorImageSectionPrev_beer() {
             tag = R.drawable.tag_beer,
             abv = 18f,
             appearance = 18f,
-            taste = 18f,
+            flavor = 18f,
             mouthfeel = 18f,
             aroma = 18f,
             country = "독일",
