@@ -21,7 +21,7 @@ sealed class AlcoholData(
         override val volume: Int = 0,
         override val abv: Float,
         val appearance: Float,
-        val taste: Float,
+        val flavor: Float,
         val mouthfeel: Float,
         val aroma: Float,
         val type: String,
