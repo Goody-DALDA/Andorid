@@ -66,4 +66,9 @@
             app:popUpTo="@id/onboardingFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/announcementFragment"
+        android:name="com.goody.dalda.ui.announcement.AnnouncementFragment"
+        android:label="fragment_announcement"
+        tools:layout="@layout/fragment_announcement" />
 </navigation>
