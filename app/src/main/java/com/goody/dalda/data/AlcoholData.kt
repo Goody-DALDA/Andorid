@@ -116,7 +116,7 @@ sealed class AlcoholData(
         val type: String,
         val comment: String,
         val pairingFood: String,
-        val brewery: String
+        val winery: String
     ) : AlcoholData(
         id = id,
         name = name,

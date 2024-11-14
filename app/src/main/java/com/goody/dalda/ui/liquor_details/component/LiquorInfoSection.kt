@@ -128,7 +128,7 @@ fun BasicInfoWithBrewery(
             Text(alcoholData.brewery)
         }
         if (alcoholData is AlcoholData.Wine) {
-            Text(alcoholData.brewery)
+            Text(alcoholData.winery)
         }
     }
 
