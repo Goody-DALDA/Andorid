@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import java.text.DecimalFormat
 
 @Composable
 fun LiquorInfoDetailSection(
@@ -43,7 +44,13 @@ fun LiquorInfoDetailSection(
             )
         }
 
-        is AlcoholData.Whiskey -> TODO()
+        is AlcoholData.Whiskey -> {
+            DetailSectionWhiskey(
+                modifier = modifier,
+                alcoholData = alcoholData
+            )
+        }
+
         is AlcoholData.Wine -> {
             DetailSectionWine(
                 modifier = modifier,
@@ -238,6 +245,58 @@ fun DetailSectionTraditionalLiquor(
 }
 
 @Composable
+fun DetailSectionWhiskey(
+    modifier: Modifier = Modifier,
+    alcoholData: AlcoholData.Whiskey
+) {
+    val dec = DecimalFormat("#,###")
+
+    val infoList = listOf(
+        "권장 소비자가" to dec.format(alcoholData.price) + "원",
+        "종류" to alcoholData.type,
+        "제조지역" to alcoholData.country
+    )
+
+    val tasteInfoList = listOf(
+        "아로마" to alcoholData.aroma,
+        "맛" to alcoholData.taste,
+        "마무리" to alcoholData.finish
+    )
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "술정보",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        for (info in infoList) {
+            TextTitleValue(
+                modifier = Modifier,
+                title = info.first,
+                value = info.second
+            )
+        }
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "맛 표현",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        for (tasteInfo in tasteInfoList) {
+            TextTitleValue(
+                modifier = Modifier,
+                title = tasteInfo.first,
+                value = tasteInfo.second
+            )
+        }
+    }
+}
+
+@Composable
 fun TextTitleValue(
     modifier: Modifier = Modifier,
     title: String,
@@ -252,7 +311,7 @@ fun TextTitleValue(
             text = title,
         )
         Text(
-            modifier = Modifier.weight(5f),
+            modifier = Modifier.weight(3f),
             text = value
         )
     }
@@ -351,7 +410,7 @@ fun DrawBarGraphWithTitle(
 
 @Preview(showBackground = true)
 @Composable
-private fun LiquorInfoDetailSectionPrev_Beer() {
+private fun LiquorInfoDetailSectionPrev_beer() {
     LiquorInfoDetailSection(
         modifier = Modifier,
         alcoholData = AlcoholData.Beer(
@@ -373,7 +432,7 @@ private fun LiquorInfoDetailSectionPrev_Beer() {
 
 @Preview(showBackground = true)
 @Composable
-private fun LiquorInfoDetailSectionPrev_Wine() {
+private fun LiquorInfoDetailSectionPrev_wine() {
     LiquorInfoDetailSection(
         modifier = Modifier,
         alcoholData = AlcoholData.Wine(
@@ -414,6 +473,29 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
             comment = "벗이랑은 대전시와 인근지역에서 자연자생 및 청정재배를 통해 채취한 강황, 버찌 등 건강에 이로운 자연식물로 세 번 빚은 삼양 생탁주이다. 색, 향, 미 세가지가 조화롭게 어우러진 프리미엄 삼양주로, 저온 숙성을 거쳐 목넘김이 부드럽고 바디감이 깊은 생탁주 이다.",
             pairingFood = "약과, 약밥, 송편 등 좋은 떡류나 고추장 불고기, 사천 탕수육 등을 추천한다.",
             brewery = "석이원주조"
+
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LiquorInfoDetailSectionPrev_Whiskey() {
+    LiquorInfoDetailSection(
+        modifier = Modifier,
+        alcoholData = AlcoholData.Whiskey(
+            id = 0,
+            name = "와일드터키 8년",
+            imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",
+            country = "미국",
+            tag = R.drawable.tag_whiskey,
+            volume = 700,
+            price = 68400,
+            abv = 50.5f,
+            taste = "달콤한 과일맛과 호밀의 강렬한 스파이스, 약한 시나몬, 팔각, 감초, 후추",
+            aroma = "풍부한 꿀과 레몬, 버터스카치, 구운 오크",
+            finish = "오크와 다크초콜렛의 긴 여운",
+            type = "버번 위스키"
 
         )
     )
