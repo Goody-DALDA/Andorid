@@ -35,7 +35,13 @@ fun LiquorInfoDetailSection(
             )
         }
 
-        is AlcoholData.Sake -> TODO()
+        is AlcoholData.Sake -> {
+            DetailSectionSake(
+                modifier = modifier,
+                alcoholData = alcoholData
+            )
+        }
+
         is AlcoholData.Soju -> TODO()
         is AlcoholData.TraditionalLiquor -> {
             DetailSectionTraditionalLiquor(
@@ -297,6 +303,58 @@ fun DetailSectionWhiskey(
 }
 
 @Composable
+fun DetailSectionSake(
+    modifier: Modifier = Modifier,
+    alcoholData: AlcoholData.Sake
+) {
+    val dec = DecimalFormat("#,###")
+
+    val infoList = listOf(
+        "권장 소비자가" to dec.format(alcoholData.price) + "원",
+        "종류" to alcoholData.type,
+        "제조지역" to alcoholData.country
+    )
+
+    val tasteInfoList = listOf(
+        "아로마" to alcoholData.aroma,
+        "맛" to alcoholData.taste,
+        "마무리" to alcoholData.finish
+    )
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "술정보",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        for (info in infoList) {
+            TextTitleValue(
+                modifier = Modifier,
+                title = info.first,
+                value = info.second
+            )
+        }
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "맛 표현",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        for (tasteInfo in tasteInfoList) {
+            TextTitleValue(
+                modifier = Modifier,
+                title = tasteInfo.first,
+                value = tasteInfo.second
+            )
+        }
+    }
+}
+
+@Composable
 fun TextTitleValue(
     modifier: Modifier = Modifier,
     title: String,
@@ -480,7 +538,7 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
 
 @Preview(showBackground = true)
 @Composable
-private fun LiquorInfoDetailSectionPrev_Whiskey() {
+private fun LiquorInfoDetailSectionPrev_whiskey() {
     LiquorInfoDetailSection(
         modifier = Modifier,
         alcoholData = AlcoholData.Whiskey(
@@ -497,6 +555,28 @@ private fun LiquorInfoDetailSectionPrev_Whiskey() {
             finish = "오크와 다크초콜렛의 긴 여운",
             type = "버번 위스키"
 
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LiquorInfoDetailSectionPrev_sake() {
+    LiquorInfoDetailSection(
+        modifier = Modifier,
+        alcoholData = AlcoholData.Sake(
+            id = 0,
+            name = "츠루우메 유즈",
+            imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/11/45/1000000183/1000000183_detail_032.png",
+            country = "일본",
+            tag = R.drawable.tag_sake,
+            volume = 720,
+            price = 64000,
+            abv = 7.0f,
+            taste = "달콤한, 상큼한, 유자",
+            aroma = "유자, 상큼한",
+            finish = "감칠맛, 부드러운",
+            type = "사케"
         )
     )
 }
