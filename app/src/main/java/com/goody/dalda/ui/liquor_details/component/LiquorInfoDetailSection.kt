@@ -36,7 +36,13 @@ fun LiquorInfoDetailSection(
 
         is AlcoholData.Sake -> TODO()
         is AlcoholData.Soju -> TODO()
-        is AlcoholData.TraditionalLiquor -> TODO()
+        is AlcoholData.TraditionalLiquor -> {
+            DetailSectionTraditionalLiquor(
+                modifier = modifier,
+                alcoholData = alcoholData
+            )
+        }
+
         is AlcoholData.Whiskey -> TODO()
         is AlcoholData.Wine -> {
             DetailSectionWine(
@@ -73,7 +79,7 @@ fun DetailSectionBeer(
             style = MaterialTheme.typography.headlineSmall
         )
 
-        for(info in infoList) {
+        for (info in infoList) {
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
@@ -156,7 +162,7 @@ fun DetailSectionWine(
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "맛표현",
+            text = "푸드 페어링",
             style = MaterialTheme.typography.headlineSmall
         )
 
@@ -166,10 +172,68 @@ fun DetailSectionWine(
                     colorResource(id = R.color.primary_pale),
                     shape = RoundedCornerShape(12.dp)
                 )
-                .padding(12.dp).fillMaxWidth(),
+                .padding(12.dp)
+                .fillMaxWidth(),
             text = alcoholData.pairingFood,
         )
 
+    }
+}
+
+@Composable
+fun DetailSectionTraditionalLiquor(
+    modifier: Modifier = Modifier,
+    alcoholData: AlcoholData.TraditionalLiquor
+) {
+    val infoList = listOf(
+        "스타일" to alcoholData.type,
+        "재료" to alcoholData.ingredient,
+        "양조장" to alcoholData.brewery
+    )
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "술정보",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        Text(
+            modifier = Modifier
+                .background(
+                    colorResource(id = R.color.gray_80),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(12.dp),
+            text = alcoholData.comment,
+        )
+
+        for (info in infoList) {
+            TextTitleValue(
+                modifier = Modifier,
+                title = info.first,
+                value = info.second
+            )
+        }
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "푸드 페어링",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        Text(
+            modifier = Modifier
+                .background(
+                    colorResource(id = R.color.primary_pale),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(12.dp)
+                .fillMaxWidth(),
+            text = alcoholData.pairingFood,
+        )
     }
 }
 
@@ -328,6 +392,29 @@ private fun LiquorInfoDetailSectionPrev_Wine() {
             comment = "밝게 빛나는 진한 적색을 띠고 있으며 붉은 딸기 류의 풍부한 향과 스파이시한 노트가 느껴진다. 과일 아로마가 풍부하면서도 입 안에서 느껴지는 질감이 풀 바디한 스타일이다. 끝 맛에서 섬세하고 우아한 여운이 남아 좋은 균형감을 보여준다. 35년 된 포도나무에서 수확한 포도를 전통적인 방식으로 양조했으며 수확연도로부터 6~8년 정도 더 두고 숙성시켜 마실 수 있다.",
             pairingFood = "차가운 육류요리나 가금류, 붉은육류요리, 치즈",
             winery = "이 기갈"
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
+    LiquorInfoDetailSection(
+        modifier = Modifier,
+        alcoholData = AlcoholData.TraditionalLiquor(
+            id = 0,
+            name = "벗이랑 강황",
+            imgUrl = "https://thesool.com/common/imageView.do?targetId=PR00000950&targetNm=PRODUCT",
+            country = "한국",
+            tag = R.drawable.tag_traditional_liquor,
+            volume = 500,
+            ingredient = "쌀(국내산), 정제수, 강황(국내산), 프락토올리고당(국내산)",
+            abv = 15f,
+            type = "탁주(고도)",
+            comment = "벗이랑은 대전시와 인근지역에서 자연자생 및 청정재배를 통해 채취한 강황, 버찌 등 건강에 이로운 자연식물로 세 번 빚은 삼양 생탁주이다. 색, 향, 미 세가지가 조화롭게 어우러진 프리미엄 삼양주로, 저온 숙성을 거쳐 목넘김이 부드럽고 바디감이 깊은 생탁주 이다.",
+            pairingFood = "약과, 약밥, 송편 등 좋은 떡류나 고추장 불고기, 사천 탕수육 등을 추천한다.",
+            brewery = "석이원주조"
+
         )
     )
 }
