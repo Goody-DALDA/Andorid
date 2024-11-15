@@ -42,7 +42,13 @@ fun LiquorInfoDetailSection(
             )
         }
 
-        is AlcoholData.Soju -> TODO()
+        is AlcoholData.Soju -> {
+            DetailSectionSoju(
+                modifier = modifier,
+                alcoholData = alcoholData
+            )
+        }
+
         is AlcoholData.TraditionalLiquor -> {
             DetailSectionTraditionalLiquor(
                 modifier = modifier,
@@ -355,6 +361,50 @@ fun DetailSectionSake(
 }
 
 @Composable
+fun DetailSectionSoju(
+    modifier: Modifier = Modifier,
+    alcoholData: AlcoholData.Soju
+) {
+    val dec = DecimalFormat("#,###")
+
+    val infoList = listOf(
+        "권장 소비자가" to dec.format(alcoholData.price) + "원",
+        "제조지역" to alcoholData.country
+    )
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "술정보",
+            style = MaterialTheme.typography.headlineSmall
+        )
+
+        Text(
+            modifier = Modifier
+                .background(
+                    colorResource(id = R.color.gray_80),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(12.dp)
+                .fillMaxWidth(),
+            text = alcoholData.comment,
+        )
+
+        for (info in infoList) {
+            TextTitleValue(
+                modifier = Modifier,
+                title = info.first,
+                value = info.second
+            )
+        }
+
+    }
+}
+
+
+@Composable
 fun TextTitleValue(
     modifier: Modifier = Modifier,
     title: String,
@@ -577,6 +627,25 @@ private fun LiquorInfoDetailSectionPrev_sake() {
             aroma = "유자, 상큼한",
             finish = "감칠맛, 부드러운",
             type = "사케"
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LiquorInfoDetailSectionPrev_soju() {
+    LiquorInfoDetailSection(
+        modifier = Modifier,
+        alcoholData = AlcoholData.Soju(
+            id = 0,
+            name = "대선소주",
+            imgUrl = "https://arqachylpmku8348141.cdn.ntruss.com/app/product/mst_product/8801137520018_L.jpg",
+            country = "대한민국",
+            tag = R.drawable.tag_soju,
+            volume = 360,
+            price = 1900,
+            abv = 16.9f,
+            comment = "부산 지역에서 유명한 소주로, 깔끔한 맛이 특징"
         )
     )
 }
