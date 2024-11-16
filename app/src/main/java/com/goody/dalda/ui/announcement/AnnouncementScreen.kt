@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.onboarding
+package com.goody.dalda.ui.announcement
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,17 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.goody.dalda.ui.announcement.AnnouncementViewModel
 
 @Composable
 fun AnnouncementScreen(
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AnnouncementViewModel = viewModel()
 ) {
     Column (modifier = modifier.fillMaxSize()) {
         val posts = viewModel.getNoticePosts()
         for (item in posts) {
-            NoticePost(item.title, item.date)
+            NoticePost(item.title, item.date, onClick = onClick)
         }
     }
 }
@@ -31,12 +31,13 @@ fun AnnouncementScreen(
 private fun NoticePost(
     title: String,
     date: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier
         .fillMaxWidth()
+        .clickable { onClick() }
         .padding(horizontal = 20.dp, vertical = 20.dp)
-        .clickable {  }
     ) {
         Text(
             text = title,
@@ -55,7 +56,9 @@ private fun NoticePost(
 @Composable
 fun AnnouncementScreenPreview() {
     MaterialTheme {
-        AnnouncementScreen()
+        AnnouncementScreen(
+            onClick = {}
+        )
     }
 }
 
