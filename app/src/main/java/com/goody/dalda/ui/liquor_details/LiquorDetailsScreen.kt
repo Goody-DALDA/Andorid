@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
@@ -39,7 +40,8 @@ fun LiquorDetailsScreen(
                 omNavigationClick = { },
                 onClickMenu = { isDropDownMenuExpanded = it }
             )
-        }
+        },
+        bottomBar = { LiquorDetailBottomBar() }
     ) { innerPadding ->
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState())
