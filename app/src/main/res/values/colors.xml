@@ -15,6 +15,7 @@
     <color name="gray_90">#EFEFF0</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="buttonBackground">#FFF09737</color>
 
     <color name="positive">#00C75B</color>
     <color name="error">#FF2A2A</color>

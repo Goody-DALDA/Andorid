@@ -24,10 +24,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
@@ -36,6 +38,7 @@ import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.AlcoholSearchBar
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
 import com.goody.dalda.ui.home.component.HomeTopBar
+import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
 import kotlinx.coroutines.launch
@@ -48,6 +51,7 @@ fun HomeScreen(
     val alcoholInfoList by viewModel.alcoholInfoList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
+    val authState by viewModel.authState.collectAsStateWithLifecycle()
     val userName by viewModel.userName.collectAsStateWithLifecycle()
     val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
     var query by rememberSaveable { mutableStateOf("") }
@@ -66,6 +70,7 @@ fun HomeScreen(
                 userEmail = userEmail,
                 alcoholInfoList = alcoholInfoList,
                 recommendAlcoholList = recommendAlcoholList,
+                authState = authState,
                 drawerState = drawerState,
                 selectedItemIndex = selectedItemIndex,
                 onExpandedChange = {
@@ -120,6 +125,7 @@ fun HomeScreen(
     userEmail: String,
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
+    authState: AuthState,
     drawerState: DrawerState,
     selectedItemIndex: Int,
     onExpandedChange: (Boolean) -> Unit = {},
@@ -136,12 +142,10 @@ fun HomeScreen(
             drawerContent = {
                 HomeDrawerSheet(
                     modifier = Modifier.width(250.dp),
-                    userName = userName,
-                    userEmail = userEmail,
+                    userName = if (authState == AuthState.SignIn) userName else stringResource(R.string.text_do_sign_in),
+                    userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
                     selectedItemIndex = selectedItemIndex,
-                    onChangeDrawerState = {
-                        onChangeDrawerState()
-                    },
+                    onChangeDrawerState = onChangeDrawerState,
                     onChangeSelectedItemIndex = onChangeSelectedItemIndex
                 )
             },
@@ -161,13 +165,28 @@ fun HomeScreen(
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    WelcomeBanner(
-                        modifier = Modifier
-                            .padding(bottom = 30.dp)
-                            .fillMaxWidth()
-                            .height(70.dp),
-                        userName = "Dalda"
-                    )
+                    when (authState) {
+                        AuthState.SignIn -> {
+                            WelcomeBanner(
+                                modifier = Modifier
+                                    .padding(bottom = 30.dp)
+                                    .fillMaxWidth()
+                                    .height(70.dp),
+                                userName = "Dalda"
+                            )
+                        }
+
+                        AuthState.SignOut -> {
+                            LoginBanner(
+                                modifier = Modifier
+                                    .padding(bottom = 30.dp)
+                                    .fillMaxWidth()
+                                    .height(120.dp),
+                                text = stringResource(R.string.text_sign_in_banner),
+                                onClick = { /*TODO*/ }
+                            )
+                        }
+                    }
 
                     AlcoholSearchBar(
                         modifier = Modifier
@@ -261,6 +280,29 @@ private fun HomeScreenPreview() {
 
     viewModel.setUserName("삼겹살에 소주")
     viewModel.setUserEmail("oyj7677@gmail.com")
+    viewModel.setAuthState(AuthState.SignIn)
+    HomeScreen(
+        modifier = Modifier,
+        viewModel = viewModel,
+    )
+}
+
+@Preview
+@Composable
+private fun AlcoholSearchBarLogOutPreview() {
+    val viewModel = HomeViewModel()
+    viewModel.setAuthState(AuthState.SignOut)
+    HomeScreen(
+        modifier = Modifier,
+        viewModel = viewModel,
+    )
+}
+
+@Preview
+@Composable
+private fun AlcoholSearchBarPreview() {
+    val viewModel = HomeViewModel()
+    viewModel.setHomeUiState(HomeUiState.SearchState)
 
     HomeScreen(
         modifier = Modifier,
