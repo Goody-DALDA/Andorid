@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,7 +31,8 @@ fun LiquorDetailsScreen(
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
 
     Scaffold(
-        modifier = Modifier,
+        modifier = Modifier
+            .padding(horizontal = 16.dp),
         topBar = {
             LiquorDetailTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
@@ -38,7 +41,9 @@ fun LiquorDetailsScreen(
             )
         }
     ) { innerPadding ->
-        Column {
+        Column(
+            modifier = Modifier.verticalScroll(rememberScrollState())
+        ) {
             LiquorInfoSection(
                 modifier = Modifier
                     .padding(innerPadding)
