@@ -581,7 +581,6 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
             comment = "벗이랑은 대전시와 인근지역에서 자연자생 및 청정재배를 통해 채취한 강황, 버찌 등 건강에 이로운 자연식물로 세 번 빚은 삼양 생탁주이다. 색, 향, 미 세가지가 조화롭게 어우러진 프리미엄 삼양주로, 저온 숙성을 거쳐 목넘김이 부드럽고 바디감이 깊은 생탁주 이다.",
             pairingFood = "약과, 약밥, 송편 등 좋은 떡류나 고추장 불고기, 사천 탕수육 등을 추천한다.",
             brewery = "석이원주조"
-
         )
     )
 }
@@ -604,7 +603,6 @@ private fun LiquorInfoDetailSectionPrev_whiskey() {
             aroma = "풍부한 꿀과 레몬, 버터스카치, 구운 오크",
             finish = "오크와 다크초콜렛의 긴 여운",
             type = "버번 위스키"
-
         )
     )
 }
