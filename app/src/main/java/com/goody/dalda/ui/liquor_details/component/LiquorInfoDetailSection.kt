@@ -90,6 +90,7 @@ fun DetailSectionBeer(
     )
 
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
@@ -140,6 +141,7 @@ fun DetailSectionWine(
     )
 
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
@@ -211,6 +213,7 @@ fun DetailSectionTraditionalLiquor(
     )
 
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
@@ -276,6 +279,7 @@ fun DetailSectionWhiskey(
     )
 
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
@@ -328,6 +332,7 @@ fun DetailSectionSake(
     )
 
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
@@ -373,6 +378,7 @@ fun DetailSectionSoju(
     )
 
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(

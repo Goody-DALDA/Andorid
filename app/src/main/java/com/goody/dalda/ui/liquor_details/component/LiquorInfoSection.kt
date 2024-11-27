@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -33,13 +34,13 @@ fun LiquorInfoSection(
         AsyncImage(
             model = "https://picsum.photos/id/217/100/100",
             contentDescription = "설명",
-            contentScale = ContentScale.FillWidth,
-            modifier = Modifier.weight(360f),
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.fillMaxWidth(),
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
         )
 
         BasicInfo(
-            modifier = Modifier.weight(207f),
+            modifier = Modifier.fillMaxWidth(),
             alcoholData = alcoholData
         )
     }
@@ -98,6 +99,7 @@ fun BasicInfoWithCountry(
 
     // 도수 / 용량
     RowAbvVolume(
+        modifier = Modifier,
         alcoholData = alcoholData
     )
 }
@@ -144,7 +146,7 @@ fun RowAbvVolume(
     alcoholData: AlcoholData
 ) {
     Row(
-        modifier = Modifier.padding(bottom = 16.dp),
+        modifier = modifier.padding(bottom = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

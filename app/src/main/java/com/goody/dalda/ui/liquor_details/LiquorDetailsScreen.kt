@@ -1,11 +1,11 @@
 package com.goody.dalda.ui.liquor_details
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,7 +33,7 @@ fun LiquorDetailsScreen(
 
     Scaffold(
         modifier = Modifier
-            .padding(horizontal = 16.dp),
+            .fillMaxSize(),
         topBar = {
             LiquorDetailTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
@@ -43,20 +43,28 @@ fun LiquorDetailsScreen(
         },
         bottomBar = { LiquorDetailBottomBar() }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
         ) {
-            LiquorInfoSection(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .height(400.dp),
-                alcoholData = alcoholData
-            )
-
-            LiquorInfoDetailSection(
-                modifier = Modifier,
-                alcoholData = alcoholData
-            )
+            item {
+                LiquorInfoSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(500.dp)
+                        .padding(horizontal = 16.dp),
+                    alcoholData = alcoholData
+                )
+            }
+            item {
+                LiquorInfoDetailSection(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    alcoholData = alcoholData
+                )
+            }
         }
     }
 }
