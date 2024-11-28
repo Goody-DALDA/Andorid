@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -79,7 +80,7 @@ fun BasicInfoWithCountry(
 ) {
     Column(
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
         // 카테고리
@@ -91,17 +92,22 @@ fun BasicInfoWithCountry(
         )
 
         // 이름
-        Text(text = alcoholData.name)
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = alcoholData.name,
+            textAlign = TextAlign.Center
+        )
 
         // 나라
         Text(alcoholData.country)
+
+        // 도수 / 용량
+        RowAbvVolume(
+            modifier = Modifier.padding(top = 8.dp),
+            alcoholData = alcoholData
+        )
     }
 
-    // 도수 / 용량
-    RowAbvVolume(
-        modifier = Modifier,
-        alcoholData = alcoholData
-    )
 }
 
 @Composable
@@ -123,7 +129,11 @@ fun BasicInfoWithBrewery(
         )
 
         // 이름
-        Text(text = alcoholData.name)
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = alcoholData.name,
+            textAlign = TextAlign.Center
+        )
 
         // 양조장
         if (alcoholData is AlcoholData.TraditionalLiquor) {
@@ -132,12 +142,14 @@ fun BasicInfoWithBrewery(
         if (alcoholData is AlcoholData.Wine) {
             Text(alcoholData.winery)
         }
+
+        // 도수 / 용량
+        RowAbvVolume(
+            modifier = Modifier.padding(top = 8.dp),
+            alcoholData = alcoholData
+        )
     }
 
-    // 도수 / 용량
-    RowAbvVolume(
-        alcoholData = alcoholData
-    )
 }
 
 @Composable
