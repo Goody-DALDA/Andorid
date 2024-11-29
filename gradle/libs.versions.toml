@@ -1,4 +1,6 @@
 [versions]
+accompanistPager = "0.20.1"
+accompanistPagerIndicators = "0.20.1"
 agp = "8.5.2"
 coilCompose = "2.7.0"
 kotlin = "1.9.0"
@@ -29,6 +31,8 @@ konfettiXml = "2.0.4"
 splashscreen = "1.0.1"
 
 [libraries]
+accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
+accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
