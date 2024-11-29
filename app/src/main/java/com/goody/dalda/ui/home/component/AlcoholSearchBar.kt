@@ -41,7 +41,6 @@ import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.SearchResult
-import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +57,8 @@ fun AlcoholSearchBar(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .semantics { isTraversalGroup = true }) {
+            .semantics { isTraversalGroup = true }
+    ) {
         SearchBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
