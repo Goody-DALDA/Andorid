@@ -48,7 +48,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel()
 ) {
-    val alcoholInfoList by viewModel.alcoholInfoList.collectAsStateWithLifecycle()
+    val favoriteAlcoholInfoList by viewModel.favoriteAlcoholInfoList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
     val authState by viewModel.authState.collectAsStateWithLifecycle()
@@ -68,7 +68,7 @@ fun HomeScreen(
                 query = query,
                 userName = userName,
                 userEmail = userEmail,
-                alcoholInfoList = alcoholInfoList,
+                favoriteAlcoholInfoList = favoriteAlcoholInfoList,
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
                 drawerState = drawerState,
@@ -123,7 +123,7 @@ fun HomeScreen(
     query: String,
     userName: String,
     userEmail: String,
-    alcoholInfoList: List<AlcoholInfo> = emptyList(),
+    favoriteAlcoholInfoList: List<AlcoholInfo> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     authState: AuthState,
     drawerState: DrawerState,
@@ -212,7 +212,7 @@ fun HomeScreen(
                         modifier = Modifier
                             .wrapContentHeight()
                             .fillMaxWidth(),
-                        alcoholInfoList = alcoholInfoList,
+                        favoriteAlcoholInfoList = favoriteAlcoholInfoList,
                         onActionClick = { /*TODO*/ }
                     )
 

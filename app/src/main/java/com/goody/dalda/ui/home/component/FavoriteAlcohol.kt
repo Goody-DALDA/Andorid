@@ -24,7 +24,7 @@ import com.goody.dalda.data.AlcoholType
 @Composable
 fun FavoriteAlcohol(
     modifier: Modifier = Modifier,
-    alcoholInfoList: List<AlcoholInfo> = emptyList(),
+    favoriteAlcoholInfoList: List<AlcoholInfo> = emptyList(),
     onActionClick: () -> Unit = {}
 ) {
     Column(
@@ -38,7 +38,7 @@ fun FavoriteAlcohol(
             actionText = stringResource(id = R.string.text_whole_view),
             onActionClick = { onActionClick() }
         )
-        if (alcoholInfoList.isEmpty()) {
+        if (favoriteAlcoholInfoList.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
@@ -67,12 +67,12 @@ fun FavoriteAlcohol(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(alcoholInfoList.size) { idx ->
+                items(favoriteAlcoholInfoList.size) { idx ->
                     AlcoholCard(
-                        imgUrl = alcoholInfoList[idx].imgUrl,
-                        name = alcoholInfoList[idx].name,
-                        category = alcoholInfoList[idx].type.alcoholName,
-                        alcohol = alcoholInfoList[idx].abv.toString(),
+                        imgUrl = favoriteAlcoholInfoList[idx].imgUrl,
+                        name = favoriteAlcoholInfoList[idx].name,
+                        category = favoriteAlcoholInfoList[idx].type.alcoholName,
+                        alcohol = favoriteAlcoholInfoList[idx].abv.toString(),
                     )
                 }
             }
@@ -121,7 +121,7 @@ private fun FavoriteAlcoholPreview() {
         )
     )
     FavoriteAlcohol(
-        alcoholInfoList = alcoholInfoList
+        favoriteAlcoholInfoList = alcoholInfoList
     )
 }
 

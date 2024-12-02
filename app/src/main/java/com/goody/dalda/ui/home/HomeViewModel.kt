@@ -18,8 +18,8 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _alcoholInfoList = MutableStateFlow(emptyList<AlcoholInfo>())
-    val alcoholInfoList: StateFlow<List<AlcoholInfo>> = _alcoholInfoList
+    private val _favoriteAlcoholInfoList = MutableStateFlow(emptyList<AlcoholInfo>())
+    val favoriteAlcoholInfoList: StateFlow<List<AlcoholInfo>> = _favoriteAlcoholInfoList
 
     private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
     val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
 
     fun setAlcoholInfoList(alcoholInfoList: List<AlcoholInfo>) {
-        _alcoholInfoList.value = alcoholInfoList
+        _favoriteAlcoholInfoList.value = alcoholInfoList
     }
 
     fun setRecommendAlcoholList(recommendAlcoholList: List<RecommendAlcohol>) {
