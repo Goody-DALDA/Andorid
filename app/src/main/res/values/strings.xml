@@ -17,6 +17,16 @@
     <string name="text_personal_information_processing_policy">개인정보처리방침</string>
     <string name="text_terms_and_conditions">이용약관</string>
     <string name="text_copyright">Copyright ⓒ 2024 by Dalda</string>
+    <string name="text_drop_down_menu_request_info">정보 수정 요청하기</string>
+    <string name="text_drop_down_menu_share">공유하기</string>
+    <string name="text_sign_in_banner">달다에 로그인하고\n나만의 술도감을 만들어보세요</string>
+    <string name="text_do_sign_in">로그인하기</string>
+    <string name="text_recent_search_work">최근 검색어</string>
+    <string name="text_sign_in_recommendation">달다의 모든 기능을 즐겨보세요!</string>
+    <string name="text_other_alcohol">다른 %1s도 있어요.</string>
+    <string name="text_add_pictorial_book">술 도감에 추가하기</string>
+
+
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>
     <string name="description_search_camera_icon">검색 카메라 아이콘</string>
@@ -45,6 +55,7 @@
     <string name="onboarding_third_guide">술의 정보를 하나하나 기록해 나만의 술도감을 완성하세요.</string>
     <string name="onboarding_skip">건너뛰기</string>
     <string name="description_onboarding_image">소개 이미지</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="text_no_search_result">검색 결과가 없어요.</string>
+    <string name="text_request_additional">추가 요청하기</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

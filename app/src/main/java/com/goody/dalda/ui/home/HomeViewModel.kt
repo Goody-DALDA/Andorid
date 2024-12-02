@@ -27,6 +27,9 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
 
+    private val _authState = MutableStateFlow<AuthState>(AuthState.SignOut)
+    val authState: StateFlow<AuthState> = _authState
+
     private val _userName = MutableStateFlow("")
     val userName: StateFlow<String> = _userName
 
@@ -55,6 +58,10 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     fun setHomeUiState(homeUiState: HomeUiState) {
         _homeUiState.value = homeUiState
+    }
+
+    fun setAuthState(authState: AuthState) {
+        _authState.value = authState
     }
 
     fun setSelectedItemIndex(itemIndex: Int) {

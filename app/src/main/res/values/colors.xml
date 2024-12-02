@@ -2,6 +2,7 @@
 <resources>
     <color name="primary">#FF9200</color>
     <color name="primary_dark">#E68405</color>
+    <color name="primary_pale">#FEE6C6</color>
 
     <color name="text">#171719</color>
 
@@ -14,6 +15,7 @@
     <color name="gray_90">#EFEFF0</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="buttonBackground">#FFF09737</color>
 
     <color name="positive">#00C75B</color>
     <color name="error">#FF2A2A</color>
