@@ -5,13 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.ui.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val repository: LoginRepository
+) : ViewModel() {
     companion object {
         private const val TAG = "LoginViewModel"
     }
@@ -25,8 +28,17 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun login(accessToken: String) {
         Log.i(TAG, "카카오계정으로 로그인 성공 ${accessToken}")
         viewModelScope.launch {
-            val isShowConfettiScreen = true
-            _state.postValue(UiState.Success(isShowConfettiScreen))
+            val isLoginSuccess = repository.login(accessToken)
+
+            if (isLoginSuccess) {
+                _state.postValue(UiState.Success(true))
+            } else {
+                _state.postValue(UiState.Error())
+            }
         }
+    }
+
+    fun skipLogin() {
+        _state.postValue(UiState.Success(false))
     }
 }

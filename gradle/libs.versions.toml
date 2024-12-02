@@ -27,6 +27,9 @@ kakaoLogin = "2.20.6"
 fragmentKtx = "1.8.4"
 konfettiXml = "2.0.4"
 splashscreen = "1.0.1"
+retrofit = "2.9.0"
+loggingInterceptor = "4.5.0"
+gson = "2.10.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,6 +72,13 @@ mlkit-text-recognition = { group = "com.google.android.gms", name = "play-servic
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakaoLogin" }
 
 konfetti-xml = { group = "nl.dionsegijn", name = "konfetti-xml", version.ref = "konfettiXml" }
+
+squareup-retrofit2-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+squareup-retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+
+google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

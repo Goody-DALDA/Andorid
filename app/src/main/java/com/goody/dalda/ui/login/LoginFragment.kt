@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -54,12 +55,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fragmentLoginKakaoBtn.setOnClickListener { requestKakaoLogin() }
-        binding.fragmentLoginSkipBtn.setOnClickListener { }
+        binding.fragmentLoginSkipBtn.setOnClickListener { viewModel.skipLogin() }
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Empty -> TODO()
-                is UiState.Error -> TODO()
+                is UiState.Error -> {
+                    Toast.makeText(context, "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show()
+                }
                 is UiState.Loading -> TODO()
                 is UiState.Success -> {
                     val isShowConfettiScreen = state.data
