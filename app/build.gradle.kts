@@ -87,6 +87,11 @@ dependencies {
     implementation(libs.mlkit.text.recognition)
     implementation(libs.kakao.v2.user)
     implementation(libs.konfetti.xml)
+    implementation(libs.squareup.retrofit2.retrofit)
+    implementation(libs.squareup.retrofit2.converter.gson)
+    implementation(libs.squareup.okhttp3.logging.interceptor)
+    implementation(libs.google.gson)
+
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
