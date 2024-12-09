@@ -176,7 +176,6 @@ private fun LiquorDetailsScreenPrev_sake() {
             taste = "달콤한, 상큼한, 유자",
             aroma = "유자, 상큼한",
             finish = "감칠맛, 부드러운",
-            type = "사케"
         )
     )
 }

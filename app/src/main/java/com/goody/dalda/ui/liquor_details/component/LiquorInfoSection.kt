@@ -245,7 +245,6 @@ private fun LiquorImageSectionPrev_sake() {
             taste = "달콤함",
             aroma = "향기",
             finish = "맛",
-            type = "사케",
             country = "일본"
         )
     )
