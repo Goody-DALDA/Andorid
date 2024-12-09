@@ -56,7 +56,7 @@ fun LiquorInfoDetailSection(
             )
         }
 
-        is AlcoholData.Whiskey -> {
+        is AlcoholData.Whisky -> {
             DetailSectionWhiskey(
                 modifier = modifier,
                 alcoholData = alcoholData
@@ -262,7 +262,7 @@ fun DetailSectionTraditionalLiquor(
 @Composable
 fun DetailSectionWhiskey(
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.Whiskey
+    alcoholData: AlcoholData.Whisky
 ) {
     val dec = DecimalFormat("#,###")
 
@@ -321,7 +321,6 @@ fun DetailSectionSake(
 
     val infoList = listOf(
         "권장 소비자가" to dec.format(alcoholData.price) + "원",
-        "종류" to alcoholData.type,
         "제조지역" to alcoholData.country
     )
 
@@ -596,7 +595,7 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
 private fun LiquorInfoDetailSectionPrev_whiskey() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.Whiskey(
+        alcoholData = AlcoholData.Whisky(
             id = 0,
             name = "와일드터키 8년",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",
@@ -630,7 +629,6 @@ private fun LiquorInfoDetailSectionPrev_sake() {
             taste = "달콤한, 상큼한, 유자",
             aroma = "유자, 상큼한",
             finish = "감칠맛, 부드러운",
-            type = "사케"
         )
     )
 }

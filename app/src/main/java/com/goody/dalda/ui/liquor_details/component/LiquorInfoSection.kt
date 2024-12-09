@@ -56,7 +56,7 @@ fun BasicInfo(
         is AlcoholData.Soju,
         is AlcoholData.Beer,
         is AlcoholData.Sake,
-        is AlcoholData.Whiskey -> {
+        is AlcoholData.Whisky -> {
             BasicInfoWithCountry(
                 modifier = modifier,
                 alcoholData = alcoholData
