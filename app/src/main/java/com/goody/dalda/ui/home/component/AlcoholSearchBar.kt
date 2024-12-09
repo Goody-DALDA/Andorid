@@ -41,7 +41,6 @@ import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.SearchResult
-import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -164,8 +163,8 @@ fun AlcoholChip(
 @Preview(showBackground = true)
 @Composable
 private fun SearchBarPreview() {
-    var text by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var text by rememberSaveable { mutableStateOf("beer") }
+    var expanded by rememberSaveable { mutableStateOf(true) }
     val recentSearchWordList = listOf("소주", "맥주", "막걸리")
     val alcoholInfoList = listOf(
         AlcoholInfo(
@@ -228,7 +227,7 @@ private fun SearchBarPreview() {
 @Composable
 private fun EmptySearchBarPreview() {
     var text by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(true) }
     val recentSearchWordList = listOf("소주", "맥주", "막걸리")
 
     AlcoholSearchBar(

@@ -235,78 +235,113 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    val viewModel = HomeViewModel()
-    viewModel.setAlcoholInfoList(
-        listOf(
-            AlcoholInfo(
-                id = 0,
-                imgUrl = "https://picsum.photos/id/217/100/100",
-                name = "소주",
-                type = AlcoholType.SOJU,
-                abv = 20.0f,
-            ),
-            AlcoholInfo(
-                id = 1,
-                imgUrl = "https://picsum.photos/id/2/100/100",
-                name = "맥주",
-                type = AlcoholType.BEER,
-                abv = 20.0f,
-            ),
-            AlcoholInfo(
-                id = 2,
-                imgUrl = "https://picsum.photos/id/237/100/100",
-                name = "막걸리",
-                type = AlcoholType.TRADITIONAL,
-                abv = 20.0f,
-            )
+    val favoriteAlcoholInfoList = listOf(
+        AlcoholInfo(
+            id = 0,
+            imgUrl = "https://picsum.photos/id/217/100/100",
+            name = "소주",
+            type = AlcoholType.SOJU,
+            abv = 20.0f,
+        ),
+        AlcoholInfo(
+            id = 1,
+            imgUrl = "https://picsum.photos/id/2/100/100",
+            name = "맥주",
+            type = AlcoholType.BEER,
+            abv = 20.0f,
+        ),
+        AlcoholInfo(
+            id = 2,
+            imgUrl = "https://picsum.photos/id/237/100/100",
+            name = "막걸리",
+            type = AlcoholType.TRADITIONAL,
+            abv = 20.0f,
         )
     )
-    viewModel.setRecommendAlcoholList(
-        listOf(
-            RecommendAlcohol(
-                imgRes = "https://picsum.photos/id/217/100/100",
-                comment = "이건 무슨 맛이래유?"
-            ),
-            RecommendAlcohol(
-                imgRes = "https://picsum.photos/id/2/100/100",
-                comment = "첫번째 행입니다.\n두번째 행입니다."
-            ),
-            RecommendAlcohol(
-                imgRes = "https://picsum.photos/id/237/100/100",
-                comment = "이건 어때요?"
-            )
+    val recommendAlcoholList = listOf(
+        RecommendAlcohol(
+            imgRes = "https://picsum.photos/id/217/100/100",
+            comment = "이건 무슨 맛이래유?"
+        ),
+        RecommendAlcohol(
+            imgRes = "https://picsum.photos/id/2/100/100",
+            comment = "첫번째 행입니다.\n두번째 행입니다."
+        ),
+        RecommendAlcohol(
+            imgRes = "https://picsum.photos/id/237/100/100",
+            comment = "이건 어때요?"
         )
     )
+    val userName = "삼겹살에 소주"
+    val userEmail = "oyj7677@gmail.com"
+    val authState = AuthState.SignIn
 
-    viewModel.setUserName("삼겹살에 소주")
-    viewModel.setUserEmail("oyj7677@gmail.com")
-    viewModel.setAuthState(AuthState.SignIn)
     HomeScreen(
         modifier = Modifier,
-        viewModel = viewModel,
+        query = "",
+        userName = userName,
+        userEmail = userEmail,
+        favoriteAlcoholInfoList = favoriteAlcoholInfoList,
+        recommendAlcoholList = recommendAlcoholList,
+        authState = authState,
+        drawerState = rememberDrawerState(DrawerValue.Closed),
+        selectedItemIndex = 0
     )
 }
 
 @Preview
 @Composable
-private fun AlcoholSearchBarLogOutPreview() {
-    val viewModel = HomeViewModel()
-    viewModel.setAuthState(AuthState.SignOut)
+private fun AlcoholSearchBarSignOutPreview() {
+    val favoriteAlcoholInfoList = listOf(
+        AlcoholInfo(
+            id = 0,
+            imgUrl = "https://picsum.photos/id/217/100/100",
+            name = "소주",
+            type = AlcoholType.SOJU,
+            abv = 20.0f,
+        ),
+        AlcoholInfo(
+            id = 1,
+            imgUrl = "https://picsum.photos/id/2/100/100",
+            name = "맥주",
+            type = AlcoholType.BEER,
+            abv = 20.0f,
+        ),
+        AlcoholInfo(
+            id = 2,
+            imgUrl = "https://picsum.photos/id/237/100/100",
+            name = "막걸리",
+            type = AlcoholType.TRADITIONAL,
+            abv = 20.0f,
+        )
+    )
+    val recommendAlcoholList = listOf(
+        RecommendAlcohol(
+            imgRes = "https://picsum.photos/id/217/100/100",
+            comment = "이건 무슨 맛이래유?"
+        ),
+        RecommendAlcohol(
+            imgRes = "https://picsum.photos/id/2/100/100",
+            comment = "첫번째 행입니다.\n두번째 행입니다."
+        ),
+        RecommendAlcohol(
+            imgRes = "https://picsum.photos/id/237/100/100",
+            comment = "이건 어때요?"
+        )
+    )
+    val userName = "삼겹살에 소주"
+    val userEmail = "oyj7677@gmail.com"
+    val authState = AuthState.SignOut
+
     HomeScreen(
         modifier = Modifier,
-        viewModel = viewModel,
+        query = "",
+        userName = userName,
+        userEmail = userEmail,
+        favoriteAlcoholInfoList = favoriteAlcoholInfoList,
+        recommendAlcoholList = recommendAlcoholList,
+        authState = authState,
+        drawerState = rememberDrawerState(DrawerValue.Closed),
+        selectedItemIndex = 0
     )
 }
-
-@Preview
-@Composable
-private fun AlcoholSearchBarPreview() {
-    val viewModel = HomeViewModel()
-    viewModel.setHomeUiState(HomeUiState.SearchState)
-
-    HomeScreen(
-        modifier = Modifier,
-        viewModel = viewModel,
-    )
-}
-
