@@ -20,6 +20,7 @@ fun AlcoholCardListComponent(
     footer: @Composable () -> Unit = {}
 ) {
     LazyVerticalGrid(
+        modifier = modifier,
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)

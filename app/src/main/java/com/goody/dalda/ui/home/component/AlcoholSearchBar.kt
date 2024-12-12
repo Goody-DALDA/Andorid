@@ -57,7 +57,8 @@ fun AlcoholSearchBar(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .semantics { isTraversalGroup = true }) {
+            .semantics { isTraversalGroup = true }
+    ) {
         SearchBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
