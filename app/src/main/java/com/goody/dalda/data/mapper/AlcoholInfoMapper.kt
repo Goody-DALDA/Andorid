@@ -10,6 +10,19 @@ import com.goody.dalda.data.dto.home.Whisky
 import com.goody.dalda.data.dto.home.Wine
 
 object AlcoholInfoMapper {
+    fun dataToAlcoholData(data: List<Data>): List<AlcoholData> {
+        return data.map {
+            when (it) {
+                is Beer -> dataToBeer(it)
+                is Sake -> dataToSake(it)
+                is Whisky -> dataToWhisky(it)
+                is Soju -> dataToSoju(it)
+                is Wine -> dataToWine(it)
+                is TraditionalLiquor -> dataToTraditionalLiquor(it)
+            }
+        }
+    }
+
     fun dataToBeer(data: Data): AlcoholData.Beer {
         return (data as Beer).let {
             AlcoholData.Beer(
@@ -114,7 +127,7 @@ object AlcoholInfoMapper {
     }
 
     private fun strAbvToFloatAbv(adv: String): Float {
-        return adv.substring(0, adv.length - 2).toFloat()
+        return adv.substring(0, adv.length - 1).toFloat()
     }
 
     private fun strVolumeToIntVolume(volume: String): Int {
