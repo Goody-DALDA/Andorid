@@ -1,0 +1,62 @@
+{
+  "status": "SUCCESS",
+  "message": "주류 목록 조회 성공",
+  "data": [
+    {
+      "id": 1,
+      "name": "카스 프레시",
+      "img": "https://user-images.githubusercontent.com/76477531/228704017-e8142b5c-3e5a-4175-a46a-a7b6866e4c54.png",
+      "enName": "Cass Fresh",
+      "type": "Pale Lager - International / Premium",
+      "country": "한국",
+      "appearance": 2.2848658561706543,
+      "flavor": 3.4086197056,
+      "mouthfeel": 2.0503598647,
+      "aroma": 3.3478010853,
+      "abv": "4.5%",
+      "category": "Beer"
+    },
+    {
+      "id": 2,
+      "name": "필라이트",
+      "img": "https://user-images.githubusercontent.com/76477531/228704047-8bff0794-6daf-4ecb-9439-34bcbcb3cd57.png",
+      "enName": "FiLite",
+      "type": "International / Premium",
+      "country": "한국",
+      "appearance": 2.555555582046509,
+      "flavor": 4.555555556,
+      "mouthfeel": 2.777777778,
+      "aroma": 4.0,
+      "abv": "4.5%",
+      "category": "Beer"
+    },
+    {
+      "id": 3,
+      "name": "하이트 디",
+      "img": "https://user-images.githubusercontent.com/76477531/228704055-c3569c21-0929-499c-8337-b3012143acf3.png",
+      "enName": "Hite D (Dry Finish)",
+      "type": "Pale Lager - American",
+      "country": "한국",
+      "appearance": 2.480769157409668,
+      "flavor": 3.7692307692,
+      "mouthfeel": 2.2692307692,
+      "aroma": 3.7884615385,
+      "abv": "4.800000190734863%",
+      "category": "Beer"
+    },
+    {
+      "id": 4,
+      "name": "하이트 엑스트라 콜드",
+      "img": "https://user-images.githubusercontent.com/76477531/228704058-772a263b-21bd-49e8-bf29-62c78dbe4464.png",
+      "enName": "Hite Extra Cold",
+      "type": "Pale Lager - American",
+      "country": "한국",
+      "appearance": 2.7567567825317383,
+      "flavor": 4.027027027,
+      "mouthfeel": 2.5405405405,
+      "aroma": 3.972972973,
+      "abv": "4.300000190734863%",
+      "category": "Beer"
+    }
+  ]
+}
