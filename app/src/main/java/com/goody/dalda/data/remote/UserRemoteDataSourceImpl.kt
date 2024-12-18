@@ -1,6 +1,7 @@
 package com.goody.dalda.data.remote
 
 import com.goody.dalda.data.dto.LoginDto
+import com.goody.dalda.data.dto.ProfileDto
 import com.goody.dalda.network.RetrofitService
 import com.google.gson.JsonObject
 import okhttp3.MediaType.Companion.toMediaType
@@ -20,5 +21,9 @@ class UserRemoteDataSourceImpl @Inject constructor(private val service: Retrofit
         json.addProperty("profileImg", profileImg)
 
         return service.login(json.toString().toRequestBody("application/json".toMediaType()))
+    }
+
+    override suspend fun fetchProfile(): Response<ProfileDto> {
+        return service.fetchProfile()
     }
 }

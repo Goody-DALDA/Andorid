@@ -55,7 +55,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fragmentLoginKakaoBtn.setOnClickListener { requestKakaoLogin() }
-        binding.fragmentLoginSkipBtn.setOnClickListener { viewModel.skipLogin() }
+        binding.fragmentLoginSkipBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_navigation_home) }
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -65,14 +65,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
                 is UiState.Loading -> TODO()
                 is UiState.Success -> {
-                    val isShowConfettiScreen = state.data
+                    val profile = state.data
 
-                    if (isShowConfettiScreen) {
-                        // Confetti
-                        findNavController().navigate(R.id.action_loginFragment_to_confettiFragment, bundleOf(
-                            ConfettiFragment.NICKNAME_KEY to "삼겹살에소주"))
+                    if (profile.isShowConfettiScreen) {
+                        // 신규 회원
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_confettiFragment,
+                            bundleOf(
+                                ConfettiFragment.NICKNAME_KEY to profile.nickname,
+                                ConfettiFragment.PROFILE_IMAGE_KEY to profile.profileImg
+                            )
+                        )
                     } else {
-                        // Main
+                        // 기존 회원
                         findNavController().navigate(R.id.action_loginFragment_to_navigation_home)
                     }
                 }

@@ -1,7 +1,9 @@
 package com.goody.dalda.data.repository
 
+import com.goody.dalda.data.dto.asDomain
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSource
+import com.goody.dalda.ui.model.Profile
 import javax.inject.Inject
 
 
@@ -14,5 +16,10 @@ class LoginRepositoryImpl @Inject constructor(
         val accessToken = response.body()?.data?.accessToken ?: ""
         preferenceLocalDataSource.setAccessToken(accessToken)
         return response.isSuccessful
+    }
+
+    override suspend fun getProfile(): Profile {
+        val response = userRemoteDataSource.fetchProfile()
+        return response.body()!!.data.asDomain()
     }
 }
