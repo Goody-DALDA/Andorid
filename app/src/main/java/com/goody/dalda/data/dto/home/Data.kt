@@ -17,7 +17,7 @@ data class Whisky(
     val volume: String
 ) : Data()
 
-    data class Beer(
+data class Beer(
     val id: Int,
     val abv: String,
     val appearance: Float,
