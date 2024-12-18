@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 
 object PreferenceManager {
 
+    private const val ACCESS_TOKEN = "access_token"
+
     private var pref: SharedPreferences? = null
 
     fun init(context: Context) {
@@ -17,6 +19,14 @@ object PreferenceManager {
 
     fun isShowOnboarding(): Boolean {
         return pref?.getBoolean("is_show_onboarding", false) ?: false
+    }
+
+    fun setAccessToken(token: String) {
+        pref?.edit()?.putString(ACCESS_TOKEN, token)?.apply()
+    }
+
+    fun getAccessToken(): String {
+        return pref?.getString(ACCESS_TOKEN, "") ?: ""
     }
 
 }

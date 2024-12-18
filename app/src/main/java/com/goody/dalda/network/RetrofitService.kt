@@ -9,10 +9,11 @@ import retrofit2.http.POST
 
 interface RetrofitService {
 
-    @Headers("Content-Type: application/json")
     @POST("/api/users")
     suspend fun login(
         @Body body: RequestBody
     ): Response<LoginDto>
+
+
 
 }
