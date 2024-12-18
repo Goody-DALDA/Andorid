@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.ui.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,10 +26,9 @@ class LoginViewModel @Inject constructor(
     /**
      * 서버에서 회원가입인지 로그인인지 키값을 내려 컴페티 표시 화면 관리하면 될듯
      */
-    fun login(accessToken: String) {
-        Log.i(TAG, "카카오계정으로 로그인 성공 ${accessToken}")
-        viewModelScope.launch {
-            val isLoginSuccess = repository.login(accessToken)
+    fun login(nickname: String, email: String, profileImg: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val isLoginSuccess = repository.login(nickname, email, profileImg)
 
             if (isLoginSuccess) {
                 _state.postValue(UiState.Success(true))

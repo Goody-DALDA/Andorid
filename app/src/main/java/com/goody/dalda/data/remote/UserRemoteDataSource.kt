@@ -4,5 +4,5 @@ import com.goody.dalda.data.dto.LoginDto
 import retrofit2.Response
 
 interface UserRemoteDataSource {
-    suspend fun login(accessToken: String): Response<LoginDto>
+    suspend fun login(nickname: String, email: String, profileImg: String): Response<LoginDto>
 }
