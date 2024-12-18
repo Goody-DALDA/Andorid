@@ -1,5 +1,7 @@
 package com.goody.dalda.di
 
+import com.goody.dalda.data.local.PreferenceLocalDataSource
+import com.goody.dalda.data.local.PreferenceLocalDataSourceImpl
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSourceImpl
 import dagger.Binds
@@ -13,4 +15,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindUserRemoteDataSource(dataSource: UserRemoteDataSourceImpl): UserRemoteDataSource
+
+    @Binds
+    abstract fun bindPreferenceLocalDataSource(dataSource: PreferenceLocalDataSourceImpl): PreferenceLocalDataSource
 }

@@ -38,7 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
-            viewModel.login(token.accessToken)
+            requestUserInfo()
         }
     }
 
@@ -55,7 +55,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fragmentLoginKakaoBtn.setOnClickListener { requestKakaoLogin() }
-        binding.fragmentLoginSkipBtn.setOnClickListener { viewModel.skipLogin() }
+        binding.fragmentLoginSkipBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_navigation_home) }
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -65,14 +65,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
                 is UiState.Loading -> TODO()
                 is UiState.Success -> {
-                    val isShowConfettiScreen = state.data
+                    val profile = state.data
 
-                    if (isShowConfettiScreen) {
-                        // Confetti
-                        findNavController().navigate(R.id.action_loginFragment_to_confettiFragment, bundleOf(
-                            ConfettiFragment.NICKNAME_KEY to "삼겹살에소주"))
+                    if (profile.isShowConfettiScreen) {
+                        // 신규 회원
+                        findNavController().navigate(
+                            R.id.action_loginFragment_to_confettiFragment,
+                            bundleOf(
+                                ConfettiFragment.NICKNAME_KEY to profile.nickname,
+                                ConfettiFragment.PROFILE_IMAGE_KEY to profile.profileImg
+                            )
+                        )
                     } else {
-                        // Main
+                        // 기존 회원
                         findNavController().navigate(R.id.action_loginFragment_to_navigation_home)
                     }
                 }
@@ -104,7 +109,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         callback = callback
                     )
                 } else if (token != null) {
-                    viewModel.login(token.accessToken)
+                    requestUserInfo()
                 }
             }
         } else {
@@ -112,6 +117,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 binding.root.context,
                 callback = callback
             )
+        }
+    }
+
+
+    private fun requestUserInfo() {
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.i(TAG, "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+
+                val nickname = user.kakaoAccount?.profile?.nickname ?: ""
+                val email = user.kakaoAccount?.email ?: ""
+                val thumbnail = user.kakaoAccount?.profile?.thumbnailImageUrl ?: ""
+                viewModel.login(nickname, email, thumbnail)
+
+            }
         }
     }
 }

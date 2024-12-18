@@ -1,19 +1,25 @@
 package com.goody.dalda.data.repository
 
-import android.util.Log
+import com.goody.dalda.data.dto.asDomain
+import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSource
+import com.goody.dalda.ui.model.Profile
 import javax.inject.Inject
 
 
-class LoginRepositoryImpl @Inject constructor(private val userRemoteDataSource: UserRemoteDataSource): LoginRepository {
-    override suspend fun login(accessToken: String): Boolean {
-        val response = userRemoteDataSource.login(accessToken)
-
-        if (response.isSuccessful) {
-            Log.d("LoginRepositoryImpl", "kch jwtToken : ${response.body()?.data?.jwtToken}")
-            Log.d("LoginRepositoryImpl", "kch refreshToken : ${response.body()?.data?.refreshToken}")
-        }
-
+class LoginRepositoryImpl @Inject constructor(
+    private val userRemoteDataSource: UserRemoteDataSource,
+    private val preferenceLocalDataSource: PreferenceLocalDataSource
+): LoginRepository {
+    override suspend fun login(nickname: String, email: String, profileImg: String): Boolean {
+        val response = userRemoteDataSource.login(nickname, email, profileImg)
+        val accessToken = response.body()?.data?.accessToken ?: ""
+        preferenceLocalDataSource.setAccessToken(accessToken)
         return response.isSuccessful
+    }
+
+    override suspend fun getProfile(): Profile {
+        val response = userRemoteDataSource.fetchProfile()
+        return response.body()!!.data.asDomain()
     }
 }
