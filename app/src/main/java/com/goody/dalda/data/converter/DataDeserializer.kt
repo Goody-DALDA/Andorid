@@ -22,6 +22,11 @@ class DataDeserializer : JsonDeserializer<Data> {
     ): Data {
         val jsonObject = json.asJsonObject
         return when {
+            jsonObject.has("aroma") && jsonObject.has("finish") && !jsonObject.has("type") -> context.deserialize<Sake>(
+                json,
+                Sake::class.java
+            )
+
             jsonObject.has("aroma") && jsonObject.has("finish") -> context.deserialize<Whisky>(
                 json,
                 Whisky::class.java
@@ -40,11 +45,6 @@ class DataDeserializer : JsonDeserializer<Data> {
             jsonObject.has("acid") && jsonObject.has("body") -> context.deserialize<Wine>(
                 json,
                 Wine::class.java
-            )
-
-            jsonObject.has("aroma") && jsonObject.has("finish") && !jsonObject.has("type") -> context.deserialize<Sake>(
-                json,
-                Sake::class.java
             )
 
             jsonObject.has("brewery") -> context.deserialize<TraditionalLiquor>(
