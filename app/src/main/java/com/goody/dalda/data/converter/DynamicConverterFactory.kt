@@ -1,5 +1,6 @@
 package com.goody.dalda.data.converter
 
+import com.goody.dalda.data.dto.home.AlcoholInfoDto
 import com.goody.dalda.data.dto.home.Data
 import com.google.gson.GsonBuilder
 import okhttp3.ResponseBody
@@ -22,7 +23,7 @@ class DynamicConverterFactory : Converter.Factory() {
         annotations: Array<out Annotation>,
         retrofit: Retrofit
     ): Converter<ResponseBody, *>? {
-        return if (type == Data::class.java) {
+        return if (type == AlcoholInfoDto::class.java) {
             alcoholGsonConverter.responseBodyConverter(type, annotations, retrofit)
         } else {
             gsonConverter.responseBodyConverter(type, annotations, retrofit)
