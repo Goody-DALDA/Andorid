@@ -164,7 +164,7 @@ fun RowAbvVolume(
     ) {
         SecondFloorText(
             topText = "도수",
-            bottomText = if (alcoholData.abv != 0f) alcoholData.abv.toString() + "%" else ""
+            bottomText = alcoholData.abv
         )
 
         VerticalDivider(
@@ -204,7 +204,7 @@ private fun LiquorImageSectionPrev_soju() {
             tag = R.drawable.tag_soju,
             volume = 100,
             price = 2900,
-            abv = 18f,
+            abv = "18%",
             comment = "소주임"
         )
     )
@@ -219,7 +219,7 @@ private fun LiquorImageSectionPrev_beer() {
             name = "1664 블랑",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             tag = R.drawable.tag_beer,
-            abv = 18f,
+            abv = "18%",
             appearance = 18f,
             flavor = 18f,
             mouthfeel = 18f,
@@ -241,7 +241,7 @@ private fun LiquorImageSectionPrev_sake() {
             tag = R.drawable.tag_sake,
             volume = 360,
             price = 200000,
-            abv = 18f,
+            abv = "18%",
             taste = "달콤함",
             aroma = "향기",
             finish = "맛",

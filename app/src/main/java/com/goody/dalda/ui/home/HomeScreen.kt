@@ -46,7 +46,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel(),
+    onClickAlcohol: (AlcoholType) -> Unit = {}
 ) {
     val favoriteAlcoholInfoList by viewModel.favoriteAlcoholInfoList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -78,6 +79,7 @@ fun HomeScreen(
                 },
                 onQueryChange = { query = it },
                 onChangeSelectedItemIndex = { viewModel.setSelectedItemIndex(it) },
+                onClickAlcohol = onClickAlcohol,
                 onChangeDrawerState = {
                     scope.launch {
                         drawerState.close()
@@ -131,8 +133,9 @@ fun HomeScreen(
     onExpandedChange: (Boolean) -> Unit = {},
     onQueryChange: (String) -> Unit = {},
     onChangeSelectedItemIndex: (Int) -> Unit = {},
+    onClickAlcohol: (AlcoholType) -> Unit = {},
     onChangeDrawerState: () -> Unit = {},
-    onClickMenu: () -> Unit = {}
+    onClickMenu: () -> Unit = {},
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -205,7 +208,8 @@ fun HomeScreen(
                         modifier = Modifier
                             .padding(bottom = 40.dp)
                             .fillMaxWidth()
-                            .wrapContentHeight()
+                            .wrapContentHeight(),
+                        onClickAlcohol = onClickAlcohol
                     )
 
                     FavoriteAlcohol(
@@ -241,21 +245,21 @@ private fun HomeScreenPreview() {
             imgUrl = "https://picsum.photos/id/217/100/100",
             name = "소주",
             type = AlcoholType.SOJU,
-            abv = 20.0f,
+            abv = "20.0%",
         ),
         AlcoholInfo(
             id = 1,
             imgUrl = "https://picsum.photos/id/2/100/100",
             name = "맥주",
             type = AlcoholType.BEER,
-            abv = 20.0f,
+            abv = "20.0%",
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "https://picsum.photos/id/237/100/100",
             name = "막걸리",
             type = AlcoholType.TRADITIONAL,
-            abv = 20.0f,
+            abv = "20.0%",
         )
     )
     val recommendAlcoholList = listOf(
@@ -298,21 +302,21 @@ private fun AlcoholSearchBarSignOutPreview() {
             imgUrl = "https://picsum.photos/id/217/100/100",
             name = "소주",
             type = AlcoholType.SOJU,
-            abv = 20.0f,
+            abv = "20.0%",
         ),
         AlcoholInfo(
             id = 1,
             imgUrl = "https://picsum.photos/id/2/100/100",
             name = "맥주",
             type = AlcoholType.BEER,
-            abv = 20.0f,
+            abv = "20.0%",
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "https://picsum.photos/id/237/100/100",
             name = "막걸리",
             type = AlcoholType.TRADITIONAL,
-            abv = 20.0f,
+            abv = "20.0%",
         )
     )
     val recommendAlcoholList = listOf(

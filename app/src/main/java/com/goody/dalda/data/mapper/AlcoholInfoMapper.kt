@@ -23,14 +23,14 @@ object AlcoholInfoMapper {
         }
     }
 
-    fun dataToBeer(data: Data): AlcoholData.Beer {
+    private fun dataToBeer(data: Data): AlcoholData.Beer {
         return (data as Beer).let {
             AlcoholData.Beer(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
                 country = it.country,
-                abv = strAbvToFloatAbv(it.abv),
+                abv = it.abv,
                 appearance = it.appearance,
                 flavor = it.flavor,
                 mouthfeel = it.mouthfeel,
@@ -40,56 +40,59 @@ object AlcoholInfoMapper {
         }
     }
 
-    fun dataToSake(data: Data): AlcoholData.Sake {
+    private fun dataToSake(data: Data): AlcoholData.Sake {
         return (data as Sake).let {
+            if (it.taste.isEmpty()) {
+                println("dataToSake: ${it.name}")
+            }
             AlcoholData.Sake(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
                 country = it.country,
-                abv = strAbvToFloatAbv(it.abv),
-                price = it.price.toInt(),
-                taste = it.taste,
-                aroma = it.aroma,
-                finish = it.finish,
-                volume = strVolumeToIntVolume(it.volume)
+                abv = it.abv,
+                price = extractNumber(it.price),
+                taste = it.taste.ifEmpty { "" },
+                aroma = it.aroma.ifEmpty { "" },
+                finish = it.finish.ifEmpty { "" },
+                volume = extractNumber(it.volume)
             )
         }
     }
 
-    fun dataToWhisky(data: Data): AlcoholData.Whisky {
+    private fun dataToWhisky(data: Data): AlcoholData.Whisky {
         return (data as Whisky).let {
             AlcoholData.Whisky(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
                 country = it.country,
-                abv = strAbvToFloatAbv(it.abv),
+                abv = it.abv,
                 aroma = it.aroma,
                 finish = it.finish,
-                price = it.price.toInt(),
+                price = extractNumber(it.price),
                 taste = it.taste,
                 type = it.type,
-                volume = strVolumeToIntVolume(it.volume)
+                volume = extractNumber(it.volume)
             )
         }
     }
 
-    fun dataToSoju(data: Data): AlcoholData.Soju {
+    private fun dataToSoju(data: Data): AlcoholData.Soju {
         return (data as Soju).let {
             AlcoholData.Soju(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
-                abv = strAbvToFloatAbv(it.abv),
-                price = it.price.toInt(),
-                volume = strVolumeToIntVolume(it.volume),
+                abv = it.abv,
+                price = extractNumber(it.price),
+                volume = extractNumber(it.volume),
                 comment = it.comment,
             )
         }
     }
 
-    fun dataToWine(data: Data): AlcoholData.Wine {
+    private fun dataToWine(data: Data): AlcoholData.Wine {
         return (data as Wine).let {
             AlcoholData.Wine(
                 id = it.id,
@@ -103,20 +106,21 @@ object AlcoholInfoMapper {
                 pairingFood = it.pairingFood,
                 sugar = it.sugar,
                 type = it.type,
-                volume = strVolumeToIntVolume(it.volume),
+                volume = extractNumber(it.volume),
                 winery = it.winery,
+                abv = "%"
             )
         }
     }
 
-    fun dataToTraditionalLiquor(data: Data): AlcoholData.TraditionalLiquor {
+    private fun dataToTraditionalLiquor(data: Data): AlcoholData.TraditionalLiquor {
         return (data as TraditionalLiquor).let {
             AlcoholData.TraditionalLiquor(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
-                abv = strAbvToFloatAbv(it.abv),
-                volume = strVolumeToIntVolume(it.volume),
+                abv = it.abv,
+                volume = extractNumber(it.volume),
                 comment = it.comment,
                 ingredient = it.ingredients,
                 type = it.type,
@@ -126,12 +130,16 @@ object AlcoholInfoMapper {
         }
     }
 
-    private fun strAbvToFloatAbv(adv: String): Float {
-        return adv.substring(0, adv.length - 1).toFloat()
-    }
 
-    private fun strVolumeToIntVolume(volume: String): Int {
-        return volume.substring(0, volume.length - 2).toInt()
+    private fun extractNumber(strPrice: String): Int {
+        return if (strPrice.isEmpty()) {
+            0
+        } else {
+            strPrice.replace(
+                regex = "[^0-9]".toRegex(),
+                replacement = ""
+            ).toInt()
+        }
     }
 }
 

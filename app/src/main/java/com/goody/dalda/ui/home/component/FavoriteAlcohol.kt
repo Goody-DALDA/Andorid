@@ -89,35 +89,35 @@ private fun FavoriteAlcoholPreview() {
             imgUrl = "",
             name = "소주",
             type = AlcoholType.SOJU,
-            abv = 20.0f,
+            abv = "20.0%",
         ),
         AlcoholInfo(
             id = 1,
             imgUrl = "",
             name = "맥주",
             type = AlcoholType.BEER,
-            abv = 4.5f,
+            abv = "4.5%",
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "",
             name = "와인",
             type = AlcoholType.WINE,
-            abv = 13.0f,
+            abv = "13.0%",
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "",
             name = "위스키",
             type = AlcoholType.WHISKEY,
-            abv = 40.0f,
+            abv = "40.0%",
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "",
             name = "위스키",
             type = AlcoholType.WHISKEY,
-            abv = 40.0f,
+            abv = "40.0%",
         )
     )
     FavoriteAlcohol(

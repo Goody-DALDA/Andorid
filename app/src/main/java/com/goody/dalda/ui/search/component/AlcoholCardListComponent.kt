@@ -50,56 +50,56 @@ private fun AlcoholCardListComponentPrev() {
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "SOJU_1",
             type = AlcoholType.SOJU,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "WHISKEY_1",
             type = AlcoholType.WHISKEY,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "WHISKEY_2",
             type = AlcoholType.WHISKEY,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "BEER_1",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "BEER_2",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
     )
 
