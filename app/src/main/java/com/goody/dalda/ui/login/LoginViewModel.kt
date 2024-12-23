@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
+import com.kakao.sdk.auth.model.OAuthToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,9 +27,9 @@ class LoginViewModel @Inject constructor(
     /**
      * 서버에서 회원가입인지 로그인인지 키값을 내려 컴페티 표시 화면 관리하면 될듯
      */
-    fun login(nickname: String, email: String, profileImg: String) {
+    fun login(nickname: String, email: String, profileImg: String, token: OAuthToken) {
         viewModelScope.launch(Dispatchers.IO) {
-            val isLoginSuccess = repository.login(nickname, email, profileImg)
+            val isLoginSuccess = repository.login(nickname, email, profileImg, token)
 
             if (isLoginSuccess) {
                 _state.postValue(UiState.Success(Profile(nickname, email, profileImg)))

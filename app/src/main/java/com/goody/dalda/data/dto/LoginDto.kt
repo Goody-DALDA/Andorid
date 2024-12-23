@@ -3,7 +3,7 @@ package com.goody.dalda.data.dto
 data class LoginDto(
     val status: String,
     val message: String,
-    val data: LoginData
+    val data: String
 )
 
 data class LoginData(
