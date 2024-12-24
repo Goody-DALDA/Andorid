@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
+import com.goody.dalda.ui.model.Profile
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +41,10 @@ fun MemberScreen(
     viewModel: MemberViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
+    LaunchedEffect("once") {
+        viewModel.fetchProfile()
+    }
+
     Scaffold(
         modifier = modifier
             .fillMaxSize()
@@ -80,12 +86,12 @@ fun MemberLayout(
             modifier.fillMaxWidth().weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MemeberProfile(
+            MemberProfile(
                 R.drawable.img_profile,
-                "삼겹살에 소주"
+                viewModel.profile.value.nickname
             )
 
-            MemberInformation()
+            MemberInformation(viewModel.profile.value)
         }
 
         LogoutButton(onClick = {})
@@ -94,7 +100,7 @@ fun MemberLayout(
 }
 
 @Composable
-private fun MemberInformation() {
+private fun MemberInformation(profile: Profile) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,13 +112,13 @@ private fun MemberInformation() {
         )
         MemberAttribute(
             title = "메일 주소",
-            content = "temp1234@kakao.com"
+            content = profile.email
         )
     }
 }
 
 @Composable
-private fun MemeberProfile(
+private fun MemberProfile(
     imageRes: Int,
     nickname: String
 ) {

@@ -29,10 +29,10 @@ class LoginViewModel @Inject constructor(
      */
     fun login(nickname: String, email: String, profileImg: String, token: OAuthToken) {
         viewModelScope.launch(Dispatchers.IO) {
-            val isLoginSuccess = repository.login(nickname, email, profileImg, token)
+            val profile = repository.login(nickname, email, profileImg, token)
 
-            if (isLoginSuccess) {
-                _state.postValue(UiState.Success(Profile(nickname, email, profileImg)))
+            if (profile != null) {
+                _state.postValue(UiState.Success(profile))
             } else {
                 _state.postValue(UiState.Error())
             }

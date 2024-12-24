@@ -17,16 +17,24 @@ class LoginRepositoryImpl @Inject constructor(
         email: String,
         profileImg: String,
         token: OAuthToken
-    ): Boolean {
+    ): Profile? {
         return try {
             preferenceLocalDataSource.setAccessToken(token.accessToken)
             val response = userRemoteDataSource.login(nickname, email, profileImg)
-            val accessToken = response.body()?.data ?: ""
-            preferenceLocalDataSource.setAccessToken(accessToken)
-            response.isSuccessful
+            val loginDto = response.body()
+
+            if (response.isSuccessful && loginDto != null) {
+                val loginData = loginDto.data
+                val accessToken = loginDto.data.accessToken
+                preferenceLocalDataSource.setAccessToken(accessToken)
+
+                Profile(nickname, email, profileImg, loginData.isNewUser)
+            } else {
+                null
+            }
         } catch (e: Exception) {
             preferenceLocalDataSource.setAccessToken("")
-            false
+            null
         }
     }
 

@@ -118,6 +118,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
 
     private fun requestUserInfo(token: OAuthToken) {
+        Log.e(TAG, "사용자 정보 요청 실패 ${token.accessToken}")
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(TAG, "사용자 정보 요청 실패", error)

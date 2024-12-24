@@ -9,7 +9,7 @@ interface LoginRepository {
         email: String,
         profileImg: String,
         token: OAuthToken
-    ): Boolean
+    ): Profile?
 
     suspend fun getProfile(): Profile
 }
