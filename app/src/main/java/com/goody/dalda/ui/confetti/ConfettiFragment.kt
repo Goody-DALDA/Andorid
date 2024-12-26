@@ -22,6 +22,7 @@ class ConfettiFragment : BaseFragment<FragmentConfettiBinding>() {
 
     companion object {
         const val NICKNAME_KEY = "nickname"
+        const val PROFILE_IMAGE_KEY = "profile_image"
         fun newInstance() = ConfettiFragment()
     }
 
@@ -38,7 +39,9 @@ class ConfettiFragment : BaseFragment<FragmentConfettiBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val nickname = arguments?.getString(NICKNAME_KEY)
+        val profileImage = arguments?.getString(PROFILE_IMAGE_KEY)
         binding.fragmentConfettiWelcomeText.text = getString(R.string.confetti_welcome_text, nickname)
+        binding.fragmentConfettiImageView
         binding.fragmentConfettiConfirm.setOnClickListener {
             findNavController().navigate(R.id.action_confettiFragment_to_navigation_home)
         }

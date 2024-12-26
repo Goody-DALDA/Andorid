@@ -7,6 +7,8 @@ data class LoginDto(
 )
 
 data class LoginData(
-    val jwtToken: String,
-    val refreshToken: String
+    val userId: String,
+    val email: String,
+    val name: String,
+    val accessToken: String
 )
