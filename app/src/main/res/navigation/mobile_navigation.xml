@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.goody.dalda.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_spirits_collection"
@@ -79,4 +83,13 @@
         android:id="@+id/postDetailFragment"
         android:name="com.goody.dalda.ui.announcement.PostDetailFragment"
         android:label="PostDetailFragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.goody.dalda.ui.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <argument
+            android:name="category"
+            app:argType="com.goody.dalda.data.AlcoholType" />
+    </fragment>
 </navigation>

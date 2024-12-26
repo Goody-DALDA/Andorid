@@ -6,7 +6,7 @@ import com.goody.dalda.data.dto.home.Beer
 import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
-import com.goody.dalda.data.dto.home.Whisky
+import com.goody.dalda.data.dto.home.Wisky
 import com.goody.dalda.data.dto.home.Wine
 import com.goody.dalda.data.mapper.AlcoholInfoMapper.dataToAlcoholData
 import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSource
@@ -37,8 +37,8 @@ class AlcoholRepositoryImpl @Inject constructor(
                 return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Soju>())
             }
 
-            "whisky" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Whisky>())
+            "wisky" -> {
+                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Wisky>())
             }
 
             "beer" -> {
@@ -49,7 +49,7 @@ class AlcoholRepositoryImpl @Inject constructor(
                 return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Wine>())
             }
 
-            "traditionalLiquor" -> {
+            "traditional" -> {
                 return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<TraditionalLiquor>())
             }
 

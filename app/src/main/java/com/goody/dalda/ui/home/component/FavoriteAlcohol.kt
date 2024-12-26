@@ -109,14 +109,14 @@ private fun FavoriteAlcoholPreview() {
             id = 3,
             imgUrl = "",
             name = "위스키",
-            type = AlcoholType.WHISKEY,
+            type = AlcoholType.WISKY,
             abv = "40.0%",
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "",
             name = "위스키",
-            type = AlcoholType.WHISKEY,
+            type = AlcoholType.WISKY,
             abv = "40.0%",
         )
     )

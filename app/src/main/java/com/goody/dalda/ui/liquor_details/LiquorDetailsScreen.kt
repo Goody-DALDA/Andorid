@@ -143,7 +143,7 @@ private fun LiquorDetailsScreenPrev_wine_liquor() {
 @Composable
 private fun LiquorDetailsScreenPrev_whiskey() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.Whisky(
+        alcoholData = AlcoholData.Wisky(
             id = 0,
             name = "와일드터키 8년",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",

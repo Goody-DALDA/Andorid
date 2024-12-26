@@ -126,7 +126,7 @@ sealed class AlcoholData(
         abv = abv
     )
 
-    data class Whisky(
+    data class Wisky(
         override val id: Int,
         override val name: String,
         override val imgUrl: String,

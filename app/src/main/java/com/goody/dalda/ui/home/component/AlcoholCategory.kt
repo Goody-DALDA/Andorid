@@ -28,7 +28,7 @@ import com.goody.dalda.ui.component.AutoResizedText
 fun AlcoholCategory(
     modifier: Modifier = Modifier,
     columnCount: Int = 4,
-    onClickAlcohol: () -> Unit = {},
+    onClickAlcohol: (AlcoholType) -> Unit = {},
 ) {
     FlowRow(
         modifier = modifier,
@@ -41,7 +41,7 @@ fun AlcoholCategory(
                     alcoholType = alcoholType,
                     modifier = Modifier
                         .weight(1f),
-                    onClick = onClickAlcohol
+                    onClick = { onClickAlcohol(alcoholType) }
                 )
             }
         }

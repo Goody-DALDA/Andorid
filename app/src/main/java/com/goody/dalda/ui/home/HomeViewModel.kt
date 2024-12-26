@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.RecommendAlcohol
+import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) : ViewModel() {
+    // 주류 정보 호출 로직
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

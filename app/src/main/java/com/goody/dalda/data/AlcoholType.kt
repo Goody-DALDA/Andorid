@@ -33,7 +33,7 @@ enum class AlcoholType(
         image = R.drawable.img_wine,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
-    WHISKEY(
+    WISKY(
         alcoholName = "위스키",
         image = R.drawable.img_wisky,
         categoryStatus = AlcoholCategoryStatus.RELEASE

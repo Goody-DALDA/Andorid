@@ -70,14 +70,14 @@ private fun SearchResultScreenPreview() {
             id = 2,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "WHISKEY_1",
-            type = AlcoholType.WHISKEY,
+            type = AlcoholType.WISKY,
             abv = "2.3%"
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "WHISKEY_2",
-            type = AlcoholType.WHISKEY,
+            type = AlcoholType.WISKY,
             abv = "2.3%"
         ),
         AlcoholInfo(

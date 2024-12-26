@@ -79,14 +79,14 @@ private fun SearchAlcoholTabPrev() {
             id = 2,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "WHISKEY_1",
-            type = AlcoholType.WHISKEY,
+            type = AlcoholType.WISKY,
             abv = "2.3%"
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "https://duckduckgo.com/?q=fames",
             name = "WHISKEY_2",
-            type = AlcoholType.WHISKEY,
+            type = AlcoholType.WISKY,
             abv = "2.3%"
         ),
         AlcoholInfo(

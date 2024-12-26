@@ -2,7 +2,7 @@ package com.goody.dalda.data.dto.home
 
 sealed class Data
 
-data class Whisky(
+data class Wisky(
     val id: Int,
     val abv: String,
     val aroma: String,
