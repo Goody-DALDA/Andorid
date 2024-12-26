@@ -2,15 +2,12 @@ package com.goody.dalda
 
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
-import com.goody.dalda.data.converter.DataDeserializer
 import com.goody.dalda.data.converter.DynamicConverterFactory
-import com.goody.dalda.data.dto.home.Data
 import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSource
 import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSourceImpl
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
 import com.goody.dalda.network.RetrofitService
 import com.goody.dalda.ui.category.CategoryViewModel
-import com.google.gson.GsonBuilder
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -172,7 +169,7 @@ class CategoryViewModelTest {
     }
 
     @Test
-    fun `soju 카테고리를_호출했을 때, DTO에서 Data Sake로 변환에 에러가 없다`() {
+    fun `soju 카테고리를_호출했을 때, DTO에서 Data Soju 변환에 에러가 없다`() {
         // given :  MockResponse을 활용해 서버 응답을 세팅해둔다.
         val response = MockResponse()
             .setBody(File("src/test/java/com/goody/dalda/resources/sojuResponseData.json").readText())
@@ -184,6 +181,46 @@ class CategoryViewModelTest {
         val actual = runCatching {
             runTest {
                 viewModel.fetchAlcoholInfo("soju")
+            }
+        }
+        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
+        println(actual.exceptionOrNull())
+        assertThat(actual.isSuccess).isEqualTo(true)
+    }
+
+    @Test
+    fun `전통주 카테고리를_호출했을 때, DTO에서 Data TraditionalLiquor로 변환에 에러가 없다`() {
+        // given :  MockResponse을 활용해 서버 응답을 세팅해둔다.
+        val response = MockResponse()
+            .setBody(File("src/test/java/com/goody/dalda/resources/TraditionalLiquorResponseData.json").readText())
+            .setResponseCode(200)
+
+        server.enqueue(response)
+
+        // when : Beer 카테고리를 호출한다.
+        val actual = runCatching {
+            runTest {
+                viewModel.fetchAlcoholInfo("Traditional")
+            }
+        }
+        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
+        println(actual.exceptionOrNull())
+        assertThat(actual.isSuccess).isEqualTo(true)
+    }
+
+    @Test
+    fun `위스키 카테고리를_호출했을 때, DTO에서 Data Whisky로 변환에 에러가 없다`() {
+        // given :  MockResponse을 활용해 서버 응답을 세팅해둔다.
+        val response = MockResponse()
+            .setBody(File("src/test/java/com/goody/dalda/resources/whiskyResponseData.json").readText())
+            .setResponseCode(200)
+
+        server.enqueue(response)
+
+        // when : Beer 카테고리를 호출한다.
+        val actual = runCatching {
+            runTest {
+                viewModel.fetchAlcoholInfo("wisky")
             }
         }
         // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
