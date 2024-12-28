@@ -3,9 +3,6 @@ package com.goody.dalda.data.remote
 import com.goody.dalda.data.dto.LoginDto
 import com.goody.dalda.data.dto.ProfileDto
 import com.goody.dalda.network.RetrofitService
-import com.google.gson.JsonObject
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -15,12 +12,12 @@ class UserRemoteDataSourceImpl @Inject constructor(private val service: Retrofit
         email: String,
         profileImg: String
     ): Response<LoginDto> {
-        val json = JsonObject()
-        json.addProperty("nickname", nickname)
-        json.addProperty("email", email)
-        json.addProperty("profileImg", profileImg)
+        val map = HashMap<String, String>()
+        map["nickname"] = nickname
+        map["email"] = email
+        map["profileImg"] = profileImg
 
-        return service.login(json.toString().toRequestBody("application/json".toMediaType()))
+        return service.login(map)
     }
 
     override suspend fun fetchProfile(): Response<ProfileDto> {

@@ -7,8 +7,6 @@ data class LoginDto(
 )
 
 data class LoginData(
-    val userId: String,
-    val email: String,
-    val name: String,
-    val accessToken: String
+    val accessToken: String,
+    val isNewUser: Boolean
 )
