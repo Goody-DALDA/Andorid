@@ -258,7 +258,7 @@ private fun HomeScreenPreview() {
             id = 2,
             imgUrl = "https://picsum.photos/id/237/100/100",
             name = "막걸리",
-            type = AlcoholType.TRADITIONAL,
+            type = AlcoholType.TRADITIONALLIQUOR,
             abv = "20.0%",
         )
     )
@@ -315,7 +315,7 @@ private fun AlcoholSearchBarSignOutPreview() {
             id = 2,
             imgUrl = "https://picsum.photos/id/237/100/100",
             name = "막걸리",
-            type = AlcoholType.TRADITIONAL,
+            type = AlcoholType.TRADITIONALLIQUOR,
             abv = "20.0%",
         )
     )
