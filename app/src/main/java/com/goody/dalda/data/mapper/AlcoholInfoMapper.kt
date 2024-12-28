@@ -55,7 +55,7 @@ object AlcoholInfoMapper {
                 taste = it.taste.ifEmpty { "" },
                 aroma = it.aroma.ifEmpty { "" },
                 finish = it.finish.ifEmpty { "" },
-                volume = extractNumber(it.volume)
+                volume = it.volume
             )
         }
     }
@@ -73,7 +73,7 @@ object AlcoholInfoMapper {
                 price = extractNumber(it.price),
                 taste = it.taste,
                 type = it.type,
-                volume = extractNumber(it.volume)
+                volume = it.volume
             )
         }
     }
@@ -86,7 +86,7 @@ object AlcoholInfoMapper {
                 imgUrl = it.img,
                 abv = it.abv,
                 price = extractNumber(it.price),
-                volume = extractNumber(it.volume),
+                volume = it.volume,
                 comment = it.comment,
             )
         }
@@ -106,7 +106,7 @@ object AlcoholInfoMapper {
                 pairingFood = it.pairingFood,
                 sugar = it.sugar,
                 type = it.type,
-                volume = extractNumber(it.volume),
+                volume = it.volume,
                 winery = it.winery,
                 abv = "%"
             )
@@ -120,7 +120,7 @@ object AlcoholInfoMapper {
                 name = it.name,
                 imgUrl = it.img,
                 abv = it.abv,
-                volume = extractNumber(it.volume),
+                volume = it.volume,
                 comment = it.comment,
                 ingredient = it.ingredients,
                 type = it.type,

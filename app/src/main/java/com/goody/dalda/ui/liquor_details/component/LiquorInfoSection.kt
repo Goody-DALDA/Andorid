@@ -172,7 +172,7 @@ fun RowAbvVolume(
         )
         SecondFloorText(
             topText = "용량",
-            bottomText = if (alcoholData.volume != 0) alcoholData.volume.toString() + "ml" else ""
+            bottomText = alcoholData.volume
         )
     }
 }
@@ -202,7 +202,7 @@ private fun LiquorImageSectionPrev_soju() {
             name = "대선",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             tag = R.drawable.tag_soju,
-            volume = 100,
+            volume = "100ml",
             price = 2900,
             abv = "18%",
             comment = "소주임"
@@ -239,7 +239,7 @@ private fun LiquorImageSectionPrev_sake() {
             name = "닷사이 준마이 다이긴죠 23",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             tag = R.drawable.tag_sake,
-            volume = 360,
+            volume = "360ml",
             price = 200000,
             abv = "18%",
             taste = "달콤함",

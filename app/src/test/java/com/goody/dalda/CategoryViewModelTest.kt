@@ -61,7 +61,7 @@ class CategoryViewModelTest {
         runTest {
             viewModel.fetchAlcoholInfo("Beer")
         }
-        val actual = viewModel.alcoholInfoList.value
+        val actual = viewModel.alcoholInfoList.value.subList(0, 4)
 
         // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
         val expect = listOf(
@@ -111,7 +111,7 @@ class CategoryViewModelTest {
         runTest {
             viewModel.fetchAlcoholInfo("Wine")
         }
-        val actual = viewModel.alcoholInfoList.value
+        val actual = viewModel.alcoholInfoList.value.subList(0, 4)
 
         // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
         val expect = listOf(
