@@ -111,7 +111,7 @@
       "name": "월계관 준마이750",
       "img": "https://kihyatr7690.cdn-nhncommerce.com/data/goods/23/11/48/1000001454/pm-GEKKEIKAN%20Junmai%20750.png",
       "price": "21,000원",
-      "country": "\b일본",
+      "country": "일본",
       "volume": "750ml",
       "aroma": "허브향, 자몽, 가벼운 흙냄새",
       "taste": "깔끔한 산도, 미네랄, 균형잡힌 맛",
@@ -1554,7 +1554,7 @@
       "name": "이이치코 수퍼",
       "img": "https://kihyatr7690.cdn-nhncommerce.com/data/goods/24/04/16/1000004464/pm-Iichiko-Super.png",
       "price": "89,000원",
-      "country": "\b일본",
+      "country": "일본",
       "volume": "900ml",
       "aroma": "코끝을 간질이는 듯한 은은한 보리 향",
       "taste": "3가지 원주의 조화로 슈퍼한 맛, 부드러운 호박색",
@@ -1806,7 +1806,7 @@
       "aroma": "달콤한 바나나 향, 부드러운 우유 향",
       "taste": "바나나 우유를 연상시키는 크리미한 맛",
       "finish": "달콤한 바나나 향의 여운, 깔끔한 마무리",
-      "abv": "5%",
+      "abv": "5~6%",
       "category": "Sake"
     },
     {
@@ -2508,7 +2508,7 @@
       "aroma": "신선하고 열대적인 파인애플 향",
       "taste": "달콤하면서도 산뜻한 파인애플 맛, 사케의 깔끔한 풍미",
       "finish": "파인애플의 향긋한 여운, 깨끗한 뒷맛",
-      "abv": "5%",
+      "abv": "5~6%",
       "category": "Sake"
     },
     {
