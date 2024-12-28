@@ -2,6 +2,7 @@ package com.goody.dalda.ui.category
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.goody.dalda.data.AlcoholCategoryStatus
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.repository.home.AlcoholRepository
@@ -44,7 +45,13 @@ class CategoryViewModel @Inject constructor(private val alcoholRepository: Alcoh
         )
 
     // 카테고리
-    private val _category = MutableStateFlow(AlcoholType.entries.map { it.alcoholName })
+    private val _category = MutableStateFlow(
+        AlcoholType.entries.filter {
+            it.categoryStatus == AlcoholCategoryStatus.RELEASE
+        }.map {
+            it.alcoholName
+        }
+    )
     val category: StateFlow<List<String>> = _category
 
     suspend fun fetchAlcoholInfo(category: String) {

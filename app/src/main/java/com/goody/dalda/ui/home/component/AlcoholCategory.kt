@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.goody.dalda.data.AlcoholCategoryStatus
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.component.AutoResizedText
+import com.goody.dalda.ui.home.component.iconpack.IcComingSoon
 
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -56,18 +57,36 @@ fun AlcoholTap(
 ) {
     Column(
         modifier = modifier
-            .clickable { onClick() }
+            .clickable {
+                if (alcoholType.categoryStatus == AlcoholCategoryStatus.RELEASE) {
+                    onClick()
+                }
+            }
     ) {
-        Image(
-            painter = painterResource(id = alcoholType.image),
-            contentDescription = "",
-            modifier = Modifier
-                .width(80.dp)
-                .height(78.dp)
-                .align(Alignment.CenterHorizontally)
-                .fillMaxSize()
-                .clickable { onClick() }
-        )
+        Box(
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Image(
+                painter = painterResource(id = alcoholType.image),
+                contentDescription = "",
+                modifier = Modifier
+                    .width(80.dp)
+                    .height(78.dp)
+                    .fillMaxSize()
+            )
+
+            if (alcoholType.categoryStatus != AlcoholCategoryStatus.RELEASE) {
+                Image(
+                    imageVector = IconPack.IcComingSoon,
+                    contentDescription = "",
+                    modifier = Modifier
+                        .width(80.dp)
+                        .height(78.dp)
+                        .fillMaxSize()
+                )
+            }
+        }
+
         Box(
             modifier = Modifier
                 .fillMaxWidth(),
