@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.home.component
+package com.goody.dalda.ui.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -39,8 +39,8 @@ import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
-import com.goody.dalda.ui.search.SearchResult
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -35,12 +35,12 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
-import com.goody.dalda.ui.home.component.AlcoholSearchBar
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
 import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
+import com.goody.dalda.ui.search.AlcoholSearchBar
 import kotlinx.coroutines.launch
 
 @Composable
