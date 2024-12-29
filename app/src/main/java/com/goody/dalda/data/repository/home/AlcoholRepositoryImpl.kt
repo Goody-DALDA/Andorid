@@ -8,8 +8,10 @@ import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wine
 import com.goody.dalda.data.dto.home.Wisky
+import com.goody.dalda.data.dto.search.SearchData
 import com.goody.dalda.data.mapper.AlcoholInfoMapper.dataToAlcoholData
 import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSource
+import com.goody.dalda.data.repository.SearchAlcoholData
 import javax.inject.Inject
 
 class AlcoholRepositoryImpl @Inject constructor(
@@ -28,33 +30,44 @@ class AlcoholRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getSearchedAlcoholInfo(query: String): SearchAlcoholData {
+        val response = alcoholInfoRemoteDataSource.getSearchedAlcoholInfo(query = query)
+
+        if (response.isSuccessful) {
+            val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
+            return searchResultDtoToSearchAlcoholData(searchResultDto.searchData)
+        } else {
+            throw Exception("Failed to get searched alcohol info")
+        }
+    }
+
     private fun alcoholInfoDtoToAlcoholData(
         category: String,
         alcoholInfoDto: AlcoholInfoDto
     ): List<AlcoholData> {
         when (category.lowercase()) {
             "soju" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Soju>())
+                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Soju>())
             }
 
             "wisky" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Wisky>())
+                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Wisky>())
             }
 
             "beer" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Beer>())
+                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Beer>())
             }
 
             "wine" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Wine>())
+                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Wine>())
             }
 
             "traditionalliquor" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<TraditionalLiquor>())
+                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<TraditionalLiquor>())
             }
 
             "sake" -> {
-                return dataToAlcoholData(alcoholInfoDto.data.filterIsInstance<Sake>())
+                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Sake>())
             }
 
             else -> {
@@ -63,5 +76,14 @@ class AlcoholRepositoryImpl @Inject constructor(
         }
     }
 
-
+    private fun searchResultDtoToSearchAlcoholData(searchResultDto: SearchData): SearchAlcoholData {
+        return SearchAlcoholData(
+            sojuList = dataToAlcoholData(searchResultDto.soju).map { it as AlcoholData.Soju },
+            beerList = dataToAlcoholData(searchResultDto.beer).map { it as AlcoholData.Beer },
+            sakeList = dataToAlcoholData(searchResultDto.sake).map { it as AlcoholData.Sake },
+            wineList = dataToAlcoholData(searchResultDto.wine).map { it as AlcoholData.Wine },
+            wiskyList = dataToAlcoholData(searchResultDto.wisky).map { it as AlcoholData.Wisky },
+            traditionalLiquorList = dataToAlcoholData(searchResultDto.traditionalLiquor).map { it as AlcoholData.TraditionalLiquor }
+        )
+    }
 }

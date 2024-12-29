@@ -3,6 +3,7 @@ package com.goody.dalda.network
 import com.goody.dalda.data.dto.LoginDto
 import com.goody.dalda.data.dto.home.AlcoholInfoDto
 import com.goody.dalda.data.dto.ProfileDto
+import com.goody.dalda.data.dto.search.SearchResultDto
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -28,4 +29,10 @@ interface RetrofitService {
     suspend fun getAlcoholInfo(
         @Query("category") category: String
     ): Response<AlcoholInfoDto>
+
+    @Headers("Content-Type: application/json")
+    @GET("/api/search/list")
+    suspend fun getSearchedAlcoholInfo(
+        @Query("name") name: String
+    ): Response<SearchResultDto>
 }
