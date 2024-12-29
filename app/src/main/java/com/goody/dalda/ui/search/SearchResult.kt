@@ -64,70 +64,70 @@ private fun SearchResultScreenPreview() {
             imgUrl = "https://picsum.photos/id/237/200/300",
             name = "SOJU_1",
             type = AlcoholType.SOJU,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "WHISKEY_1",
-            type = AlcoholType.WHISKEY,
-            abv = 2.3f
+            type = AlcoholType.WISKY,
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "WHISKEY_2",
-            type = AlcoholType.WHISKEY,
-            abv = 2.3f
+            type = AlcoholType.WISKY,
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_1",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_2",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
 
         )

@@ -1,0 +1,90 @@
+package com.goody.dalda.data.dto.home
+
+sealed class Data
+
+data class Wisky(
+    val id: Int,
+    val abv: String,
+    val aroma: String,
+    val category: String,
+    val country: String,
+    val finish: String,
+    val img: String,
+    val name: String,
+    val price: String,
+    val taste: String,
+    val type: String,
+    val volume: String
+) : Data()
+
+data class Beer(
+    val id: Int,
+    val abv: String,
+    val appearance: Float,
+    val aroma: Float,
+    val category: String,
+    val country: String,
+    val flavor: Float,
+    val img: String,
+    val mouthfeel: Float,
+    val name: String,
+    val type: String,
+    val enName: String
+) : Data()
+
+data class Soju(
+    val id: Int,
+    val abv: String,
+    val category: String,
+    val comment: String,
+    val img: String,
+    val name: String,
+    val price: String,
+    val volume: String
+) : Data()
+
+data class Wine(
+    val id: Int,
+    val acid: Float,
+    val body: Float,
+    val comment: String,
+    val country: String,
+    val enName: String,
+    val img: String,
+    val ingredients: String,
+    val name: String,
+    val pairingFood: String,
+    val sugar: Float,
+    val type: String,
+    val volume: String,
+    val winery: String,
+    val category: String
+) : Data()
+
+data class Sake(
+    val id: Int,
+    val abv: String,
+    val aroma: String,
+    val category: String,
+    val country: String,
+    val finish: String,
+    val img: String,
+    val name: String,
+    val price: String,
+    val taste: String,
+    val volume: String
+) : Data()
+
+data class TraditionalLiquor(
+    val id: Int,
+    val name: String,
+    val img: String,
+    val type: String,
+    val ingredients: String,
+    val abv: String,
+    val volume: String,
+    val comment: String,
+    val pairingFood: String,
+    val brewery: String,
+    val category: String
+) : Data()

@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.home
+package com.goody.dalda.ui.category
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,37 +8,44 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.goody.dalda.base.BaseFragment
-import com.goody.dalda.databinding.FragmentHomeBinding
+import com.goody.dalda.databinding.FragmentCategoryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
-    private val viewModel: HomeViewModel by viewModels()
+    private val args: CategoryFragmentArgs by navArgs()
+    private val viewModel: CategoryViewModel by viewModels()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
-        get() = FragmentHomeBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCategoryBinding
+        get() = FragmentCategoryBinding::inflate
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-
             setContent {
                 MaterialTheme {
-                    HomeScreen(
+                    CategoryScreen(
                         modifier = Modifier,
                         viewModel = viewModel,
-                        onClickAlcohol = {
-                            findNavController().navigate(
-                                HomeFragmentDirections.actionNavigationHomeToCategoryFragment(it)
-                            )
-                        }
+                        alcoholType = args.category
                     )
                 }
             }
         }
+    }
+
+    companion object {
+        fun newInstance() = CategoryFragment()
     }
 }

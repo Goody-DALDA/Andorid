@@ -41,7 +41,6 @@ import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.SearchResult
-import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +57,8 @@ fun AlcoholSearchBar(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .semantics { isTraversalGroup = true }) {
+            .semantics { isTraversalGroup = true }
+    ) {
         SearchBar(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -164,8 +164,8 @@ fun AlcoholChip(
 @Preview(showBackground = true)
 @Composable
 private fun SearchBarPreview() {
-    var text by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var text by rememberSaveable { mutableStateOf("beer") }
+    var expanded by rememberSaveable { mutableStateOf(true) }
     val recentSearchWordList = listOf("소주", "맥주", "막걸리")
     val alcoholInfoList = listOf(
         AlcoholInfo(
@@ -173,42 +173,42 @@ private fun SearchBarPreview() {
             imgUrl = "https://picsum.photos/id/237/200/300",
             name = "SOJU_1",
             type = AlcoholType.SOJU,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "WHISKEY_1",
-            type = AlcoholType.WHISKEY,
-            abv = 2.3f
+            type = AlcoholType.WISKY,
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "WHISKEY_2",
-            type = AlcoholType.WHISKEY,
-            abv = 2.3f
+            type = AlcoholType.WISKY,
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_1",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_2",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "https://fastly.picsum.photos/id/237/200/300",
             name = "BEER_3",
             type = AlcoholType.BEER,
-            abv = 2.3f
+            abv = "2.3%"
         ),
     )
 
@@ -228,7 +228,7 @@ private fun SearchBarPreview() {
 @Composable
 private fun EmptySearchBarPreview() {
     var text by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(true) }
     val recentSearchWordList = listOf("소주", "맥주", "막걸리")
 
     AlcoholSearchBar(

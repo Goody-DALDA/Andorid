@@ -1,6 +1,7 @@
 package com.goody.dalda.network
 
 import com.goody.dalda.BuildConfig
+import com.goody.dalda.data.converter.DynamicConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,7 +9,6 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 
@@ -40,7 +40,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.SERVER_API_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(DynamicConverterFactory())
             .build()
     }
 

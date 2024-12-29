@@ -5,5 +5,5 @@ data class AlcoholInfo(
     val imgUrl: String,
     val name: String,
     val type: AlcoholType,
-    val abv: Float
+    val abv: String
 )

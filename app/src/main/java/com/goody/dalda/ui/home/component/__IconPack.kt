@@ -2,6 +2,7 @@ package com.goody.dalda.ui.home.component
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
+import com.goody.dalda.ui.home.component.iconpack.IcComingSoon
 import com.goody.dalda.ui.home.component.iconpack.IcInsta
 import com.goody.dalda.ui.home.component.iconpack.IcLink
 import com.goody.dalda.ui.home.component.iconpack.IcMenuDot
@@ -16,6 +17,6 @@ public val IconPack.AllIcons: ____KtList<ImageVector>
     if (__AllIcons != null) {
       return __AllIcons!!
     }
-    __AllIcons= listOf(IcInsta, IcLink, IcMenuDot, IcCamera)
+    __AllIcons= listOf(IcInsta, IcLink, IcMenuDot, IcCamera, IcComingSoon)
     return __AllIcons!!
   }

@@ -24,7 +24,7 @@ import com.goody.dalda.data.AlcoholType
 @Composable
 fun FavoriteAlcohol(
     modifier: Modifier = Modifier,
-    alcoholInfoList: List<AlcoholInfo> = emptyList(),
+    favoriteAlcoholInfoList: List<AlcoholInfo> = emptyList(),
     onActionClick: () -> Unit = {}
 ) {
     Column(
@@ -38,7 +38,7 @@ fun FavoriteAlcohol(
             actionText = stringResource(id = R.string.text_whole_view),
             onActionClick = { onActionClick() }
         )
-        if (alcoholInfoList.isEmpty()) {
+        if (favoriteAlcoholInfoList.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
@@ -67,12 +67,12 @@ fun FavoriteAlcohol(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(alcoholInfoList.size) { idx ->
+                items(favoriteAlcoholInfoList.size) { idx ->
                     AlcoholCard(
-                        imgUrl = alcoholInfoList[idx].imgUrl,
-                        name = alcoholInfoList[idx].name,
-                        category = alcoholInfoList[idx].type.alcoholName,
-                        alcohol = alcoholInfoList[idx].abv.toString(),
+                        imgUrl = favoriteAlcoholInfoList[idx].imgUrl,
+                        name = favoriteAlcoholInfoList[idx].name,
+                        category = favoriteAlcoholInfoList[idx].type.alcoholName,
+                        alcohol = favoriteAlcoholInfoList[idx].abv.toString(),
                     )
                 }
             }
@@ -89,39 +89,39 @@ private fun FavoriteAlcoholPreview() {
             imgUrl = "",
             name = "소주",
             type = AlcoholType.SOJU,
-            abv = 20.0f,
+            abv = "20.0%",
         ),
         AlcoholInfo(
             id = 1,
             imgUrl = "",
             name = "맥주",
             type = AlcoholType.BEER,
-            abv = 4.5f,
+            abv = "4.5%",
         ),
         AlcoholInfo(
             id = 2,
             imgUrl = "",
             name = "와인",
             type = AlcoholType.WINE,
-            abv = 13.0f,
+            abv = "13.0%",
         ),
         AlcoholInfo(
             id = 3,
             imgUrl = "",
             name = "위스키",
-            type = AlcoholType.WHISKEY,
-            abv = 40.0f,
+            type = AlcoholType.WISKY,
+            abv = "40.0%",
         ),
         AlcoholInfo(
             id = 4,
             imgUrl = "",
             name = "위스키",
-            type = AlcoholType.WHISKEY,
-            abv = 40.0f,
+            type = AlcoholType.WISKY,
+            abv = "40.0%",
         )
     )
     FavoriteAlcohol(
-        alcoholInfoList = alcoholInfoList
+        favoriteAlcoholInfoList = alcoholInfoList
     )
 }
 

@@ -56,7 +56,7 @@ fun BasicInfo(
         is AlcoholData.Soju,
         is AlcoholData.Beer,
         is AlcoholData.Sake,
-        is AlcoholData.Whiskey -> {
+        is AlcoholData.Wisky -> {
             BasicInfoWithCountry(
                 modifier = modifier,
                 alcoholData = alcoholData
@@ -164,7 +164,7 @@ fun RowAbvVolume(
     ) {
         SecondFloorText(
             topText = "도수",
-            bottomText = if (alcoholData.abv != 0f) alcoholData.abv.toString() + "%" else ""
+            bottomText = alcoholData.abv
         )
 
         VerticalDivider(
@@ -172,7 +172,7 @@ fun RowAbvVolume(
         )
         SecondFloorText(
             topText = "용량",
-            bottomText = if (alcoholData.volume != 0) alcoholData.volume.toString() + "ml" else ""
+            bottomText = alcoholData.volume
         )
     }
 }
@@ -202,9 +202,9 @@ private fun LiquorImageSectionPrev_soju() {
             name = "대선",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             tag = R.drawable.tag_soju,
-            volume = 100,
+            volume = "100ml",
             price = 2900,
-            abv = 18f,
+            abv = "18%",
             comment = "소주임"
         )
     )
@@ -219,7 +219,7 @@ private fun LiquorImageSectionPrev_beer() {
             name = "1664 블랑",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             tag = R.drawable.tag_beer,
-            abv = 18f,
+            abv = "18%",
             appearance = 18f,
             flavor = 18f,
             mouthfeel = 18f,
@@ -239,13 +239,12 @@ private fun LiquorImageSectionPrev_sake() {
             name = "닷사이 준마이 다이긴죠 23",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             tag = R.drawable.tag_sake,
-            volume = 360,
+            volume = "360ml",
             price = 200000,
-            abv = 18f,
+            abv = "18%",
             taste = "달콤함",
             aroma = "향기",
             finish = "맛",
-            type = "사케",
             country = "일본"
         )
     )

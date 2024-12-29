@@ -18,7 +18,7 @@ enum class AlcoholType(
         image = R.drawable.img_beer,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
-    TRADITIONAL(
+    TRADITIONALLIQUOR(
         alcoholName = "전통주",
         image = R.drawable.img_traditional_alcohol,
         categoryStatus = AlcoholCategoryStatus.RELEASE
@@ -33,7 +33,7 @@ enum class AlcoholType(
         image = R.drawable.img_wine,
         categoryStatus = AlcoholCategoryStatus.RELEASE
     ),
-    WHISKEY(
+    WISKY(
         alcoholName = "위스키",
         image = R.drawable.img_wisky,
         categoryStatus = AlcoholCategoryStatus.RELEASE
