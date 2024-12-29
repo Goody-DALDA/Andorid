@@ -200,7 +200,7 @@ class CategoryViewModelTest {
         // when : Beer 카테고리를 호출한다.
         val actual = runCatching {
             runTest {
-                viewModel.fetchAlcoholInfo("Traditional")
+                viewModel.fetchAlcoholInfo("TraditionalLiquor")
             }
         }
         // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
