@@ -51,7 +51,7 @@ fun AlcoholCard(
             )
 
             AutoResizedText(
-                text = "$alcohol%",
+                text = alcohol,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }

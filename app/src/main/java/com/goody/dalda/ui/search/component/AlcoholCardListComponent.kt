@@ -31,7 +31,7 @@ fun AlcoholCardListComponent(
                 imgUrl = alcoholInfo.imgUrl,
                 name = alcoholInfo.name,
                 category = alcoholInfo.type.alcoholName,
-                alcohol = alcoholInfo.abv.toString()
+                alcohol = alcoholInfo.abv
             )
         }
         item(span = { GridItemSpan(2) }) {
