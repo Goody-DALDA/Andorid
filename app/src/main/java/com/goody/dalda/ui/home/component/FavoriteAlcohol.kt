@@ -72,7 +72,7 @@ fun FavoriteAlcohol(
                         imgUrl = favoriteAlcoholInfoList[idx].imgUrl,
                         name = favoriteAlcoholInfoList[idx].name,
                         category = favoriteAlcoholInfoList[idx].type.alcoholName,
-                        alcohol = favoriteAlcoholInfoList[idx].abv.toString(),
+                        abv = favoriteAlcoholInfoList[idx].abv.toString(),
                     )
                 }
             }

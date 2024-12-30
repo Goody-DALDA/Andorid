@@ -1,6 +1,8 @@
 package com.goody.dalda.ui.search.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -20,10 +22,11 @@ fun AlcoholCardListComponent(
     footer: @Composable () -> Unit = {}
 ) {
     LazyVerticalGrid(
-        modifier = modifier,
+        modifier = modifier.padding(vertical = 16.dp),
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(horizontal = 20.dp)
     ) {
         items(alcoholInfoList) { alcoholInfo ->
             AlcoholCard(
@@ -31,7 +34,7 @@ fun AlcoholCardListComponent(
                 imgUrl = alcoholInfo.imgUrl,
                 name = alcoholInfo.name,
                 category = alcoholInfo.type.alcoholName,
-                alcohol = alcoholInfo.abv
+                abv = alcoholInfo.abv
             )
         }
         item(span = { GridItemSpan(2) }) {
@@ -41,7 +44,9 @@ fun AlcoholCardListComponent(
 }
 
 
-@Preview
+@Preview(
+    showBackground = true
+)
 @Composable
 private fun AlcoholCardListComponentPrev() {
     val alcoholInfoList = listOf(

@@ -1,13 +1,17 @@
 package com.goody.dalda.ui.home.component
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,10 +26,11 @@ fun AlcoholCard(
     imgUrl: String,
     name: String,
     category: String,
-    alcohol: String
+    abv: String
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
             model = imgUrl,
@@ -33,15 +38,17 @@ fun AlcoholCard(
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
-                .size(152.dp)
+                .height(152.dp)
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
         )
         AutoResizedText(
             text = name,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier
+            modifier = Modifier.align(Alignment.Start)
         )
         Row(
-            modifier = Modifier,
+            modifier = Modifier.align(Alignment.Start),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -51,7 +58,7 @@ fun AlcoholCard(
             )
 
             AutoResizedText(
-                text = alcohol,
+                text = abv,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
@@ -65,6 +72,6 @@ private fun AlcoholCardPreview() {
         imgUrl = "",
         name = "소주",
         category = "소주",
-        alcohol = "13.00"
+        abv = "13.00"
     )
 }
