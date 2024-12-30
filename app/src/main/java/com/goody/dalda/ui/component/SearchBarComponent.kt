@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowLeft
 import androidx.compose.material.icons.outlined.Clear
@@ -32,6 +33,7 @@ fun SearchBarComponent(
     trailingIcon: ImageVector,
     onValueChange: (String) -> Unit = {},
     onClickBackIcon: () -> Unit = {},
+    onClickLeadingIcon: (String) -> Unit = {},
     onClickTrailingIcon: () -> Unit = {}
 ) {
     Row(
@@ -58,6 +60,7 @@ fun SearchBarComponent(
             placeholder = { Text(text = placeholder) },
             leadingIcon = {
                 Icon(
+                    modifier = Modifier.clickable { onClickLeadingIcon(query) },
                     imageVector = leadingIcon,
                     contentDescription = null
                 )
@@ -85,6 +88,14 @@ fun SearchBarComponent(
                 }
             },
             shape = RoundedCornerShape(18.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = androidx.compose.ui.text.input.ImeAction.Search
+            ),
+            keyboardActions = androidx.compose.foundation.text.KeyboardActions(
+                onSearch = {
+                    onClickLeadingIcon(query)
+                }
+            )
         )
     }
 }

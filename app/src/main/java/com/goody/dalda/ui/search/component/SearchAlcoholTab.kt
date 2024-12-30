@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.search.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -31,6 +32,7 @@ fun SearchAlcoholTab(
     onSelectedIndex: (Int) -> Unit = {}
 ) {
     TabRow(
+        modifier = modifier,
         selectedTabIndex = selectedIndex,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
@@ -43,18 +45,22 @@ fun SearchAlcoholTab(
             Tab(
                 selected = selectedIndex == index,
                 onClick = { onSelectedIndex(index) },
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .background(Color.White)
+                    .padding(16.dp),
                 unselectedContentColor = Color.Gray
             ) {
-                Row {
+                Row() {
                     Text(
                         modifier = Modifier.fillMaxHeight(),
                         text = type.alcoholName,
+                        maxLines = 1,
                         fontSize = 18.sp
                     )
                     Text(
                         modifier = Modifier.align(Alignment.Bottom),
                         text = " ${categoryCount[type]}",
+                        maxLines = 1,
                         color = colorResource(id = R.color.buttonBackground),
                         fontSize = 20.sp
                     )

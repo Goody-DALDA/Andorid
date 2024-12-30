@@ -1,5 +1,7 @@
 package com.goody.dalda.ui.home
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,12 +12,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +29,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,12 +40,15 @@ import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
+import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
 import com.goody.dalda.ui.home.component.HomeTopBar
+import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
+import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
 import com.goody.dalda.ui.search.AlcoholSearchBar
 import kotlinx.coroutines.launch
@@ -47,6 +57,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(),
+    onClickSearchBar: () -> Unit = {},
     onClickAlcohol: (AlcoholType) -> Unit = {}
 ) {
     val favoriteAlcoholInfoList by viewModel.favoriteAlcoholInfoList.collectAsStateWithLifecycle()
@@ -58,6 +69,8 @@ fun HomeScreen(
     var query by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(true) }
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
+
+    val searchResult by viewModel.searchAlcoholInfoList.collectAsStateWithLifecycle()
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -80,6 +93,7 @@ fun HomeScreen(
                 onQueryChange = { query = it },
                 onChangeSelectedItemIndex = { viewModel.setSelectedItemIndex(it) },
                 onClickAlcohol = onClickAlcohol,
+                onClickSearch = onClickSearchBar,
                 onChangeDrawerState = {
                     scope.launch {
                         drawerState.close()
@@ -96,6 +110,7 @@ fun HomeScreen(
         is HomeUiState.SearchState -> {
             AlcoholSearchBar(
                 query = query,
+                searchResultList = searchResult,
                 expanded = expanded,
                 modifier = Modifier
                     .padding(bottom = 30.dp)
@@ -133,6 +148,7 @@ fun HomeScreen(
     onExpandedChange: (Boolean) -> Unit = {},
     onQueryChange: (String) -> Unit = {},
     onChangeSelectedItemIndex: (Int) -> Unit = {},
+    onClickSearch: () ->Unit = {},
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onChangeDrawerState: () -> Unit = {},
     onClickMenu: () -> Unit = {},
@@ -191,17 +207,14 @@ fun HomeScreen(
                         }
                     }
 
-                    AlcoholSearchBar(
+                    Image(
                         modifier = Modifier
-                            .padding(bottom = 30.dp)
                             .fillMaxWidth()
-                            .fillMaxHeight()
-                            .wrapContentHeight(),
-                        query = query,
-                        expanded = false,
-                        onQueryChange = onQueryChange,
-                        onExpandedChange = onExpandedChange,
-                        onSearch = {}
+                            .padding(bottom = 16.dp)
+                            .clickable { onClickSearch() },
+                        contentScale = ContentScale.FillWidth,
+                        painter = painterResource(id = R.drawable.img_search_bar),
+                        contentDescription = null,
                     )
 
                     AlcoholCategory(

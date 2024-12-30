@@ -28,7 +28,7 @@ import com.goody.dalda.R
 fun OtherAlcoholRecommend(
     modifier: Modifier = Modifier,
     category: String,
-    onClick: ()-> Unit = {}
+    onClick: () -> Unit = {}
 ) {
     Column(
         modifier = modifier

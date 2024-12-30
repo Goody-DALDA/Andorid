@@ -1,11 +1,13 @@
 package com.goody.dalda.ui.search
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.goody.dalda.data.AlcoholInfo
 import com.goody.dalda.data.AlcoholType
@@ -27,10 +29,10 @@ fun SearchResult(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
     ) {
         if (alcoholInfoList.isEmpty()) {
             RequestAdditional()
-
         } else {
             SearchAlcoholTab(
                 modifier = Modifier,

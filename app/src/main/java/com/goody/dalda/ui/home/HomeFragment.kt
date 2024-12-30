@@ -35,6 +35,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             findNavController().navigate(
                                 HomeFragmentDirections.actionNavigationHomeToCategoryFragment(it)
                             )
+                        },
+                        onClickSearchBar = {
+                            findNavController().navigate(
+                                HomeFragmentDirections.actionNavigationHomeToSearchFragment()
+                            )
                         }
                     )
                 }

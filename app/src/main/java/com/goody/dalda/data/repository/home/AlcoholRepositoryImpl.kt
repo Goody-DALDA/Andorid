@@ -41,6 +41,19 @@ class AlcoholRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getRecommendAlcoholList(query: String): List<String> {
+        val response = alcoholInfoRemoteDataSource.getRecommendAlcoholList(query)
+
+        if (response.isSuccessful) {
+            val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
+            return searchResultDto.recommendAlcoholInfoList.map {
+                it.name
+            }
+        } else {
+            throw Exception("Failed to get recommend alcohol list")
+        }
+    }
+
     private fun alcoholInfoDtoToAlcoholData(
         category: String,
         alcoholInfoDto: AlcoholInfoDto
@@ -86,4 +99,5 @@ class AlcoholRepositoryImpl @Inject constructor(
             traditionalLiquorList = dataToAlcoholData(searchResultDto.traditionalLiquor).map { it as AlcoholData.TraditionalLiquor }
         )
     }
+
 }
