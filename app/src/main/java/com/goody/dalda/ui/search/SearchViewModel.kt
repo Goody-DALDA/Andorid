@@ -3,8 +3,6 @@ package com.goody.dalda.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -38,8 +36,8 @@ class SearchViewModel @Inject constructor(
             initialValue = emptyList()
         )
 
-    private val _searchResultList = MutableStateFlow(emptyList<AlcoholInfo>())
-    val searchResultList: StateFlow<List<AlcoholInfo>> = _searchResultList
+    private val _searchResultList = MutableStateFlow(emptyList<AlcoholData>())
+    val searchResultList: StateFlow<List<AlcoholData>> = _searchResultList
 
 
     private val _uiState = MutableStateFlow<SearchUiState>(SearchUiState.RecentSearch)
@@ -63,36 +61,19 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun searchAlcoholInfo(query: String) {
+    fun searchAlcoholData(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val searchResult = alcoholRepository.getSearchedAlcoholInfo(query)
-            val alcoholInfoList = mutableListOf<AlcoholInfo>()
+            val searchResult = alcoholRepository.getSearchedAlcoholData(query)
+            val alcoholDataList = mutableListOf<AlcoholData>()
 
-            alcoholInfoList.addAll(searchResult.sojuList.map { it.toAlcoholInfo(AlcoholType.SOJU) })
-            alcoholInfoList.addAll(searchResult.beerList.map { it.toAlcoholInfo(AlcoholType.BEER) })
-            alcoholInfoList.addAll(searchResult.sakeList.map { it.toAlcoholInfo(AlcoholType.SAKE) })
-            alcoholInfoList.addAll(searchResult.wineList.map { it.toAlcoholInfo(AlcoholType.WINE) })
-            alcoholInfoList.addAll(searchResult.wiskyList.map { it.toAlcoholInfo(AlcoholType.WISKY) })
-            alcoholInfoList.addAll(searchResult.traditionalLiquorList.map {
-                it.toAlcoholInfo(
-                    AlcoholType.TRADITIONALLIQUOR
-                )
-            })
+            alcoholDataList.addAll(searchResult.beerList)
+            alcoholDataList.addAll(searchResult.sojuList)
+            alcoholDataList.addAll(searchResult.sakeList)
+            alcoholDataList.addAll(searchResult.wineList)
+            alcoholDataList.addAll(searchResult.wiskyList)
+            alcoholDataList.addAll(searchResult.traditionalLiquorList)
 
-            _searchResultList.value = alcoholInfoList
+            _searchResultList.value = alcoholDataList
         }
     }
-
-    private fun <T> T.toAlcoholInfo(type: AlcoholType): AlcoholInfo {
-        return when (this) {
-            is AlcoholData.Soju -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Beer -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Sake -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Wine -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Wisky -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.TraditionalLiquor -> AlcoholInfo(id, imgUrl, name, type, abv)
-            else -> throw IllegalArgumentException("Unknown alcohol type")
-        }
-    }
-
 }

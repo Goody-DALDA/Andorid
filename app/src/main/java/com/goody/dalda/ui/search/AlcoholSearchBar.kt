@@ -16,10 +16,6 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -29,8 +25,7 @@ import androidx.compose.ui.semantics.traversalIndex
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.component.AlcoholChipGrid
@@ -40,7 +35,7 @@ import com.goody.dalda.ui.search.component.AlcoholChipGrid
 fun AlcoholSearchBar(
     modifier: Modifier = Modifier,
     query: String,
-    searchResultList: List<AlcoholInfo> = emptyList(),
+    searchResultList: List<AlcoholData> = emptyList(),
     recentSearchWordList: List<String> = emptyList(),
     expanded: Boolean,
     onQueryChange: (String) -> Unit,
@@ -97,7 +92,7 @@ fun AlcoholSearchBar(
                 }
             } else {
                 SearchResult(
-                    modifier = Modifier, alcoholInfoList = searchResultList
+                    modifier = Modifier, alcoholDataList = searchResultList
                 )
             }
         }
@@ -106,81 +101,57 @@ fun AlcoholSearchBar(
 
 @Preview(showBackground = true)
 @Composable
-private fun SearchBarPreview() {
-    var text by rememberSaveable { mutableStateOf("beer") }
-    var expanded by rememberSaveable { mutableStateOf(true) }
-    val recentSearchWordList = listOf("소주", "맥주", "막걸리")
-    val alcoholInfoList = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://picsum.photos/id/237/200/300",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
+private fun AlcoholSearchBarPreview() {
+    val searchResultList = listOf(
+        AlcoholData.Wisky(
+            id = 0,
+            name = "위스키",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_whiskey,
+            volume = "750ml",
+            abv = "40%",
+            type = "위스키",
+            country = "스코틀랜드",
+            price = 170000,
+            taste = "써요",
+            aroma = "부드러워요",
+            finish = "깔끔해요",
         ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
+        AlcoholData.Beer(
+            id = 0,
+            name = "카스",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_beer,
+            volume = "355ml",
+            abv = "4.5%",
+            appearance = 2.28f,
+            flavor = 4.4f,
+            mouthfeel = 2.0f,
+            aroma = 3.3f,
+            type = "밀맥주",
+            country = "독일"
         ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_1",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_2",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
+        AlcoholData.Sake(
+            id = 0,
+            name = "사케",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_sake,
+            volume = "750ml",
+            abv = "15%",
+            price = 30000,
+            taste = "달아요",
+            aroma = "좋아요", country = "Mali", finish = "doming",
+        )
     )
 
     AlcoholSearchBar(
         modifier = Modifier,
-        query = text,
-        searchResultList = alcoholInfoList,
-        recentSearchWordList = recentSearchWordList,
-        expanded = expanded,
-        onQueryChange = { text = it },
-        onExpandedChange = { expanded = it },
-        onSearch = {},
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun EmptySearchBarPreview() {
-    var text by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(true) }
-    val recentSearchWordList = listOf("소주", "맥주", "막걸리")
-
-    AlcoholSearchBar(
-        modifier = Modifier,
-        query = text,
-        recentSearchWordList = recentSearchWordList,
-        expanded = expanded,
-        onQueryChange = { text = it },
-        onExpandedChange = { expanded = it },
-        onSearch = {},
+        query = "",
+        searchResultList = searchResultList,
+        recentSearchWordList = listOf("소주", "맥주", "와인", "위스키", "소맥"),
+        expanded = false,
+        onQueryChange = {},
+        onExpandedChange = {},
+        onSearch = {}
     )
 }

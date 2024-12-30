@@ -19,23 +19,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun AlcoholCard(
     modifier: Modifier = Modifier,
-    imgUrl: String,
-    name: String,
-    alcoholType: AlcoholType,
-    abv: String
+    alcoholData: AlcoholData
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
-            model = imgUrl,
+            model = alcoholData.imgUrl,
             contentDescription = "",
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.FillHeight,
@@ -45,7 +42,7 @@ fun AlcoholCard(
                 .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
         )
         AutoResizedText(
-            text = name,
+            text = alcoholData.name,
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.align(Alignment.Start)
         )
@@ -55,40 +52,41 @@ fun AlcoholCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(getTagImgRes(alcoholType)),
+                painter = painterResource(getTagImgRes(alcoholData)),
                 contentDescription = "",
                 modifier = Modifier.height(16.dp),
                 contentScale = ContentScale.FillHeight
             )
 
             AutoResizedText(
-                text = abv,
+                text = alcoholData.abv,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
 }
 
-@Composable
-private fun getTagImgRes(alcoholType: AlcoholType) = when (alcoholType) {
-    AlcoholType.SOJU -> R.drawable.tag_soju
-    AlcoholType.BEER -> R.drawable.tag_beer
-    AlcoholType.TRADITIONALLIQUOR -> R.drawable.tag_traditional_liquor
-    AlcoholType.WINE -> R.drawable.tag_wine
-    AlcoholType.WISKY -> R.drawable.tag_whiskey
-    AlcoholType.SAKE -> R.drawable.tag_sake
-    AlcoholType.BOILERMAKER -> TODO()
-    AlcoholType.COCKTAIL -> TODO()
+fun getTagImgRes(alcoholData: AlcoholData) = when (alcoholData) {
+    is AlcoholData.Soju -> R.drawable.tag_soju
+    is AlcoholData.Beer -> R.drawable.tag_beer
+    is AlcoholData.TraditionalLiquor -> R.drawable.tag_traditional_liquor
+    is AlcoholData.Wine -> R.drawable.tag_wine
+    is AlcoholData.Sake -> R.drawable.tag_sake
+    is AlcoholData.Wisky -> R.drawable.tag_whiskey
 }
-
 
 @Preview(showBackground = true)
 @Composable
 private fun AlcoholCardPreview() {
     AlcoholCard(
-        imgUrl = "",
-        name = "소주",
-        alcoholType = AlcoholType.SOJU,
-        abv = "13.00"
+        alcoholData = AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            volume = "355ml",
+            abv = "4.5%",
+            price = 1000,
+            comment = "맛있어요"
+        )
     )
 }

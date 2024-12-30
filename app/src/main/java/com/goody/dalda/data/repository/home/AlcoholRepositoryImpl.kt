@@ -1,7 +1,7 @@
 package com.goody.dalda.data.repository.home
 
 import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.dto.home.AlcoholInfoDto
+import com.goody.dalda.data.dto.home.AlcoholDataDto
 import com.goody.dalda.data.dto.home.Beer
 import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
@@ -9,29 +9,29 @@ import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wine
 import com.goody.dalda.data.dto.home.Wisky
 import com.goody.dalda.data.dto.search.SearchData
-import com.goody.dalda.data.mapper.AlcoholInfoMapper.dataToAlcoholData
-import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSource
+import com.goody.dalda.data.mapper.AlcoholDataMapper.dataToAlcoholData
+import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.repository.SearchAlcoholData
 import javax.inject.Inject
 
 class AlcoholRepositoryImpl @Inject constructor(
-    private val alcoholInfoRemoteDataSource: AlcoholInfoRemoteDataSource
+    private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
 ) : AlcoholRepository {
-    override suspend fun getAlcoholInfo(category: String): List<AlcoholData> {
-        val response = alcoholInfoRemoteDataSource.getAlcoholInfo(
+    override suspend fun getAlcoholData(category: String): List<AlcoholData> {
+        val response = alcoholDataRemoteDataSource.getAlcoholData(
             category = category
         )
 
         if (response.isSuccessful) {
-            val alcoholInfoDto = requireNotNull(response.body()) { "Response body is null" }
-            return alcoholInfoDtoToAlcoholData(category, alcoholInfoDto)
+            val alcoholDataDto = requireNotNull(response.body()) { "Response body is null" }
+            return alcoholDataDtoToAlcoholData(category, alcoholDataDto)
         } else {
             throw Exception("Failed to get alcohol info")
         }
     }
 
-    override suspend fun getSearchedAlcoholInfo(query: String): SearchAlcoholData {
-        val response = alcoholInfoRemoteDataSource.getSearchedAlcoholInfo(query = query)
+    override suspend fun getSearchedAlcoholData(query: String): SearchAlcoholData {
+        val response = alcoholDataRemoteDataSource.getSearchedAlcoholData(query = query)
 
         if (response.isSuccessful) {
             val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
@@ -42,7 +42,7 @@ class AlcoholRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getRecommendAlcoholList(query: String): List<String> {
-        val response = alcoholInfoRemoteDataSource.getRecommendAlcoholList(query)
+        val response = alcoholDataRemoteDataSource.getRecommendAlcoholList(query)
 
         if (response.isSuccessful) {
             val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
@@ -54,33 +54,33 @@ class AlcoholRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun alcoholInfoDtoToAlcoholData(
+    private fun alcoholDataDtoToAlcoholData(
         category: String,
-        alcoholInfoDto: AlcoholInfoDto
+        alcoholDataDto: AlcoholDataDto
     ): List<AlcoholData> {
         when (category.lowercase()) {
             "soju" -> {
-                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Soju>())
+                return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Soju>())
             }
 
             "wisky" -> {
-                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Wisky>())
+                return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Wisky>())
             }
 
             "beer" -> {
-                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Beer>())
+                return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Beer>())
             }
 
             "wine" -> {
-                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Wine>())
+                return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Wine>())
             }
 
             "traditionalliquor" -> {
-                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<TraditionalLiquor>())
+                return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<TraditionalLiquor>())
             }
 
             "sake" -> {
-                return dataToAlcoholData(alcoholInfoDto.alcoholInfoData.filterIsInstance<Sake>())
+                return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Sake>())
             }
 
             else -> {

@@ -3,7 +3,7 @@ package com.goody.dalda.ui.category
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholCategoryStatus
-import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,16 +26,16 @@ class CategoryViewModel @Inject constructor(private val alcoholRepository: Alcoh
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
 
-    // 주류 정보 호출 로직AlcoholInfo
-    private val _alcoholInfoList = MutableStateFlow(emptyList<AlcoholInfo>())
-    val alcoholInfoList: StateFlow<List<AlcoholInfo>> = _alcoholInfoList
+    // 주류 정보 호출 로직AlcoholData
+    private val _alcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
+    val alcoholDataList: StateFlow<List<AlcoholData>> = _alcoholDataList
 
     @OptIn(FlowPreview::class)
-    val alcoholInfoListWithQuery = query.combine(alcoholInfoList) { query, alcoholInfoList ->
+    val alcoholDataListWithQuery = query.combine(alcoholDataList) { query, alcoholDataList ->
         if (query.isEmpty()) {
-            alcoholInfoList
+            alcoholDataList
         } else {
-            alcoholInfoList.filter {
+            alcoholDataList.filter {
                 it.name.contains(query, ignoreCase = true)
             }
         }
@@ -56,19 +56,10 @@ class CategoryViewModel @Inject constructor(private val alcoholRepository: Alcoh
     )
     val category: StateFlow<List<String>> = _category
 
-    fun fetchAlcoholInfo(category: String) {
+    fun fetchAlcoholData(category: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _alcoholInfoList.value = alcoholRepository.getAlcoholInfo(category).map {
-                AlcoholInfo(
-                    id = it.id,
-                    name = it.name,
-                    imgUrl = it.imgUrl,
-                    type = AlcoholType.valueOf(category.uppercase()),
-                    abv = it.abv
-                )
-            }
+            _alcoholDataList.value = alcoholRepository.getAlcoholData(category)
         }
-
     }
 
     fun setQuery(query: String) {

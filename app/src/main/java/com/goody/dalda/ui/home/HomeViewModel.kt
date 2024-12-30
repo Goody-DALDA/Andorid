@@ -2,8 +2,6 @@ package com.goody.dalda.ui.home
 
 import androidx.lifecycle.ViewModel
 import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,11 +13,11 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
     ViewModel() {
 
-    private val _searchAlcoholInfoList = MutableStateFlow(emptyList<AlcoholInfo>())
-    val searchAlcoholInfoList: StateFlow<List<AlcoholInfo>> = _searchAlcoholInfoList
+    private val _searchAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
+    val searchAlcoholDataList: StateFlow<List<AlcoholData>> = _searchAlcoholDataList
 
-    private val _favoriteAlcoholInfoList = MutableStateFlow(emptyList<AlcoholInfo>())
-    val favoriteAlcoholInfoList: StateFlow<List<AlcoholInfo>> = _favoriteAlcoholInfoList
+    private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
+    val favoriteAlcoholDataList: StateFlow<List<AlcoholData>> = _favoriteAlcoholDataList
 
     private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
     val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
@@ -40,8 +38,8 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
     val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
 
 
-    fun setAlcoholInfoList(alcoholInfoList: List<AlcoholInfo>) {
-        _favoriteAlcoholInfoList.value = alcoholInfoList
+    fun setAlcoholDataList(alcoholDataList: List<AlcoholData>) {
+        _favoriteAlcoholDataList.value = alcoholDataList
     }
 
     fun setRecommendAlcoholList(recommendAlcoholList: List<RecommendAlcohol>) {
@@ -68,29 +66,17 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
         _selectedItemIndex.value = itemIndex
     }
 
-    suspend fun searchAlcoholInfo(query: String) {
-        val searchResult = alcoholRepository.getSearchedAlcoholInfo(query)
-        val alcoholInfoList = mutableListOf<AlcoholInfo>()
+    suspend fun searchAlcoholData(query: String) {
+        val searchResult = alcoholRepository.getSearchedAlcoholData(query)
+        val alcoholDataList = mutableListOf<AlcoholData>()
 
-        alcoholInfoList.addAll(searchResult.sojuList.map { it.toAlcoholInfo(AlcoholType.SOJU) })
-        alcoholInfoList.addAll(searchResult.beerList.map { it.toAlcoholInfo(AlcoholType.BEER) })
-        alcoholInfoList.addAll(searchResult.sakeList.map { it.toAlcoholInfo(AlcoholType.SAKE) })
-        alcoholInfoList.addAll(searchResult.wineList.map { it.toAlcoholInfo(AlcoholType.WINE) })
-        alcoholInfoList.addAll(searchResult.wiskyList.map { it.toAlcoholInfo(AlcoholType.WISKY) })
-        alcoholInfoList.addAll(searchResult.traditionalLiquorList.map { it.toAlcoholInfo(AlcoholType.TRADITIONALLIQUOR) })
+        alcoholDataList.addAll(searchResult.beerList)
+        alcoholDataList.addAll(searchResult.sakeList)
+        alcoholDataList.addAll(searchResult.sojuList)
+        alcoholDataList.addAll(searchResult.traditionalLiquorList)
+        alcoholDataList.addAll(searchResult.wineList)
+        alcoholDataList.addAll(searchResult.wiskyList)
 
-        _searchAlcoholInfoList.value = alcoholInfoList
-    }
-
-    private fun <T> T.toAlcoholInfo(type: AlcoholType): AlcoholInfo {
-        return when (this) {
-            is AlcoholData.Soju -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Beer -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Sake -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Wine -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.Wisky -> AlcoholInfo(id, imgUrl, name, type, abv)
-            is AlcoholData.TraditionalLiquor -> AlcoholInfo(id, imgUrl, name, type, abv)
-            else -> throw IllegalArgumentException("Unknown alcohol type")
-        }
+        _searchAlcoholDataList.value = alcoholDataList
     }
 }

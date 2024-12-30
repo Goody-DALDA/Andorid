@@ -18,13 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.data.AlcoholData
 
 @Composable
 fun FavoriteAlcohol(
     modifier: Modifier = Modifier,
-    favoriteAlcoholInfoList: List<AlcoholInfo> = emptyList(),
+    favoriteAlcoholDataList: List<AlcoholData> = emptyList(),
     onActionClick: () -> Unit = {}
 ) {
     Column(
@@ -38,7 +37,7 @@ fun FavoriteAlcohol(
             actionText = stringResource(id = R.string.text_whole_view),
             onActionClick = { onActionClick() }
         )
-        if (favoriteAlcoholInfoList.isEmpty()) {
+        if (favoriteAlcoholDataList.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
@@ -67,12 +66,9 @@ fun FavoriteAlcohol(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(favoriteAlcoholInfoList.size) { idx ->
+                items(favoriteAlcoholDataList.size) { idx ->
                     AlcoholCard(
-                        imgUrl = favoriteAlcoholInfoList[idx].imgUrl,
-                        name = favoriteAlcoholInfoList[idx].name,
-                        alcoholType = favoriteAlcoholInfoList[idx].type,
-                        abv = favoriteAlcoholInfoList[idx].abv,
+                        alcoholData = favoriteAlcoholDataList[idx]
                     )
                 }
             }
@@ -83,45 +79,61 @@ fun FavoriteAlcohol(
 @Preview(showBackground = true)
 @Composable
 private fun FavoriteAlcoholPreview() {
-    val alcoholInfoList = listOf(
-        AlcoholInfo(
+    val alcoholDataList = listOf(
+        AlcoholData.Wisky(
             id = 0,
-            imgUrl = "",
-            name = "소주",
-            type = AlcoholType.SOJU,
-            abv = "20.0%",
+            name = "위스키",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_whiskey,
+            volume = "750ml",
+            abv = "40%",
+            type = "위스키",
+            country = "스코틀랜드",
+            price = 170000,
+            taste = "써요",
+            aroma = "부드러워요",
+            finish = "깔끔해요",
         ),
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "",
-            name = "맥주",
-            type = AlcoholType.BEER,
+        AlcoholData.Beer(
+            id = 0,
+            name = "카스",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_beer,
+            volume = "355ml",
             abv = "4.5%",
+            appearance = 2.28f,
+            flavor = 4.4f,
+            mouthfeel = 2.0f,
+            aroma = 3.3f,
+            type = "밀맥주",
+            country = "독일"
         ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "",
-            name = "와인",
-            type = AlcoholType.WINE,
-            abv = "13.0%",
+        AlcoholData.Sake(
+            id = 0,
+            name = "사케",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_sake,
+            volume = "750ml",
+            abv = "15%",
+            price = 30000,
+            taste = "달아요",
+            aroma = "좋아요",
+            finish = "시원해요",
+            country = "일본",
         ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "",
-            name = "위스키",
-            type = AlcoholType.WISKY,
-            abv = "40.0%",
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "",
-            name = "위스키",
-            type = AlcoholType.WISKY,
-            abv = "40.0%",
+        AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_soju,
+            volume = "360ml",
+            abv = "17%",
+            price = 5000,
+            comment = "맛있어요"
         )
     )
     FavoriteAlcohol(
-        favoriteAlcoholInfoList = alcoholInfoList
+        favoriteAlcoholDataList = alcoholDataList
     )
 }
 

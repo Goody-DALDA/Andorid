@@ -3,7 +3,6 @@ package com.goody.dalda.ui.search
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -14,8 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
@@ -50,7 +48,7 @@ fun SearchScreen(
             }
         },
         onSearch = {
-            viewModel.searchAlcoholInfo(it)
+            viewModel.searchAlcoholData(it)
             viewModel.setUiState(SearchUiState.SearchResult)
         },
     )
@@ -61,7 +59,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
     uiState: SearchUiState,
     query: String,
-    searchResultList: List<AlcoholInfo> = emptyList(),
+    searchResultList: List<AlcoholData> = emptyList(),
     recentSearchWordList: List<String> = emptyList(),
     recommendAlcoholList: List<String> = emptyList(),
     onQueryChange: (String) -> Unit,
@@ -104,7 +102,7 @@ fun SearchScreen(
                 SearchUiState.SearchResult -> {
                     SearchResult(
                         modifier = Modifier,
-                        alcoholInfoList = searchResultList
+                        alcoholDataList = searchResultList
                     )
                 }
             }
@@ -112,135 +110,8 @@ fun SearchScreen(
     }
 }
 
-
 @Preview
 @Composable
-private fun SearchScreenPreview_RecentSearch() {
-    val searchResult = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        )
-    )
-
-    val recentSearchWordList = listOf("소주", "맥주", "막걸리")
-    val recommendAlcoholList = listOf("대선 소주", "장수 막걸리", "카스")
-
-    val uiState = SearchUiState.RecentSearch
-
-    SearchScreen(
-        query = "소주",
-        modifier = Modifier,
-        uiState = uiState,
-        searchResultList = searchResult,
-        recentSearchWordList = recentSearchWordList,
-        recommendAlcoholList = recommendAlcoholList,
-        onQueryChange = {},
-        onSearch = {},
-    )
-}
-
-@Preview
-@Composable
-private fun SearchScreenPreview_Recommendation() {
-    val searchResult = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        )
-    )
-
-    val recentSearchWordList = listOf("소주", "맥주", "막걸리")
-    val recommendAlcoholList = listOf("대선 소주", "장수 막걸리", "카스")
-
-    val uiState = SearchUiState.Recommendation
-
-    SearchScreen(
-        query = "소주",
-        modifier = Modifier,
-        uiState = uiState,
-        searchResultList = searchResult,
-        recentSearchWordList = recentSearchWordList,
-        recommendAlcoholList = recommendAlcoholList,
-        onQueryChange = {},
-        onSearch = {},
-    )
-}
-
-@Preview
-@Composable
-private fun SearchScreenPreview_SearchResult() {
-    val searchResult = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        )
-    )
-
-    val recentSearchWordList = listOf("소주", "맥주", "막걸리")
-    val recommendAlcoholList = listOf("대선 소주", "장수 막걸리", "카스")
-
-    val uiState = SearchUiState.SearchResult
-
-    SearchScreen(
-        query = "소주",
-        modifier = Modifier,
-        uiState = uiState,
-        searchResultList = searchResult,
-        recentSearchWordList = recentSearchWordList,
-        recommendAlcoholList = recommendAlcoholList,
-        onQueryChange = {},
-        onSearch = {},
-    )
+private fun SearchScreenPreview() {
+    TODO()
 }
