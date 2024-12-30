@@ -71,8 +71,8 @@ fun FavoriteAlcohol(
                     AlcoholCard(
                         imgUrl = favoriteAlcoholInfoList[idx].imgUrl,
                         name = favoriteAlcoholInfoList[idx].name,
-                        category = favoriteAlcoholInfoList[idx].type.alcoholName,
-                        abv = favoriteAlcoholInfoList[idx].abv.toString(),
+                        alcoholType = favoriteAlcoholInfoList[idx].type,
+                        abv = favoriteAlcoholInfoList[idx].abv,
                     )
                 }
             }

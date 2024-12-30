@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.home.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
@@ -25,7 +27,7 @@ fun AlcoholCard(
     modifier: Modifier = Modifier,
     imgUrl: String,
     name: String,
-    category: String,
+    alcoholType: AlcoholType,
     abv: String
 ) {
     Column(
@@ -52,9 +54,11 @@ fun AlcoholCard(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AutoResizedText(
-                text = category,
-                style = MaterialTheme.typography.bodyMedium,
+            Image(
+                painter = painterResource(getTagImgRes(alcoholType)),
+                contentDescription = "",
+                modifier = Modifier.height(16.dp),
+                contentScale = ContentScale.FillHeight
             )
 
             AutoResizedText(
@@ -65,13 +69,26 @@ fun AlcoholCard(
     }
 }
 
+@Composable
+private fun getTagImgRes(alcoholType: AlcoholType) = when (alcoholType) {
+    AlcoholType.SOJU -> R.drawable.tag_soju
+    AlcoholType.BEER -> R.drawable.tag_beer
+    AlcoholType.TRADITIONALLIQUOR -> R.drawable.tag_traditional_liquor
+    AlcoholType.WINE -> R.drawable.tag_wine
+    AlcoholType.WISKY -> R.drawable.tag_whiskey
+    AlcoholType.SAKE -> R.drawable.tag_sake
+    AlcoholType.BOILERMAKER -> TODO()
+    AlcoholType.COCKTAIL -> TODO()
+}
+
+
 @Preview(showBackground = true)
 @Composable
 private fun AlcoholCardPreview() {
     AlcoholCard(
         imgUrl = "",
         name = "소주",
-        category = "소주",
+        alcoholType = AlcoholType.SOJU,
         abv = "13.00"
     )
 }

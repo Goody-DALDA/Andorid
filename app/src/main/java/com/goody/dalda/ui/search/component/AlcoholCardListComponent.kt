@@ -33,7 +33,7 @@ fun AlcoholCardListComponent(
                 modifier = Modifier,
                 imgUrl = alcoholInfo.imgUrl,
                 name = alcoholInfo.name,
-                category = alcoholInfo.type.alcoholName,
+                alcoholType = alcoholInfo.type,
                 abv = alcoholInfo.abv
             )
         }
