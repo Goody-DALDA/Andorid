@@ -3,9 +3,13 @@ package com.goody.dalda.ui.search
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,16 +19,18 @@ import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 import com.goody.dalda.ui.search.component.RequestAdditional
 import com.goody.dalda.ui.search.component.SearchAlcoholTab
+import kotlinx.coroutines.launch
 
 @Composable
 fun SearchResult(
     modifier: Modifier = Modifier,
     alcoholInfoList: List<AlcoholInfo> = emptyList()
 ) {
-    val selectedIndex = remember { mutableStateOf(0) }
     val category = alcoholInfoList.map { it.type }.distinct()
     val categoryCount = alcoholInfoList.groupBy { it.type }
         .mapValues { it.value.size }
+    val pagerState = rememberPagerState(pageCount = { category.size })
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -35,22 +41,32 @@ fun SearchResult(
             RequestAdditional()
         } else {
             SearchAlcoholTab(
-                modifier = Modifier,
-                selectedIndex = selectedIndex.value,
+                modifier = Modifier.fillMaxWidth(),
+                pagerState = pagerState,
                 categoryCount = categoryCount,
                 category = category,
-                onSelectedIndex = { selectedIndex.value = it }
-            )
-            AlcoholCardListComponent(
-                modifier = Modifier,
-                alcoholInfoList = alcoholInfoList
-                    .filter { it.type == category[selectedIndex.value] },
-                footer = {
-                    OtherAlcoholRecommend(
-                        category = category[selectedIndex.value].alcoholName
-                    )
+                onClickTap = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(it)
+                    }
                 }
             )
+
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                AlcoholCardListComponent(
+                    modifier = Modifier,
+                    alcoholInfoList = alcoholInfoList
+                        .filter { it.type == category[pagerState.currentPage] },
+                    footer = {
+                        OtherAlcoholRecommend(
+                            category = category[pagerState.currentPage].alcoholName
+                        )
+                    }
+                )
+            }
         }
     }
 }

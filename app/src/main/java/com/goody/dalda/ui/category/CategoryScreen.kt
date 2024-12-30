@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.category
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +47,6 @@ fun CategoryScreen(
     val pagerState = rememberPagerState(pageCount = { category.size })
     val coroutineScope = rememberCoroutineScope()
 
-    // 컴포넌트 생성 시
     LaunchedEffect(
         key1 = isFirst.value
     ) {
@@ -65,15 +66,16 @@ fun CategoryScreen(
         onValueChange = { viewModel.setQuery(it) },
         onClickCategory = { index ->
             coroutineScope.launch {
-                val newAlcoholType =
-                    AlcoholType.entries.filter { it.alcoholName == category[index] }[0]
-                viewModel.fetchAlcoholInfo(newAlcoholType.toString())
                 pagerState.animateScrollToPage(index)
             }
+        },
+        updateAlcoholInfo = { index ->
+            val newAlcoholType =
+                AlcoholType.entries.filter { it.alcoholName == category[index] }[0]
+            viewModel.fetchAlcoholInfo(newAlcoholType.toString())
         }
     )
 }
-
 @Composable
 fun CategoryScreen(
     modifier: Modifier = Modifier,
@@ -82,8 +84,15 @@ fun CategoryScreen(
     alcoholInfoList: List<AlcoholInfo> = emptyList(),
     pagerState: PagerState,
     onValueChange: (String) -> Unit = {},
-    onClickCategory: (Int) -> Unit = {}
+    onClickCategory: (Int) -> Unit = {},
+    updateAlcoholInfo: (Int) -> Unit = {}
 ) {
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }.collect { page ->
+            updateAlcoholInfo(page)
+        }
+    }
+
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -110,7 +119,7 @@ fun CategoryScreen(
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
             state = pagerState
-        ) { page ->
+        ) {
             AlcoholCardListComponent(
                 modifier = Modifier
                     .fillMaxSize(),

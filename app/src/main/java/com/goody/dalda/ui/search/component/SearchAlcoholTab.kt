@@ -2,16 +2,16 @@ package com.goody.dalda.ui.search.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,33 +26,33 @@ import com.goody.dalda.data.AlcoholType
 @Composable
 fun SearchAlcoholTab(
     modifier: Modifier = Modifier,
-    selectedIndex: Int,
+    pagerState: PagerState,
     categoryCount: Map<AlcoholType, Int>,
     category: List<AlcoholType>,
-    onSelectedIndex: (Int) -> Unit = {}
+    onClickTap: (Int) -> Unit = {}
 ) {
-    TabRow(
+    ScrollableTabRow(
         modifier = modifier,
-        selectedTabIndex = selectedIndex,
+        selectedTabIndex = pagerState.currentPage,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(tabPositions[selectedIndex]),
+                modifier = Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 color = Color.Black
             )
-        }
+        },
+        edgePadding = 0.dp
     ) {
         category.forEachIndexed { index, type ->
             Tab(
-                selected = selectedIndex == index,
-                onClick = { onSelectedIndex(index) },
+                selected = pagerState.currentPage == index,
+                onClick = { onClickTap(index) },
                 modifier = Modifier
                     .background(Color.White)
                     .padding(16.dp),
                 unselectedContentColor = Color.Gray
             ) {
-                Row() {
+                Row {
                     Text(
-                        modifier = Modifier.fillMaxHeight(),
                         text = type.alcoholName,
                         maxLines = 1,
                         fontSize = 18.sp
@@ -116,16 +116,24 @@ private fun SearchAlcoholTabPrev() {
             type = AlcoholType.BEER,
             abv = "2.3%"
         ),
+        AlcoholInfo(
+            id = 5,
+            imgUrl = "https://duckduckgo.com/?q=fames",
+            name = "BEER_3",
+            type = AlcoholType.WINE,
+            abv = "2.3%"
+        ),
     )
 
-    val selectedIndex = remember { mutableStateOf(0) }
     val category = alcoholInfoList.map { it.type }.distinct()
     val categoryCount = alcoholInfoList.groupBy { it.type }
         .mapValues { it.value.size }
+    val pagerState = rememberPagerState { category.size }
 
     SearchAlcoholTab(
-        selectedIndex = selectedIndex.value,
+        modifier = Modifier.fillMaxWidth(),
         category = category,
+        pagerState = pagerState,
         categoryCount = categoryCount
     )
 }
