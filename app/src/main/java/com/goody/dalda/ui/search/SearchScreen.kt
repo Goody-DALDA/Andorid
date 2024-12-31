@@ -23,7 +23,8 @@ import com.goody.dalda.ui.search.component.ResentSearch
 @Composable
 fun SearchScreen(
     modifier: Modifier,
-    viewModel: SearchViewModel = viewModel()
+    viewModel: SearchViewModel = viewModel(),
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     val query by viewModel.query.collectAsStateWithLifecycle()
     val searchResult by viewModel.searchResultList.collectAsStateWithLifecycle()
@@ -51,6 +52,7 @@ fun SearchScreen(
             viewModel.searchAlcoholData(it)
             viewModel.setUiState(SearchUiState.SearchResult)
         },
+        onClickCard = onClickCard
     )
 }
 
@@ -63,7 +65,8 @@ fun SearchScreen(
     recentSearchWordList: List<String> = emptyList(),
     recommendAlcoholList: List<String> = emptyList(),
     onQueryChange: (String) -> Unit,
-    onSearch: (String) -> Unit = {}
+    onSearch: (String) -> Unit = {},
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     Scaffold(
         modifier = Modifier.padding(vertical = 8.dp)
@@ -102,7 +105,8 @@ fun SearchScreen(
                 SearchUiState.SearchResult -> {
                     SearchResult(
                         modifier = Modifier,
-                        alcoholDataList = searchResultList
+                        alcoholDataList = searchResultList,
+                        onClickCard = onClickCard
                     )
                 }
             }

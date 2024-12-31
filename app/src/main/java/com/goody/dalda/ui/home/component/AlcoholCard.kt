@@ -2,6 +2,7 @@ package com.goody.dalda.ui.home.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,10 +26,12 @@ import com.goody.dalda.ui.component.AutoResizedText
 @Composable
 fun AlcoholCard(
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
+    alcoholData: AlcoholData,
+    onClick: (AlcoholData) -> Unit = {}
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .clickable { onClick(alcoholData) },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(

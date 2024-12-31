@@ -23,7 +23,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun SearchResult(
     modifier: Modifier = Modifier,
-    alcoholDataList: List<AlcoholData> = emptyList()
+    alcoholDataList: List<AlcoholData> = emptyList(),
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     val category = alcoholDataList.map { getCategory(it) }.distinct()
     val categoryCount = alcoholDataList.groupBy { getCategory(it) }
@@ -63,7 +64,8 @@ fun SearchResult(
                         OtherAlcoholRecommend(
                             category = category[pagerState.currentPage]
                         )
-                    }
+                    },
+                    onClickCard = onClickCard
                 )
             }
         }

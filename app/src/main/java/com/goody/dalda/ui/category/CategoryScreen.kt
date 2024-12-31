@@ -37,7 +37,8 @@ import kotlinx.coroutines.launch
 fun CategoryScreen(
     modifier: Modifier = Modifier,
     viewModel: CategoryViewModel = viewModel(),
-    alcoholType: AlcoholType
+    alcoholType: AlcoholType,
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     val isFirst = remember { mutableStateOf(false) }
     val query by viewModel.query.collectAsStateWithLifecycle()
@@ -73,7 +74,8 @@ fun CategoryScreen(
             val newAlcoholType =
                 AlcoholType.entries.filter { it.alcoholName == category[index] }[0]
             viewModel.fetchAlcoholData(newAlcoholType.toString())
-        }
+        },
+        onClickCard = onClickCard
     )
 }
 
@@ -86,7 +88,8 @@ fun CategoryScreen(
     pagerState: PagerState,
     onValueChange: (String) -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
-    updateAlcoholData: (Int) -> Unit = {}
+    updateAlcoholData: (Int) -> Unit = {},
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }.collect { page ->
@@ -124,7 +127,8 @@ fun CategoryScreen(
             AlcoholCardListComponent(
                 modifier = Modifier
                     .fillMaxSize(),
-                alcoholDataList = alcoholDataList
+                alcoholDataList = alcoholDataList,
+                onClickCard = onClickCard
             )
         }
     }

@@ -94,10 +94,26 @@
         <argument
             android:name="category"
             app:argType="com.goody.dalda.data.AlcoholType" />
+        <action
+            android:id="@+id/action_categoryFragment_to_liquorDetailsFragment"
+            app:destination="@id/liquorDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.goody.dalda.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_liquorDetailsFragment"
+            app:destination="@id/liquorDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/liquorDetailsFragment"
+        android:name="com.goody.dalda.ui.liquor_details.LiquorDetailsFragment"
+        android:label="fragment_liquor_details"
+        tools:layout="@layout/fragment_liquor_details">
+        <argument
+            android:name="alcoholData"
+            app:argType="com.goody.dalda.data.AlcoholData" />
+    </fragment>
 </navigation>

@@ -19,6 +19,7 @@ import com.goody.dalda.ui.home.component.AlcoholCard
 fun AlcoholCardListComponent(
     modifier: Modifier = Modifier,
     alcoholDataList: List<AlcoholData>,
+    onClickCard: (AlcoholData) -> Unit = {},
     footer: @Composable () -> Unit = {}
 ) {
     LazyVerticalGrid(
@@ -31,7 +32,8 @@ fun AlcoholCardListComponent(
         items(alcoholDataList) { alcoholData ->
             AlcoholCard(
                 modifier = Modifier,
-                alcoholData = alcoholData
+                alcoholData = alcoholData,
+                onClick = onClickCard
             )
         }
         item(span = { GridItemSpan(2) }) {

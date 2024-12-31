@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 MaterialTheme {
                     SearchScreen(
                         modifier = Modifier,
-                        viewModel = viewModel
+                        viewModel = viewModel,
+                        onClickCard = { alcoholData ->
+                            findNavController().navigate(
+                                SearchFragmentDirections.actionSearchFragmentToLiquorDetailsFragment(
+                                    alcoholData
+                                )
+                            )
+                        }
                     )
                 }
             }

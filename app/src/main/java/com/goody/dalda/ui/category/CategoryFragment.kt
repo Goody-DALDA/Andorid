@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentCategoryBinding
@@ -38,7 +39,14 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                     CategoryScreen(
                         modifier = Modifier,
                         viewModel = viewModel,
-                        alcoholType = args.category
+                        alcoholType = args.category,
+                        onClickCard = { alcoholData ->
+                            findNavController().navigate(
+                                CategoryFragmentDirections.actionCategoryFragmentToLiquorDetailsFragment(
+                                    alcoholData
+                                )
+                            )
+                        }
                     )
                 }
             }

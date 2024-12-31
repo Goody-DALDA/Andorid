@@ -33,8 +33,8 @@ fun LiquorInfoSection(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
-            model = "https://picsum.photos/id/217/100/100",
-            contentDescription = "설명",
+            model = alcoholData.imgUrl,
+            contentDescription = "주류 이미지",
             contentScale = ContentScale.Fit,
             modifier = Modifier.fillMaxWidth(),
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
