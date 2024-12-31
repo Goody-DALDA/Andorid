@@ -108,7 +108,7 @@ object AlcoholDataMapper {
                 type = it.type,
                 volume = it.volume,
                 winery = it.winery,
-                abv = "%"
+                abv = ""
             )
         }
     }
