@@ -13,9 +13,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
     ViewModel() {
 
-    private val _searchAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
-    val searchAlcoholDataList: StateFlow<List<AlcoholData>> = _searchAlcoholDataList
-
     private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
     val favoriteAlcoholDataList: StateFlow<List<AlcoholData>> = _favoriteAlcoholDataList
 
@@ -36,7 +33,6 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
 
     private val _selectedItemIndex = MutableStateFlow(0)
     val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
-
 
     fun setAlcoholDataList(alcoholDataList: List<AlcoholData>) {
         _favoriteAlcoholDataList.value = alcoholDataList
@@ -64,19 +60,5 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
 
     fun setSelectedItemIndex(itemIndex: Int) {
         _selectedItemIndex.value = itemIndex
-    }
-
-    suspend fun searchAlcoholData(query: String) {
-        val searchResult = alcoholRepository.getSearchedAlcoholData(query)
-        val alcoholDataList = mutableListOf<AlcoholData>()
-
-        alcoholDataList.addAll(searchResult.beerList)
-        alcoholDataList.addAll(searchResult.sakeList)
-        alcoholDataList.addAll(searchResult.sojuList)
-        alcoholDataList.addAll(searchResult.traditionalLiquorList)
-        alcoholDataList.addAll(searchResult.wineList)
-        alcoholDataList.addAll(searchResult.wiskyList)
-
-        _searchAlcoholDataList.value = alcoholDataList
     }
 }

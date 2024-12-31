@@ -3,7 +3,6 @@ package com.goody.dalda.ui.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,10 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -44,7 +40,6 @@ import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
-import com.goody.dalda.ui.search.AlcoholSearchBar
 import kotlinx.coroutines.launch
 
 @Composable
@@ -60,12 +55,7 @@ fun HomeScreen(
     val authState by viewModel.authState.collectAsStateWithLifecycle()
     val userName by viewModel.userName.collectAsStateWithLifecycle()
     val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
-    var query by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(true) }
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
-
-    val searchResult by viewModel.searchAlcoholDataList.collectAsStateWithLifecycle()
-
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -97,24 +87,7 @@ fun HomeScreen(
         }
 
         is HomeUiState.SearchState -> {
-            AlcoholSearchBar(
-                query = query,
-                searchResultList = searchResult,
-                expanded = expanded,
-                modifier = Modifier
-                    .padding(bottom = 30.dp)
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .wrapContentHeight(),
-                onQueryChange = { query = it },
-                onExpandedChange = {
-                    expanded = it
-                    if (!expanded) {
-                        viewModel.setHomeUiState(HomeUiState.CommonState)
-                    }
-                },
-                onSearch = {},
-            )
+            // Search UI 이동함.
         }
 
         is HomeUiState.ErrorState -> {
@@ -295,7 +268,7 @@ private fun HomeScreenPreview() {
     val authState = AuthState.SignIn
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
-    
+
     HomeScreen(
         modifier = Modifier,
         userName = userName,
