@@ -37,6 +37,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                                     alcoholData
                                 )
                             )
+                        },
+                        onClickFooter = { alcoholType ->
+                            findNavController().navigate(
+                                SearchFragmentDirections.actionSearchFragmentToCategoryFragment(
+                                    alcoholType
+                                )
+                            )
                         }
                     )
                 }

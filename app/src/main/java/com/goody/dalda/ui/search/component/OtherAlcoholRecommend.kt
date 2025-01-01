@@ -28,7 +28,7 @@ import com.goody.dalda.R
 fun OtherAlcoholRecommend(
     modifier: Modifier = Modifier,
     category: String,
-    onClick: () -> Unit = {}
+    onClick: (String) -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -49,7 +49,7 @@ fun OtherAlcoholRecommend(
         )
 
         Button(
-            onClick = onClick,
+            onClick = { onClick(category) },
             modifier = modifier
                 .background(
                     colorResource(id = R.color.white),

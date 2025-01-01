@@ -24,7 +24,8 @@ import kotlinx.coroutines.launch
 fun SearchResult(
     modifier: Modifier = Modifier,
     alcoholDataList: List<AlcoholData> = emptyList(),
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickFooter: (String) -> Unit = {}
 ) {
     val category = alcoholDataList.map { getCategory(it) }.distinct()
     val categoryCount = alcoholDataList.groupBy { getCategory(it) }
@@ -62,7 +63,8 @@ fun SearchResult(
                         .filter { getCategory(it) == category[pagerState.currentPage] },
                     footer = {
                         OtherAlcoholRecommend(
-                            category = category[pagerState.currentPage]
+                            category = category[pagerState.currentPage],
+                            onClick = onClickFooter
                         )
                     },
                     onClickCard = onClickCard

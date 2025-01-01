@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
@@ -24,7 +25,8 @@ import com.goody.dalda.ui.search.component.ResentSearch
 fun SearchScreen(
     modifier: Modifier,
     viewModel: SearchViewModel = viewModel(),
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickFooter: (AlcoholType) -> Unit = {}
 ) {
     val query by viewModel.query.collectAsStateWithLifecycle()
     val searchResult by viewModel.searchResultList.collectAsStateWithLifecycle()
@@ -52,7 +54,14 @@ fun SearchScreen(
             viewModel.searchAlcoholData(it)
             viewModel.setUiState(SearchUiState.SearchResult)
         },
-        onClickCard = onClickCard
+        onClickCard = onClickCard,
+        onClickFooter = {
+            AlcoholType.entries.forEach { alcoholType ->
+                if (alcoholType.alcoholName == it) {
+                    onClickFooter(alcoholType)
+                }
+            }
+        }
     )
 }
 
@@ -66,7 +75,8 @@ fun SearchScreen(
     recommendAlcoholList: List<String> = emptyList(),
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickFooter: (String) -> Unit = {}
 ) {
     Scaffold(
         modifier = Modifier.padding(vertical = 8.dp)
@@ -106,7 +116,8 @@ fun SearchScreen(
                     SearchResult(
                         modifier = Modifier,
                         alcoholDataList = searchResultList,
-                        onClickCard = onClickCard
+                        onClickCard = onClickCard,
+                        onClickFooter = onClickFooter
                     )
                 }
             }
