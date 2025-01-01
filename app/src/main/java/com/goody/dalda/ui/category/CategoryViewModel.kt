@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.category
 
+import androidx.compose.foundation.pager.PagerState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholCategoryStatus
@@ -32,6 +33,9 @@ class CategoryViewModel @Inject constructor(private val alcoholRepository: Alcoh
     // 주류 정보 호출 로직AlcoholData
     private val _alcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
     val alcoholDataList: StateFlow<List<AlcoholData>> = _alcoholDataList
+
+    private val _pageState = MutableStateFlow(PagerState { _category.value.size })
+    val pageState: StateFlow<PagerState> = _pageState
 
     @OptIn(FlowPreview::class)
     val alcoholDataListWithQuery = query.combine(alcoholDataList) { query, alcoholDataList ->

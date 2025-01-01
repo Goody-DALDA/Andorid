@@ -30,8 +30,11 @@ import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@OptIn(FlowPreview::class)
 @Composable
 fun CategoryScreen(
     modifier: Modifier = Modifier,
@@ -43,19 +46,28 @@ fun CategoryScreen(
     val query by viewModel.query.collectAsStateWithLifecycle()
     val alcoholDataListWithQuery by viewModel.alcoholDataListWithQuery.collectAsStateWithLifecycle()
     val category by viewModel.category.collectAsStateWithLifecycle()
+    val pagerState by viewModel.pageState.collectAsStateWithLifecycle()
 
-    val pagerState = rememberPagerState(pageCount = { category.size })
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(
-        key1 = isFirst
+        key1 = isFirst,
+        key2 = pagerState
     ) {
         if (isFirst) {
             viewModel.fetchAlcoholData(alcoholType.toString())
             pagerState.animateScrollToPage(category.indexOf(alcoholType.alcoholName))
             viewModel.setIsFirst(false)
+        } else {
+            snapshotFlow { pagerState.currentPage }
+                .debounce(100L)
+                .collect { page ->
+                    viewModel.fetchAlcoholData(AlcoholType.entries.filter { it.alcoholName == category[page] }[0].toString())
+                }
         }
     }
+
+
 
     CategoryScreen(
         modifier = modifier.fillMaxSize(),
@@ -68,11 +80,6 @@ fun CategoryScreen(
             coroutineScope.launch {
                 pagerState.animateScrollToPage(index)
             }
-        },
-        updateAlcoholData = { index ->
-            val newAlcoholType =
-                AlcoholType.entries.filter { it.alcoholName == category[index] }[0]
-            viewModel.fetchAlcoholData(newAlcoholType.toString())
         },
         onClickCard = onClickCard
     )
@@ -87,15 +94,8 @@ fun CategoryScreen(
     pagerState: PagerState,
     onValueChange: (String) -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
-    updateAlcoholData: (Int) -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {}
 ) {
-    LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }.collect { page ->
-            updateAlcoholData(page)
-        }
-    }
-
     Column(
         modifier = modifier.fillMaxSize()
     ) {
