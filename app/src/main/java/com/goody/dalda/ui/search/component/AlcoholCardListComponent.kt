@@ -96,6 +96,23 @@ private fun AlcoholCardListComponentPreview() {
             abv = "17%",
             price = 5000,
             comment = "맛있어요"
+        ),
+        AlcoholData.Wine(
+            id = 0,
+            name = "와인",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_wine,
+            volume = "750ml",
+            abv = "",
+            country = "프랑스",
+            ingredient = "",
+            mouthfeel = 0.0f,
+            sugar = 0.0f,
+            acid = 0.0f,
+            type = "",
+            comment = "",
+            pairingFood = "",
+            winery = "",
         )
     )
 
