@@ -1,5 +1,6 @@
 package com.goody.dalda.data.repository.home
 
+import android.util.Log
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.dto.home.AlcoholDataDto
 import com.goody.dalda.data.dto.home.Beer
@@ -18,39 +19,60 @@ class AlcoholRepositoryImpl @Inject constructor(
     private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
 ) : AlcoholRepository {
     override suspend fun getAlcoholData(category: String): List<AlcoholData> {
-        val response = alcoholDataRemoteDataSource.getAlcoholData(
-            category = category
-        )
+        return try {
+            val response = alcoholDataRemoteDataSource.getAlcoholData(
+                category = category
+            )
 
-        if (response.isSuccessful) {
-            val alcoholDataDto = requireNotNull(response.body()) { "Response body is null" }
-            return alcoholDataDtoToAlcoholData(category, alcoholDataDto)
-        } else {
-            throw Exception("Failed to get alcohol info")
+            if (response.isSuccessful) {
+                val alcoholDataDto = requireNotNull(response.body()) { "Response body is null" }
+                alcoholDataDtoToAlcoholData(category, alcoholDataDto)
+            } else {
+                Log.e(TAG, "getAlcoholData: Failed to get alcohol info")
+                emptyList()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "getAlcoholData: ${e.message}")
+            emptyList()
         }
+
     }
 
     override suspend fun getSearchedAlcoholData(query: String): SearchAlcoholData {
-        val response = alcoholDataRemoteDataSource.getSearchedAlcoholData(query = query)
+        return try {
+            val response = alcoholDataRemoteDataSource.getSearchedAlcoholData(query = query)
 
-        if (response.isSuccessful) {
-            val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
-            return searchResultDtoToSearchAlcoholData(searchResultDto.searchData)
-        } else {
-            throw Exception("Failed to get searched alcohol info")
+            if (response.isSuccessful) {
+                val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
+                searchResultDtoToSearchAlcoholData(searchResultDto.searchData)
+            } else {
+                Log.e(TAG, "getSearchedAlcoholData: Failed to get searched alcohol info")
+                return SearchAlcoholData()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "getSearchedAlcoholData: ${e.message}")
+            return SearchAlcoholData()
         }
+
+
     }
 
     override suspend fun getRecommendAlcoholList(query: String): List<String> {
-        val response = alcoholDataRemoteDataSource.getRecommendAlcoholList(query)
+        return try {
+            val response = alcoholDataRemoteDataSource.getRecommendAlcoholList(query)
 
-        if (response.isSuccessful) {
-            val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
-            return searchResultDto.recommendAlcoholInfoList.map {
-                it.name
+            if (response.isSuccessful) {
+                val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
+                searchResultDto.recommendAlcoholInfoList.map {
+                    it.name
+                }
+            } else {
+                Log.e(TAG, "getRecommendAlcoholList: Failed to get recommend alcohol list")
+                emptyList()
             }
-        } else {
-            throw Exception("Failed to get recommend alcohol list")
+        } catch (e: Exception) {
+            Log.e(TAG, "getRecommendAlcoholList: ${e.message}")
+            emptyList()
         }
     }
 
@@ -100,4 +122,7 @@ class AlcoholRepositoryImpl @Inject constructor(
         )
     }
 
+    companion object {
+        private const val TAG = "AlcoholRepositoryImpl"
+    }
 }
