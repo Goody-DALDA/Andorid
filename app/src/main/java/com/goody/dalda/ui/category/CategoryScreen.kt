@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -40,7 +39,7 @@ fun CategoryScreen(
     alcoholType: AlcoholType,
     onClickCard: (AlcoholData) -> Unit = {}
 ) {
-    val isFirst = remember { mutableStateOf(false) }
+    val isFirst by viewModel.isFirst.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
     val alcoholDataListWithQuery by viewModel.alcoholDataListWithQuery.collectAsStateWithLifecycle()
     val category by viewModel.category.collectAsStateWithLifecycle()
@@ -49,13 +48,13 @@ fun CategoryScreen(
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(
-        key1 = isFirst.value
+        key1 = isFirst
     ) {
-        coroutineScope.launch {
+        if (isFirst) {
             viewModel.fetchAlcoholData(alcoholType.toString())
             pagerState.animateScrollToPage(category.indexOf(alcoholType.alcoholName))
+            viewModel.setIsFirst(false)
         }
-        isFirst.value = false
     }
 
     CategoryScreen(

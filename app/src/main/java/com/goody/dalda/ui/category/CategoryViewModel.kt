@@ -22,6 +22,9 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
     ViewModel() {
 
+    private val _isFirst = MutableStateFlow(true)
+    val isFirst: StateFlow<Boolean> = _isFirst
+
     // 쿼리
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
@@ -64,5 +67,9 @@ class CategoryViewModel @Inject constructor(private val alcoholRepository: Alcoh
 
     fun setQuery(query: String) {
         _query.value = query
+    }
+
+    fun setIsFirst(isFirst: Boolean) {
+        _isFirst.value = isFirst
     }
 }
