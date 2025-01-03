@@ -26,7 +26,8 @@ fun SearchScreen(
     modifier: Modifier,
     viewModel: SearchViewModel = viewModel(),
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickFooter: (AlcoholType) -> Unit = {}
+    onClickFooter: (AlcoholType) -> Unit = {},
+    onClickCamera: () -> Unit = {}
 ) {
     val query by viewModel.query.collectAsStateWithLifecycle()
     val searchResult by viewModel.searchResultList.collectAsStateWithLifecycle()
@@ -54,6 +55,7 @@ fun SearchScreen(
             viewModel.searchAlcoholData(it)
             viewModel.setUiState(SearchUiState.SearchResult)
         },
+        onClickCamera = onClickCamera,
         onClickCard = onClickCard,
         onClickFooter = {
             AlcoholType.entries.forEach { alcoholType ->
@@ -75,6 +77,7 @@ fun SearchScreen(
     recommendAlcoholList: List<String> = emptyList(),
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit = {},
+    onClickCamera: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickFooter: (String) -> Unit = {}
 ) {
@@ -93,7 +96,8 @@ fun SearchScreen(
                 leadingIcon = Icons.Outlined.Search,
                 trailingIcon = IconPack.IcCamera,
                 onClickLeadingIcon = { onSearch(it) },
-                onValueChange = onQueryChange
+                onValueChange = onQueryChange,
+                onClickTrailingIcon = onClickCamera,
             )
 
             when (uiState) {

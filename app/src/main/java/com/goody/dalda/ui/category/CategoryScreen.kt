@@ -40,7 +40,8 @@ fun CategoryScreen(
     modifier: Modifier = Modifier,
     viewModel: CategoryViewModel = viewModel(),
     alcoholType: AlcoholType,
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCamera: () -> Unit = {}
 ) {
     val isFirst by viewModel.isFirst.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
@@ -67,8 +68,6 @@ fun CategoryScreen(
         }
     }
 
-
-
     CategoryScreen(
         modifier = modifier.fillMaxSize(),
         query = query,
@@ -81,7 +80,8 @@ fun CategoryScreen(
                 pagerState.animateScrollToPage(index)
             }
         },
-        onClickCard = onClickCard
+        onClickCard = onClickCard,
+        onClickTrailingIcon = onClickCamera
     )
 }
 
@@ -94,7 +94,8 @@ fun CategoryScreen(
     pagerState: PagerState,
     onValueChange: (String) -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickTrailingIcon: () -> Unit = {}
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -107,7 +108,8 @@ fun CategoryScreen(
             placeholder = "",
             leadingIcon = Icons.Outlined.Search,
             trailingIcon = IconPack.IcCamera,
-            onValueChange = onValueChange
+            onValueChange = onValueChange,
+            onClickTrailingIcon = onClickTrailingIcon
         )
 
         CategoryTab(

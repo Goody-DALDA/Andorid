@@ -44,6 +44,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                                     alcoholType
                                 )
                             )
+                        },
+                        onClickCamera = {
+                            findNavController().navigate(
+                                SearchFragmentDirections.actionSearchFragmentToLabelSearchActivity()
+                            )
                         }
                     )
                 }

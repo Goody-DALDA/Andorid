@@ -46,6 +46,11 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                                     alcoholData
                                 )
                             )
+                        },
+                        onClickCamera = {
+                            findNavController().navigate(
+                                CategoryFragmentDirections.actionCategoryFragmentToLabelSearchActivity()
+                            )
                         }
                     )
                 }
