@@ -11,6 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentHomeBinding
+import com.goody.dalda.ui.home.data.Menu.Announcement
+import com.goody.dalda.ui.home.data.Menu.ContactUs
+import com.goody.dalda.ui.home.data.Menu.PrivacyPolicy
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,6 +42,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         onClickSearchBar = {
                             findNavController().navigate(
                                 HomeFragmentDirections.actionNavigationHomeToSearchFragment()
+                            )
+                        },
+                        onClickSideMenuItem = {
+                            val directions = when (it) {
+                                Announcement -> HomeFragmentDirections.actionNavigationHomeToAnnouncementFragment()
+                                ContactUs -> HomeFragmentDirections.actionNavigationHomeToContactUsFragment()
+                                PrivacyPolicy -> {
+                                    HomeFragmentDirections.actionNavigationHomeToPolicyFragment()
+                                }
+
+                                else -> return@HomeScreen
+                            }
+                            findNavController().navigate(
+                                directions
                             )
                         }
                     )

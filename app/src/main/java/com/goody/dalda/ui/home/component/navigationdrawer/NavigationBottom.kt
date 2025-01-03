@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.home.component.navigationdrawer
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,9 +21,13 @@ import com.goody.dalda.ui.component.AutoResizedText
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcInsta
 import com.goody.dalda.ui.home.component.iconpack.IcLink
+import com.goody.dalda.ui.home.data.Menu
 
 @Composable
-fun NavigationBottom(modifier: Modifier = Modifier) {
+fun NavigationBottom(
+    modifier: Modifier = Modifier,
+    onClick: (Menu) -> Unit = {}
+) {
     // TODO 상태 호이스팅 - 버전 정보.
     Column(
         modifier = modifier
@@ -31,7 +36,10 @@ fun NavigationBottom(modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically
         ) {
-            AutoResizedText(text = stringResource(R.string.text_personal_information_processing_policy))
+            AutoResizedText(
+                text = stringResource(R.string.text_personal_information_processing_policy),
+                modifier = Modifier.clickable { onClick(Menu.PrivacyPolicy) }
+            )
             VerticalDivider(
                 modifier = Modifier
                     .height(20.dp)
@@ -47,11 +55,13 @@ fun NavigationBottom(modifier: Modifier = Modifier) {
         ) {
             Image(
                 imageVector = IconPack.IcLink,
-                contentDescription = stringResource(id = R.string.description_link_icon)
+                contentDescription = stringResource(id = R.string.description_link_icon),
+                Modifier.clickable { onClick(Menu.Link) }
             )
             Image(
                 imageVector = IconPack.IcInsta,
-                contentDescription = stringResource(id = R.string.description_instagram_icon)
+                contentDescription = stringResource(id = R.string.description_instagram_icon),
+                Modifier.clickable { onClick(Menu.Instagram) }
             )
         }
         // 카피라이트

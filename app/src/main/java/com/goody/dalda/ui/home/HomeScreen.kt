@@ -40,6 +40,7 @@ import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
+import com.goody.dalda.ui.home.data.Menu
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,7 +48,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(),
     onClickSearchBar: () -> Unit = {},
-    onClickAlcohol: (AlcoholType) -> Unit = {}
+    onClickAlcohol: (AlcoholType) -> Unit = {},
+    onClickSideMenuItem: (Menu) -> Unit = {}
 ) {
     val favoriteAlcoholDataList by viewModel.favoriteAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -82,7 +84,8 @@ fun HomeScreen(
                     scope.launch {
                         drawerState.open()
                     }
-                }
+                },
+                onClickSideMenuItem = onClickSideMenuItem
             )
         }
 
@@ -111,6 +114,7 @@ fun HomeScreen(
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onChangeDrawerState: () -> Unit = {},
     onClickMenu: () -> Unit = {},
+    onClickSideMenuItem: (Menu) -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -124,7 +128,8 @@ fun HomeScreen(
                     userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = onChangeDrawerState,
-                    onChangeSelectedItemIndex = onChangeSelectedItemIndex
+                    onChangeSelectedItemIndex = onChangeSelectedItemIndex,
+                    onClickMenu = onClickSideMenuItem
                 )
             },
             drawerState = drawerState
