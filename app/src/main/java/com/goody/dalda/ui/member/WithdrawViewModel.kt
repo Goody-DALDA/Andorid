@@ -5,7 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class WithdrawViewModel @Inject constructor(): ViewModel() {
+class WithdrawViewModel @Inject constructor() : ViewModel() {
 
     fun requestWithdraw() {
 

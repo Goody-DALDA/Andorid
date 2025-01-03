@@ -2,9 +2,7 @@ package com.goody.dalda.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.viewbinding.ViewBinding
 import com.goody.dalda.R
 import com.goody.dalda.databinding.DialogNoResultsBinding
 

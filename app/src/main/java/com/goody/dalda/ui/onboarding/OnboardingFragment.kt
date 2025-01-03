@@ -28,9 +28,18 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
         super.onCreate(savedInstanceState)
 
         contents = listOf(
-            OnboardingContents(R.drawable.img_onboarding_1, getString(R.string.onboarding_first_guide)),
-            OnboardingContents(R.drawable.img_onboarding_2, getString(R.string.onboarding_second_guide)),
-            OnboardingContents(R.drawable.img_onboarding_3, getString(R.string.onboarding_third_guide))
+            OnboardingContents(
+                R.drawable.img_onboarding_1,
+                getString(R.string.onboarding_first_guide)
+            ),
+            OnboardingContents(
+                R.drawable.img_onboarding_2,
+                getString(R.string.onboarding_second_guide)
+            ),
+            OnboardingContents(
+                R.drawable.img_onboarding_3,
+                getString(R.string.onboarding_third_guide)
+            )
         )
     }
 
@@ -59,7 +68,8 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
              */
         }.attach()
 
-        binding.fragmentOnboardingTabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+        binding.fragmentOnboardingTabLayout.addOnTabSelectedListener(object :
+            OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.position?.let { position ->
                     binding.fragmentOnboardingGuideText.text = contents[position].guideText
@@ -95,7 +105,8 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
         }, DELAY_MILLISECOND, PERIOD_MILLISECOND)
     }
 
-    class OnboardingAdapter(fragment: Fragment, private val contents: List<OnboardingContents>) : FragmentStateAdapter(fragment) {
+    class OnboardingAdapter(fragment: Fragment, private val contents: List<OnboardingContents>) :
+        FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment {
@@ -111,8 +122,8 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
         @JvmStatic
         fun newInstance() = OnboardingFragment().apply {
-                arguments = Bundle()
-            }
+            arguments = Bundle()
+        }
     }
 }
 

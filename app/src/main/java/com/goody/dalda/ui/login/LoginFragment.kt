@@ -63,6 +63,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 is UiState.Error -> {
                     Toast.makeText(context, "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show()
                 }
+
                 is UiState.Loading -> TODO()
                 is UiState.Success -> {
                     val profile = state.data
@@ -81,6 +82,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         findNavController().navigate(R.id.action_loginFragment_to_navigation_home)
                     }
                 }
+
                 is UiState.Uninitialized -> TODO()
             }
         }
@@ -122,13 +124,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(TAG, "사용자 정보 요청 실패", error)
-            }
-            else if (user != null) {
-                Log.i(TAG, "사용자 정보 요청 성공" +
-                        "\n회원번호: ${user.id}" +
-                        "\n이메일: ${user.kakaoAccount?.email}" +
-                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+            } else if (user != null) {
+                Log.i(
+                    TAG, "사용자 정보 요청 성공" +
+                            "\n회원번호: ${user.id}" +
+                            "\n이메일: ${user.kakaoAccount?.email}" +
+                            "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
+                )
 
                 val nickname = user.kakaoAccount?.profile?.nickname ?: ""
                 val email = user.kakaoAccount?.email ?: ""

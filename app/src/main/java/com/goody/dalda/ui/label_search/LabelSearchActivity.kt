@@ -8,7 +8,6 @@ import android.util.Log
 import android.util.Rational
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,7 +20,6 @@ import androidx.camera.core.Preview
 import androidx.camera.core.UseCaseGroup
 import androidx.camera.core.ViewPort
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.goody.dalda.R
 import com.goody.dalda.base.BaseActivity
@@ -34,10 +32,7 @@ import com.goody.dalda.ui.custom.GraphicOverlay
 import com.goody.dalda.ui.custom.TextGraphic
 import com.goody.dalda.ui.dialog.NoResultsDialog
 import com.goody.dalda.ui.dialog.SearchResultsDialog
-import com.goody.dalda.ui.dialog.SpiritsSearchResult
 import com.goody.dalda.ui.state.UiState
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
@@ -58,17 +53,18 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     private lateinit var photoFile: File
     private lateinit var cameraExecutor: ExecutorService
 
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-            Log.d("PhotoPicker", "Selected URI: $uri")
-            val inputImage = InputImage.fromFilePath(baseContext, uri)
-            runTextRecognition(inputImage)
-        } else {
-            Log.d("PhotoPicker", "No media selected")
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                Log.d("PhotoPicker", "Selected URI: $uri")
+                val inputImage = InputImage.fromFilePath(baseContext, uri)
+                runTextRecognition(inputImage)
+            } else {
+                Log.d("PhotoPicker", "No media selected")
+            }
         }
-    }
 
 
     private val activityResultLauncher =
@@ -116,6 +112,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                 is UiState.Empty -> {
                     showEmptyDialog()
                 }
+
                 is UiState.Error -> {}
                 is UiState.Loading -> {}
                 is UiState.Success -> {
@@ -242,9 +239,10 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, useCaseGroup)
+                    this, cameraSelector, useCaseGroup
+                )
 
-            } catch(exc: Exception) {
+            } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
 
@@ -257,7 +255,8 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(
-            baseContext, it) == PackageManager.PERMISSION_GRANTED
+            baseContext, it
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     /**
@@ -293,7 +292,10 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                 val rect = lines[j].boundingBox
 
                 if (rect != null) {
-                    Log.d(TAG, "kch [" + lines[j].text + "] rect Height : " + (rect.bottom - rect.top))
+                    Log.d(
+                        TAG,
+                        "kch [" + lines[j].text + "] rect Height : " + (rect.bottom - rect.top)
+                    )
                 }
 
                 for (k in elements.indices) {
@@ -313,7 +315,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         private const val TAG = "CameraXApp"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private val REQUIRED_PERMISSIONS =
-            mutableListOf (
+            mutableListOf(
                 Manifest.permission.CAMERA
             ).apply {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {

@@ -1,12 +1,9 @@
 package com.goody.dalda.ui.home.component.iconpack
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
-import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
@@ -20,11 +17,15 @@ public val IconPack.IcInsta: ImageVector
         if (_icInsta != null) {
             return _icInsta!!
         }
-        _icInsta = Builder(name = "IcInsta", defaultWidth = 32.0.dp, defaultHeight = 32.0.dp,
-                viewportWidth = 32.0f, viewportHeight = 32.0f).apply {
-            path(fill = SolidColor(Color(0xFFC3C3C6)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _icInsta = Builder(
+            name = "IcInsta", defaultWidth = 32.0.dp, defaultHeight = 32.0.dp,
+            viewportWidth = 32.0f, viewportHeight = 32.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFC3C3C6)), stroke = null, strokeLineWidth = 0.0f,
+                strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(16.0f, 0.0f)
                 lineTo(16.0f, 0.0f)
                 arcTo(16.0f, 16.0f, 0.0f, false, true, 32.0f, 16.0f)
@@ -37,9 +38,11 @@ public val IconPack.IcInsta: ImageVector
                 close()
             }
             group {
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(16.0f, 9.4406f)
                     curveTo(18.1375f, 9.4406f, 18.3906f, 9.45f, 19.2313f, 9.4875f)
                     curveTo(20.0125f, 9.5219f, 20.4344f, 9.6531f, 20.7156f, 9.7625f)
@@ -93,9 +96,11 @@ public val IconPack.IcInsta: ImageVector
                     curveTo(18.4438f, 8.0094f, 18.1719f, 8.0f, 16.0f, 8.0f)
                     close()
                 }
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(16.0f, 11.8906f)
                     curveTo(13.7313f, 11.8906f, 11.8906f, 13.7313f, 11.8906f, 16.0f)
                     curveTo(11.8906f, 18.2688f, 13.7313f, 20.1094f, 16.0f, 20.1094f)
@@ -109,9 +114,11 @@ public val IconPack.IcInsta: ImageVector
                     curveTo(18.6656f, 17.4719f, 17.4719f, 18.6656f, 16.0f, 18.6656f)
                     close()
                 }
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(21.2312f, 11.7281f)
                     curveTo(21.2312f, 12.2594f, 20.8f, 12.6875f, 20.2719f, 12.6875f)
                     curveTo(19.7406f, 12.6875f, 19.3125f, 12.2562f, 19.3125f, 11.7281f)
@@ -121,7 +128,7 @@ public val IconPack.IcInsta: ImageVector
                 }
             }
         }
-        .build()
+            .build()
         return _icInsta!!
     }
 

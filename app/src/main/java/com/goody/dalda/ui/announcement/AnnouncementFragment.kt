@@ -51,7 +51,9 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
                 // In Compose world
                 MaterialTheme {
                     Scaffold(
-                        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.onBackground),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.onBackground),
                         topBar = {
                             CenterAlignedTopAppBar(
                                 title = { Text(text = "공지사항") },

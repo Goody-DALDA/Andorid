@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AnnouncementViewModel @Inject constructor() : ViewModel() {
-    private val  list: List<Post> = listOf(
+    private val list: List<Post> = listOf(
         Post("타이틀 입니다.", "2024.11.12"),
         Post("두번째 공지사항", "2024.10.22"),
         Post("3 공지사항", "2024.9.29"),

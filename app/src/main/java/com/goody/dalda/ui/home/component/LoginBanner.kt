@@ -24,7 +24,9 @@ fun LoginBanner(
         horizontalAlignment = Alignment.Start
     ) {
         AutoResizedText(
-            modifier = Modifier.padding(bottom = 16.dp).weight(2f),
+            modifier = Modifier
+                .padding(bottom = 16.dp)
+                .weight(2f),
             text = text,
             style = MaterialTheme.typography.titleLarge,
         )
