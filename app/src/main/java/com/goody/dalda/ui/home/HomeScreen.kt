@@ -50,7 +50,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
     onClickSearchBar: () -> Unit = {},
     onClickAlcohol: (AlcoholType) -> Unit = {},
-    onClickSideMenuItem: (Menu) -> Unit = {}
+    onClickSideMenuItem: (Menu) -> Unit = {},
+    onClickSeeLoginScreen: () -> Unit = {}
 ) {
     val favoriteAlcoholDataList by viewModel.favoriteAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -91,6 +92,7 @@ fun HomeScreen(
                     }
                 },
                 onClickSideMenuItem = onClickSideMenuItem,
+                onClickLogin = onClickSeeLoginScreen
             )
         }
 
@@ -119,7 +121,8 @@ fun HomeLayout(
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onChangeDrawerState: () -> Unit = {},
     onClickMenu: () -> Unit = {},
-    onClickSideMenuItem: (Menu) -> Unit = {}
+    onClickSideMenuItem: (Menu) -> Unit = {},
+    onClickLogin: () -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -172,7 +175,7 @@ fun HomeLayout(
                                     .fillMaxWidth()
                                     .height(120.dp),
                                 text = stringResource(R.string.text_sign_in_banner),
-                                onClick = { /*TODO*/ }
+                                onClick = onClickLogin
                             )
                         }
                     }
@@ -290,8 +293,8 @@ private fun HomeScreenPreview() {
         drawerState = drawerState,
         selectedItemIndex = selectedItemIndex,
         onChangeSelectedItemIndex = {},
-        onClickAlcohol = {},
         onClickSearch = {},
+        onClickAlcohol = {},
         onChangeDrawerState = {},
         onClickMenu = {}
     )

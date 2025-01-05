@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentHomeBinding
@@ -60,6 +61,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             findNavController().navigate(
                                 directions
                             )
+                        },
+                        onClickSeeLoginScreen = {
+                            findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToLoginFragment())
                         }
                     )
                 }
