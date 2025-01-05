@@ -19,7 +19,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -62,13 +61,9 @@ fun HomeScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect("once") {
-        viewModel.fetchProfile()
-    }
-
     when (homeUiState) {
         is HomeUiState.CommonState -> {
-            HomeLayout(
+            HomeScreen(
                 modifier = modifier,
                 userName = userName,
                 userEmail = userEmail,
@@ -90,12 +85,8 @@ fun HomeScreen(
                         drawerState.open()
                     }
                 },
-                onClickSideMenuItem = onClickSideMenuItem,
+                onClickSideMenuItem = onClickSideMenuItem
             )
-        }
-
-        is HomeUiState.SearchState -> {
-            // Search UI 이동함.
         }
 
         is HomeUiState.ErrorState -> {
@@ -105,7 +96,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeLayout(
+fun HomeScreen(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
@@ -279,7 +270,7 @@ private fun HomeScreenPreview() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
 
-    HomeLayout(
+    HomeScreen(
         modifier = Modifier,
         userName = userName,
         userEmail = userEmail,

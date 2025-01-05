@@ -1,8 +1,6 @@
 package com.goody.dalda.data.remote
 
-import com.goody.dalda.data.dto.LeaveDto
 import com.goody.dalda.data.dto.LoginDto
-import com.goody.dalda.data.dto.LogoutDto
 import com.goody.dalda.data.dto.ProfileDto
 import com.goody.dalda.network.RetrofitService
 import retrofit2.Response
@@ -24,13 +22,5 @@ class UserRemoteDataSourceImpl @Inject constructor(private val service: Retrofit
 
     override suspend fun fetchProfile(): Response<ProfileDto> {
         return service.fetchProfile()
-    }
-
-    override suspend fun logout(): Response<LogoutDto> {
-        return service.logout()
-    }
-
-    override suspend fun leaveUser(): Response<LeaveDto> {
-        return service.leaveUser()
     }
 }

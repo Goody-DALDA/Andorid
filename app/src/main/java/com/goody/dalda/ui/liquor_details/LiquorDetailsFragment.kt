@@ -26,8 +26,8 @@ class LiquorDetailsFragment : BaseFragment<FragmentLiquorDetailsBinding>() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 LiquorDetailsScreen(
+                    alcoholData = args.alcoholData,
                     modifier = Modifier,
-                    alcoholData = args.alcoholData
                 )
             }
         }

@@ -22,28 +22,24 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun NavigationHeader(
-    modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
     onClickCloseIcon: () -> Unit = {},
-    onClickProfile: () -> Unit = {}
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
     ) {
-        // x 아이콘
-        Icon(
-            imageVector = Icons.Filled.Close,
+        Icon(imageVector = Icons.Filled.Close,
             contentDescription = stringResource(id = R.string.description_close_icon),
-            modifier = Modifier
-                .clickable { onClickCloseIcon() }
+            modifier = Modifier.clickable { onClickCloseIcon() }
 
         )
 
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
 
         Row(
-            modifier = Modifier.clickable { onClickProfile() }
+            modifier = Modifier
         ) {
             Column {
                 AutoResizedText(
@@ -60,13 +56,11 @@ fun NavigationHeader(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            Icon(imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = "stringResource(id = R.string.description_close_icon)",
                 modifier = Modifier
                     .clickable { onClickCloseIcon() }
-                    .align(Alignment.CenterVertically)
-            )
+                    .align(Alignment.CenterVertically))
         }
     }
 }

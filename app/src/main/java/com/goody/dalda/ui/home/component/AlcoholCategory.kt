@@ -32,17 +32,17 @@ fun AlcoholCategory(
     onClickAlcohol: (AlcoholType) -> Unit = {},
 ) {
     FlowRow(
-        modifier = modifier,
         verticalArrangement = Arrangement.run { spacedBy(24.dp) },
         maxItemsInEachRow = columnCount,
+        modifier = modifier,
     ) {
         AlcoholType.entries.forEach { alcoholType ->
             if (alcoholType.categoryStatus != AlcoholCategoryStatus.NONE) {
                 AlcoholTap(
                     alcoholType = alcoholType,
+                    onClick = { onClickAlcohol(alcoholType) },
                     modifier = Modifier
                         .weight(1f),
-                    onClick = { onClickAlcohol(alcoholType) }
                 )
             }
         }
@@ -88,9 +88,9 @@ fun AlcoholTap(
         }
 
         Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .fillMaxWidth(),
-            contentAlignment = Alignment.Center
         ) {
             AutoResizedText(
                 text = alcoholType.alcoholName,

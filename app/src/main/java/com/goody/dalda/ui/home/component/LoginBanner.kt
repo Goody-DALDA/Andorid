@@ -14,27 +14,27 @@ import com.goody.dalda.ui.component.OrangeColorButton
 
 @Composable
 fun LoginBanner(
-    modifier: Modifier = Modifier,
     text: String,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
+        horizontalAlignment = Alignment.Start,
         modifier = modifier
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
     ) {
         AutoResizedText(
+            text = text,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
                 .padding(bottom = 16.dp)
                 .weight(2f),
-            text = text,
-            style = MaterialTheme.typography.titleLarge,
         )
 
         OrangeColorButton(
-            modifier = Modifier.weight(1f),
             text = "로그인하기 >",
-            onClick = onClick
+            onClick = onClick,
+            modifier = Modifier.weight(1f),
         )
     }
 }

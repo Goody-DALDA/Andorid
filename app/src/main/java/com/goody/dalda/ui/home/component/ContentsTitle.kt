@@ -16,10 +16,10 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun ContentsTitle(
-    modifier: Modifier = Modifier,
     title: String,
     actionText: String,
-    onActionClick: () -> Unit = {}
+    onActionClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         Row(
@@ -27,19 +27,19 @@ fun ContentsTitle(
                 .fillMaxWidth()
         ) {
             AutoResizedText(
-                modifier = Modifier.align(Alignment.CenterVertically),
                 text = title,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.align(Alignment.CenterVertically),
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
             AutoResizedText(
+                text = actionText,
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier
                     .align(Alignment.Bottom)
                     .clickable { onActionClick() },
-                text = actionText,
-                style = MaterialTheme.typography.bodySmall
             )
         }
     }

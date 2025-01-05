@@ -17,13 +17,12 @@ import com.goody.dalda.data.AlcoholType
 
 @Composable
 fun CategoryTab(
-    modifier: Modifier = Modifier,
     pagerState: PagerState,
     category: List<String> = emptyList(),
-    onClickTab: (Int) -> Unit = {}
+    onClickTab: (Int) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     ScrollableTabRow(
-        modifier = modifier.fillMaxWidth(),
         containerColor = Color.White,
         contentColor = Color.Black,
         selectedTabIndex = pagerState.currentPage,
@@ -33,7 +32,8 @@ fun CategoryTab(
                 color = Color.Black
             )
         },
-        edgePadding = 0.dp
+        edgePadding = 0.dp,
+        modifier = modifier.fillMaxWidth(),
     ) {
         category.forEachIndexed { index, title ->
             Tab(
@@ -54,6 +54,6 @@ private fun CategoryTabPrev() {
 
     CategoryTab(
         pagerState = pagerState,
-        category = category
+        category = category,
     )
 }

@@ -25,14 +25,14 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun AlcoholCard(
-    modifier: Modifier = Modifier,
     alcoholData: AlcoholData,
-    onClick: (AlcoholData) -> Unit = {}
+    onClick: (AlcoholData) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .clickable { onClick(alcoholData) },
-        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
             model = alcoholData.imgUrl,
@@ -50,15 +50,15 @@ fun AlcoholCard(
             modifier = Modifier.align(Alignment.Start)
         )
         Row(
-            modifier = Modifier.align(Alignment.Start),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.align(Alignment.Start),
         ) {
             Image(
                 painter = painterResource(getTagImgRes(alcoholData)),
                 contentDescription = "",
+                contentScale = ContentScale.FillHeight,
                 modifier = Modifier.height(16.dp),
-                contentScale = ContentScale.FillHeight
             )
 
             AutoResizedText(

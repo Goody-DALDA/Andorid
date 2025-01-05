@@ -24,18 +24,18 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun WelcomeBanner(
+    userName: String,
     modifier: Modifier = Modifier,
-    userName: String
 ) {
     Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
     ) {
         WelcomeComment(
+            userName = userName,
             modifier = Modifier
                 .weight(224f),
-            userName = userName
         )
 
         Spacer(
@@ -76,9 +76,9 @@ private fun WelcomeComment(
     }.toString()
 
     AutoResizedText(
-        modifier = modifier,
         text = annotatedString,
         style = MaterialTheme.typography.titleLarge,
+        modifier = modifier,
     )
 }
 

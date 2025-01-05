@@ -36,7 +36,6 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SearchBarComponent(
-    modifier: Modifier = Modifier,
     query: String = "",
     placeholder: String = "",
     leadingIcon: ImageVector,
@@ -44,7 +43,8 @@ fun SearchBarComponent(
     onValueChange: (String) -> Unit = {},
     onClickBackIcon: () -> Unit = {},
     onClickLeadingIcon: (String) -> Unit = {},
-    onClickTrailingIcon: () -> Unit = {}
+    onClickTrailingIcon: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }

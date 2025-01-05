@@ -25,9 +25,6 @@
         <action
             android:id="@+id/action_navigation_home_to_contactUsFragment"
             app:destination="@id/contactUsFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_memberFragment"
-            app:destination="@id/memberFragment" />
     </fragment>
 
     <fragment
@@ -152,8 +149,4 @@
         android:name="com.goody.dalda.ui.label_search.LabelSearchActivity"
         android:label="activity_label_search"
         tools:layout="@layout/activity_label_search" />
-    <fragment
-        android:id="@+id/memberFragment"
-        android:name="com.goody.dalda.ui.member.MemberFragment"
-        android:label="MemberFragment" />
 </navigation>

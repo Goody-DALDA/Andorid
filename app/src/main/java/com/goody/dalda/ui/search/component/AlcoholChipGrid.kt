@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AlcoholChipGrid(
-    modifier: Modifier = Modifier,
     recentSearchWordList: List<String>,
-    onClickWord: (String) -> Unit = {}
+    onClickWord: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     FlowRow(
-        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier,
     ) {
         recentSearchWordList.forEach { item ->
             AlcoholChip(
@@ -44,6 +44,7 @@ fun AlcoholChip(
     onClickWord: (String) -> Unit = {}
 ) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .background(
                 Color(0xFFF5F5F5),
@@ -51,7 +52,6 @@ fun AlcoholChip(
             )
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { onClickWord(text) },
-        contentAlignment = Alignment.Center
     ) {
         Text(
             text = text,

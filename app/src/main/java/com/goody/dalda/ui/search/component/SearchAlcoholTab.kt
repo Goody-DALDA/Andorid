@@ -25,14 +25,13 @@ import com.goody.dalda.ui.search.getCategory
 
 @Composable
 fun SearchAlcoholTab(
-    modifier: Modifier = Modifier,
     pagerState: PagerState,
     categoryCount: Map<String, Int>,
     category: List<String>,
-    onClickTap: (Int) -> Unit = {}
+    onClickTap: (Int) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     ScrollableTabRow(
-        modifier = modifier,
         selectedTabIndex = pagerState.currentPage,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
@@ -40,16 +39,17 @@ fun SearchAlcoholTab(
                 color = Color.Black
             )
         },
-        edgePadding = 0.dp
+        edgePadding = 0.dp,
+        modifier = modifier,
     ) {
         category.forEachIndexed { index, type ->
             Tab(
                 selected = pagerState.currentPage == index,
                 onClick = { onClickTap(index) },
+                unselectedContentColor = Color.Gray,
                 modifier = Modifier
                     .background(Color.White)
                     .padding(16.dp),
-                unselectedContentColor = Color.Gray
             ) {
                 Row {
                     Text(
@@ -58,11 +58,11 @@ fun SearchAlcoholTab(
                         fontSize = 18.sp
                     )
                     Text(
-                        modifier = Modifier.align(Alignment.Bottom),
                         text = " ${categoryCount[type]}",
                         maxLines = 1,
                         color = colorResource(id = R.color.buttonBackground),
-                        fontSize = 20.sp
+                        fontSize = 20.sp,
+                        modifier = Modifier.align(Alignment.Bottom),
                     )
                 }
             }

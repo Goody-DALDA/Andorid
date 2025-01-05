@@ -26,16 +26,16 @@ import com.goody.dalda.R
 
 @Composable
 fun OtherAlcoholRecommend(
-    modifier: Modifier = Modifier,
     category: String,
-    onClick: (String) -> Unit = {}
+    onClick: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .padding(vertical = 20.dp)
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_alcohols),
@@ -50,6 +50,7 @@ fun OtherAlcoholRecommend(
 
         Button(
             onClick = { onClick(category) },
+            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.white)),
             modifier = modifier
                 .background(
                     colorResource(id = R.color.white),
@@ -60,9 +61,6 @@ fun OtherAlcoholRecommend(
                     color = Color.Black, // 테두리 색상
                     shape = RoundedCornerShape(8.dp) // 둥근 모서리
                 ),
-            colors = ButtonDefaults.buttonColors(
-                colorResource(id = R.color.white)
-            ),
         ) {
             Text(
                 text = "보러가기",

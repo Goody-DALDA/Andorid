@@ -9,26 +9,21 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import com.goody.dalda.R
-import com.goody.dalda.ui.home.HomeFragmentDirections
 import com.goody.dalda.ui.home.data.Menu
 
 @Composable
 fun HomeDrawerSheet(
-    modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
     selectedItemIndex: Int = 0,
     onChangeDrawerState: () -> Unit = {},
     onChangeSelectedItemIndex: (Int) -> Unit = {},
-    onClickMenu: (Menu) -> Unit = {}
+    onClickMenu: (Menu) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     val items: List<DrawerItem> = listOf(
         DrawerItem(
@@ -47,13 +42,11 @@ fun HomeDrawerSheet(
             .fillMaxHeight(),
     ) {
         // 헤더
-        
         NavigationHeader(
-            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 24.dp),
             userName = userName,
             userEmail = userEmail,
             onClickCloseIcon = { onChangeDrawerState() },
-            onClickProfile = { onClickMenu(Menu.Profile) }
+            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 24.dp),
         )
 
         HorizontalDivider(

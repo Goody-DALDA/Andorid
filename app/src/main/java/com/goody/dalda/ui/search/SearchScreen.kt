@@ -23,11 +23,11 @@ import com.goody.dalda.ui.search.component.ResentSearch
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier,
     viewModel: SearchViewModel = viewModel(),
     onClickCard: (AlcoholData) -> Unit = {},
     onClickFooter: (AlcoholType) -> Unit = {},
-    onClickCamera: () -> Unit = {}
+    onClickCamera: () -> Unit = {},
+    modifier: Modifier,
 ) {
     val query by viewModel.query.collectAsStateWithLifecycle()
     val searchResult by viewModel.searchResultList.collectAsStateWithLifecycle()
@@ -37,7 +37,6 @@ fun SearchScreen(
 
     SearchScreen(
         query = query,
-        modifier = Modifier,
         uiState = uiState,
         searchResultList = searchResult,
         recentSearchWordList = recentSearchWordList,
@@ -63,13 +62,13 @@ fun SearchScreen(
                     onClickFooter(alcoholType)
                 }
             }
-        }
+        },
+        modifier = modifier,
     )
 }
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier = Modifier,
     uiState: SearchUiState,
     query: String,
     searchResultList: List<AlcoholData> = emptyList(),
@@ -79,18 +78,16 @@ fun SearchScreen(
     onSearch: (String) -> Unit = {},
     onClickCamera: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickFooter: (String) -> Unit = {}
+    onClickFooter: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = Modifier.padding(vertical = 8.dp)
+        modifier = modifier.padding(vertical = 8.dp)
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
             SearchBarComponent(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
                 query = query,
                 placeholder = "",
                 leadingIcon = Icons.Outlined.Search,
@@ -98,6 +95,9 @@ fun SearchScreen(
                 onClickLeadingIcon = { onSearch(it) },
                 onValueChange = onQueryChange,
                 onClickTrailingIcon = onClickCamera,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             )
 
             when (uiState) {

@@ -1,6 +1,5 @@
 package com.goody.dalda.ui.member
 
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,7 +27,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,13 +34,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.ui.model.Profile
-import com.goody.dalda.ui.state.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MemberScreen(
     viewModel: MemberViewModel = viewModel(),
-    onLogout: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect("once") {
@@ -77,20 +73,6 @@ fun MemberScreen(
             Modifier.padding(innerPadding),
         )
     }
-    val context = LocalContext.current
-    when (val state = viewModel.logout.value) {
-        is UiState.Loading -> {
-
-        }
-        is UiState.Success -> {
-            Toast.makeText(context, state.data, Toast.LENGTH_SHORT).show()
-            onLogout()
-        }
-        is UiState.Error -> {
-            Toast.makeText(context, state.exception?.message, Toast.LENGTH_SHORT).show()
-        }
-        else -> {}
-    }
 }
 
 @Composable
@@ -114,7 +96,7 @@ fun MemberLayout(
             MemberInformation(viewModel.profile.value)
         }
 
-        LogoutButton(onClick = { viewModel.requestLogout() })
+        LogoutButton(onClick = {})
         WithdrawButton(onClick = {})
     }
 }

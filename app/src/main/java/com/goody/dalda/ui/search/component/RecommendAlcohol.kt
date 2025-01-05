@@ -23,11 +23,11 @@ fun RecommendAlcoholList(
             item {
                 Text(
                     text = it,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     modifier = modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .clickable { onClickWord(it) },
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
                 )
             }
         }

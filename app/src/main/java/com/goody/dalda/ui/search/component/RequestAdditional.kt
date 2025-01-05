@@ -24,11 +24,11 @@ fun RequestAdditional(
     onClick: () -> Unit = {}
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .padding(vertical = 20.dp)
             .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_break_glass),

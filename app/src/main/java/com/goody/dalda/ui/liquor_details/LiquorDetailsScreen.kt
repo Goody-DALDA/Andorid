@@ -25,15 +25,13 @@ import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LiquorDetailsScreen(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
 
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
         topBar = {
             LiquorDetailTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
@@ -41,7 +39,9 @@ fun LiquorDetailsScreen(
                 onClickMenu = { isDropDownMenuExpanded = it }
             )
         },
-        bottomBar = { LiquorDetailBottomBar() }
+        bottomBar = { LiquorDetailBottomBar() },
+        modifier = Modifier
+            .fillMaxSize(),
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -50,23 +50,19 @@ fun LiquorDetailsScreen(
         ) {
             item {
                 LiquorInfoSection(
+                    alcoholData = alcoholData,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(500.dp)
                         .padding(horizontal = 16.dp),
-                    alcoholData = alcoholData
                 )
             }
             item {
                 LiquorInfoDetailSection(
+                    alcoholData = alcoholData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            start = 16.dp,
-                            end = 16.dp,
-                            bottom = 20.dp
-                        ),
-                    alcoholData = alcoholData
+                        .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
                 )
             }
         }

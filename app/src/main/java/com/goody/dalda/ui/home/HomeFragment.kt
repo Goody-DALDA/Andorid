@@ -14,7 +14,6 @@ import com.goody.dalda.databinding.FragmentHomeBinding
 import com.goody.dalda.ui.home.data.Menu.Announcement
 import com.goody.dalda.ui.home.data.Menu.ContactUs
 import com.goody.dalda.ui.home.data.Menu.PrivacyPolicy
-import com.goody.dalda.ui.home.data.Menu.Profile
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                 PrivacyPolicy -> {
                                     HomeFragmentDirections.actionNavigationHomeToPolicyFragment()
                                 }
-                                Profile -> HomeFragmentDirections.actionNavigationHomeToMemberFragment()
+
                                 else -> return@HomeScreen
                             }
                             findNavController().navigate(

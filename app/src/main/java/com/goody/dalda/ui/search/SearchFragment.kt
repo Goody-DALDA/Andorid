@@ -29,8 +29,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             setContent {
                 MaterialTheme {
                     SearchScreen(
-                        modifier = Modifier,
-                        viewModel = viewModel,
                         onClickCard = { alcoholData ->
                             findNavController().navigate(
                                 SearchFragmentDirections.actionSearchFragmentToLiquorDetailsFragment(
@@ -49,7 +47,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                             findNavController().navigate(
                                 SearchFragmentDirections.actionSearchFragmentToLabelSearchActivity()
                             )
-                        }
+                        },
+                        modifier = Modifier,
+                        viewModel = viewModel,
                     )
                 }
             }

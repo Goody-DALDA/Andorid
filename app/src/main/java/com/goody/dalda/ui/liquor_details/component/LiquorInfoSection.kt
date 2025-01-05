@@ -24,33 +24,33 @@ import com.goody.dalda.data.AlcoholData
 
 @Composable
 fun LiquorInfoSection(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
     Column(
-        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
     ) {
         AsyncImage(
             model = alcoholData.imgUrl,
             contentDescription = "주류 이미지",
             contentScale = ContentScale.Fit,
-            modifier = Modifier.fillMaxWidth(),
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            modifier = Modifier.fillMaxWidth(),
         )
 
         BasicInfo(
+            alcoholData = alcoholData,
             modifier = Modifier.fillMaxWidth(),
-            alcoholData = alcoholData
         )
     }
 }
 
 @Composable
 fun BasicInfo(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
     when (alcoholData) {
         is AlcoholData.Soju,
@@ -58,16 +58,16 @@ fun BasicInfo(
         is AlcoholData.Sake,
         is AlcoholData.Wisky -> {
             BasicInfoWithCountry(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
 
         is AlcoholData.TraditionalLiquor,
         is AlcoholData.Wine -> {
             BasicInfoWithBrewery(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
     }
@@ -75,27 +75,27 @@ fun BasicInfo(
 
 @Composable
 fun BasicInfoWithCountry(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
     Column(
-        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
     ) {
 
         // 카테고리
         Image(
-            modifier = Modifier.width(32.dp),
             painter = painterResource(alcoholData.tag),
             contentDescription = "카테고리",
             contentScale = ContentScale.FillWidth,
+            modifier = Modifier.width(32.dp),
         )
 
         // 이름
         Text(
-            modifier = Modifier.fillMaxWidth(),
             text = alcoholData.name,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
         )
 
         // 나라
@@ -103,8 +103,8 @@ fun BasicInfoWithCountry(
 
         // 도수 / 용량
         RowAbvVolume(
+            alcoholData = alcoholData,
             modifier = Modifier.padding(top = 8.dp),
-            alcoholData = alcoholData
         )
     }
 
@@ -112,27 +112,27 @@ fun BasicInfoWithCountry(
 
 @Composable
 fun BasicInfoWithBrewery(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         // 카테고리
         Image(
-            modifier = Modifier.width(32.dp),
             painter = painterResource(alcoholData.tag),
             contentDescription = "카테고리",
             contentScale = ContentScale.FillWidth,
+            modifier = Modifier.width(32.dp),
         )
 
         // 이름
         Text(
-            modifier = Modifier.fillMaxWidth(),
             text = alcoholData.name,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
         )
 
         // 양조장
@@ -145,8 +145,8 @@ fun BasicInfoWithBrewery(
 
         // 도수 / 용량
         RowAbvVolume(
+            alcoholData = alcoholData,
             modifier = Modifier.padding(top = 8.dp),
-            alcoholData = alcoholData
         )
     }
 
@@ -154,13 +154,13 @@ fun BasicInfoWithBrewery(
 
 @Composable
 fun RowAbvVolume(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
     Row(
-        modifier = modifier.padding(bottom = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.padding(bottom = 16.dp),
     ) {
         SecondFloorText(
             topText = "도수",
@@ -180,13 +180,14 @@ fun RowAbvVolume(
 
 @Composable
 fun SecondFloorText(
-    modifier: Modifier = Modifier,
     topText: String,
-    bottomText: String
+    bottomText: String,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier,
     ) {
         Text(topText)
         Text(bottomText)

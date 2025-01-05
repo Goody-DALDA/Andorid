@@ -23,11 +23,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCategoryBinding
         get() = FragmentCategoryBinding::inflate
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,8 +32,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             setContent {
                 MaterialTheme {
                     CategoryScreen(
-                        modifier = Modifier,
-                        viewModel = viewModel,
                         alcoholType = args.category,
                         onClickCard = { alcoholData ->
                             findNavController().navigate(
@@ -51,7 +44,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                             findNavController().navigate(
                                 CategoryFragmentDirections.actionCategoryFragmentToLabelSearchActivity()
                             )
-                        }
+                        },
+                        modifier = Modifier,
+                        viewModel = viewModel,
                     )
                 }
             }

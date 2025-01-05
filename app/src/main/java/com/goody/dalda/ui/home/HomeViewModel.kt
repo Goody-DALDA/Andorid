@@ -1,21 +1,16 @@
 package com.goody.dalda.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.RecommendAlcohol
-import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.data.repository.home.AlcoholRepository
-import com.goody.dalda.util.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository, private val profileRepository: LoginRepository) :
+class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
     ViewModel() {
 
     private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
@@ -27,9 +22,7 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
 
-    private val _authState = MutableStateFlow(
-        if (PreferenceManager.getAccessToken().isEmpty()) AuthState.SignOut else AuthState.SignIn
-    )
+    private val _authState = MutableStateFlow<AuthState>(AuthState.SignOut)
     val authState: StateFlow<AuthState> = _authState
 
     private val _userName = MutableStateFlow("")
@@ -67,15 +60,5 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
 
     fun setSelectedItemIndex(itemIndex: Int) {
         _selectedItemIndex.value = itemIndex
-    }
-
-    fun fetchProfile() {
-        if (PreferenceManager.getAccessToken().isEmpty()) return
-
-        viewModelScope.launch(Dispatchers.IO) {
-            val profile = profileRepository.getProfile()
-            _userName.value = profile.nickname
-            _userEmail.value = profile.email
-        }
     }
 }

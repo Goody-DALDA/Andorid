@@ -22,10 +22,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun SearchResult(
-    modifier: Modifier = Modifier,
     alcoholDataList: List<AlcoholData> = emptyList(),
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickFooter: (String) -> Unit = {}
+    onClickFooter: (String) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     val category = alcoholDataList.map { getCategory(it) }.distinct()
     val categoryCount = alcoholDataList.groupBy { getCategory(it) }
@@ -34,7 +34,7 @@ fun SearchResult(
     val coroutineScope = rememberCoroutineScope()
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
@@ -42,7 +42,6 @@ fun SearchResult(
             RequestAdditional()
         } else {
             SearchAlcoholTab(
-                modifier = Modifier.fillMaxWidth(),
                 pagerState = pagerState,
                 categoryCount = categoryCount,
                 category = category,
@@ -50,7 +49,8 @@ fun SearchResult(
                     coroutineScope.launch {
                         pagerState.animateScrollToPage(it)
                     }
-                }
+                },
+                modifier = Modifier.fillMaxWidth(),
             )
 
             HorizontalPager(
@@ -58,7 +58,6 @@ fun SearchResult(
                 modifier = Modifier.fillMaxSize()
             ) {
                 AlcoholCardListComponent(
-                    modifier = Modifier,
                     alcoholDataList = alcoholDataList
                         .filter { getCategory(it) == category[pagerState.currentPage] },
                     footer = {
@@ -67,7 +66,8 @@ fun SearchResult(
                             onClick = onClickFooter
                         )
                     },
-                    onClickCard = onClickCard
+                    onClickCard = onClickCard,
+                    modifier = Modifier,
                 )
             }
         }

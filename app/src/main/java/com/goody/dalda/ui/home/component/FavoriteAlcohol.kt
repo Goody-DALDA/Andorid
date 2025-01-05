@@ -22,33 +22,33 @@ import com.goody.dalda.data.AlcoholData
 
 @Composable
 fun FavoriteAlcohol(
-    modifier: Modifier = Modifier,
     favoriteAlcoholDataList: List<AlcoholData> = emptyList(),
-    onActionClick: () -> Unit = {}
+    onActionClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ContentsTitle(
-            modifier = Modifier
-                .height(30.dp),
             title = stringResource(id = R.string.text_my_favorite_alcohol),
             actionText = stringResource(id = R.string.text_whole_view),
-            onActionClick = { onActionClick() }
+            onActionClick = { onActionClick() },
+            modifier = Modifier
+                .height(30.dp),
         )
         if (favoriteAlcoholDataList.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
                 Image(
+                    painter = painterResource(id = R.drawable.img_alcohols),
+                    contentDescription = "",
+                    contentScale = ContentScale.FillWidth,
                     modifier = Modifier
                         .height(150.dp)
                         .width(150.dp)
                         .align(Alignment.CenterHorizontally),
-                    painter = painterResource(id = R.drawable.img_alcohols),
-                    contentDescription = "",
-                    contentScale = ContentScale.FillWidth
                 )
 
                 Text(
@@ -61,10 +61,10 @@ fun FavoriteAlcohol(
 
         } else {
             LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .height(231.dp)
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 items(favoriteAlcoholDataList.size) { idx ->
                     AlcoholCard(

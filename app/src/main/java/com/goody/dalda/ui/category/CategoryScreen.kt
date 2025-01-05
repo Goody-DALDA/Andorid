@@ -37,17 +37,17 @@ import kotlinx.coroutines.launch
 @OptIn(FlowPreview::class)
 @Composable
 fun CategoryScreen(
-    modifier: Modifier = Modifier,
-    viewModel: CategoryViewModel = viewModel(),
     alcoholType: AlcoholType,
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickCamera: () -> Unit = {}
+    onClickCamera: () -> Unit = {},
+    modifier: Modifier = Modifier,
+    viewModel: CategoryViewModel = viewModel(),
 ) {
     val isFirst by viewModel.isFirst.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
     val alcoholDataListWithQuery by viewModel.alcoholDataListWithQuery.collectAsStateWithLifecycle()
     val category by viewModel.category.collectAsStateWithLifecycle()
-    val pagerState by viewModel.pageState.collectAsStateWithLifecycle()
+    val pagerState by viewModel.pagerState.collectAsStateWithLifecycle()
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -69,11 +69,10 @@ fun CategoryScreen(
     }
 
     CategoryScreen(
-        modifier = modifier.fillMaxSize(),
+        pagerState = pagerState,
         query = query,
         category = category,
         alcoholDataList = alcoholDataListWithQuery,
-        pagerState = pagerState,
         onValueChange = { viewModel.setQuery(it) },
         onClickCategory = { index ->
             coroutineScope.launch {
@@ -81,55 +80,56 @@ fun CategoryScreen(
             }
         },
         onClickCard = onClickCard,
-        onClickTrailingIcon = onClickCamera
-    )
+        onClickTrailingIcon = onClickCamera,
+        modifier = modifier.fillMaxSize(),
+        )
 }
 
 @Composable
 fun CategoryScreen(
-    modifier: Modifier = Modifier,
+    pagerState: PagerState,
     query: String,
     category: List<String> = emptyList(),
     alcoholDataList: List<AlcoholData> = emptyList(),
-    pagerState: PagerState,
     onValueChange: (String) -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickTrailingIcon: () -> Unit = {}
+    onClickTrailingIcon: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
         SearchBarComponent(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
             query = query,
             placeholder = "",
             leadingIcon = Icons.Outlined.Search,
             trailingIcon = IconPack.IcCamera,
             onValueChange = onValueChange,
-            onClickTrailingIcon = onClickTrailingIcon
+            onClickTrailingIcon = onClickTrailingIcon,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
         )
 
         CategoryTab(
-            modifier = Modifier,
             pagerState = pagerState,
             category = category,
             onClickTab = { index ->
                 onClickCategory(index)
-            }
+            },
+            modifier = Modifier,
         )
 
         HorizontalPager(
+            state = pagerState,
             modifier = Modifier.fillMaxSize(),
-            state = pagerState
         ) {
             AlcoholCardListComponent(
+                alcoholDataList = alcoholDataList,
+                onClickCard = onClickCard,
                 modifier = Modifier
                     .fillMaxSize(),
-                alcoholDataList = alcoholDataList,
-                onClickCard = onClickCard
             )
         }
     }

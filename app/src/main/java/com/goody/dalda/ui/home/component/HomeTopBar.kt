@@ -16,8 +16,8 @@ import com.goody.dalda.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar(
+    onClickMenu: () -> Unit = {},
     modifier: Modifier = Modifier,
-    onClickMenu: () -> Unit = {}
 ) {
     TopAppBar(
         title = { stringResource(id = R.string.text_home_title_top_bar) },

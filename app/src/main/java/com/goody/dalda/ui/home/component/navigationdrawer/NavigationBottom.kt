@@ -25,8 +25,8 @@ import com.goody.dalda.ui.home.data.Menu
 
 @Composable
 fun NavigationBottom(
+    onClick: (Menu) -> Unit = {},
     modifier: Modifier = Modifier,
-    onClick: (Menu) -> Unit = {}
 ) {
     // TODO 상태 호이스팅 - 버전 정보.
     Column(
@@ -41,17 +41,17 @@ fun NavigationBottom(
                 modifier = Modifier.clickable { onClick(Menu.PrivacyPolicy) }
             )
             VerticalDivider(
+                color = Color(0xffA9A9AD),
                 modifier = Modifier
                     .height(20.dp)
                     .padding(horizontal = 10.dp),
-                color = Color(0xffA9A9AD)
             )
             AutoResizedText(text = stringResource(id = R.string.text_terms_and_conditions))
         }
         // 인스타, 링크
         Row(
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.padding(top = 30.dp, bottom = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Image(
                 imageVector = IconPack.IcLink,

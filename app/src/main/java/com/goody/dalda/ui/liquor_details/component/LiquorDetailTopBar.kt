@@ -22,10 +22,10 @@ import com.goody.dalda.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiquorDetailTopBar(
-    modifier: Modifier = Modifier,
     isDropDownMenuExpanded: Boolean = false,
     omNavigationClick: () -> Unit = {},
-    onClickMenu: (Boolean) -> Unit = {}
+    onClickMenu: (Boolean) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
 
 

@@ -20,8 +20,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
-    ViewModel() {
+class CategoryViewModel @Inject constructor(
+    private val alcoholRepository: AlcoholRepository
+) : ViewModel() {
 
     private val _isFirst = MutableStateFlow(true)
     val isFirst: StateFlow<Boolean> = _isFirst
@@ -34,8 +35,8 @@ class CategoryViewModel @Inject constructor(private val alcoholRepository: Alcoh
     private val _alcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
     val alcoholDataList: StateFlow<List<AlcoholData>> = _alcoholDataList
 
-    private val _pageState = MutableStateFlow(PagerState { _category.value.size })
-    val pageState: StateFlow<PagerState> = _pageState
+    private val _pagerState = MutableStateFlow(PagerState { _category.value.size })
+    val pagerState: StateFlow<PagerState> = _pagerState
 
     @OptIn(FlowPreview::class)
     val alcoholDataListWithQuery = query.combine(alcoholDataList) { query, alcoholDataList ->

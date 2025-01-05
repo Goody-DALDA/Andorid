@@ -19,7 +19,6 @@ import com.goody.dalda.ui.component.OrangeColorButton
 @Composable
 fun LiquorDetailBottomBar(modifier: Modifier = Modifier) {
     BottomAppBar(
-        modifier = Modifier,
         content = {
             Row(
                 modifier = Modifier.padding(vertical = 8.dp),
@@ -41,7 +40,8 @@ fun LiquorDetailBottomBar(modifier: Modifier = Modifier) {
                     text = stringResource(id = R.string.text_add_pictorial_book)
                 )
             }
-        }
+        },
+        modifier = modifier,
     )
 }
 

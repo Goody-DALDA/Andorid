@@ -24,49 +24,49 @@ import java.text.DecimalFormat
 
 @Composable
 fun LiquorInfoDetailSection(
+    alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData
 ) {
     when (alcoholData) {
         is AlcoholData.Beer -> {
             DetailSectionBeer(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
 
         is AlcoholData.Sake -> {
             DetailSectionSake(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
 
         is AlcoholData.Soju -> {
             DetailSectionSoju(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
 
         is AlcoholData.TraditionalLiquor -> {
             DetailSectionTraditionalLiquor(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
 
         is AlcoholData.Wisky -> {
             DetailSectionWhiskey(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
 
         is AlcoholData.Wine -> {
             DetailSectionWine(
+                alcoholData = alcoholData,
                 modifier = modifier,
-                alcoholData = alcoholData
             )
         }
     }
@@ -74,8 +74,8 @@ fun LiquorInfoDetailSection(
 
 @Composable
 fun DetailSectionBeer(
+    alcoholData: AlcoholData.Beer,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.Beer
 ) {
     val valueList = listOf(
         "아로마" to alcoholData.aroma,
@@ -124,8 +124,8 @@ fun DetailSectionBeer(
 
 @Composable
 fun DetailSectionWine(
+    alcoholData: AlcoholData.Wine,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.Wine
 ) {
     val graphDataList = listOf(
         "단맛" to alcoholData.sugar,
@@ -203,8 +203,8 @@ fun DetailSectionWine(
 
 @Composable
 fun DetailSectionTraditionalLiquor(
+    alcoholData: AlcoholData.TraditionalLiquor,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.TraditionalLiquor
 ) {
     val infoList = listOf(
         "스타일" to alcoholData.type,
@@ -261,8 +261,8 @@ fun DetailSectionTraditionalLiquor(
 
 @Composable
 fun DetailSectionWhiskey(
+    alcoholData: AlcoholData.Wisky,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.Wisky
 ) {
     val dec = DecimalFormat("#,###")
 
@@ -314,8 +314,8 @@ fun DetailSectionWhiskey(
 
 @Composable
 fun DetailSectionSake(
+    alcoholData: AlcoholData.Sake,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.Sake
 ) {
     val dec = DecimalFormat("#,###")
 
@@ -366,8 +366,8 @@ fun DetailSectionSake(
 
 @Composable
 fun DetailSectionSoju(
+    alcoholData: AlcoholData.Soju,
     modifier: Modifier = Modifier,
-    alcoholData: AlcoholData.Soju
 ) {
     val dec = DecimalFormat("#,###")
 
@@ -411,12 +411,12 @@ fun DetailSectionSoju(
 
 @Composable
 fun TextTitleValue(
-    modifier: Modifier = Modifier,
     title: String,
-    value: String
+    value: String,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(36.dp)
     ) {
         Text(
@@ -432,8 +432,8 @@ fun TextTitleValue(
 
 @Composable
 fun DrawBarGraph(
+    value: Float,
     modifier: Modifier = Modifier,
-    value: Float
 ) {
     val isFills = MutableList(5) { false }
     for (i in 0 until value.toInt()) {
@@ -502,11 +502,11 @@ fun DrawBarGraph(
 
 @Composable
 fun DrawBarGraphWithTitle(
+    value: Pair<String, Float>,
     modifier: Modifier = Modifier,
-    value: Pair<String, Float>
 ) {
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(

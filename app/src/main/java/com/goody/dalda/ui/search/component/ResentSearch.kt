@@ -17,9 +17,9 @@ import com.goody.dalda.R
 
 @Composable
 fun ResentSearch(
-    modifier: Modifier = Modifier,
     recentSearchWordList: List<String>,
-    onQueryChange: (String) -> Unit
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = Modifier.padding(24.dp),

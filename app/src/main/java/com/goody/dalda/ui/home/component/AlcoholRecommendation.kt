@@ -24,14 +24,14 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun AlcoholRecommendation(
-    modifier: Modifier = Modifier,
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     onActionClick: () -> Unit = {},
-    onContentsClick: () -> Unit = {}
+    onContentsClick: () -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
     Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ContentsTitle(
             title = stringResource(id = R.string.text_alcohol_recommendation),
@@ -50,25 +50,21 @@ fun AlcoholRecommendation(
                     AsyncImage(
                         model = recommendAlcoholList[idx].imgRes,
                         contentDescription = "",
+                        placeholder = painterResource(R.drawable.ic_launcher_foreground),
+                        contentScale = ContentScale.FillWidth,
                         modifier = Modifier
                             .width(240.dp)
                             .height(176.dp)
                             .clickable { onContentsClick() },
-                        placeholder = painterResource(R.drawable.ic_launcher_foreground),
-                        contentScale = ContentScale.FillWidth,
                     )
 
                     AutoResizedText(
                         text = recommendAlcoholList[idx].comment,
                         modifier = Modifier
-                            .padding(
-                                start = 12.dp,
-                                bottom = 12.dp
-                            )
+                            .padding(start = 12.dp, bottom = 12.dp)
                             .align(Alignment.BottomStart)
                     )
                 }
-
             }
         }
     }
