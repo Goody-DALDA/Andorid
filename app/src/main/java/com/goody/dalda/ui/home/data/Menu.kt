@@ -8,4 +8,5 @@ sealed class Menu {
     data object PrivacyPolicy : Menu()
     data object Link : Menu()
     data object Instagram : Menu()
+    data object Profile : Menu()
 }
