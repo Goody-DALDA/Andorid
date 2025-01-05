@@ -155,5 +155,24 @@
     <fragment
         android:id="@+id/memberFragment"
         android:name="com.goody.dalda.ui.member.MemberFragment"
-        android:label="MemberFragment" />
+        android:label="MemberFragment" >
+        <action
+            android:id="@+id/action_memberFragment_to_withdrawFragment"
+            app:destination="@id/withdrawFragment" />
+        <action
+            android:id="@+id/action_memberFragment_to_loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="com.goody.dalda.ui.member.WithdrawFragment"
+        android:label="WithdrawFragment" >
+        <action
+            android:id="@+id/action_withdrawFragment_to_loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

@@ -73,9 +73,13 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
         if (PreferenceManager.getAccessToken().isEmpty()) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val profile = profileRepository.getProfile()
-            _userName.value = profile.nickname
-            _userEmail.value = profile.email
+            try {
+                val profile = profileRepository.getProfile()
+                _userName.value = profile.nickname
+                _userEmail.value = profile.email
+            } catch (e: Exception) {
+                _homeUiState.value = HomeUiState.ErrorState
+            }
         }
     }
 }

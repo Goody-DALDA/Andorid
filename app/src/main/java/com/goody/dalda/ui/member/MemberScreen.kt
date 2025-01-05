@@ -42,7 +42,8 @@ import com.goody.dalda.ui.state.UiState
 @Composable
 fun MemberScreen(
     viewModel: MemberViewModel = viewModel(),
-    onLogout: () -> Unit = {},
+    onClickSeeLoginScreen: () -> Unit = {},
+    onClickSeeWithdrawScreen: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     LaunchedEffect("once") {
@@ -75,6 +76,7 @@ fun MemberScreen(
         MemberLayout(
             viewModel,
             Modifier.padding(innerPadding),
+            onClickWithdrawButton = onClickSeeWithdrawScreen
         )
     }
     val context = LocalContext.current
@@ -84,7 +86,7 @@ fun MemberScreen(
         }
         is UiState.Success -> {
             Toast.makeText(context, state.data, Toast.LENGTH_SHORT).show()
-            onLogout()
+            onClickSeeLoginScreen()
         }
         is UiState.Error -> {
             Toast.makeText(context, state.exception?.message, Toast.LENGTH_SHORT).show()
@@ -96,7 +98,8 @@ fun MemberScreen(
 @Composable
 fun MemberLayout(
     viewModel: MemberViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickWithdrawButton: () -> Unit = {}
 ) {
     Column(modifier = modifier.fillMaxSize()) {
 
@@ -115,7 +118,7 @@ fun MemberLayout(
         }
 
         LogoutButton(onClick = { viewModel.requestLogout() })
-        WithdrawButton(onClick = {})
+        WithdrawButton(onClick = onClickWithdrawButton)
     }
 }
 

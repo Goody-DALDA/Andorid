@@ -7,6 +7,7 @@ import com.goody.dalda.data.dto.asDomain
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.ui.model.Profile
+import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
 import javax.inject.Inject
 
@@ -47,10 +48,14 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override suspend fun logout(): LogoutDto {
-        return userRemoteDataSource.logout().body() ?: LogoutDto("failed", "data null")
+        val response = userRemoteDataSource.logout()
+        PreferenceManager.clearAccessToken()
+        return response.body() ?: LogoutDto("failed", "data null")
     }
 
     override suspend fun leaveUser(): LeaveDto {
-        return userRemoteDataSource.leaveUser().body() ?: LeaveDto("failed", "data null")
+        val response = userRemoteDataSource.leaveUser()
+        PreferenceManager.clearAccessToken()
+        return response.body() ?: LeaveDto("failed", "data null")
     }
 }

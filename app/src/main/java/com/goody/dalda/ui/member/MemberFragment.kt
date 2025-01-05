@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.navigation.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentMemberBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +20,14 @@ class MemberFragment: BaseFragment<FragmentMemberBinding>() {
         binding.fragmentMemberComposeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                MemberScreen()
+                MemberScreen(
+                    onClickSeeLoginScreen = {
+                        findNavController().navigate(MemberFragmentDirections.actionMemberFragmentToLoginFragment())
+                    },
+                    onClickSeeWithdrawScreen = {
+                        findNavController().navigate(MemberFragmentDirections.actionMemberFragmentToWithdrawFragment())
+                    }
+                )
             }
         }
     }
