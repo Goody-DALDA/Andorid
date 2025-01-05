@@ -1,9 +1,7 @@
 package com.goody.dalda.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,16 +10,11 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) : ViewModel() {
-    // 주류 정보 호출 로직
+class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
+    ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
-    private val _favoriteAlcoholInfoList = MutableStateFlow(emptyList<AlcoholInfo>())
-    val favoriteAlcoholInfoList: StateFlow<List<AlcoholInfo>> = _favoriteAlcoholInfoList
+    private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
+    val favoriteAlcoholDataList: StateFlow<List<AlcoholData>> = _favoriteAlcoholDataList
 
     private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
     val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
@@ -41,9 +34,8 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
     private val _selectedItemIndex = MutableStateFlow(0)
     val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
 
-
-    fun setAlcoholInfoList(alcoholInfoList: List<AlcoholInfo>) {
-        _favoriteAlcoholInfoList.value = alcoholInfoList
+    fun setAlcoholDataList(alcoholDataList: List<AlcoholData>) {
+        _favoriteAlcoholDataList.value = alcoholDataList
     }
 
     fun setRecommendAlcoholList(recommendAlcoholList: List<RecommendAlcohol>) {

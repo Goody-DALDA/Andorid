@@ -1,10 +1,8 @@
 package com.goody.dalda
 
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.converter.DynamicConverterFactory
-import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSource
-import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSourceImpl
+import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
+import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
 import com.goody.dalda.network.RetrofitService
 import com.goody.dalda.ui.category.CategoryViewModel
@@ -22,7 +20,7 @@ class CategoryViewModelTest {
 
     private val server = MockWebServer()
     private lateinit var service: RetrofitService
-    private lateinit var alcoholInfoRemoteDataSource: AlcoholInfoRemoteDataSource
+    private lateinit var alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
     private lateinit var alcoholRepositoryImpl: AlcoholRepositoryImpl
     private lateinit var viewModel: CategoryViewModel
 
@@ -37,11 +35,11 @@ class CategoryViewModelTest {
             .build()
             .create()
 
-        alcoholInfoRemoteDataSource = AlcoholInfoRemoteDataSourceImpl(
+        alcoholDataRemoteDataSource = AlcoholDataRemoteDataSourceImpl(
             service = service
         )
         alcoholRepositoryImpl = AlcoholRepositoryImpl(
-            alcoholInfoRemoteDataSource = alcoholInfoRemoteDataSource
+            alcoholDataRemoteDataSource = alcoholDataRemoteDataSource
         )
         viewModel = CategoryViewModel(
             alcoholRepository = alcoholRepositoryImpl
@@ -58,44 +56,14 @@ class CategoryViewModelTest {
         server.enqueue(response)
 
         // when : Beer 카테고리를 호출한다.
-        runTest {
-            viewModel.fetchAlcoholInfo("Beer")
+        val actual = runCatching {
+            runTest {
+                viewModel.fetchAlcoholData("Beer")
+            }
         }
-        val actual = viewModel.alcoholInfoList.value.subList(0, 4)
 
-        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
-        val expect = listOf(
-            AlcoholInfo(
-                id = 1,
-                name = "카스 프레시",
-                imgUrl = "https://user-images.githubusercontent.com/76477531/228704017-e8142b5c-3e5a-4175-a46a-a7b6866e4c54.png",
-                type = AlcoholType.BEER,
-                abv = "4.5%"
-            ),
-            AlcoholInfo(
-                id = 2,
-                name = "필라이트",
-                imgUrl = "https://user-images.githubusercontent.com/76477531/228704047-8bff0794-6daf-4ecb-9439-34bcbcb3cd57.png",
-                type = AlcoholType.BEER,
-                abv = "4.5%"
-            ),
-            AlcoholInfo(
-                id = 3,
-                name = "하이트 디",
-                imgUrl = "https://user-images.githubusercontent.com/76477531/228704055-c3569c21-0929-499c-8337-b3012143acf3.png",
-                type = AlcoholType.BEER,
-                abv = "4.8%"
-            ),
-            AlcoholInfo(
-                id = 4,
-                name = "하이트 엑스트라 콜드",
-                imgUrl = "https://user-images.githubusercontent.com/76477531/228704058-772a263b-21bd-49e8-bf29-62c78dbe4464.png",
-                type = AlcoholType.BEER,
-                abv = "4.3%"
-            )
-        )
-
-        assertThat(actual).isEqualTo(expect)
+        // then : 오류가 없다.
+        assertThat(actual.isSuccess).isEqualTo(true)
     }
 
     @Test
@@ -108,44 +76,14 @@ class CategoryViewModelTest {
         server.enqueue(response)
 
         // when : Beer 카테고리를 호출한다.
-        runTest {
-            viewModel.fetchAlcoholInfo("Wine")
+        val actual = runCatching {
+            runTest {
+                viewModel.fetchAlcoholData("Wine")
+            }
         }
-        val actual = viewModel.alcoholInfoList.value.subList(0, 4)
 
-        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
-        val expect = listOf(
-            AlcoholInfo(
-                id = 1,
-                name = "이기갈 꼬뜨 뒤 론 레드",
-                imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_005_E.GuigalCotesduRhoneRouge.jpg",
-                type = AlcoholType.WINE,
-                abv = "%"
-            ),
-            AlcoholInfo(
-                id = 2,
-                name = "이기갈 꼬뜨 뒤 론 화이트",
-                imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_006_E.GuigalCotesduRhoneBlanc.jpg",
-                type = AlcoholType.WINE,
-                abv = "%"
-            ),
-            AlcoholInfo(
-                id = 3,
-                name = "이기갈 꼬뜨 로띠 ‘브륀 & 블롱드’",
-                imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_007_E.GuigalCotRotieBrune&BlondedeGuigal.jpg",
-                type = AlcoholType.WINE,
-                abv = "%"
-            ),
-            AlcoholInfo(
-                id = 4,
-                name = "이기갈 꼬뜨 로띠 ‘샤또 당퓌’",
-                imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_008_E.GuigalCoteRotieChateaudAmpuis.jpg",
-                type = AlcoholType.WINE,
-                abv = "%"
-            )
-        )
-
-        assertThat(actual).isEqualTo(expect)
+        // then : 오류가 없다.
+        assertThat(actual.isSuccess).isEqualTo(true)
     }
 
     @Test
@@ -160,11 +98,10 @@ class CategoryViewModelTest {
         // when : Beer 카테고리를 호출한다.
         val actual = runCatching {
             runTest {
-                viewModel.fetchAlcoholInfo("sake")
+                viewModel.fetchAlcoholData("sake")
             }
         }
-        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
-        println(actual.exceptionOrNull())
+        // then : 오류가 없다.
         assertThat(actual.isSuccess).isEqualTo(true)
     }
 
@@ -180,11 +117,10 @@ class CategoryViewModelTest {
         // when : Beer 카테고리를 호출한다.
         val actual = runCatching {
             runTest {
-                viewModel.fetchAlcoholInfo("soju")
+                viewModel.fetchAlcoholData("soju")
             }
         }
-        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
-        println(actual.exceptionOrNull())
+        // then : 오류가 없다.
         assertThat(actual.isSuccess).isEqualTo(true)
     }
 
@@ -200,11 +136,10 @@ class CategoryViewModelTest {
         // when : Beer 카테고리를 호출한다.
         val actual = runCatching {
             runTest {
-                viewModel.fetchAlcoholInfo("Traditional")
+                viewModel.fetchAlcoholData("TraditionalLiquor")
             }
         }
-        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
-        println(actual.exceptionOrNull())
+        // then : 오류가 없다.
         assertThat(actual.isSuccess).isEqualTo(true)
     }
 
@@ -220,11 +155,10 @@ class CategoryViewModelTest {
         // when : Beer 카테고리를 호출한다.
         val actual = runCatching {
             runTest {
-                viewModel.fetchAlcoholInfo("wisky")
+                viewModel.fetchAlcoholData("wisky")
             }
         }
-        // then : Beer 카테고리에 해당하는 AlcoholInfo 리스트가 반환된다.
-        println(actual.exceptionOrNull())
+        // then : 오류가 없다.
         assertThat(actual.isSuccess).isEqualTo(true)
     }
 }

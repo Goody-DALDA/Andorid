@@ -1,16 +1,17 @@
 package com.goody.dalda.ui.search.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,42 +20,47 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholInfo
-import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.search.getCategory
 
 @Composable
 fun SearchAlcoholTab(
     modifier: Modifier = Modifier,
-    selectedIndex: Int,
-    categoryCount: Map<AlcoholType, Int>,
-    category: List<AlcoholType>,
-    onSelectedIndex: (Int) -> Unit = {}
+    pagerState: PagerState,
+    categoryCount: Map<String, Int>,
+    category: List<String>,
+    onClickTap: (Int) -> Unit = {}
 ) {
-    TabRow(
-        selectedTabIndex = selectedIndex,
+    ScrollableTabRow(
+        modifier = modifier,
+        selectedTabIndex = pagerState.currentPage,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(tabPositions[selectedIndex]),
+                modifier = Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
                 color = Color.Black
             )
-        }
+        },
+        edgePadding = 0.dp
     ) {
         category.forEachIndexed { index, type ->
             Tab(
-                selected = selectedIndex == index,
-                onClick = { onSelectedIndex(index) },
-                modifier = Modifier.padding(16.dp),
+                selected = pagerState.currentPage == index,
+                onClick = { onClickTap(index) },
+                modifier = Modifier
+                    .background(Color.White)
+                    .padding(16.dp),
                 unselectedContentColor = Color.Gray
             ) {
                 Row {
                     Text(
-                        modifier = Modifier.fillMaxHeight(),
-                        text = type.alcoholName,
+                        text = type,
+                        maxLines = 1,
                         fontSize = 18.sp
                     )
                     Text(
                         modifier = Modifier.align(Alignment.Bottom),
                         text = " ${categoryCount[type]}",
+                        maxLines = 1,
                         color = colorResource(id = R.color.buttonBackground),
                         fontSize = 20.sp
                     )
@@ -67,59 +73,69 @@ fun SearchAlcoholTab(
 @Preview
 @Composable
 private fun SearchAlcoholTabPrev() {
-    val alcoholInfoList = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
+    val alcoholDataList = listOf(
+        AlcoholData.Wisky(
+            id = 0,
+            name = "위스키",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_whiskey,
+            volume = "750ml",
+            abv = "40%",
+            type = "위스키",
+            country = "스코틀랜드",
+            price = 170000,
+            taste = "써요",
+            aroma = "부드러워요",
+            finish = "깔끔해요",
         ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
+        AlcoholData.Beer(
+            id = 0,
+            name = "카스",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_beer,
+            volume = "355ml",
+            abv = "4.5%",
+            appearance = 2.28f,
+            flavor = 4.4f,
+            mouthfeel = 2.0f,
+            aroma = 3.3f,
+            type = "밀맥주",
+            country = "독일"
         ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
+        AlcoholData.Sake(
+            id = 0,
+            name = "사케",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_sake,
+            volume = "750ml",
+            abv = "15%",
+            price = 30000,
+            taste = "달아요",
+            aroma = "좋아요",
+            finish = "시원해요",
+            country = "일본",
         ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_1",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_2",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
+        AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_soju,
+            volume = "360ml",
+            abv = "17%",
+            price = 5000,
+            comment = "맛있어요"
+        )
     )
 
-    val selectedIndex = remember { mutableStateOf(0) }
-    val category = alcoholInfoList.map { it.type }.distinct()
-    val categoryCount = alcoholInfoList.groupBy { it.type }
+    val category = alcoholDataList.map { getCategory(it) }.distinct()
+    val categoryCount = alcoholDataList.groupBy { getCategory(it) }
         .mapValues { it.value.size }
+    val pagerState = rememberPagerState { category.size }
 
     SearchAlcoholTab(
-        selectedIndex = selectedIndex.value,
+        modifier = Modifier.fillMaxWidth(),
         category = category,
+        pagerState = pagerState,
         categoryCount = categoryCount
     )
 }

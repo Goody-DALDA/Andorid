@@ -55,7 +55,9 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
                 // In Compose world
                 MaterialTheme {
                     Scaffold(
-                        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.onBackground),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.onBackground),
                         topBar = {
                             TopBar()
                         },

@@ -4,8 +4,8 @@ import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.local.PreferenceLocalDataSourceImpl
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSourceImpl
-import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSource
-import com.goody.dalda.data.remote.home.AlcoholInfoRemoteDataSourceImpl
+import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
+import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,7 +19,7 @@ abstract class DataSourceModule {
     abstract fun bindUserRemoteDataSource(dataSource: UserRemoteDataSourceImpl): UserRemoteDataSource
 
     @Binds
-    abstract fun bindAlcoholInfoRemoteDataSource(repository: AlcoholInfoRemoteDataSourceImpl): AlcoholInfoRemoteDataSource
+    abstract fun bindAlcoholDataRemoteDataSource(repository: AlcoholDataRemoteDataSourceImpl): AlcoholDataRemoteDataSource
 
     @Binds
     abstract fun bindPreferenceLocalDataSource(dataSource: PreferenceLocalDataSourceImpl): PreferenceLocalDataSource

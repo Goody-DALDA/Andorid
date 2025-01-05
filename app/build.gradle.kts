@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.dagger.hilt.android)
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlinx-serialization")
+    alias(libs.plugins.compose.compiler)
 }
 
 
@@ -91,6 +93,7 @@ dependencies {
     implementation(libs.squareup.retrofit2.retrofit)
     implementation(libs.squareup.retrofit2.converter.gson)
     implementation(libs.squareup.okhttp3.logging.interceptor)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.google.gson)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
@@ -99,6 +102,7 @@ dependencies {
     testImplementation(libs.mockwebserver)
     testImplementation (libs.assertj.core)
     testImplementation (libs.kotlinx.coroutines.test)
+
     // compose
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

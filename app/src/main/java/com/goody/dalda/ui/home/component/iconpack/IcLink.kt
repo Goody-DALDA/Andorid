@@ -1,12 +1,9 @@
 package com.goody.dalda.ui.home.component.iconpack
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeCap.Companion.Butt
-import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
@@ -20,11 +17,15 @@ public val IconPack.IcLink: ImageVector
         if (_icLink != null) {
             return _icLink!!
         }
-        _icLink = Builder(name = "IcLink", defaultWidth = 32.0.dp, defaultHeight = 32.0.dp,
-                viewportWidth = 32.0f, viewportHeight = 32.0f).apply {
-            path(fill = SolidColor(Color(0xFFC3C3C6)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+        _icLink = Builder(
+            name = "IcLink", defaultWidth = 32.0.dp, defaultHeight = 32.0.dp,
+            viewportWidth = 32.0f, viewportHeight = 32.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFFC3C3C6)), stroke = null, strokeLineWidth = 0.0f,
+                strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(16.0f, 0.0f)
                 lineTo(16.0f, 0.0f)
                 arcTo(16.0f, 16.0f, 0.0f, false, true, 32.0f, 16.0f)
@@ -37,9 +38,11 @@ public val IconPack.IcLink: ImageVector
                 close()
             }
             group {
-                path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                        strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                        pathFillType = NonZero) {
+                path(
+                    fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                    pathFillType = NonZero
+                ) {
                     moveTo(16.0f, 10.6667f)
                     lineTo(13.8667f, 12.8f)
                     lineTo(14.9334f, 13.8667f)
@@ -73,7 +76,7 @@ public val IconPack.IcLink: ImageVector
                 }
             }
         }
-        .build()
+            .build()
         return _icLink!!
     }
 

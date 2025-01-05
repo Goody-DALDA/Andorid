@@ -28,30 +28,34 @@ fun PolicyScreen(
     modifier: Modifier = Modifier,
     viewModel: PolicyViewModel = viewModel()
 ) {
-        Scaffold(
-            modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.onBackground),
-            topBar = {
-                CenterAlignedTopAppBar(
-                    title = { Text(
+    Scaffold(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onBackground),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
                         text = "개인정보 처리방침",
                         style = MaterialTheme.typography.titleMedium
-                    ) },
-                    navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(
-                                Icons.Filled.Close,
-                                contentDescription = "close"
-                            )
-                        }
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = {}) {
+                        Icon(
+                            Icons.Filled.Close,
+                            contentDescription = "close"
+                        )
                     }
-                )
-            }
-        ) { innerPadding ->
-            PolicyLayout(
-                Modifier.padding(innerPadding),
-                viewModel.getText()
+                }
             )
         }
+    ) { innerPadding ->
+        PolicyLayout(
+            Modifier.padding(innerPadding),
+            viewModel.getText()
+        )
+    }
 }
 
 @Composable

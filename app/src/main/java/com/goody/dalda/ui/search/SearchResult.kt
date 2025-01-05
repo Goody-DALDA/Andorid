@@ -1,143 +1,147 @@
 package com.goody.dalda.ui.search
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 import com.goody.dalda.ui.search.component.RequestAdditional
 import com.goody.dalda.ui.search.component.SearchAlcoholTab
+import kotlinx.coroutines.launch
 
 @Composable
 fun SearchResult(
     modifier: Modifier = Modifier,
-    alcoholInfoList: List<AlcoholInfo> = emptyList()
+    alcoholDataList: List<AlcoholData> = emptyList(),
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickFooter: (String) -> Unit = {}
 ) {
-    val selectedIndex = remember { mutableStateOf(0) }
-    val category = alcoholInfoList.map { it.type }.distinct()
-    val categoryCount = alcoholInfoList.groupBy { it.type }
+    val category = alcoholDataList.map { getCategory(it) }.distinct()
+    val categoryCount = alcoholDataList.groupBy { getCategory(it) }
         .mapValues { it.value.size }
+    val pagerState = rememberPagerState(pageCount = { category.size })
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
     ) {
-        if (alcoholInfoList.isEmpty()) {
+        if (alcoholDataList.isEmpty()) {
             RequestAdditional()
-
         } else {
             SearchAlcoholTab(
-                modifier = Modifier,
-                selectedIndex = selectedIndex.value,
+                modifier = Modifier.fillMaxWidth(),
+                pagerState = pagerState,
                 categoryCount = categoryCount,
                 category = category,
-                onSelectedIndex = { selectedIndex.value = it }
-            )
-            AlcoholCardListComponent(
-                modifier = Modifier,
-                alcoholInfoList = alcoholInfoList
-                    .filter { it.type == category[selectedIndex.value] },
-                footer = {
-                    OtherAlcoholRecommend(
-                        category = category[selectedIndex.value].alcoholName
-                    )
+                onClickTap = {
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(it)
+                    }
                 }
             )
+
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                AlcoholCardListComponent(
+                    modifier = Modifier,
+                    alcoholDataList = alcoholDataList
+                        .filter { getCategory(it) == category[pagerState.currentPage] },
+                    footer = {
+                        OtherAlcoholRecommend(
+                            category = category[pagerState.currentPage],
+                            onClick = onClickFooter
+                        )
+                    },
+                    onClickCard = onClickCard
+                )
+            }
         }
     }
 }
 
-@Preview(
-    showBackground = true
-)
-@Composable
-private fun SearchResultScreenPreview() {
-    val alcoholInfoList = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://picsum.photos/id/237/200/300",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_1",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_2",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://fastly.picsum.photos/id/237/200/300",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-
-        )
-    SearchResult(
-        alcoholInfoList = alcoholInfoList
-    )
+fun getCategory(alcoholData: AlcoholData): String {
+    return when (alcoholData) {
+        is AlcoholData.Soju -> AlcoholType.SOJU.alcoholName
+        is AlcoholData.Beer -> AlcoholType.BEER.alcoholName
+        is AlcoholData.Sake -> AlcoholType.SAKE.alcoholName
+        is AlcoholData.Wine -> AlcoholType.WINE.alcoholName
+        is AlcoholData.Wisky -> AlcoholType.WISKY.alcoholName
+        is AlcoholData.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
+    }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-private fun EmptySearchResultScreenPreview() {
-    SearchResult()
+private fun SearchResultPreview() {
+    val alcoholDataList = listOf(
+        AlcoholData.Wisky(
+            id = 0,
+            name = "위스키",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_whiskey,
+            volume = "750ml",
+            abv = "40%",
+            type = "위스키",
+            country = "스코틀랜드",
+            price = 170000,
+            taste = "써요",
+            aroma = "부드러워요",
+            finish = "깔끔해요",
+        ),
+        AlcoholData.Beer(
+            id = 0,
+            name = "카스",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_beer,
+            volume = "355ml",
+            abv = "4.5%",
+            appearance = 2.28f,
+            flavor = 4.4f,
+            mouthfeel = 2.0f,
+            aroma = 3.3f,
+            type = "밀맥주",
+            country = "독일"
+        ),
+        AlcoholData.Sake(
+            id = 0,
+            name = "사케",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_sake,
+            volume = "750ml",
+            abv = "15%",
+            price = 30000,
+            taste = "달아요",
+            aroma = "좋아요",
+            finish = "시원해요",
+            country = "일본",
+        ),
+        AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_soju,
+            volume = "360ml",
+            abv = "17%",
+            price = 5000,
+            comment = "맛있어요"
+        )
+    )
+    SearchResult(
+        alcoholDataList = alcoholDataList
+    )
 }

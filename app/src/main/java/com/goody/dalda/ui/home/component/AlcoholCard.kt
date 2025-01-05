@@ -1,70 +1,95 @@
 package com.goody.dalda.ui.home.component
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun AlcoholCard(
     modifier: Modifier = Modifier,
-    imgUrl: String,
-    name: String,
-    category: String,
-    alcohol: String
+    alcoholData: AlcoholData,
+    onClick: (AlcoholData) -> Unit = {}
 ) {
     Column(
         modifier = modifier
+            .clickable { onClick(alcoholData) },
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
-            model = imgUrl,
+            model = alcoholData.imgUrl,
             contentDescription = "",
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.FillHeight,
             modifier = Modifier
-                .size(152.dp)
+                .height(152.dp)
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
         )
         AutoResizedText(
-            text = name,
+            text = alcoholData.name,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier
+            modifier = Modifier.align(Alignment.Start)
         )
         Row(
-            modifier = Modifier,
+            modifier = Modifier.align(Alignment.Start),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AutoResizedText(
-                text = category,
-                style = MaterialTheme.typography.bodyMedium,
+            Image(
+                painter = painterResource(getTagImgRes(alcoholData)),
+                contentDescription = "",
+                modifier = Modifier.height(16.dp),
+                contentScale = ContentScale.FillHeight
             )
 
             AutoResizedText(
-                text = "$alcohol%",
+                text = alcoholData.abv,
                 style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
 }
 
+fun getTagImgRes(alcoholData: AlcoholData) = when (alcoholData) {
+    is AlcoholData.Soju -> R.drawable.tag_soju
+    is AlcoholData.Beer -> R.drawable.tag_beer
+    is AlcoholData.TraditionalLiquor -> R.drawable.tag_traditional_liquor
+    is AlcoholData.Wine -> R.drawable.tag_wine
+    is AlcoholData.Sake -> R.drawable.tag_sake
+    is AlcoholData.Wisky -> R.drawable.tag_whiskey
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun AlcoholCardPreview() {
     AlcoholCard(
-        imgUrl = "",
-        name = "소주",
-        category = "소주",
-        alcohol = "13.00"
+        alcoholData = AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            volume = "355ml",
+            abv = "4.5%",
+            price = 1000,
+            comment = "맛있어요"
+        )
     )
 }

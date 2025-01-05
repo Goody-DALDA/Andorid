@@ -9,7 +9,7 @@ import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wisky
 import com.goody.dalda.data.dto.home.Wine
 
-object AlcoholInfoMapper {
+object AlcoholDataMapper {
     fun dataToAlcoholData(data: List<Data>): List<AlcoholData> {
         return data.map {
             when (it) {
@@ -108,7 +108,7 @@ object AlcoholInfoMapper {
                 type = it.type,
                 volume = it.volume,
                 winery = it.winery,
-                abv = "%"
+                abv = ""
             )
         }
     }

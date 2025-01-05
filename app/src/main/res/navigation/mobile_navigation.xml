@@ -9,10 +9,22 @@
         android:id="@+id/navigation_home"
         android:name="com.goody.dalda.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_announcementFragment"
+            app:destination="@id/announcementFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_policyFragment"
+            app:destination="@id/policyFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
     </fragment>
 
     <fragment
@@ -31,7 +43,7 @@
         android:id="@+id/loginFragment"
         android:name="com.goody.dalda.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_navigation_home"
             app:popUpToInclusive="true"
@@ -52,7 +64,7 @@
         android:id="@+id/confettiFragment"
         android:name="com.goody.dalda.ui.confetti.ConfettiFragment"
         android:label="fragment_confetti"
-        tools:layout="@layout/fragment_confetti" >
+        tools:layout="@layout/fragment_confetti">
         <action
             android:id="@+id/action_confettiFragment_to_navigation_home"
             app:popUpToInclusive="true"
@@ -63,7 +75,7 @@
         android:id="@+id/onboardingFragment"
         android:name="com.goody.dalda.ui.onboarding.OnboardingFragment"
         android:label="fragment_onboarding"
-        tools:layout="@layout/fragment_onboarding" >
+        tools:layout="@layout/fragment_onboarding">
         <action
             android:id="@+id/action_onboardingFragment_to_loginFragment"
             app:popUpToInclusive="true"
@@ -74,7 +86,7 @@
         android:id="@+id/announcementFragment"
         android:name="com.goody.dalda.ui.announcement.AnnouncementFragment"
         android:label="fragment_announcement"
-        tools:layout="@layout/fragment_announcement" >
+        tools:layout="@layout/fragment_announcement">
         <action
             android:id="@+id/action_announcementFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
@@ -87,9 +99,54 @@
         android:id="@+id/categoryFragment"
         android:name="com.goody.dalda.ui.category.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
         <argument
             android:name="category"
             app:argType="com.goody.dalda.data.AlcoholType" />
+        <action
+            android:id="@+id/action_categoryFragment_to_liquorDetailsFragment"
+            app:destination="@id/liquorDetailsFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_labelSearchActivity"
+            app:destination="@id/labelSearchActivity" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.goody.dalda.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_liquorDetailsFragment"
+            app:destination="@id/liquorDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_labelSearchActivity"
+            app:destination="@id/labelSearchActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/liquorDetailsFragment"
+        android:name="com.goody.dalda.ui.liquor_details.LiquorDetailsFragment"
+        android:label="fragment_liquor_details"
+        tools:layout="@layout/fragment_liquor_details">
+        <argument
+            android:name="alcoholData"
+            app:argType="com.goody.dalda.data.AlcoholData" />
+    </fragment>
+    <fragment
+        android:id="@+id/policyFragment"
+        android:name="com.goody.dalda.ui.policy.PolicyFragment"
+        android:label="fragment_policy"
+        tools:layout="@layout/fragment_policy" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.goody.dalda.ui.contact.ContactUsFragment"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
+    <activity
+        android:id="@+id/labelSearchActivity"
+        android:name="com.goody.dalda.ui.label_search.LabelSearchActivity"
+        android:label="activity_label_search"
+        tools:layout="@layout/activity_label_search" />
 </navigation>

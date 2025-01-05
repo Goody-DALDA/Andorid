@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MemberViewModel @Inject constructor(private val repository: LoginRepository): ViewModel() {
+class MemberViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
 
     private val _profileState = mutableStateOf(Profile())
     val profile: State<Profile> get() = _profileState

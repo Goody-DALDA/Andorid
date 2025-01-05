@@ -9,7 +9,8 @@ import com.goody.dalda.R
 import com.goody.dalda.databinding.DialogSearchResultsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SearchResultsDialog(private val results: List<SpiritsSearchResult>): BottomSheetDialogFragment() {
+class SearchResultsDialog(private val results: List<SpiritsSearchResult>) :
+    BottomSheetDialogFragment() {
 
     private var _binding: DialogSearchResultsBinding? = null
     private val binding: DialogSearchResultsBinding get() = _binding!!
@@ -55,4 +56,9 @@ class SearchResultsDialog(private val results: List<SpiritsSearchResult>): Botto
     }
 }
 
-data class SpiritsSearchResult(val name: String, val category: String, val proof: Int, val image: String)
+data class SpiritsSearchResult(
+    val name: String,
+    val category: String,
+    val proof: Int,
+    val image: String
+)

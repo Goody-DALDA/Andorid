@@ -73,7 +73,8 @@ fun WithdrawScreen(
 @Composable
 fun WithdrawLayout(
     viewModel: WithdrawViewModel,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
     Column(modifier = modifier) {
         WithdrawGuide("삼겹살에소주")
 
@@ -121,7 +122,7 @@ private fun TermsCheckbox(checkState: MutableState<Boolean>) {
     ) {
         Checkbox(
             checked = checkState.value,
-            onCheckedChange = { checkState.value = it},
+            onCheckedChange = { checkState.value = it },
             colors = CheckboxDefaults.colors(
                 checkedColor = colorResource(R.color.primary)
             ),

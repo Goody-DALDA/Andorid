@@ -8,12 +8,11 @@ import com.goody.dalda.ui.dialog.SpiritsSearchResult
 import com.goody.dalda.ui.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LabelSearchViewModel @Inject constructor(): ViewModel() {
+class LabelSearchViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableLiveData<UiState<List<SpiritsSearchResult>>>(UiState.Uninitialized)
     val state: LiveData<UiState<List<SpiritsSearchResult>>> get() = _state

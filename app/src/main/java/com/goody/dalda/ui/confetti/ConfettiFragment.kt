@@ -40,7 +40,8 @@ class ConfettiFragment : BaseFragment<FragmentConfettiBinding>() {
         super.onViewCreated(view, savedInstanceState)
         val nickname = arguments?.getString(NICKNAME_KEY)
         val profileImage = arguments?.getString(PROFILE_IMAGE_KEY)
-        binding.fragmentConfettiWelcomeText.text = getString(R.string.confetti_welcome_text, nickname)
+        binding.fragmentConfettiWelcomeText.text =
+            getString(R.string.confetti_welcome_text, nickname)
         binding.fragmentConfettiImageView
         binding.fragmentConfettiConfirm.setOnClickListener {
             findNavController().navigate(R.id.action_confettiFragment_to_navigation_home)

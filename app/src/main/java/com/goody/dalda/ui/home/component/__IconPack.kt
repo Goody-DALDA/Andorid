@@ -13,10 +13,10 @@ public object IconPack
 private var __AllIcons: ____KtList<ImageVector>? = null
 
 public val IconPack.AllIcons: ____KtList<ImageVector>
-  get() {
-    if (__AllIcons != null) {
-      return __AllIcons!!
+    get() {
+        if (__AllIcons != null) {
+            return __AllIcons!!
+        }
+        __AllIcons = listOf(IcInsta, IcLink, IcMenuDot, IcCamera, IcComingSoon)
+        return __AllIcons!!
     }
-    __AllIcons= listOf(IcInsta, IcLink, IcMenuDot, IcCamera, IcComingSoon)
-    return __AllIcons!!
-  }

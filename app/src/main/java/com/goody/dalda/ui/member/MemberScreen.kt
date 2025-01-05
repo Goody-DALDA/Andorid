@@ -80,10 +80,12 @@ fun MemberLayout(
     viewModel: MemberViewModel,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.fillMaxSize(),) {
+    Column(modifier = modifier.fillMaxSize()) {
 
         Column(
-            modifier.fillMaxWidth().weight(1f),
+            modifier
+                .fillMaxWidth()
+                .weight(1f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             MemberProfile(

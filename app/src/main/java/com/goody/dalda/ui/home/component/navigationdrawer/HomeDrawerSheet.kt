@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
+import com.goody.dalda.ui.home.data.Menu
 
 @Composable
 fun HomeDrawerSheet(
@@ -21,7 +22,8 @@ fun HomeDrawerSheet(
     userEmail: String,
     selectedItemIndex: Int = 0,
     onChangeDrawerState: () -> Unit = {},
-    onChangeSelectedItemIndex: (Int) -> Unit = {}
+    onChangeSelectedItemIndex: (Int) -> Unit = {},
+    onClickMenu: (Menu) -> Unit = {}
 ) {
     val items: List<DrawerItem> = listOf(
         DrawerItem(
@@ -59,8 +61,10 @@ fun HomeDrawerSheet(
                 },
                 selected = index == selectedItemIndex,
                 onClick = {
+                    val menu = convertTitleToMenu(item.title)
                     onChangeSelectedItemIndex(index)
                     onChangeDrawerState()
+                    onClickMenu(menu)
                 },
                 modifier = Modifier
                     .padding(NavigationDrawerItemDefaults.ItemPadding)
@@ -69,8 +73,18 @@ fun HomeDrawerSheet(
 
         // 바텀
         NavigationBottom(
-            modifier = Modifier.padding(top = 100.dp, start = 16.dp, end = 24.dp)
+            modifier = Modifier.padding(top = 100.dp, start = 16.dp, end = 24.dp),
+            onClick = onClickMenu
         )
+    }
+}
+
+private fun convertTitleToMenu(title: String): Menu {
+    return when (title) {
+        "공지사항" -> Menu.Announcement
+        "이벤트" -> Menu.Event
+        "문의하기" -> Menu.ContactUs
+        else -> Menu.Announcement
     }
 }
 

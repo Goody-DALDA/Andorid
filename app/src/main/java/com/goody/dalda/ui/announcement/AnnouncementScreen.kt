@@ -19,7 +19,7 @@ fun AnnouncementScreen(
     modifier: Modifier = Modifier,
     viewModel: AnnouncementViewModel = viewModel()
 ) {
-    Column (modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize()) {
         val posts = viewModel.getNoticePosts()
         for (item in posts) {
             NoticePost(item.title, item.date, onClick = onClick)

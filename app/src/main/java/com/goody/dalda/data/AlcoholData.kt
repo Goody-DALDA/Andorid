@@ -2,7 +2,9 @@ package com.goody.dalda.data
 
 import androidx.annotation.DrawableRes
 import com.goody.dalda.R
+import kotlinx.serialization.Serializable
 
+@Serializable
 sealed class AlcoholData(
     open val id: Int,
     open val name: String,
@@ -11,7 +13,7 @@ sealed class AlcoholData(
     open val volume: String,
     open val abv: String,
     @DrawableRes open val tag: Int,
-) {
+) : java.io.Serializable {
     data class Beer(
         override val id: Int,
         override val name: String,

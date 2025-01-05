@@ -16,11 +16,15 @@ public val IconPack.IcComingSoon: ImageVector
         if (_icComingSoon != null) {
             return _icComingSoon!!
         }
-        _icComingSoon = Builder(name = "IcComingSoon", defaultWidth = 48.0.dp, defaultHeight =
-                48.0.dp, viewportWidth = 48.0f, viewportHeight = 48.0f).apply {
-            path(fill = SolidColor(Color(0xFF000000)), stroke = null, fillAlpha = 0.3f, strokeAlpha
-                    = 0.3f, strokeLineWidth = 0.0f, strokeLineCap = Butt, strokeLineJoin = Miter,
-                    strokeLineMiter = 4.0f, pathFillType = NonZero) {
+        _icComingSoon = Builder(
+            name = "IcComingSoon", defaultWidth = 48.0.dp, defaultHeight =
+            48.0.dp, viewportWidth = 48.0f, viewportHeight = 48.0f
+        ).apply {
+            path(
+                fill = SolidColor(Color(0xFF000000)), stroke = null, fillAlpha = 0.3f, strokeAlpha
+                = 0.3f, strokeLineWidth = 0.0f, strokeLineCap = Butt, strokeLineJoin = Miter,
+                strokeLineMiter = 4.0f, pathFillType = NonZero
+            ) {
                 moveTo(8.0f, 0.0f)
                 lineTo(40.0f, 0.0f)
                 arcTo(8.0f, 8.0f, 0.0f, false, true, 48.0f, 8.0f)
@@ -32,9 +36,11 @@ public val IconPack.IcComingSoon: ImageVector
                 arcTo(8.0f, 8.0f, 0.0f, false, true, 8.0f, 0.0f)
                 close()
             }
-            path(fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
-                    strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
-                    pathFillType = NonZero) {
+            path(
+                fill = SolidColor(Color(0xFFffffff)), stroke = null, strokeLineWidth = 0.0f,
+                strokeLineCap = Butt, strokeLineJoin = Miter, strokeLineMiter = 4.0f,
+                pathFillType = NonZero
+            ) {
                 moveTo(9.7129f, 22.14f)
                 curveTo(8.9756f, 22.14f, 8.4109f, 21.93f, 8.0189f, 21.51f)
                 curveTo(7.6363f, 21.09f, 7.4449f, 20.4973f, 7.4449f, 19.732f)
@@ -239,7 +245,7 @@ public val IconPack.IcComingSoon: ImageVector
                 close()
             }
         }
-        .build()
+            .build()
         return _icComingSoon!!
     }
 

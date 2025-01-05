@@ -1,7 +1,8 @@
 package com.goody.dalda.ui.home
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,46 +20,44 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
-import com.goody.dalda.ui.home.component.AlcoholSearchBar
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
 import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
+import com.goody.dalda.ui.home.data.Menu
 import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(),
-    onClickAlcohol: (AlcoholType) -> Unit = {}
+    onClickSearchBar: () -> Unit = {},
+    onClickAlcohol: (AlcoholType) -> Unit = {},
+    onClickSideMenuItem: (Menu) -> Unit = {}
 ) {
-    val favoriteAlcoholInfoList by viewModel.favoriteAlcoholInfoList.collectAsStateWithLifecycle()
+    val favoriteAlcoholDataList by viewModel.favoriteAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
     val authState by viewModel.authState.collectAsStateWithLifecycle()
     val userName by viewModel.userName.collectAsStateWithLifecycle()
     val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
-    var query by rememberSaveable { mutableStateOf("") }
-    var expanded by rememberSaveable { mutableStateOf(true) }
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
-
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -66,20 +65,16 @@ fun HomeScreen(
         is HomeUiState.CommonState -> {
             HomeScreen(
                 modifier = modifier,
-                query = query,
                 userName = userName,
                 userEmail = userEmail,
-                favoriteAlcoholInfoList = favoriteAlcoholInfoList,
+                favoriteAlcoholDataList = favoriteAlcoholDataList,
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
                 drawerState = drawerState,
                 selectedItemIndex = selectedItemIndex,
-                onExpandedChange = {
-                    viewModel.setHomeUiState(HomeUiState.SearchState)
-                },
-                onQueryChange = { query = it },
                 onChangeSelectedItemIndex = { viewModel.setSelectedItemIndex(it) },
                 onClickAlcohol = onClickAlcohol,
+                onClickSearch = onClickSearchBar,
                 onChangeDrawerState = {
                     scope.launch {
                         drawerState.close()
@@ -89,28 +84,13 @@ fun HomeScreen(
                     scope.launch {
                         drawerState.open()
                     }
-                }
+                },
+                onClickSideMenuItem = onClickSideMenuItem
             )
         }
 
         is HomeUiState.SearchState -> {
-            AlcoholSearchBar(
-                query = query,
-                expanded = expanded,
-                modifier = Modifier
-                    .padding(bottom = 30.dp)
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .wrapContentHeight(),
-                onQueryChange = { query = it },
-                onExpandedChange = {
-                    expanded = it
-                    if (!expanded) {
-                        viewModel.setHomeUiState(HomeUiState.CommonState)
-                    }
-                },
-                onSearch = {},
-            )
+            // Search UI 이동함.
         }
 
         is HomeUiState.ErrorState -> {
@@ -122,20 +102,19 @@ fun HomeScreen(
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    query: String,
     userName: String,
     userEmail: String,
-    favoriteAlcoholInfoList: List<AlcoholInfo> = emptyList(),
+    favoriteAlcoholDataList: List<AlcoholData> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     authState: AuthState,
     drawerState: DrawerState,
     selectedItemIndex: Int,
-    onExpandedChange: (Boolean) -> Unit = {},
-    onQueryChange: (String) -> Unit = {},
     onChangeSelectedItemIndex: (Int) -> Unit = {},
+    onClickSearch: () -> Unit = {},
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onChangeDrawerState: () -> Unit = {},
     onClickMenu: () -> Unit = {},
+    onClickSideMenuItem: (Menu) -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -149,7 +128,8 @@ fun HomeScreen(
                     userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = onChangeDrawerState,
-                    onChangeSelectedItemIndex = onChangeSelectedItemIndex
+                    onChangeSelectedItemIndex = onChangeSelectedItemIndex,
+                    onClickMenu = onClickSideMenuItem
                 )
             },
             drawerState = drawerState
@@ -191,17 +171,14 @@ fun HomeScreen(
                         }
                     }
 
-                    AlcoholSearchBar(
+                    Image(
                         modifier = Modifier
-                            .padding(bottom = 30.dp)
                             .fillMaxWidth()
-                            .fillMaxHeight()
-                            .wrapContentHeight(),
-                        query = query,
-                        expanded = false,
-                        onQueryChange = onQueryChange,
-                        onExpandedChange = onExpandedChange,
-                        onSearch = {}
+                            .padding(bottom = 16.dp)
+                            .clickable { onClickSearch() },
+                        contentScale = ContentScale.FillWidth,
+                        painter = painterResource(id = R.drawable.img_search_bar),
+                        contentDescription = null,
                     )
 
                     AlcoholCategory(
@@ -216,7 +193,7 @@ fun HomeScreen(
                         modifier = Modifier
                             .wrapContentHeight()
                             .fillMaxWidth(),
-                        favoriteAlcoholInfoList = favoriteAlcoholInfoList,
+                        favoriteAlcoholDataList = favoriteAlcoholDataList,
                         onActionClick = { /*TODO*/ }
                     )
 
@@ -230,7 +207,6 @@ fun HomeScreen(
                         onContentsClick = { /*TODO*/ }
                     )
                 }
-
             }
         }
     }
@@ -239,113 +215,78 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    val favoriteAlcoholInfoList = listOf(
-        AlcoholInfo(
+    val userName = "Dalda"
+    val userEmail = "nei@gmail.com"
+    val favoriteAlcoholDataList = listOf(
+        AlcoholData.Wisky(
             id = 0,
-            imgUrl = "https://picsum.photos/id/217/100/100",
+            name = "위스키",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_whiskey,
+            volume = "750ml",
+            abv = "40%",
+            type = "위스키",
+            country = "스코틀랜드",
+            price = 170000,
+            taste = "써요",
+            aroma = "부드러워요",
+            finish = "깔끔해요",
+        ),
+        AlcoholData.Beer(
+            id = 0,
+            name = "카스",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_beer,
+            volume = "355ml",
+            abv = "4.5%",
+            appearance = 2.28f,
+            flavor = 4.4f,
+            mouthfeel = 2.0f,
+            aroma = 3.3f,
+            type = "밀맥주",
+            country = "독일"
+        ),
+        AlcoholData.Sake(
+            id = 0,
+            name = "사케",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_sake,
+            volume = "750ml",
+            abv = "15%",
+            price = 30000,
+            taste = "달아요",
+            aroma = "좋아요",
+            finish = "시원해요",
+            country = "일본",
+        ),
+        AlcoholData.Soju(
+            id = 0,
             name = "소주",
-            type = AlcoholType.SOJU,
-            abv = "20.0%",
-        ),
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://picsum.photos/id/2/100/100",
-            name = "맥주",
-            type = AlcoholType.BEER,
-            abv = "20.0%",
-        ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://picsum.photos/id/237/100/100",
-            name = "막걸리",
-            type = AlcoholType.TRADITIONALLIQUOR,
-            abv = "20.0%",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_soju,
+            volume = "360ml",
+            abv = "17%",
+            price = 5000,
+            comment = "맛있어요"
         )
     )
-    val recommendAlcoholList = listOf(
-        RecommendAlcohol(
-            imgRes = "https://picsum.photos/id/217/100/100",
-            comment = "이건 무슨 맛이래유?"
-        ),
-        RecommendAlcohol(
-            imgRes = "https://picsum.photos/id/2/100/100",
-            comment = "첫번째 행입니다.\n두번째 행입니다."
-        ),
-        RecommendAlcohol(
-            imgRes = "https://picsum.photos/id/237/100/100",
-            comment = "이건 어때요?"
-        )
-    )
-    val userName = "삼겹살에 소주"
-    val userEmail = "oyj7677@gmail.com"
     val authState = AuthState.SignIn
+    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val selectedItemIndex = 0
 
     HomeScreen(
         modifier = Modifier,
-        query = "",
         userName = userName,
         userEmail = userEmail,
-        favoriteAlcoholInfoList = favoriteAlcoholInfoList,
-        recommendAlcoholList = recommendAlcoholList,
+        favoriteAlcoholDataList = favoriteAlcoholDataList,
+        recommendAlcoholList = emptyList(),
         authState = authState,
-        drawerState = rememberDrawerState(DrawerValue.Closed),
-        selectedItemIndex = 0
-    )
-}
-
-@Preview
-@Composable
-private fun AlcoholSearchBarSignOutPreview() {
-    val favoriteAlcoholInfoList = listOf(
-        AlcoholInfo(
-            id = 0,
-            imgUrl = "https://picsum.photos/id/217/100/100",
-            name = "소주",
-            type = AlcoholType.SOJU,
-            abv = "20.0%",
-        ),
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://picsum.photos/id/2/100/100",
-            name = "맥주",
-            type = AlcoholType.BEER,
-            abv = "20.0%",
-        ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://picsum.photos/id/237/100/100",
-            name = "막걸리",
-            type = AlcoholType.TRADITIONALLIQUOR,
-            abv = "20.0%",
-        )
-    )
-    val recommendAlcoholList = listOf(
-        RecommendAlcohol(
-            imgRes = "https://picsum.photos/id/217/100/100",
-            comment = "이건 무슨 맛이래유?"
-        ),
-        RecommendAlcohol(
-            imgRes = "https://picsum.photos/id/2/100/100",
-            comment = "첫번째 행입니다.\n두번째 행입니다."
-        ),
-        RecommendAlcohol(
-            imgRes = "https://picsum.photos/id/237/100/100",
-            comment = "이건 어때요?"
-        )
-    )
-    val userName = "삼겹살에 소주"
-    val userEmail = "oyj7677@gmail.com"
-    val authState = AuthState.SignOut
-
-    HomeScreen(
-        modifier = Modifier,
-        query = "",
-        userName = userName,
-        userEmail = userEmail,
-        favoriteAlcoholInfoList = favoriteAlcoholInfoList,
-        recommendAlcoholList = recommendAlcoholList,
-        authState = authState,
-        drawerState = rememberDrawerState(DrawerValue.Closed),
-        selectedItemIndex = 0
+        drawerState = drawerState,
+        selectedItemIndex = selectedItemIndex,
+        onChangeSelectedItemIndex = {},
+        onClickAlcohol = {},
+        onClickSearch = {},
+        onChangeDrawerState = {},
+        onClickMenu = {}
     )
 }

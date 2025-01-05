@@ -13,64 +13,75 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.goody.dalda.data.AlcoholInfo
+import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.category.component.CategoryTab
 import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@OptIn(FlowPreview::class)
 @Composable
 fun CategoryScreen(
     modifier: Modifier = Modifier,
     viewModel: CategoryViewModel = viewModel(),
-    alcoholType: AlcoholType
+    alcoholType: AlcoholType,
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCamera: () -> Unit = {}
 ) {
-    val isFirst = remember { mutableStateOf(false) }
+    val isFirst by viewModel.isFirst.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
-    val alcoholInfoListWithQuery by viewModel.alcoholInfoListWithQuery.collectAsStateWithLifecycle()
+    val alcoholDataListWithQuery by viewModel.alcoholDataListWithQuery.collectAsStateWithLifecycle()
     val category by viewModel.category.collectAsStateWithLifecycle()
+    val pagerState by viewModel.pageState.collectAsStateWithLifecycle()
 
-    val pagerState = rememberPagerState(pageCount = { category.size })
     val coroutineScope = rememberCoroutineScope()
 
-    // 컴포넌트 생성 시
     LaunchedEffect(
-        key1 = isFirst.value
+        key1 = isFirst,
+        key2 = pagerState
     ) {
-        coroutineScope.launch {
-            viewModel.fetchAlcoholInfo(alcoholType.toString())
+        if (isFirst) {
+            viewModel.fetchAlcoholData(alcoholType.toString())
             pagerState.animateScrollToPage(category.indexOf(alcoholType.alcoholName))
+            viewModel.setIsFirst(false)
+        } else {
+            snapshotFlow { pagerState.currentPage }
+                .debounce(100L)
+                .collect { page ->
+                    viewModel.fetchAlcoholData(AlcoholType.entries.filter { it.alcoholName == category[page] }[0].toString())
+                }
         }
-        isFirst.value = false
     }
 
     CategoryScreen(
         modifier = modifier.fillMaxSize(),
         query = query,
         category = category,
-        alcoholInfoList = alcoholInfoListWithQuery,
+        alcoholDataList = alcoholDataListWithQuery,
         pagerState = pagerState,
         onValueChange = { viewModel.setQuery(it) },
         onClickCategory = { index ->
             coroutineScope.launch {
-                val newAlcoholType =
-                    AlcoholType.entries.filter { it.alcoholName == category[index] }[0]
-                viewModel.fetchAlcoholInfo(newAlcoholType.toString())
                 pagerState.animateScrollToPage(index)
             }
-        }
+        },
+        onClickCard = onClickCard,
+        onClickTrailingIcon = onClickCamera
     )
 }
 
@@ -79,10 +90,12 @@ fun CategoryScreen(
     modifier: Modifier = Modifier,
     query: String,
     category: List<String> = emptyList(),
-    alcoholInfoList: List<AlcoholInfo> = emptyList(),
+    alcoholDataList: List<AlcoholData> = emptyList(),
     pagerState: PagerState,
     onValueChange: (String) -> Unit = {},
-    onClickCategory: (Int) -> Unit = {}
+    onClickCategory: (Int) -> Unit = {},
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickTrailingIcon: () -> Unit = {}
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -95,7 +108,8 @@ fun CategoryScreen(
             placeholder = "",
             leadingIcon = Icons.Outlined.Search,
             trailingIcon = IconPack.IcCamera,
-            onValueChange = onValueChange
+            onValueChange = onValueChange,
+            onClickTrailingIcon = onClickTrailingIcon
         )
 
         CategoryTab(
@@ -110,11 +124,12 @@ fun CategoryScreen(
         HorizontalPager(
             modifier = Modifier.fillMaxSize(),
             state = pagerState
-        ) { page ->
+        ) {
             AlcoholCardListComponent(
                 modifier = Modifier
                     .fillMaxSize(),
-                alcoholInfoList = alcoholInfoList
+                alcoholDataList = alcoholDataList,
+                onClickCard = onClickCard
             )
         }
     }
@@ -123,64 +138,60 @@ fun CategoryScreen(
 @Preview(showBackground = true)
 @Composable
 private fun CategoryScreenPrev() {
-    val alcoholInfoList = listOf(
-        AlcoholInfo(
-            id = 1,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "SOJU_1",
-            type = AlcoholType.SOJU,
-            abv = "2.3%"
+    val alcoholDataList = listOf(
+        AlcoholData.Wisky(
+            id = 0,
+            name = "위스키",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_whiskey,
+            volume = "750ml",
+            abv = "40%",
+            type = "위스키",
+            country = "스코틀랜드",
+            price = 170000,
+            taste = "써요",
+            aroma = "부드러워요",
+            finish = "깔끔해요",
         ),
-        AlcoholInfo(
-            id = 2,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_1",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
+        AlcoholData.Beer(
+            id = 0,
+            name = "카스",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_beer,
+            volume = "355ml",
+            abv = "4.5%",
+            appearance = 2.28f,
+            flavor = 4.4f,
+            mouthfeel = 2.0f,
+            aroma = 3.3f,
+            type = "밀맥주",
+            country = "독일"
         ),
-        AlcoholInfo(
-            id = 3,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "WHISKEY_2",
-            type = AlcoholType.WISKY,
-            abv = "2.3%"
+        AlcoholData.Sake(
+            id = 0,
+            name = "사케",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_sake,
+            volume = "750ml",
+            abv = "15%",
+            price = 30000,
+            taste = "달아요",
+            aroma = "좋아요",
+            finish = "시원해요",
+            country = "일본",
         ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_1",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_2",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
-        AlcoholInfo(
-            id = 4,
-            imgUrl = "https://duckduckgo.com/?q=fames",
-            name = "BEER_3",
-            type = AlcoholType.BEER,
-            abv = "2.3%"
-        ),
+        AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_soju,
+            volume = "360ml",
+            abv = "17%",
+            price = 5000,
+            comment = "맛있어요"
+        )
     )
+
     val category = listOf("소주", "맥주", "와인", "위스키", "전통주", "사케", "칵테일", "폭탄주")
     var query by rememberSaveable { mutableStateOf("") }
     val pagerState = rememberPagerState(pageCount = { category.size })
@@ -188,7 +199,7 @@ private fun CategoryScreenPrev() {
     CategoryScreen(
         query = query,
         category = category,
-        alcoholInfoList = alcoholInfoList,
+        alcoholDataList = alcoholDataList,
         pagerState = pagerState,
         onValueChange = { query = it }
     )
