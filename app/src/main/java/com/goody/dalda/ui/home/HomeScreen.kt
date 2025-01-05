@@ -63,7 +63,7 @@ fun HomeScreen(
 
     when (homeUiState) {
         is HomeUiState.CommonState -> {
-            HomeScreen(
+            HomeLayout(
                 modifier = modifier,
                 userName = userName,
                 userEmail = userEmail,
@@ -100,7 +100,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeScreen(
+fun HomeLayout(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
@@ -274,7 +274,7 @@ private fun HomeScreenPreview() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
 
-    HomeScreen(
+    HomeLayout(
         modifier = Modifier,
         userName = userName,
         userEmail = userEmail,
