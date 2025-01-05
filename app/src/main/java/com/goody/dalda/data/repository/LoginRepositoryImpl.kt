@@ -1,5 +1,8 @@
 package com.goody.dalda.data.repository
 
+import android.util.Log
+import com.goody.dalda.data.dto.LeaveDto
+import com.goody.dalda.data.dto.LogoutDto
 import com.goody.dalda.data.dto.asDomain
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSource
@@ -41,5 +44,13 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun getProfile(): Profile {
         val response = userRemoteDataSource.fetchProfile()
         return response.body()!!.data.asDomain()
+    }
+
+    override suspend fun logout(): LogoutDto {
+        return userRemoteDataSource.logout().body() ?: LogoutDto("failed", "data null")
+    }
+
+    override suspend fun leaveUser(): LeaveDto {
+        return userRemoteDataSource.leaveUser().body() ?: LeaveDto("failed", "data null")
     }
 }
