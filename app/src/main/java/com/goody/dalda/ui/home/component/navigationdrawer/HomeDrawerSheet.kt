@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.navigation.fragment.findNavController
 import com.goody.dalda.R
+import com.goody.dalda.ui.home.AuthState
 import com.goody.dalda.ui.home.HomeFragmentDirections
 import com.goody.dalda.ui.home.data.Menu
 
@@ -25,6 +26,7 @@ fun HomeDrawerSheet(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
+    authState: AuthState,
     selectedItemIndex: Int = 0,
     onChangeDrawerState: () -> Unit = {},
     onChangeSelectedItemIndex: (Int) -> Unit = {},
@@ -46,14 +48,18 @@ fun HomeDrawerSheet(
         modifier = modifier
             .fillMaxHeight(),
     ) {
-        // 헤더
-        
         NavigationHeader(
             modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 24.dp),
-            userName = userName,
-            userEmail = userEmail,
+            userName = if (authState == AuthState.SignIn) userName else stringResource(R.string.text_do_sign_in),
+            userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
             onClickCloseIcon = { onChangeDrawerState() },
-            onClickProfile = { onClickMenu(Menu.Profile) }
+            onClickProfile = {
+                if (authState == AuthState.SignIn){
+                    onClickMenu(Menu.Profile)
+                } else {
+                    onClickMenu(Menu.Login)
+                }
+            }
         )
 
         HorizontalDivider(
@@ -100,6 +106,7 @@ private fun convertTitleToMenu(title: String): Menu {
 private fun HomeDrawerSheetPreview() {
     HomeDrawerSheet(
         userName = "삼겹살에 소주",
-        userEmail = "oyj7677@gmail.com"
+        userEmail = "oyj7677@gmail.com",
+        authState = AuthState.SignOut
     )
 }

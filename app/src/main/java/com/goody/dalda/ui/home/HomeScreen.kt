@@ -131,6 +131,7 @@ fun HomeLayout(
                     modifier = Modifier.width(250.dp),
                     userName = if (authState == AuthState.SignIn) userName else stringResource(R.string.text_do_sign_in),
                     userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
+                    authState,
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = onChangeDrawerState,
                     onChangeSelectedItemIndex = onChangeSelectedItemIndex,
