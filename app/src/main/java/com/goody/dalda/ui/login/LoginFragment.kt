@@ -35,6 +35,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private val viewModel: LoginViewModel by viewModels()
 
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        Log.e(TAG, "callback token : ${token}")
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
@@ -53,10 +54,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.fragmentLoginKakaoBtn.setOnClickListener { requestKakaoLogin() }
         binding.fragmentLoginSkipBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_navigation_home) }
+        subscribe()
+        checkLoginStatus()
+    }
 
+    private fun checkLoginStatus() {
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                Log.e(TAG, "토큰 정보 보기 실패", error)
+            } else if (tokenInfo != null) {
+                Log.i(
+                    TAG, "토큰 정보 보기 성공" +
+                            "\n회원번호: ${tokenInfo.id}" +
+                            "\n만료시간: ${tokenInfo.expiresIn} 초"
+                )
+                requestKakaoLogin()
+            }
+        }
+    }
+
+    private fun subscribe() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is UiState.Empty -> TODO()

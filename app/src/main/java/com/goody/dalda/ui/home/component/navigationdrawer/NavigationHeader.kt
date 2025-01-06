@@ -25,7 +25,8 @@ fun NavigationHeader(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
-    onClickCloseIcon: () -> Unit = {}
+    onClickCloseIcon: () -> Unit = {},
+    onClickProfile: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -42,7 +43,7 @@ fun NavigationHeader(
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
 
         Row(
-            modifier = Modifier
+            modifier = Modifier.clickable { onClickProfile() }
         ) {
             Column {
                 AutoResizedText(

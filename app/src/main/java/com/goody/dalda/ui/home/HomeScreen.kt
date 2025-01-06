@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -49,7 +50,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
     onClickSearchBar: () -> Unit = {},
     onClickAlcohol: (AlcoholType) -> Unit = {},
-    onClickSideMenuItem: (Menu) -> Unit = {}
+    onClickSideMenuItem: (Menu) -> Unit = {},
+    onClickSeeLoginScreen: () -> Unit = {}
 ) {
     val favoriteAlcoholDataList by viewModel.favoriteAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -61,9 +63,13 @@ fun HomeScreen(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect("once") {
+        viewModel.fetchProfile()
+    }
+
     when (homeUiState) {
         is HomeUiState.CommonState -> {
-            HomeScreen(
+            HomeLayout(
                 modifier = modifier,
                 userName = userName,
                 userEmail = userEmail,
@@ -85,7 +91,8 @@ fun HomeScreen(
                         drawerState.open()
                     }
                 },
-                onClickSideMenuItem = onClickSideMenuItem
+                onClickSideMenuItem = onClickSideMenuItem,
+                onClickLogin = onClickSeeLoginScreen
             )
         }
 
@@ -100,7 +107,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeScreen(
+fun HomeLayout(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
@@ -114,7 +121,8 @@ fun HomeScreen(
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onChangeDrawerState: () -> Unit = {},
     onClickMenu: () -> Unit = {},
-    onClickSideMenuItem: (Menu) -> Unit = {}
+    onClickSideMenuItem: (Menu) -> Unit = {},
+    onClickLogin: () -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -126,6 +134,7 @@ fun HomeScreen(
                     modifier = Modifier.width(250.dp),
                     userName = if (authState == AuthState.SignIn) userName else stringResource(R.string.text_do_sign_in),
                     userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
+                    authState,
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = onChangeDrawerState,
                     onChangeSelectedItemIndex = onChangeSelectedItemIndex,
@@ -166,7 +175,7 @@ fun HomeScreen(
                                     .fillMaxWidth()
                                     .height(120.dp),
                                 text = stringResource(R.string.text_sign_in_banner),
-                                onClick = { /*TODO*/ }
+                                onClick = onClickLogin
                             )
                         }
                     }
@@ -274,7 +283,7 @@ private fun HomeScreenPreview() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
 
-    HomeScreen(
+    HomeLayout(
         modifier = Modifier,
         userName = userName,
         userEmail = userEmail,
@@ -284,8 +293,8 @@ private fun HomeScreenPreview() {
         drawerState = drawerState,
         selectedItemIndex = selectedItemIndex,
         onChangeSelectedItemIndex = {},
-        onClickAlcohol = {},
         onClickSearch = {},
+        onClickAlcohol = {},
         onChangeDrawerState = {},
         onClickMenu = {}
     )

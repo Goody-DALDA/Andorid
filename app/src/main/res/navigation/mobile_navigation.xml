@@ -25,6 +25,14 @@
         <action
             android:id="@+id/action_navigation_home_to_contactUsFragment"
             app:destination="@id/contactUsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_memberFragment"
+            app:destination="@id/memberFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment
@@ -149,4 +157,27 @@
         android:name="com.goody.dalda.ui.label_search.LabelSearchActivity"
         android:label="activity_label_search"
         tools:layout="@layout/activity_label_search" />
+    <fragment
+        android:id="@+id/memberFragment"
+        android:name="com.goody.dalda.ui.member.MemberFragment"
+        android:label="MemberFragment" >
+        <action
+            android:id="@+id/action_memberFragment_to_withdrawFragment"
+            app:destination="@id/withdrawFragment" />
+        <action
+            android:id="@+id/action_memberFragment_to_loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/withdrawFragment"
+        android:name="com.goody.dalda.ui.member.WithdrawFragment"
+        android:label="WithdrawFragment" >
+        <action
+            android:id="@+id/action_withdrawFragment_to_loginFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

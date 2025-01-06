@@ -29,4 +29,8 @@ object PreferenceManager {
         return pref?.getString(ACCESS_TOKEN, "") ?: ""
     }
 
+    fun clearAccessToken() {
+        pref?.edit()?.putString(ACCESS_TOKEN, "")?.apply()
+    }
+
 }
