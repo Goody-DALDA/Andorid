@@ -284,7 +284,33 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
             return
         }
 
+        showRecognitionResultOverlay(blocks)
+
+        val pieces = getRecognitionResultPieceList(blocks)
+        pieces.sortWith(Piece.HeightComparator)
+        val searchText = pieces.take(2).joinToString(separator = " ") { it.text }
+        viewModel.requestSearchApi(searchText)
+    }
+
+    private fun getRecognitionResultPieceList(blocks: List<Text.TextBlock>): MutableList<Piece> {
+        val pieces = mutableListOf<Piece>()
+
+        for (i in blocks.indices) {
+            val lines = blocks[i].lines
+            for (j in lines.indices) {
+                val rect = lines[j].boundingBox
+                if (rect != null) {
+                    val height = rect.bottom - rect.top
+                    pieces.add(Piece(lines[j].text, height))
+                }
+            }
+        }
+        return pieces
+    }
+
+    private fun showRecognitionResultOverlay(blocks: List<Text.TextBlock>) {
         binding.graphicOverlay.clear()
+
         for (i in blocks.indices) {
             val lines = blocks[i].lines
             for (j in lines.indices) {
@@ -292,9 +318,10 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                 val rect = lines[j].boundingBox
 
                 if (rect != null) {
+                    val height = rect.bottom - rect.top
                     Log.d(
                         TAG,
-                        "kch [" + lines[j].text + "] rect Height : " + (rect.bottom - rect.top)
+                        "kch [" + lines[j].text + "] rect Height : " + height
                     )
                 }
 
@@ -307,8 +334,14 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                 }
             }
         }
+    }
 
-        viewModel.requestSearchApi()
+    data class Piece(val text: String, val height: Int) {
+        object HeightComparator: Comparator<Piece> {
+            override fun compare(o1: Piece, o2: Piece): Int {
+                return o2.height.compareTo(o1.height)
+            }
+        }
     }
 
     companion object {
