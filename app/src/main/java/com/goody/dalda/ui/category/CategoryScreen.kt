@@ -34,6 +34,7 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+
 @OptIn(FlowPreview::class)
 @Composable
 fun CategoryScreen(
@@ -48,24 +49,25 @@ fun CategoryScreen(
     val alcoholDataListWithQuery by viewModel.alcoholDataListWithQuery.collectAsStateWithLifecycle()
     val category by viewModel.category.collectAsStateWithLifecycle()
     val pagerState by viewModel.pagerState.collectAsStateWithLifecycle()
-
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(
         key1 = isFirst,
-        key2 = pagerState
     ) {
         if (isFirst) {
-            viewModel.fetchAlcoholData(alcoholType.toString())
             pagerState.animateScrollToPage(category.indexOf(alcoholType.alcoholName))
             viewModel.setIsFirst(false)
-        } else {
-            snapshotFlow { pagerState.currentPage }
-                .debounce(100L)
-                .collect { page ->
-                    viewModel.fetchAlcoholData(AlcoholType.entries.filter { it.alcoholName == category[page] }[0].toString())
-                }
         }
+    }
+
+    LaunchedEffect(
+        key1 = pagerState
+    ) {
+        snapshotFlow { pagerState.currentPage }
+            .debounce(100L)
+            .collect { page ->
+                viewModel.fetchAlcoholData(page)
+            }
     }
 
     CategoryScreen(
@@ -82,7 +84,7 @@ fun CategoryScreen(
         onClickCard = onClickCard,
         onClickTrailingIcon = onClickCamera,
         modifier = modifier.fillMaxSize(),
-        )
+    )
 }
 
 @Composable
@@ -113,7 +115,7 @@ fun CategoryScreen(
         )
 
         CategoryTab(
-            pagerState = pagerState,
+            currentPage = pagerState.currentPage,
             category = category,
             onClickTab = { index ->
                 onClickCategory(index)

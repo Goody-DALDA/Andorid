@@ -17,7 +17,7 @@ import com.goody.dalda.data.AlcoholType
 
 @Composable
 fun CategoryTab(
-    pagerState: PagerState,
+    currentPage: Int,
     category: List<String> = emptyList(),
     onClickTab: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -25,10 +25,10 @@ fun CategoryTab(
     ScrollableTabRow(
         containerColor = Color.White,
         contentColor = Color.Black,
-        selectedTabIndex = pagerState.currentPage,
+        selectedTabIndex = currentPage,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
-                modifier = Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
+                modifier = Modifier.tabIndicatorOffset(tabPositions[currentPage]),
                 color = Color.Black
             )
         },
@@ -38,7 +38,7 @@ fun CategoryTab(
         category.forEachIndexed { index, title ->
             Tab(
                 text = { Text(text = title) },
-                selected = pagerState.currentPage == index,
+                selected = currentPage == index,
                 onClick = { onClickTab(index) },
                 unselectedContentColor = Color.Gray
             )
@@ -53,7 +53,7 @@ private fun CategoryTabPrev() {
     val pagerState = rememberPagerState(pageCount = { category.size })
 
     CategoryTab(
-        pagerState = pagerState,
+        currentPage = pagerState.currentPage,
         category = category,
     )
 }

@@ -64,10 +64,16 @@ class CategoryViewModel @Inject constructor(
     )
     val category: StateFlow<List<String>> = _category
 
-    fun fetchAlcoholData(category: String) {
+    fun fetchAlcoholData(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _alcoholDataList.value = alcoholRepository.getAlcoholData(category)
+            _alcoholDataList.value = alcoholRepository.getAlcoholData(query)
         }
+    }
+
+    fun fetchAlcoholData(categoryIndex: Int) {
+        val query = AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }.toString()
+
+        fetchAlcoholData(query)
     }
 
     fun setQuery(query: String) {
