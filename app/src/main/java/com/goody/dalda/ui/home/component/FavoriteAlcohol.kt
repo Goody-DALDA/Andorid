@@ -52,7 +52,7 @@ fun FavoriteAlcohol(
                 )
 
                 Text(
-                    text = "좋아하는 술을 저장해 보세요",
+                    text = stringResource(id = R.string.text_save_favorite_alcohol),
                     fontSize = 18.sp,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -75,6 +75,8 @@ fun FavoriteAlcohol(
         }
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable

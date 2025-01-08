@@ -1,5 +1,7 @@
 package com.goody.dalda.ui.home
 
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.lifecycle.ViewModel
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.RecommendAlcohol
@@ -33,6 +35,9 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
 
     private val _selectedItemIndex = MutableStateFlow(0)
     val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
+
+    private val _drawerState = MutableStateFlow(DrawerState(DrawerValue.Closed))
+    val drawerState: StateFlow<DrawerState> = _drawerState
 
     fun setAlcoholDataList(alcoholDataList: List<AlcoholData>) {
         _favoriteAlcoholDataList.value = alcoholDataList

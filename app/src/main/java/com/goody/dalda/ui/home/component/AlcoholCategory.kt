@@ -23,17 +23,16 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.component.AutoResizedText
 import com.goody.dalda.ui.home.component.iconpack.IcComingSoon
 
-
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AlcoholCategory(
     modifier: Modifier = Modifier,
-    columnCount: Int = 4,
+    rowCount: Int,
     onClickAlcohol: (AlcoholType) -> Unit = {},
 ) {
     FlowRow(
         verticalArrangement = Arrangement.run { spacedBy(24.dp) },
-        maxItemsInEachRow = columnCount,
+        maxItemsInEachRow = rowCount,
         modifier = modifier,
     ) {
         AlcoholType.entries.forEach { alcoholType ->
@@ -114,6 +113,7 @@ private fun AlcoholTapPreview() {
 @Composable
 fun AlcoholCategoryPreview(modifier: Modifier = Modifier) {
     AlcoholCategory(
-        modifier = Modifier
+        modifier = Modifier,
+        rowCount = 4
     )
 }

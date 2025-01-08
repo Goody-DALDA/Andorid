@@ -36,12 +36,16 @@ import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.FavoriteAlcohol
+import com.goody.dalda.ui.home.component.HomeBanner
 import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.LoginBanner
 import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
 import com.goody.dalda.ui.home.data.Menu
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+const val categoryRowMaxCount = 4
 
 @Composable
 fun HomeScreen(
@@ -58,7 +62,7 @@ fun HomeScreen(
     val userName by viewModel.userName.collectAsStateWithLifecycle()
     val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val drawerState by viewModel.drawerState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
     when (homeUiState) {
@@ -144,29 +148,17 @@ fun HomeScreen(
                         .padding(innerPadding)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    when (authState) {
-                        AuthState.SignIn -> {
-                            WelcomeBanner(
-                                modifier = Modifier
-                                    .padding(bottom = 30.dp)
-                                    .fillMaxWidth()
-                                    .height(70.dp),
-                                userName = "Dalda"
-                            )
-                        }
+                    // 베너
+                    HomeBanner(
+                        authState = authState,
+                        modifier = Modifier
+                            .padding(bottom = 30.dp)
+                            .fillMaxWidth()
+                            .height(120.dp),
+                        onClickSignIn = {/* TODO */}
+                    )
 
-                        AuthState.SignOut -> {
-                            LoginBanner(
-                                modifier = Modifier
-                                    .padding(bottom = 30.dp)
-                                    .fillMaxWidth()
-                                    .height(120.dp),
-                                text = stringResource(R.string.text_sign_in_banner),
-                                onClick = { /*TODO*/ }
-                            )
-                        }
-                    }
-
+                    // 검색 바 이미지
                     Image(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -182,6 +174,7 @@ fun HomeScreen(
                             .padding(bottom = 40.dp)
                             .fillMaxWidth()
                             .wrapContentHeight(),
+                        rowCount = categoryRowMaxCount,
                         onClickAlcohol = onClickAlcohol
                     )
 
@@ -267,7 +260,7 @@ private fun HomeScreenPreview() {
         )
     )
     val authState = AuthState.SignIn
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val drawerState = DrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
 
     HomeScreen(
