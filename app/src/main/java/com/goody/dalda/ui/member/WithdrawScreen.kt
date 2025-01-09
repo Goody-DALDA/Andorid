@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.member
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,16 +29,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
+import com.goody.dalda.ui.state.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WithdrawScreen(
     viewModel: WithdrawViewModel = viewModel(),
+    onSuccess: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -68,6 +72,20 @@ fun WithdrawScreen(
             Modifier.padding(innerPadding),
         )
     }
+    val context = LocalContext.current
+    when (val state = viewModel.state.value) {
+        is UiState.Loading -> {
+
+        }
+        is UiState.Success -> {
+            Toast.makeText(context, state.data, Toast.LENGTH_SHORT).show()
+            onSuccess()
+        }
+        is  UiState.Error -> {
+            Toast.makeText(context, state.exception?.message, Toast.LENGTH_SHORT).show()
+        }
+        else -> {}
+    }
 }
 
 @Composable
@@ -79,13 +97,17 @@ fun WithdrawLayout(
         WithdrawGuide("삼겹살에소주")
 
         Column(modifier = Modifier) {
+            val context = LocalContext.current
             val checkState = remember { mutableStateOf(false) }
 
             TermsCheckbox(checkState)
+
             WithdrawButton(
                 onClick = {
                     if (checkState.value) {
                         viewModel.requestWithdraw()
+                    } else {
+                        Toast.makeText(context, "약관에 동의 해주세요.", Toast.LENGTH_SHORT).show()
                     }
                 },
             )

@@ -22,10 +22,11 @@ import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun NavigationHeader(
+    modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
     onClickCloseIcon: () -> Unit = {},
-    modifier: Modifier = Modifier,
+    onClickProfile: () -> Unit = {}
 ) {
     Column(
         modifier = modifier
@@ -39,7 +40,7 @@ fun NavigationHeader(
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
 
         Row(
-            modifier = Modifier
+            modifier = Modifier.clickable { onClickProfile() }
         ) {
             Column {
                 AutoResizedText(

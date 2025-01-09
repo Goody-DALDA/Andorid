@@ -1,10 +1,14 @@
 package com.goody.dalda.data.repository
 
+import com.goody.dalda.data.dto.LeaveDto
+import com.goody.dalda.data.dto.LogoutDto
 import com.goody.dalda.data.dto.asDomain
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.ui.model.Profile
+import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -41,5 +45,13 @@ class LoginRepositoryImpl @Inject constructor(
     override suspend fun getProfile(): Profile {
         val response = userRemoteDataSource.fetchProfile()
         return response.body()!!.data.asDomain()
+    }
+
+    override suspend fun logout(): LogoutDto {
+        return userRemoteDataSource.logout().body() ?: LogoutDto("failed", "data null")
+    }
+
+    override suspend fun leaveUser(): LeaveDto {
+        return userRemoteDataSource.leaveUser().body() ?: LeaveDto("failed", "data null")
     }
 }

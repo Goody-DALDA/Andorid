@@ -1,5 +1,7 @@
 package com.goody.dalda.data.repository
 
+import com.goody.dalda.data.dto.LeaveDto
+import com.goody.dalda.data.dto.LogoutDto
 import com.goody.dalda.ui.model.Profile
 import com.kakao.sdk.auth.model.OAuthToken
 
@@ -12,4 +14,8 @@ interface LoginRepository {
     ): Profile?
 
     suspend fun getProfile(): Profile
+
+    suspend fun logout(): LogoutDto
+
+    suspend fun leaveUser(): LeaveDto
 }

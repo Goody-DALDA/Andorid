@@ -3,16 +3,21 @@ package com.goody.dalda.ui.home
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.RecommendAlcohol
+import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.data.repository.home.AlcoholRepository
+import com.goody.dalda.util.PreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository) :
+class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository, private val profileRepository: LoginRepository) :
     ViewModel() {
 
     private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
@@ -65,5 +70,19 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
 
     fun setSelectedItemIndex(itemIndex: Int) {
         _selectedItemIndex.value = itemIndex
+    }
+
+    fun fetchProfile() {
+        if (PreferenceManager.getAccessToken().isEmpty()) return
+
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val profile = profileRepository.getProfile()
+                _userName.value = profile.nickname
+                _userEmail.value = profile.email
+            } catch (e: Exception) {
+                _homeUiState.value = HomeUiState.ErrorState
+            }
+        }
     }
 }

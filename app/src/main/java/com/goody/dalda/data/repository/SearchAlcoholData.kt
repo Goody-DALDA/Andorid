@@ -9,4 +9,8 @@ data class SearchAlcoholData(
     val wineList : List<AlcoholData.Wine> = emptyList(),
     val wiskyList : List<AlcoholData.Wisky> = emptyList(),
     val traditionalLiquorList : List<AlcoholData.TraditionalLiquor> = emptyList()
-)
+) {
+    fun getAllAlcoholData() =
+        sojuList.asSequence().plus(beerList).plus(sakeList).plus(wineList).plus(wiskyList).plus(traditionalLiquorList)
+            .toList()
+}

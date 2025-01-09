@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import coil.load
 import com.goody.dalda.R
 import com.goody.dalda.databinding.DialogSearchResultsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -35,9 +36,9 @@ class SearchResultsDialog(private val results: List<SpiritsSearchResult>) :
 
         results.firstOrNull()?.let {
             binding.dialogSearchResultsSpiritsName.text = it.name
-            binding.dialogSearchResultsSpiritsProof.text = "%s%%".format(it.proof)
+            binding.dialogSearchResultsSpiritsProof.text = it.proof
             binding.dialogSearchResultsSpiritsSoju.text = it.category
-//            binding.dialogSearchResultsSpiritsImage
+            binding.dialogSearchResultsSpiritsImage.load(it.image)
         }
 
         binding.dialogSearchResultsConfirmBtn.setOnClickListener {
@@ -59,6 +60,6 @@ class SearchResultsDialog(private val results: List<SpiritsSearchResult>) :
 data class SpiritsSearchResult(
     val name: String,
     val category: String,
-    val proof: Int,
+    val proof: String,
     val image: String
 )
