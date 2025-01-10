@@ -2,25 +2,28 @@ package com.goody.dalda.ui.announcement
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.goody.dalda.data.repository.NoticeRepository
+import com.goody.dalda.ui.model.Post
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnnouncementViewModel @Inject constructor() : ViewModel() {
-    private val list: List<Post> = listOf(
-        Post("타이틀 입니다.", "2024.11.12"),
-        Post("두번째 공지사항", "2024.10.22"),
-        Post("3 공지사항", "2024.9.29"),
-        Post("4 공지사항", "2024.8.18")
-    )
+class AnnouncementViewModel @Inject constructor(private val repository: NoticeRepository) : ViewModel() {
     private val posts = mutableStateListOf<Post>()
 
     init {
-        posts.addAll(list)
+        fetchNoticePost()
+    }
+
+    private fun fetchNoticePost() {
+        viewModelScope.launch(Dispatchers.IO) {
+            posts.addAll(repository.fetchNotice())
+        }
     }
 
 
     fun getNoticePosts() = posts
 }
-
-data class Post(val title: String, val date: String)

@@ -3,6 +3,7 @@ package com.goody.dalda.network
 import com.goody.dalda.data.dto.LeaveDto
 import com.goody.dalda.data.dto.LoginDto
 import com.goody.dalda.data.dto.LogoutDto
+import com.goody.dalda.data.dto.NoticeDto
 import com.goody.dalda.data.dto.ProfileDto
 import com.goody.dalda.data.dto.home.AlcoholDataDto
 import com.goody.dalda.data.dto.search.RecommendAlcoholDto
@@ -49,4 +50,7 @@ interface RetrofitService {
     suspend fun getRecommendAlcohol(
         @Query("recommendations") recommendations: String
     ): Response<RecommendAlcoholDto>
+
+    @GET("/api/notices")
+    suspend fun fetchNotice(): Response<NoticeDto>
 }
