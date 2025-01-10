@@ -18,7 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.fragment.app.viewModels
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.goody.dalda.R
 import com.goody.dalda.base.BaseFragment
@@ -31,8 +31,6 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
     companion object {
         fun newInstance() = AnnouncementFragment()
     }
-
-    private val viewModel: AnnouncementViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAnnouncementBinding
         get() = FragmentAnnouncementBinding::inflate
@@ -48,7 +46,6 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
         binding.fragmentAnnouncementComposeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                // In Compose world
                 MaterialTheme {
                     Scaffold(
                         modifier = Modifier
@@ -58,7 +55,9 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
                             CenterAlignedTopAppBar(
                                 title = { Text(text = "공지사항") },
                                 navigationIcon = {
-                                    IconButton(onClick = {}) {
+                                    IconButton(
+                                        onClick = { findNavController().popBackStack() }
+                                    ) {
                                         Icon(
                                             Icons.Filled.Close,
                                             contentDescription = "close"
@@ -69,7 +68,12 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
                         }
                     ) { innerPadding ->
                         AnnouncementScreen(
-                            onClick = { findNavController().navigate(R.id.action_announcementFragment_to_postDetailFragment) },
+                            onClick = { post ->
+                                findNavController().navigate(
+                                    R.id.action_announcementFragment_to_postDetailFragment,
+                                    bundleOf(PostDetailFragment.POST_KEY to post)
+                                )
+                            },
                             Modifier.padding(innerPadding)
                         )
                     }

@@ -2,6 +2,8 @@ package com.goody.dalda.di
 
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.local.PreferenceLocalDataSourceImpl
+import com.goody.dalda.data.remote.NoticeRemoteDataSource
+import com.goody.dalda.data.remote.NoticeRemoteDataSourceImpl
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSourceImpl
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
@@ -23,4 +25,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindPreferenceLocalDataSource(dataSource: PreferenceLocalDataSourceImpl): PreferenceLocalDataSource
+
+    @Binds
+    abstract fun bindNoticeRemoteDataSource(dataSource: NoticeRemoteDataSourceImpl): NoticeRemoteDataSource
 }

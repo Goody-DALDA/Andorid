@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,23 +14,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.goody.dalda.ui.model.Post
 
 @Composable
 fun AnnouncementScreen(
-    onClick: () -> Unit,
+    onClick: (Post) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AnnouncementViewModel = viewModel()
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
-        val posts = viewModel.getNoticePosts()
-        for (item in posts) {
-            NoticePost(item.title, item.date, onClick = onClick)
+    LazyColumn (modifier = modifier.fillMaxSize()) {
+        items(viewModel.getNoticePosts()) { item ->
+            NoticePost(item.title, item.updatedAt, onClick = { onClick(item) })
         }
     }
 }
 
 @Composable
-private fun NoticePost(
+fun NoticePost(
     title: String,
     date: String,
     onClick: () -> Unit,
