@@ -1,11 +1,17 @@
 package com.goody.dalda
 
+import androidx.room.Room
 import com.goody.dalda.data.converter.DynamicConverterFactory
+import com.goody.dalda.data.database.BookmarkDatabase
+import com.goody.dalda.data.database.dao.BookmarkDao
+import com.goody.dalda.data.local.BookmarkLocalDataSource
+import com.goody.dalda.data.local.BookmarkLocalDataSourceImpl
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
 import com.goody.dalda.network.RetrofitService
 import com.goody.dalda.ui.category.CategoryViewModel
+import com.goody.dalda.ui.home.FakeBookmarkLocalDataSourceImpl
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -21,9 +27,9 @@ class CategoryViewModelTest {
     private val server = MockWebServer()
     private lateinit var service: RetrofitService
     private lateinit var alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
+    private lateinit var bookmarkLocalDataSource: BookmarkLocalDataSource
     private lateinit var alcoholRepositoryImpl: AlcoholRepositoryImpl
     private lateinit var viewModel: CategoryViewModel
-
 
     @Before
     fun init() {
@@ -35,11 +41,17 @@ class CategoryViewModelTest {
             .build()
             .create()
 
+
+
         alcoholDataRemoteDataSource = AlcoholDataRemoteDataSourceImpl(
             service = service
         )
+
+        bookmarkLocalDataSource  = FakeBookmarkLocalDataSourceImpl()
+
         alcoholRepositoryImpl = AlcoholRepositoryImpl(
-            alcoholDataRemoteDataSource = alcoholDataRemoteDataSource
+            alcoholDataRemoteDataSource = alcoholDataRemoteDataSource,
+            bookmarkLocalDataSource = bookmarkLocalDataSource
         )
         viewModel = CategoryViewModel(
             alcoholRepository = alcoholRepositoryImpl

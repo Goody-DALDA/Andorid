@@ -9,4 +9,12 @@ interface AlcoholRepository {
     suspend fun getSearchedAlcoholData(query: String): SearchAlcoholData
 
     suspend fun getRecommendAlcoholList(query: String): List<String>
+
+    suspend fun getBookmarkAlcoholList(): List<AlcoholData>
+
+    suspend fun insertBookmarkAlcohol(alcoholData: AlcoholData)
+
+    suspend fun deleteBookmarkAlcohol(alcoholData: AlcoholData)
+
+    suspend fun isBookmarkAlcohol(alcoholData: AlcoholData): Boolean
 }

@@ -10,13 +10,15 @@ import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wine
 import com.goody.dalda.data.dto.home.Wisky
 import com.goody.dalda.data.dto.search.SearchData
+import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.mapper.AlcoholDataMapper.dataToAlcoholData
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.repository.SearchAlcoholData
 import javax.inject.Inject
 
 class AlcoholRepositoryImpl @Inject constructor(
-    private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
+    private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource,
+    private val bookmarkLocalDataSource: BookmarkLocalDataSource
 ) : AlcoholRepository {
     override suspend fun getAlcoholData(category: String): List<AlcoholData> {
         return try {
@@ -74,6 +76,24 @@ class AlcoholRepositoryImpl @Inject constructor(
             Log.e(TAG, "getRecommendAlcoholList: ${e.message}")
             emptyList()
         }
+    }
+
+    override suspend fun getBookmarkAlcoholList(): List<AlcoholData> {
+        val bookmarkAlcoholList = bookmarkLocalDataSource.getBookmarkAlcoholList()
+
+        return bookmarkAlcoholList
+    }
+
+    override suspend fun insertBookmarkAlcohol(alcoholData: AlcoholData) {
+        bookmarkLocalDataSource.insertAlcohol(alcoholData)
+    }
+
+    override suspend fun deleteBookmarkAlcohol(alcoholData: AlcoholData) {
+        bookmarkLocalDataSource.deleteAlcohol(alcoholData)
+    }
+
+    override suspend fun isBookmarkAlcohol(alcoholData: AlcoholData): Boolean {
+        return bookmarkLocalDataSource.isBookMark(alcoholData)
     }
 
     private fun alcoholDataDtoToAlcoholData(

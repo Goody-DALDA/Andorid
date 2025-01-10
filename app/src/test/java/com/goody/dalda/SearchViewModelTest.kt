@@ -1,10 +1,12 @@
 package com.goody.dalda
 
 import com.goody.dalda.data.converter.DynamicConverterFactory
+import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
 import com.goody.dalda.network.RetrofitService
+import com.goody.dalda.ui.home.FakeBookmarkLocalDataSourceImpl
 import com.goody.dalda.ui.search.SearchViewModel
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -21,6 +23,7 @@ class SearchViewModelTest {
     private val server = MockWebServer()
     private lateinit var service: RetrofitService
     private lateinit var alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
+    private lateinit var bookmarkLocalDataSource: BookmarkLocalDataSource
     private lateinit var alcoholRepositoryImpl: AlcoholRepositoryImpl
     private lateinit var viewModel: SearchViewModel
 
@@ -37,8 +40,10 @@ class SearchViewModelTest {
         alcoholDataRemoteDataSource = AlcoholDataRemoteDataSourceImpl(
             service = service
         )
+        bookmarkLocalDataSource = FakeBookmarkLocalDataSourceImpl()
         alcoholRepositoryImpl = AlcoholRepositoryImpl(
-            alcoholDataRemoteDataSource = alcoholDataRemoteDataSource
+            alcoholDataRemoteDataSource = alcoholDataRemoteDataSource,
+            bookmarkLocalDataSource = bookmarkLocalDataSource
         )
         viewModel = SearchViewModel(
             alcoholRepository = alcoholRepositoryImpl

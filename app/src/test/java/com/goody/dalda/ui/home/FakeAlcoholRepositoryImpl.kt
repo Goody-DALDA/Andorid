@@ -17,6 +17,22 @@ class FakeAlcoholRepositoryImpl (
     }
 
     override suspend fun getRecommendAlcoholList(query: String): List<String> {
+        return emptyList()
+    }
+
+    override suspend fun getBookmarkAlcoholList(): List<AlcoholData> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertBookmarkAlcohol(alcoholData: AlcoholData) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteBookmarkAlcohol(alcoholData: AlcoholData) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun isBookmarkAlcohol(alcoholData: AlcoholData): Boolean {
         TODO("Not yet implemented")
     }
 }

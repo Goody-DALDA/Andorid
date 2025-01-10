@@ -40,6 +40,7 @@ splashscreen = "1.0.1"
 retrofit = "2.9.0"
 loggingInterceptor = "4.5.0"
 gson = "2.10.1"
+room = "2.6.1"
 
 [libraries]
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
@@ -78,6 +79,9 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-room-runtime = {group = "androidx.room", name = "room-runtime", version.ref = "room"}
+androidx-room-ktx = {group="androidx.room", name = "room-ktx", version.ref = "room"}
+androidx-room-compiler = {group="androidx.room", name = "room-compiler", version.ref = "room"}
 
 camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camerax" }
 camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax" }

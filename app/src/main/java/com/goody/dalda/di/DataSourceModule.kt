@@ -1,5 +1,8 @@
 package com.goody.dalda.di
 
+import com.goody.dalda.data.database.dao.BookmarkDao
+import com.goody.dalda.data.local.BookmarkLocalDataSource
+import com.goody.dalda.data.local.BookmarkLocalDataSourceImpl
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.local.PreferenceLocalDataSourceImpl
 import com.goody.dalda.data.remote.UserRemoteDataSource
@@ -23,4 +26,8 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindPreferenceLocalDataSource(dataSource: PreferenceLocalDataSourceImpl): PreferenceLocalDataSource
+
+    @Binds
+    abstract fun bindBookmarkDatabase(bookmarkLocalDataSource: BookmarkLocalDataSourceImpl): BookmarkLocalDataSource
+
 }
