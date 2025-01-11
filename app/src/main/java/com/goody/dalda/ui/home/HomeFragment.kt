@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.goody.dalda.R
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentHomeBinding
 import com.goody.dalda.ui.home.data.Menu
@@ -20,6 +22,7 @@ import com.goody.dalda.ui.home.data.Menu.PrivacyPolicy
 import com.goody.dalda.ui.home.data.Menu.Profile
 import com.goody.dalda.ui.home.data.Menu.TermsOfUse
 import com.goody.dalda.ui.home.data.Menu.Login
+import com.goody.dalda.ui.policy.PolicyFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -58,8 +61,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                             when (menu) {
                                 Announcement -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToAnnouncementFragment())
                                 ContactUs -> startContactUsForms()
-                                PrivacyPolicy -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToPolicyFragment())
-                                TermsOfUse -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToPolicyFragment())
+                                PrivacyPolicy -> findNavController().navigate(
+                                    R.id.action_navigation_home_to_policyFragment,
+                                    bundleOf(
+                                        PolicyFragment.PRIVACY_POLICY to "개인정보 이용약관",
+                                        PolicyFragment.FILE_NAME to "privacy_policy.txt"
+                                    )
+                                )
+                                TermsOfUse -> findNavController().navigate(
+                                    R.id.action_navigation_home_to_policyFragment,
+                                    bundleOf(
+                                        PolicyFragment.TERMS_OF_USE to "이용약관",
+                                        PolicyFragment.FILE_NAME to "terms_of_use.txt"
+                                    )
+                                )
                                 Profile -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToMemberFragment())
                                 Login -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToLoginFragment())
                                 else -> {}

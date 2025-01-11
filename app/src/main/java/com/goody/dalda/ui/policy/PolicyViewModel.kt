@@ -13,17 +13,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PolicyViewModel @Inject constructor() : ViewModel() {
-
-    companion object {
-        private const val TERMS_OF_USER_FILE = "terms_of_use.txt"
-    }
-
     private val termsOfUseState = mutableStateOf("")
 
-    fun fetchTermsOfUse(assetManager: AssetManager) {
+    fun fetchTermsOfUse(assetManager: AssetManager, fileName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val sb = StringBuilder()
-            assetManager.open(TERMS_OF_USER_FILE).use { inputStream ->
+            assetManager.open(fileName).use { inputStream ->
                 val reader = BufferedReader(InputStreamReader(inputStream))
                 var line: String? = null
 
