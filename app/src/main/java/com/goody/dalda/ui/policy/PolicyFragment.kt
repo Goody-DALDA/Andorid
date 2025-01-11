@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.navigation.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentPolicyBinding
 
@@ -18,7 +19,9 @@ class PolicyFragment : BaseFragment<FragmentPolicyBinding>() {
         binding.fragmentPolicyComposeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                PolicyScreen()
+                PolicyScreen(
+                    onClose = { findNavController().popBackStack() }
+                )
             }
         }
     }
