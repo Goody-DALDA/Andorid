@@ -124,7 +124,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     country = alcoholData.country,
                     volume = alcoholData.volume,
                     abv = alcoholData.abv,
-                    category = "",
+                    category = "wisky",
                     aromaStr = alcoholData.aroma,
                     type = alcoholData.type,
                     price = alcoholData.price,
