@@ -68,14 +68,14 @@ fun FavoriteAlcohol(
             ) {
                 items(favoriteAlcoholDataList.size) { idx ->
                     AlcoholCard(
-                        alcoholData = favoriteAlcoholDataList[idx]
+                        alcoholData = favoriteAlcoholDataList[idx],
+                        modifier = Modifier.width(width = 150.dp),
                     )
                 }
             }
         }
     }
 }
-
 
 
 @Preview(showBackground = true)
