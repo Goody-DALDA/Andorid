@@ -27,6 +27,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PolicyScreen(
+    title: String = "",
+    fileName: String = "",
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {},
     viewModel: PolicyViewModel = viewModel()
@@ -34,7 +36,7 @@ fun PolicyScreen(
     val context = LocalContext.current
 
     LaunchedEffect("once") {
-        viewModel.fetchTermsOfUse(context.assets)
+        viewModel.fetchTermsOfUse(context.assets, fileName)
     }
 
     Scaffold(
@@ -45,7 +47,7 @@ fun PolicyScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "개인정보 처리방침",
+                        text = title,
                         style = MaterialTheme.typography.titleMedium
                     )
                 },
