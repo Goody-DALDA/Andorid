@@ -33,6 +33,9 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_home"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_liquorDetailsFragment"
+            app:destination="@id/liquorDetailsFragment" />
     </fragment>
 
     <fragment

@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -55,7 +56,8 @@ fun HomeScreen(
     onClickSearchBar: () -> Unit = {},
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onClickSideMenuItem: (Menu) -> Unit = {},
-    onClickSeeLoginScreen: () -> Unit = {}
+    onClickSeeLoginScreen: () -> Unit = {},
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     val favoriteAlcoholDataList by viewModel.favoriteAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -69,6 +71,7 @@ fun HomeScreen(
 
     LaunchedEffect("once") {
         viewModel.fetchProfile()
+        viewModel.fetchFavoriteAlcoholList()
     }
 
     when (homeUiState) {
@@ -96,7 +99,8 @@ fun HomeScreen(
                     }
                 },
                 onClickSideMenuItem = onClickSideMenuItem,
-                onClickLogin = onClickSeeLoginScreen
+                onClickLogin = onClickSeeLoginScreen,
+                onClickCard = onClickCard
             )
         }
 
@@ -122,7 +126,8 @@ fun HomeScreen(
     onChangeDrawerState: () -> Unit = {},
     onClickMenu: () -> Unit = {},
     onClickSideMenuItem: (Menu) -> Unit = {},
-    onClickLogin: () -> Unit = {}
+    onClickLogin: () -> Unit = {},
+    onClickCard: (AlcoholData) -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -163,7 +168,7 @@ fun HomeScreen(
                             .padding(bottom = 30.dp)
                             .fillMaxWidth()
                             .height(120.dp),
-                        onClickSignIn = {/* TODO */}
+                        onClickSignIn = {/* TODO */ }
                     )
 
                     Image(
@@ -190,7 +195,8 @@ fun HomeScreen(
                             .wrapContentHeight()
                             .fillMaxWidth(),
                         favoriteAlcoholDataList = favoriteAlcoholDataList,
-                        onActionClick = { /*TODO*/ }
+                        onActionClick = { /*TODO*/ },
+                        onClickCard = onClickCard
                     )
 
                     AlcoholRecommendation(

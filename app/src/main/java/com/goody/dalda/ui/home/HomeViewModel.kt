@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.home
 
+import android.util.Log
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.lifecycle.ViewModel
@@ -17,8 +18,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRepository, private val profileRepository: LoginRepository) :
-    ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val alcoholRepository: AlcoholRepository,
+    private val profileRepository: LoginRepository
+) : ViewModel() {
 
     private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
     val favoriteAlcoholDataList: StateFlow<List<AlcoholData>> = _favoriteAlcoholDataList
@@ -81,6 +84,20 @@ class HomeViewModel @Inject constructor(private val alcoholRepository: AlcoholRe
                 _userName.value = profile.nickname
                 _userEmail.value = profile.email
             } catch (e: Exception) {
+                _homeUiState.value = HomeUiState.ErrorState
+            }
+        }
+    }
+
+    fun fetchFavoriteAlcoholList() {
+//        if (PreferenceManager.getAccessToken().isEmpty()) return
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val favoriteAlcoholList = alcoholRepository.getBookmarkAlcoholList()
+                _favoriteAlcoholDataList.value = favoriteAlcoholList
+                Log.d("TAG", "fetchFavoriteAlcoholList: $favoriteAlcoholList")
+            } catch (e: Exception) {
+                Log.e("TAG", "fetchFavoriteAlcoholList: ${e.message}" )
                 _homeUiState.value = HomeUiState.ErrorState
             }
         }

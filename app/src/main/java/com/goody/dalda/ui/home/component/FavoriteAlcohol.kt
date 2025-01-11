@@ -1,6 +1,8 @@
 package com.goody.dalda.ui.home.component
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +26,7 @@ import com.goody.dalda.data.AlcoholData
 fun FavoriteAlcohol(
     favoriteAlcoholDataList: List<AlcoholData> = emptyList(),
     onActionClick: () -> Unit = {},
+    onClickCard: (AlcoholData) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -69,7 +72,8 @@ fun FavoriteAlcohol(
                 items(favoriteAlcoholDataList.size) { idx ->
                     AlcoholCard(
                         alcoholData = favoriteAlcoholDataList[idx],
-                        modifier = Modifier.width(width = 150.dp),
+                        onClick = onClickCard,
+                        modifier = Modifier.width(width = 150.dp)
                     )
                 }
             }

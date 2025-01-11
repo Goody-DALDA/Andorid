@@ -1,6 +1,8 @@
 package com.goody.dalda.ui.liquor_details.component
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,7 +19,11 @@ import com.goody.dalda.R
 import com.goody.dalda.ui.component.OrangeColorButton
 
 @Composable
-fun LiquorDetailBottomBar(modifier: Modifier = Modifier) {
+fun LiquorDetailBottomBar(
+    @DrawableRes bookmarkImg: Int = R.drawable.img_empty_heart,
+    onClickBookmark: () -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     BottomAppBar(
         content = {
             Row(
@@ -27,8 +33,9 @@ fun LiquorDetailBottomBar(modifier: Modifier = Modifier) {
                 Image(
                     modifier = Modifier
                         .weight(1f)
-                        .fillMaxHeight(),
-                    painter = painterResource(id = R.drawable.img_empty_heart),
+                        .fillMaxHeight()
+                        .clickable { onClickBookmark() },
+                    painter = painterResource(bookmarkImg),
                     contentDescription = null,
                     contentScale = ContentScale.FillHeight
                 )
@@ -48,5 +55,6 @@ fun LiquorDetailBottomBar(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun LiquorDetailBottomBarPrev() {
-    LiquorDetailBottomBar()
+    LiquorDetailBottomBar(
+    )
 }

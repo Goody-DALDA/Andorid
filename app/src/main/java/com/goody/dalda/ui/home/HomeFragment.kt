@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                 PrivacyPolicy -> {
                                     HomeFragmentDirections.actionNavigationHomeToPolicyFragment()
                                 }
+
                                 Menu.Profile -> HomeFragmentDirections.actionNavigationHomeToMemberFragment()
                                 Menu.Login -> HomeFragmentDirections.actionNavigationHomeToLoginFragment()
                                 else -> return@HomeScreen
@@ -63,6 +65,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         },
                         onClickSeeLoginScreen = {
                             findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToLoginFragment())
+                        },
+                        onClickCard = {
+                            findNavController().navigate(
+                                HomeFragmentDirections.actionNavigationHomeToLiquorDetailsFragment(
+                                    it
+                                )
+                            )
                         }
                     )
                 }

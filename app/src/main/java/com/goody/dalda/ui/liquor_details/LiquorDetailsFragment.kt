@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentLiquorDetailsBinding
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LiquorDetailsFragment : BaseFragment<FragmentLiquorDetailsBinding>() {
 
     private val args: LiquorDetailsFragmentArgs by navArgs()
+    private val viewModel: LiquorDetailsViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLiquorDetailsBinding
         get() = FragmentLiquorDetailsBinding::inflate
@@ -28,6 +30,7 @@ class LiquorDetailsFragment : BaseFragment<FragmentLiquorDetailsBinding>() {
                 LiquorDetailsScreen(
                     alcoholData = args.alcoholData,
                     modifier = Modifier,
+                    viewModel = viewModel
                 )
             }
         }

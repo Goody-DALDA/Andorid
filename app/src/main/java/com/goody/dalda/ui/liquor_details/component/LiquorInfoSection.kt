@@ -35,9 +35,11 @@ fun LiquorInfoSection(
         AsyncImage(
             model = alcoholData.imgUrl,
             contentDescription = "주류 이미지",
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.FillHeight,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .height(300.dp)
+                .fillMaxWidth(),
         )
 
         BasicInfo(
@@ -247,6 +249,30 @@ private fun LiquorImageSectionPrev_sake() {
             aroma = "향기",
             finish = "맛",
             country = "일본"
+        )
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LiquorImageSectionPrev_wine() {
+    LiquorInfoSection(
+        alcoholData = AlcoholData.Wine(
+            id = 0,
+            name = "이기갈 꼬뜨 뒤 론 화이트",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            tag = R.drawable.tag_wine,
+            volume = "750ml",
+            abv = "",
+            country = "프랑스",
+            ingredient = "",
+            mouthfeel = 0.0f,
+            sugar = 0.0f,
+            acid = 0.0f,
+            type = "",
+            comment = "",
+            pairingFood = "",
+            winery = "",
         )
     )
 }
