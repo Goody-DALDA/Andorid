@@ -23,8 +23,8 @@ class HomeViewModel @Inject constructor(
     private val profileRepository: LoginRepository
 ) : ViewModel() {
 
-    private val _favoriteAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
-    val favoriteAlcoholDataList: StateFlow<List<AlcoholData>> = _favoriteAlcoholDataList
+    private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
+    val bookmarkAlcoholDataList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
 
     private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
     val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
@@ -48,7 +48,7 @@ class HomeViewModel @Inject constructor(
     val drawerState: StateFlow<DrawerState> = _drawerState
 
     fun setAlcoholDataList(alcoholDataList: List<AlcoholData>) {
-        _favoriteAlcoholDataList.value = alcoholDataList
+        _bookmarkAlcoholDataList.value = alcoholDataList
     }
 
     fun setRecommendAlcoholList(recommendAlcoholList: List<RecommendAlcohol>) {
@@ -89,15 +89,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun fetchFavoriteAlcoholList() {
+    fun fetchBookmarkAlcoholList() {
 //        if (PreferenceManager.getAccessToken().isEmpty()) return
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val favoriteAlcoholList = alcoholRepository.getBookmarkAlcoholList()
-                _favoriteAlcoholDataList.value = favoriteAlcoholList
-                Log.d("TAG", "fetchFavoriteAlcoholList: $favoriteAlcoholList")
+                val bookmarkAlcoholList = alcoholRepository.getBookmarkAlcoholList()
+                _bookmarkAlcoholDataList.value = bookmarkAlcoholList
             } catch (e: Exception) {
-                Log.e("TAG", "fetchFavoriteAlcoholList: ${e.message}" )
+                Log.e("TAG", "fetchBookmarkAlcoholList: ${e.message}")
                 _homeUiState.value = HomeUiState.ErrorState
             }
         }

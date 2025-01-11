@@ -1,8 +1,6 @@
 package com.goody.dalda.ui.home.component
 
-import android.util.Log
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,8 +21,8 @@ import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 
 @Composable
-fun FavoriteAlcohol(
-    favoriteAlcoholDataList: List<AlcoholData> = emptyList(),
+fun BookmarkAlcohol(
+    bookmarkAlcoholDataList: List<AlcoholData> = emptyList(),
     onActionClick: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -40,7 +38,7 @@ fun FavoriteAlcohol(
             modifier = Modifier
                 .height(30.dp),
         )
-        if (favoriteAlcoholDataList.isEmpty()) {
+        if (bookmarkAlcoholDataList.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
@@ -69,9 +67,9 @@ fun FavoriteAlcohol(
                     .height(231.dp)
                     .fillMaxWidth(),
             ) {
-                items(favoriteAlcoholDataList.size) { idx ->
+                items(bookmarkAlcoholDataList.size) { idx ->
                     AlcoholCard(
-                        alcoholData = favoriteAlcoholDataList[idx],
+                        alcoholData = bookmarkAlcoholDataList[idx],
                         onClick = onClickCard,
                         modifier = Modifier.width(width = 150.dp)
                     )
@@ -84,7 +82,7 @@ fun FavoriteAlcohol(
 
 @Preview(showBackground = true)
 @Composable
-private fun FavoriteAlcoholPreview() {
+private fun BookmarkAlcoholPreview() {
     val alcoholDataList = listOf(
         AlcoholData.Wisky(
             id = 0,
@@ -138,13 +136,13 @@ private fun FavoriteAlcoholPreview() {
             comment = "맛있어요"
         )
     )
-    FavoriteAlcohol(
-        favoriteAlcoholDataList = alcoholDataList
+    BookmarkAlcohol(
+        bookmarkAlcoholDataList = alcoholDataList
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun EmptyFavoriteAlcoholPreview() {
-    FavoriteAlcohol()
+private fun EmptyBookmarkAlcoholPreview() {
+    BookmarkAlcohol()
 }

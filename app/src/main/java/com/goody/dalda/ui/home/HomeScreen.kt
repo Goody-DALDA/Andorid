@@ -1,6 +1,5 @@
 package com.goody.dalda.ui.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -37,14 +35,11 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
-import com.goody.dalda.ui.home.component.FavoriteAlcohol
+import com.goody.dalda.ui.home.component.BookmarkAlcohol
 import com.goody.dalda.ui.home.component.HomeBanner
 import com.goody.dalda.ui.home.component.HomeTopBar
-import com.goody.dalda.ui.home.component.LoginBanner
-import com.goody.dalda.ui.home.component.WelcomeBanner
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
 import com.goody.dalda.ui.home.data.Menu
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 const val categoryRowMaxCount = 4
@@ -59,7 +54,7 @@ fun HomeScreen(
     onClickSeeLoginScreen: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {}
 ) {
-    val favoriteAlcoholDataList by viewModel.favoriteAlcoholDataList.collectAsStateWithLifecycle()
+    val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
     val authState by viewModel.authState.collectAsStateWithLifecycle()
@@ -71,7 +66,7 @@ fun HomeScreen(
 
     LaunchedEffect("once") {
         viewModel.fetchProfile()
-        viewModel.fetchFavoriteAlcoholList()
+        viewModel.fetchBookmarkAlcoholList()
     }
 
     when (homeUiState) {
@@ -80,7 +75,7 @@ fun HomeScreen(
                 modifier = modifier,
                 userName = userName,
                 userEmail = userEmail,
-                favoriteAlcoholDataList = favoriteAlcoholDataList,
+                bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
                 drawerState = drawerState,
@@ -115,7 +110,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
-    favoriteAlcoholDataList: List<AlcoholData> = emptyList(),
+    bookmarkAlcoholDataList: List<AlcoholData> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     authState: AuthState,
     drawerState: DrawerState,
@@ -190,11 +185,11 @@ fun HomeScreen(
                         onClickAlcohol = onClickAlcohol
                     )
 
-                    FavoriteAlcohol(
+                    BookmarkAlcohol(
                         modifier = Modifier
                             .wrapContentHeight()
                             .fillMaxWidth(),
-                        favoriteAlcoholDataList = favoriteAlcoholDataList,
+                        bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                         onActionClick = { /*TODO*/ },
                         onClickCard = onClickCard
                     )
@@ -219,7 +214,7 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     val userName = "Dalda"
     val userEmail = "nei@gmail.com"
-    val favoriteAlcoholDataList = listOf(
+    val bookmarkAlcoholDataList = listOf(
         AlcoholData.Wisky(
             id = 0,
             name = "위스키",
@@ -280,7 +275,7 @@ private fun HomeScreenPreview() {
         modifier = Modifier,
         userName = userName,
         userEmail = userEmail,
-        favoriteAlcoholDataList = favoriteAlcoholDataList,
+        bookmarkAlcoholDataList = bookmarkAlcoholDataList,
         recommendAlcoholList = emptyList(),
         authState = authState,
         drawerState = drawerState,
