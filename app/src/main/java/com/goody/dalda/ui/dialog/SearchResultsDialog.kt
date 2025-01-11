@@ -1,6 +1,10 @@
 package com.goody.dalda.ui.dialog
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.style.SuggestionSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +14,13 @@ import com.goody.dalda.R
 import com.goody.dalda.databinding.DialogSearchResultsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SearchResultsDialog(private val results: List<SpiritsSearchResult>) :
-    BottomSheetDialogFragment() {
+class SearchResultsDialog(
+    private val results: List<SpiritsSearchResult>
+) : BottomSheetDialogFragment() {
+
+    companion object {
+        private const val SUGGESTION_URL = "https://forms.gle/f3Djzkf2ymhgcPRd6"
+    }
 
     private var _binding: DialogSearchResultsBinding? = null
     private val binding: DialogSearchResultsBinding get() = _binding!!
@@ -46,7 +55,7 @@ class SearchResultsDialog(private val results: List<SpiritsSearchResult>) :
         }
 
         binding.dialogSearchResultsSuggestionBtn.setOnClickListener {
-            // 주류 추가 화면 이동
+            startSuggestionForms()
             dismiss()
         }
     }
@@ -54,6 +63,11 @@ class SearchResultsDialog(private val results: List<SpiritsSearchResult>) :
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun startSuggestionForms() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(SUGGESTION_URL))
+        startActivity(intent)
     }
 }
 
