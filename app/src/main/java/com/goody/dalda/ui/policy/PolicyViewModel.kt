@@ -1,27 +1,41 @@
 package com.goody.dalda.ui.policy
 
+import android.content.res.AssetManager
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import javax.inject.Inject
 
 @HiltViewModel
 class PolicyViewModel @Inject constructor() : ViewModel() {
 
+    companion object {
+        private const val TERMS_OF_USER_FILE = "terms_of_use.txt"
+    }
 
-    private val text = "내용영역입니다. 이하 내용은 더미텍스트입니다.\n" +
-            "\n" +
-            "이 헌법중 공무원의 임기 또는 중임제한에 관한 규정은 이 헌법에 의하여 그 공무원이 최초로 선출 또는 임명된 때로부터 적용한다. 대법원장의 임기는 6년으로 하며, 중임할 수 없다. 국회에 제출된 법률안 기타의 의안은 회기중에 의결되지 못한 이유로 폐기되지 아니한다. 다만, 국회의원의 임기가 만료된 때에는 그러하지 아니하다.\n" +
-            "\n" +
-            "국교는 인정되지 아니하며, 종교와 정치는 분리된다. 의무교육은 무상으로 한다. 법률이 헌법에 위반되는 여부가 재판의 전제가 된 경우에는 법원은 헌법재판소에 제청하여 그 심판에 의하여 재판한다. 대통령은 법률이 정하는 바에 의하여 훈장 기타의 영전을 수여한다. 군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다.\n" +
-            "\n" +
-            "헌법재판소의 조직과 운영 기타 필요한 사항은 법률로 정한다. 재판의 심리와 판결은 공개한다. 다만, 심리는 국가의 안전보장 또는 안녕질서를 방해하거나 선량한 풍속을 해할 염려가 있을 때에는 법원의 결정으로 공개하지 아니할 수 있다. 대통령은 헌법과 법률이 정하는 바에 의하여 국군을 통수한다.\n" +
-            "\n" +
-            "군사법원의 조직·권한 및 재판관의 자격은 법률로 정한다. 통신·방송의 시설기준과 신문의 기능을 보장하기 위하여 필요한 사항은 법률로 정한다. 이 헌법은 1988년 2월 25일부터 시행한다. 다만, 이 헌법을 시행하기 위하여 필요한 법률의 제정·개정과 이 헌법에 의한 대통령 및 국회의원의 선거 기타 이 헌법시행에 관한 준비는 이 헌법시행 전에 할 수 있다.\n" +
-            "\n" +
-            "모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다. 대통령은 조약을 체결·비준하고, 외교사절을 신임·접수 또는 파견하며, 선전포고와 강화를 한다. 공공필요에 의한 재산권의 수용·사용 또는 제한 및 그에 대한 보상은 법률로써 하되, 정당한 보상을 지급하여야 한다.\n" +
-            "\n" +
-            "의원을 제명하려면 국회재적의원 3분의 2 이상의 찬성이 있어야 한다. 명령·규칙 또는 처분이 헌법이나 법률에 위반되는 여부가 재판의 전제가 된 경우에는 대법원은 이를 최종적으로 심사할 권한을 가진다. 이 헌법공포 당시의 국회의원의 임기는 제1항에 의한 국회의 최초의 집회일 전일까지로 한다. 국무총리는 대통령을 보좌하며, 행정에 관하여 대통령의 명을 받아 행정각부를 통할한다.\n" +
-            "국가는 농업 및 어업을 보호·육성하기 위하여 농·어촌종합개발과 그 지원등 필요한 계획을 수립·시행하여야 한다. 모든 국민은 사생활의 비밀과 자유를 침해받지 아니한다. 국무위원은 국무총리의 제청으로 대통령이 임명한다. 대한민국은 민주공화국이다. 누구든지 체포 또는 구속을 당한 때에는 즉시 변호인의 조력을 받을 권리를 가진다. 다만, 형사피고인이 스스로 변호인을 구할 수 없을 때에는 법률이 정하는 바에 의하여 국가가 변호인을 붙인다."
+    private val termsOfUseState = mutableStateOf("")
 
-    fun getText() = text
+    fun fetchTermsOfUse(assetManager: AssetManager) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val sb = StringBuilder()
+            assetManager.open(TERMS_OF_USER_FILE).use { inputStream ->
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                var line: String? = null
+
+                while ((reader.readLine()?.also { line = it }) != null) {
+                    sb.append(line).append("\n")
+                }
+            }
+
+            termsOfUseState.value = sb.toString()
+        }
+
+    }
+
+    fun getTermsOfUseContent() = termsOfUseState.value
 }
