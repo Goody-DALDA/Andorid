@@ -46,7 +46,10 @@ fun NavigationBottom(
                     .height(20.dp)
                     .padding(horizontal = 10.dp),
             )
-            AutoResizedText(text = stringResource(id = R.string.text_terms_and_conditions))
+            AutoResizedText(
+                text = stringResource(id = R.string.text_terms_and_conditions),
+                modifier = Modifier.clickable { onClick(Menu.TermsOfUse) }
+            )
         }
         // 인스타, 링크
         Row(

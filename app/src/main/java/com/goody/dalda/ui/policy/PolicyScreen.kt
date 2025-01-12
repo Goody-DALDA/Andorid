@@ -16,7 +16,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -25,9 +27,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PolicyScreen(
+    title: String = "",
+    fileName: String = "",
     modifier: Modifier = Modifier,
+    onClose: () -> Unit = {},
     viewModel: PolicyViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+
+    LaunchedEffect("once") {
+        viewModel.fetchTermsOfUse(context.assets, fileName)
+    }
+
     Scaffold(
         modifier = modifier
             .fillMaxSize()
@@ -36,12 +47,12 @@ fun PolicyScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "개인정보 처리방침",
+                        text = title,
                         style = MaterialTheme.typography.titleMedium
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onClose) {
                         Icon(
                             Icons.Filled.Close,
                             contentDescription = "close"
@@ -53,7 +64,7 @@ fun PolicyScreen(
     ) { innerPadding ->
         PolicyLayout(
             Modifier.padding(innerPadding),
-            viewModel.getText()
+            viewModel.getTermsOfUseContent()
         )
     }
 }

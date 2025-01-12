@@ -5,6 +5,8 @@ import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.local.BookmarkLocalDataSourceImpl
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.local.PreferenceLocalDataSourceImpl
+import com.goody.dalda.data.remote.NoticeRemoteDataSource
+import com.goody.dalda.data.remote.NoticeRemoteDataSourceImpl
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSourceImpl
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
@@ -30,4 +32,6 @@ abstract class DataSourceModule {
     @Binds
     abstract fun bindBookmarkDatabase(bookmarkLocalDataSource: BookmarkLocalDataSourceImpl): BookmarkLocalDataSource
 
+    @Binds
+    abstract fun bindNoticeRemoteDataSource(dataSource: NoticeRemoteDataSourceImpl): NoticeRemoteDataSource
 }

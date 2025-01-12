@@ -2,6 +2,8 @@ package com.goody.dalda.di
 
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.data.repository.LoginRepositoryImpl
+import com.goody.dalda.data.repository.NoticeRepository
+import com.goody.dalda.data.repository.NoticeRepositoryImpl
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
 import dagger.Binds
@@ -17,4 +19,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindAlcoholRepository(repository: AlcoholRepositoryImpl): AlcoholRepository
+
+    @Binds
+    abstract fun bindNoticeRepository(repository: NoticeRepositoryImpl): NoticeRepository
 }
