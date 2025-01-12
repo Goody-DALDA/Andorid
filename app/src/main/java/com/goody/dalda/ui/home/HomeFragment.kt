@@ -67,6 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                         PolicyFragment.FILE_NAME to "privacy_policy.txt"
                                     )
                                 )
+
                                 TermsOfUse -> findNavController().navigate(
                                     R.id.action_navigation_home_to_policyFragment,
                                     bundleOf(
@@ -74,6 +75,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                         PolicyFragment.FILE_NAME to "terms_of_use.txt"
                                     )
                                 )
+
                                 Profile -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToMemberFragment())
                                 Login -> findNavController().navigate(HomeFragmentDirections.actionNavigationHomeToLoginFragment())
                                 else -> {}

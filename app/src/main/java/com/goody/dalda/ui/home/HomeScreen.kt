@@ -125,7 +125,7 @@ fun HomeScreen(
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickLogin: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickBookmark: () ->Unit = {}
+    onClickBookmark: () -> Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),

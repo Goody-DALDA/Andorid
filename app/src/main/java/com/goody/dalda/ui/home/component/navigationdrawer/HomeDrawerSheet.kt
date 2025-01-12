@@ -50,7 +50,7 @@ fun HomeDrawerSheet(
             userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
             onClickCloseIcon = { onChangeDrawerState() },
             onClickProfile = {
-                if (authState == AuthState.SignIn){
+                if (authState == AuthState.SignIn) {
                     onClickMenu(Menu.Profile)
                 } else {
                     onClickMenu(Menu.Login)
