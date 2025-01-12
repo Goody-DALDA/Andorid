@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_navigation_home_to_liquorDetailsFragment"
             app:destination="@id/liquorDetailsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment" />
     </fragment>
 
     <fragment
@@ -182,5 +185,17 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_home"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.goody.dalda.ui.bookmark.BookmarkFragment"
+        android:label="fragment_bookmark"
+        tools:layout="@layout/fragment_bookmark" >
+        <action
+            android:id="@+id/action_bookmarkFragment_to_liquorDetailsFragment"
+            app:destination="@id/liquorDetailsFragment" />
+        <action
+            android:id="@+id/action_bookmarkFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 </navigation>

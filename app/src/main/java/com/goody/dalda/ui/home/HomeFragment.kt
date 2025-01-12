@@ -88,6 +88,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                     it
                                 )
                             )
+                        },
+                        onClickBookmark = {
+                            findNavController().navigate(
+                                HomeFragmentDirections.actionNavigationHomeToBookmarkFragment()
+                            )
                         }
                     )
                 }

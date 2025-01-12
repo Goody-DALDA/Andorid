@@ -52,7 +52,8 @@ fun HomeScreen(
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickSeeLoginScreen: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickBookmark: () -> Unit = {}
 ) {
     val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -95,7 +96,8 @@ fun HomeScreen(
                 },
                 onClickSideMenuItem = onClickSideMenuItem,
                 onClickLogin = onClickSeeLoginScreen,
-                onClickCard = onClickCard
+                onClickCard = onClickCard,
+                onClickBookmark = onClickBookmark
             )
         }
 
@@ -122,7 +124,8 @@ fun HomeScreen(
     onClickMenu: () -> Unit = {},
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickLogin: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {}
+    onClickCard: (AlcoholData) -> Unit = {},
+    onClickBookmark: () ->Unit = {}
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -190,7 +193,7 @@ fun HomeScreen(
                             .wrapContentHeight()
                             .fillMaxWidth(),
                         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
-                        onActionClick = { /*TODO*/ },
+                        onActionClick = onClickBookmark,
                         onClickCard = onClickCard
                     )
 
