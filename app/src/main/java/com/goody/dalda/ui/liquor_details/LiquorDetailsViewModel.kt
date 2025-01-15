@@ -49,7 +49,7 @@ class LiquorDetailsViewModel @Inject constructor(
 
     fun fetchBlogDataList(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _blogDataList.value = blogRepository.getBlogDataList(query)
+            _blogDataList.value = blogRepository.getBlogDataList(query.replace(" ", ""))
         }
     }
 }

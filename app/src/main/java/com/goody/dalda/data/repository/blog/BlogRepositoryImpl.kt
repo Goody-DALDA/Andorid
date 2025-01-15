@@ -14,9 +14,9 @@ class BlogRepositoryImpl @Inject constructor(
         return if (blogSearchDto.isSuccessful) {
             blogSearchDto.body()?.items?.map {
                 BlogData(
-                    title = it.title,
+                    title = it.title.replace("<b>", "").replace("</b>", ""),
                     link = it.link,
-                    description = it.description,
+                    description = it.description.replace("<b>", "").replace("</b>", ""),
                     bloggerName = it.bloggername,
                     bloggerLink = it.bloggerlink,
                     postdate = it.postdate
