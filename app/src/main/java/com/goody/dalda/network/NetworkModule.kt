@@ -26,6 +26,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    @DaldaOkHttp
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(getLoggingInterceptor())
@@ -33,10 +34,21 @@ object NetworkModule {
             .build()
     }
 
+    @Singleton
+    @Provides
+    @NaverSearchOkHttp
+    fun provideNaverSearchOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(getLoggingInterceptor())
+            .addNetworkInterceptor(NaverSearchHeaderInterceptor())
+            .build()
+    }
+
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    @DaldaRetrofit
+    fun provideRetrofit(@DaldaOkHttp okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.SERVER_API_URL)
@@ -44,9 +56,28 @@ object NetworkModule {
             .build()
     }
 
+    @Singleton
+    @Provides
+    @NaverSearchRetrofit
+    fun provideNaverSearchRetrofit(@NaverSearchOkHttp okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(BuildConfig.NAVER_SEARCH_API_URL)
+            .addConverterFactory(DynamicConverterFactory())
+            .build()
+    }
+
+
+
     @Provides
     @Singleton
-    fun provideRetrofitService(retrofit: Retrofit): RetrofitService {
+    fun provideRetrofitService(@DaldaRetrofit retrofit: Retrofit): RetrofitService {
         return retrofit.create(RetrofitService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNaverSearchRetrofitService(@NaverSearchRetrofit retrofit: Retrofit): NaverSearchRetrofitService {
+        return retrofit.create(NaverSearchRetrofitService::class.java)
     }
 }

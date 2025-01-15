@@ -26,7 +26,9 @@
     <string name="text_other_alcohol">다른 %1s도 있어요.</string>
     <string name="text_add_pictorial_book">술 도감에 추가하기</string>
     <string name="text_save_favorite_alcohol">좋아하는 술을 저장해 보세요</string>
-
+    <string name="text_blog_naver">네이버 블로그</string>
+    <string name="text_blog_review">블로그 리뷰</string>
+    <string name="text_keyword_search_result">키워드로 수집한 정보를 확인해보세요</string>
 
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>

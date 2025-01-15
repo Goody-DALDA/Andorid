@@ -1,5 +1,7 @@
 package com.goody.dalda.ui.liquor_details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +31,10 @@ class LiquorDetailsFragment : BaseFragment<FragmentLiquorDetailsBinding>() {
             setContent {
                 LiquorDetailsScreen(
                     alcoholData = args.alcoholData,
+                    onClickBlog = {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                        startActivity(intent)
+                    },
                     modifier = Modifier,
                     viewModel = viewModel
                 )

@@ -1,9 +1,12 @@
 package com.goody.dalda.ui.liquor_details
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Text
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,36 +15,56 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.BlogData
+import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
 
+private const val CONTENT_HORIZONTAL_PADDING_SIZE = 16
+private const val LIQUOR_INFO_SECTION_TOP_PADDING_SIZE = 16
+private const val LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE = 8
+private const val LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE = 20
+private const val BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING = 8
+private const val BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE = 8
+private const val TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE = 4
+private const val TEXT_BLOG_REVIEW_TITLE_FONT_SIZE = 18
+private const val TEXT_BLOG_REVIEW_SUB_TITLE_FONT_SIZE = 12
+
+
 @Composable
 fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
+    onClickBlog: (String) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: LiquorDetailsViewModel = viewModel()
 ) {
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
     val isBookmark by viewModel.isBookmark.collectAsStateWithLifecycle()
+    val blogDataList by viewModel.blogDataList.collectAsStateWithLifecycle()
 
     LaunchedEffect(
         "once"
     ) {
         viewModel.setIsBookmark(alcoholData)
+        viewModel.fetchBlogDataList(alcoholData)
     }
 
     LiquorDetailsScreen(
         alcoholData = alcoholData,
         isDropDownMenuExpanded = isDropDownMenuExpanded,
         isBookmark = isBookmark,
+        blogDataList = blogDataList,
         onClickSideMenu = { isDropDownMenuExpanded = it },
         onClickBookmark = {
             if (isBookmark) {
@@ -51,6 +74,7 @@ fun LiquorDetailsScreen(
             }
             viewModel.setBookmark(!isBookmark)
         },
+        onClickBlog = onClickBlog,
         modifier = modifier
     )
 }
@@ -60,8 +84,10 @@ fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
     isDropDownMenuExpanded: Boolean,
     isBookmark: Boolean,
+    blogDataList: List<BlogData> = emptyList(),
     onClickSideMenu: (Boolean) -> Unit,
     onClickBookmark: () -> Unit,
+    onClickBlog: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -95,7 +121,12 @@ fun LiquorDetailsScreen(
                     alcoholData = alcoholData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 8.dp),
+                        .padding(
+                            start = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            end = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            top = LIQUOR_INFO_SECTION_TOP_PADDING_SIZE.dp,
+                            bottom = LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE.dp
+                        ),
                 )
             }
             item {
@@ -103,8 +134,56 @@ fun LiquorDetailsScreen(
                     alcoholData = alcoholData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                        .padding(
+                            start = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            end = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            bottom = LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE.dp
+                        ),
                 )
+            }
+
+            item {
+                Column(
+                    modifier = Modifier.padding(
+                        horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                        vertical = BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING.dp
+                    )
+                ) {
+                    Text(
+                        text = stringResource(R.string.text_blog_review),
+                        fontSize = TEXT_BLOG_REVIEW_TITLE_FONT_SIZE.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(
+                            vertical = TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE.dp
+                        )
+                    )
+
+                    Text(
+                        text = stringResource(R.string.text_keyword_search_result),
+                        fontSize = TEXT_BLOG_REVIEW_SUB_TITLE_FONT_SIZE.sp,
+                    )
+                }
+            }
+
+            blogDataList.forEach { blogData ->
+                item {
+                    BlogInfoComponent(
+                        title = blogData.title,
+                        description = blogData.description,
+                        postingDates = blogData.postdate,
+                        blogLink = blogData.link,
+                        onClick = onClickBlog,
+                        modifier = Modifier.padding(
+                            vertical = BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE.dp,
+                            horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp
+                        )
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(
+                            horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp
+                        )
+                    )
+                }
             }
         }
     }
