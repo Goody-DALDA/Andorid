@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,17 @@ import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
+
+private const val CONTENT_HORIZONTAL_PADDING_SIZE = 16
+private const val LIQUOR_INFO_SECTION_TOP_PADDING_SIZE = 16
+private const val LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE = 8
+private const val LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE = 20
+private const val BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING = 8
+private const val BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE = 8
+private const val TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE = 4
+private const val TEXT_BLOG_REVIEW_TITLE_FONT_SIZE = 18
+private const val TEXT_BLOG_REVIEW_SUB_TITLE_FONT_SIZE = 12
+
 
 @Composable
 fun LiquorDetailsScreen(
@@ -109,7 +121,12 @@ fun LiquorDetailsScreen(
                     alcoholData = alcoholData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 8.dp),
+                        .padding(
+                            start = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            end = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            top = LIQUOR_INFO_SECTION_TOP_PADDING_SIZE.dp,
+                            bottom = LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE.dp
+                        ),
                 )
             }
             item {
@@ -117,24 +134,33 @@ fun LiquorDetailsScreen(
                     alcoholData = alcoholData,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
+                        .padding(
+                            start = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            end = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                            bottom = LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE.dp
+                        ),
                 )
             }
 
             item {
                 Column(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    modifier = Modifier.padding(
+                        horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
+                        vertical = BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING.dp
+                    )
                 ) {
                     Text(
-                        text = "리뷰",
-                        fontSize = 18.sp,
+                        text = stringResource(R.string.text_blog_review),
+                        fontSize = TEXT_BLOG_REVIEW_TITLE_FONT_SIZE.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(vertical = 4.dp)
+                        modifier = Modifier.padding(
+                            vertical = TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE.dp
+                        )
                     )
 
                     Text(
-                        text = "키워드로 수집한 정보를 확인해보세요",
-                        fontSize = 12.sp,
+                        text = stringResource(R.string.text_keyword_search_result),
+                        fontSize = TEXT_BLOG_REVIEW_SUB_TITLE_FONT_SIZE.sp,
                     )
                 }
             }
@@ -144,14 +170,18 @@ fun LiquorDetailsScreen(
                     BlogInfoComponent(
                         title = blogData.title,
                         description = blogData.description,
-                        descriptionMaxLine = 3,
                         postingDates = blogData.postdate,
                         blogLink = blogData.link,
                         onClick = onClickBlog,
-                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+                        modifier = Modifier.padding(
+                            vertical = BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE.dp,
+                            horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp
+                        )
                     )
                     HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp)
+                        modifier = Modifier.padding(
+                            horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp
+                        )
                     )
                 }
             }

@@ -49,20 +49,32 @@ class LiquorDetailsViewModel @Inject constructor(
 
     private fun fetchBlogDataList(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _blogDataList.value = blogRepository.getBlogDataList(query.replace(" ", ""))
+            _blogDataList.value =
+                blogRepository.getBlogDataList(query.replace(TEXT_SPACE, TEXT_EMPTY))
         }
     }
 
     fun fetchBlogDataList(alcoholData: AlcoholData) {
         val category = when (alcoholData) {
-            is AlcoholData.Beer -> "맥주"
-            is AlcoholData.Sake -> "사케"
-            is AlcoholData.Soju -> "소주"
-            is AlcoholData.TraditionalLiquor -> "전통주"
-            is AlcoholData.Wine -> "와인"
-            is AlcoholData.Wisky -> "위스키"
+            is AlcoholData.Beer -> TEXT_BEER
+            is AlcoholData.Sake -> TEXT_SAKE
+            is AlcoholData.Soju -> TEXT_SOJU
+            is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
+            is AlcoholData.Wine -> TEXT_WINE
+            is AlcoholData.Wisky -> TEXT_WISKY
         }
         val query = "${alcoholData.name} $category"
         fetchBlogDataList(query)
+    }
+
+    companion object {
+        private const val TEXT_BEER = "맥주"
+        private const val TEXT_SAKE = "사케"
+        private const val TEXT_SOJU = "소주"
+        private const val TEXT_TRADITIONAL_LIQUOR = "전통주"
+        private const val TEXT_WINE = "와인"
+        private const val TEXT_WISKY = "위스키"
+        private const val TEXT_SPACE = " "
+        private const val TEXT_EMPTY = ""
     }
 }
