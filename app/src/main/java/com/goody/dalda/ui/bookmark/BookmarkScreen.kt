@@ -1,35 +1,32 @@
 package com.goody.dalda.ui.bookmark
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.AlcoholType
-import com.goody.dalda.ui.component.SearchBarComponent
-import com.goody.dalda.ui.home.component.IconPack
-import com.goody.dalda.ui.home.component.iconpack.IcCamera
-import com.goody.dalda.ui.search.SearchResult
+import com.goody.dalda.ui.bookmark.component.BookmarkAlcoholCard
+import com.goody.dalda.ui.bookmark.component.BookmarkTopBar
 
 @Composable
 fun BookmarkScreen(
+    onClickNavigation: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickFooter: (AlcoholType) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: BookmarkViewModel = viewModel()
 ) {
-    val query by viewModel.query.collectAsStateWithLifecycle()
     val searchResult by viewModel.searchResultList.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -37,18 +34,11 @@ fun BookmarkScreen(
     }
 
     BookmarkScreen(
-        query = query,
         alcoholDataList = searchResult,
-        onQueryChange = {
-            viewModel.setQuery(it)
-        },
+        onClickNavigation = onClickNavigation,
         onClickCard = onClickCard,
-        onClickFooter = {
-            AlcoholType.entries.forEach { alcoholType ->
-                if (alcoholType.alcoholName == it) {
-                    onClickFooter(alcoholType)
-                }
-            }
+        onClickBookmark = {
+            viewModel.deleteBookMark(it)
         },
         modifier = modifier
     )
@@ -56,38 +46,39 @@ fun BookmarkScreen(
 
 @Composable
 fun BookmarkScreen(
-    query: String,
     alcoholDataList: List<AlcoholData>,
-    onQueryChange: (String) -> Unit = {},
-    onSearch: (String) -> Unit = {},
+    onClickNavigation: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickFooter: (String) -> Unit = {},
+    onClickBookmark: (AlcoholData) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Scaffold(
-        modifier = modifier.padding(vertical = 8.dp)
+        topBar = {
+            BookmarkTopBar(
+                omNavigationClick = onClickNavigation,
+            )
+        },
+        backgroundColor = Color.White,
+        modifier = modifier
     ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(innerPadding)
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier
+                .padding(innerPadding)
         ) {
-            SearchBarComponent(
-                query = query,
-                placeholder = "",
-                leadingIcon = Icons.Outlined.Search,
-                trailingIcon = IconPack.IcCamera,
-                onClickLeadingIcon = { onSearch(it) },
-                onValueChange = onQueryChange,
-                onClickTrailingIcon = { },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
-            )
-            SearchResult(
-                modifier = Modifier,
-                alcoholDataList = alcoholDataList,
-                onClickCard = onClickCard,
-                onClickFooter = onClickFooter
-            )
+            alcoholDataList.forEach {
+                item {
+                    BookmarkAlcoholCard(
+                        alcoholData = it,
+                        onClickCard = onClickCard,
+                        onClickBookmark = onClickBookmark,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .height(50.dp)
+                    )
+                }
+            }
         }
     }
 }
@@ -151,7 +142,6 @@ private fun BookMarkScreenPrev() {
     )
 
     BookmarkScreen(
-        query = "query",
         alcoholDataList = alcoholDataList,
     )
 }

@@ -28,17 +28,13 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 BookmarkScreen(
+                    onClickNavigation = {
+                        findNavController().popBackStack()
+                    },
                     onClickCard = { alcoholData ->
                         findNavController().navigate(
                             BookmarkFragmentDirections.actionBookmarkFragmentToLiquorDetailsFragment(
                                 alcoholData
-                            )
-                        )
-                    },
-                    onClickFooter = { category ->
-                        findNavController().navigate(
-                            BookmarkFragmentDirections.actionBookmarkFragmentToCategoryFragment(
-                                category
                             )
                         )
                     },

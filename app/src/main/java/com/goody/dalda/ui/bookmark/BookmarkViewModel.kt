@@ -25,25 +25,18 @@ class BookmarkViewModel @Inject constructor(
     val query: StateFlow<String> = _query
 
     private val _searchResultList = MutableStateFlow(emptyList<AlcoholData>())
-
-    @OptIn(FlowPreview::class)
-    val searchResultList: StateFlow<List<AlcoholData>> =
-        _searchResultList.combine(query) { list, query ->
-            list.filter { it.name.contains(query) }
-        }.debounce(500L)
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(),
-                initialValue = emptyList()
-            )
-
-    fun setQuery(query: String) {
-        _query.value = query
-    }
+    val searchResultList: StateFlow<List<AlcoholData>> = _searchResultList
 
     fun getBookmarkList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _searchResultList.value = alcoholRepository.getBookmarkAlcoholList()
+            _searchResultList.value = alcoholRepository.getBookmarkAlcoholList().reversed()
+        }
+    }
+
+    fun deleteBookMark(alcoholData: AlcoholData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            alcoholRepository.deleteBookmarkAlcohol(alcoholData)
+            getBookmarkList()
         }
     }
 }

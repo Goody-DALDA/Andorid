@@ -93,8 +93,8 @@ class HomeViewModel @Inject constructor(
 //        if (PreferenceManager.getAccessToken().isEmpty()) return
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val bookmarkAlcoholList = alcoholRepository.getBookmarkAlcoholList()
-                _bookmarkAlcoholDataList.value = bookmarkAlcoholList
+                _bookmarkAlcoholDataList.value =
+                    alcoholRepository.getBookmarkAlcoholList().reversed()
             } catch (e: Exception) {
                 Log.e("TAG", "fetchBookmarkAlcoholList: ${e.message}")
                 _homeUiState.value = HomeUiState.ErrorState
