@@ -47,9 +47,22 @@ class LiquorDetailsViewModel @Inject constructor(
         _isBookmark.value = isBookmark
     }
 
-    fun fetchBlogDataList(query: String) {
+    private fun fetchBlogDataList(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _blogDataList.value = blogRepository.getBlogDataList(query.replace(" ", ""))
         }
+    }
+
+    fun fetchBlogDataList(alcoholData: AlcoholData) {
+        val category = when (alcoholData) {
+            is AlcoholData.Beer -> "맥주"
+            is AlcoholData.Sake -> "사케"
+            is AlcoholData.Soju -> "소주"
+            is AlcoholData.TraditionalLiquor -> "전통주"
+            is AlcoholData.Wine -> "와인"
+            is AlcoholData.Wisky -> "위스키"
+        }
+        val query = "${alcoholData.name} $category"
+        fetchBlogDataList(query)
     }
 }

@@ -45,7 +45,7 @@ fun LiquorDetailsScreen(
         "once"
     ) {
         viewModel.setIsBookmark(alcoholData)
-        viewModel.fetchBlogDataList(alcoholData.name)
+        viewModel.fetchBlogDataList(alcoholData)
     }
 
     LiquorDetailsScreen(

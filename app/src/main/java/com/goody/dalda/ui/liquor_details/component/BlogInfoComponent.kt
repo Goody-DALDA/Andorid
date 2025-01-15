@@ -1,13 +1,19 @@
 package com.goody.dalda.ui.liquor_details.component
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,12 +50,32 @@ fun BlogInfoComponent(
                 .fillMaxWidth()
                 .padding(bottom = 4.dp)
         )
-        Text(
-            text = postingDates,
-            fontSize = 10.sp,
-            color = Color.Gray,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = postingDates,
+                fontSize = 10.sp,
+                color = Color.Gray,
+                textAlign = TextAlign.End,
+                modifier = Modifier.align(Alignment.Bottom)
+            )
+            VerticalDivider(
+                color = Color.Gray,
+                modifier = Modifier
+                    .padding(horizontal = 4.dp)
+                    .height(10.dp)
+            )
+            Text(
+                text = "네이버 블로그",
+                fontSize = 9.sp,
+                color = Color.Gray,
+                modifier = Modifier.align(Alignment.Bottom)
+            )
+        }
     }
 }
 
