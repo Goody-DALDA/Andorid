@@ -1,9 +1,12 @@
 package com.goody.dalda.ui.liquor_details
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Text
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -12,12 +15,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.BlogData
+import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
@@ -26,22 +35,26 @@ import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
 @Composable
 fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
+    onClickBlog: (String) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: LiquorDetailsViewModel = viewModel()
 ) {
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
     val isBookmark by viewModel.isBookmark.collectAsStateWithLifecycle()
+    val blogDataList by viewModel.blogDataList.collectAsStateWithLifecycle()
 
     LaunchedEffect(
         "once"
     ) {
         viewModel.setIsBookmark(alcoholData)
+        viewModel.fetchBlogDataList(alcoholData.name)
     }
 
     LiquorDetailsScreen(
         alcoholData = alcoholData,
         isDropDownMenuExpanded = isDropDownMenuExpanded,
         isBookmark = isBookmark,
+        blogDataList = blogDataList,
         onClickSideMenu = { isDropDownMenuExpanded = it },
         onClickBookmark = {
             if (isBookmark) {
@@ -51,6 +64,7 @@ fun LiquorDetailsScreen(
             }
             viewModel.setBookmark(!isBookmark)
         },
+        onClickBlog = onClickBlog,
         modifier = modifier
     )
 }
@@ -60,8 +74,10 @@ fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
     isDropDownMenuExpanded: Boolean,
     isBookmark: Boolean,
+    blogDataList: List<BlogData> = emptyList(),
     onClickSideMenu: (Boolean) -> Unit,
     onClickBookmark: () -> Unit,
+    onClickBlog: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -105,6 +121,41 @@ fun LiquorDetailsScreen(
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp, bottom = 20.dp),
                 )
+            }
+
+            item {
+                Column(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    Text(
+                        text = "리뷰",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+
+                    Text(
+                        text = "키워드로 수집한 정보를 확인해보세요",
+                        fontSize = 12.sp,
+                    )
+                }
+            }
+
+            blogDataList.forEach { blogData ->
+                item {
+                    BlogInfoComponent(
+                        title = blogData.title,
+                        description = blogData.description,
+                        descriptionMaxLine = 3,
+                        postingDates = blogData.postdate,
+                        blogLink = blogData.link,
+                        onClick = onClickBlog,
+                        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+                    )
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
             }
         }
     }
