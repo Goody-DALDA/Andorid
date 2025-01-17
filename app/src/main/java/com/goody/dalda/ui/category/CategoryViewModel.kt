@@ -61,9 +61,13 @@ class CategoryViewModel @Inject constructor(
     }
 
     fun fetchAlcoholData(categoryIndex: Int) {
-        val query =
-            AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }.toString()
-        fetchAlcoholData(query)
+        val key = category.value[categoryIndex]
+
+        if (_alcoholDataListMap.value[key]?.isEmpty() == true) {
+            val query =
+                AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }.toString()
+            fetchAlcoholData(query)
+        }
     }
 
     fun setQuery(query: String) {

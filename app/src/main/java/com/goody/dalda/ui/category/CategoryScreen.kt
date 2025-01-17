@@ -64,7 +64,6 @@ fun CategoryScreen(
         key1 = pagerState
     ) {
         snapshotFlow { pagerState.currentPage }
-            .debounce(100L)
             .collect { page ->
                 viewModel.fetchAlcoholData(page)
             }
