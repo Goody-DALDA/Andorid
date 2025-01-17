@@ -34,7 +34,6 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
-
 @OptIn(FlowPreview::class)
 @Composable
 fun CategoryScreen(
@@ -46,10 +45,11 @@ fun CategoryScreen(
 ) {
     val isFirst by viewModel.isFirst.collectAsStateWithLifecycle()
     val query by viewModel.query.collectAsStateWithLifecycle()
-    val alcoholDataListWithQuery by viewModel.alcoholDataListWithQuery.collectAsStateWithLifecycle()
     val category by viewModel.category.collectAsStateWithLifecycle()
     val pagerState by viewModel.pagerState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
+
+    val alcoholDataListNew by viewModel.alcoholDataListMap.collectAsStateWithLifecycle()
 
     LaunchedEffect(
         key1 = isFirst,
@@ -74,7 +74,7 @@ fun CategoryScreen(
         pagerState = pagerState,
         query = query,
         category = category,
-        alcoholDataList = alcoholDataListWithQuery,
+        alcoholDataListMap = alcoholDataListNew,
         onValueChange = { viewModel.setQuery(it) },
         onClickCategory = { index ->
             coroutineScope.launch {
@@ -92,7 +92,7 @@ fun CategoryScreen(
     pagerState: PagerState,
     query: String,
     category: List<String> = emptyList(),
-    alcoholDataList: List<AlcoholData> = emptyList(),
+    alcoholDataListMap: Map<String, List<AlcoholData>> = emptyMap(),
     onValueChange: (String) -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
@@ -126,9 +126,11 @@ fun CategoryScreen(
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.fillMaxSize(),
-        ) {
+        ) { currentPage ->
             AlcoholCardListComponent(
-                alcoholDataList = alcoholDataList,
+                alcoholDataList = alcoholDataListMap[category[currentPage]]?.filter {
+                    it.name.contains(query, ignoreCase = true)
+                } ?: emptyList(),
                 onClickCard = onClickCard,
                 modifier = Modifier
                     .fillMaxSize(),
@@ -201,7 +203,6 @@ private fun CategoryScreenPrev() {
     CategoryScreen(
         query = query,
         category = category,
-        alcoholDataList = alcoholDataList,
         pagerState = pagerState,
         onValueChange = { query = it }
     )

@@ -9,13 +9,9 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,27 +28,14 @@ class CategoryViewModel @Inject constructor(
     val query: StateFlow<String> = _query
 
     // 주류 정보 호출 로직AlcoholData
-    private val _alcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
-    val alcoholDataList: StateFlow<List<AlcoholData>> = _alcoholDataList
+    private val _alcoholDataListMap: MutableStateFlow<MutableMap<String, List<AlcoholData>>> =
+        MutableStateFlow(AlcoholType.entries.associate {
+            it.alcoholName to emptyList<AlcoholData>()
+        }.toMutableMap())
+    val alcoholDataListMap: StateFlow<Map<String, List<AlcoholData>>> = _alcoholDataListMap
 
     private val _pagerState = MutableStateFlow(PagerState { _category.value.size })
     val pagerState: StateFlow<PagerState> = _pagerState
-
-    @OptIn(FlowPreview::class)
-    val alcoholDataListWithQuery = query.combine(alcoholDataList) { query, alcoholDataList ->
-        if (query.isEmpty()) {
-            alcoholDataList
-        } else {
-            alcoholDataList.filter {
-                it.name.contains(query, ignoreCase = true)
-            }
-        }
-    }.debounce(500L)
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = emptyList()
-        )
 
     // 카테고리
     private val _category = MutableStateFlow(
@@ -66,13 +49,20 @@ class CategoryViewModel @Inject constructor(
 
     fun fetchAlcoholData(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _alcoholDataList.value = alcoholRepository.getAlcoholData(query)
+            val key = AlcoholType.entries.first { it.toString() == query }.alcoholName
+            val value = alcoholRepository.getAlcoholData(query)
+
+            _alcoholDataListMap.update { currentMap ->
+                currentMap.toMutableMap().apply {
+                    this[key] = value
+                }
+            }
         }
     }
 
     fun fetchAlcoholData(categoryIndex: Int) {
-        val query = AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }.toString()
-
+        val query =
+            AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }.toString()
         fetchAlcoholData(query)
     }
 
