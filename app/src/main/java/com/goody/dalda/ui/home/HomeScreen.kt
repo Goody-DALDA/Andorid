@@ -22,6 +22,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -191,6 +192,7 @@ fun HomeScreen(
                     BookmarkAlcohol(
                         modifier = Modifier
                             .wrapContentHeight()
+                            .padding(bottom = 40.dp)
                             .fillMaxWidth(),
                         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                         onActionClick = onClickBookmark,
@@ -200,6 +202,7 @@ fun HomeScreen(
                     AlcoholRecommendation(
                         modifier = Modifier
                             .padding(bottom = 40.dp)
+                            .alpha(0f)
                             .wrapContentHeight()
                             .fillMaxWidth(),
                         recommendAlcoholList = recommendAlcoholList,
