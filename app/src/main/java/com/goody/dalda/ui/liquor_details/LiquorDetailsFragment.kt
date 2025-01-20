@@ -6,12 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentLiquorDetailsBinding
+import com.goody.dalda.ui.AppPaddingSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

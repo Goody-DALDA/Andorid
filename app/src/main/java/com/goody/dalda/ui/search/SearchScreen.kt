@@ -15,6 +15,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
@@ -82,7 +83,7 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = modifier.padding(vertical = 8.dp)
+        modifier = modifier.padding(vertical = 8.dp, horizontal = AppPaddingSize.HORIZONTAL.dp)
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding)
@@ -97,7 +98,6 @@ fun SearchScreen(
                 onClickTrailingIcon = onClickCamera,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp),
             )
 
             when (uiState) {
@@ -132,5 +132,16 @@ fun SearchScreen(
 @Preview
 @Composable
 private fun SearchScreenPreview() {
-    TODO()
+    SearchScreen(
+        uiState = SearchUiState.RecentSearch,
+        query = "",
+        searchResultList = emptyList(),
+        recentSearchWordList = listOf("소주", "맥주", "막걸리"),
+        recommendAlcoholList = listOf("소주", "맥주", "막걸리"),
+        onQueryChange = {},
+        onClickCard = {},
+        onClickFooter = {},
+        onClickCamera = {},
+        modifier = Modifier
+    )
 }

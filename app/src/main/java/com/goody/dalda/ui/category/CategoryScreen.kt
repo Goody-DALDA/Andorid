@@ -25,13 +25,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.category.component.CategoryTab
 import com.goody.dalda.ui.component.SearchBarComponent
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 @OptIn(FlowPreview::class)
@@ -110,7 +110,7 @@ fun CategoryScreen(
             onClickTrailingIcon = onClickTrailingIcon,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = AppPaddingSize.HORIZONTAL.dp),
         )
 
         CategoryTab(

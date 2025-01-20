@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.home.component.AlcoholCard
 
 @Composable
@@ -26,7 +27,7 @@ fun AlcoholCardListComponent(
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp),
+        contentPadding = PaddingValues(horizontal = AppPaddingSize.HORIZONTAL.dp),
         modifier = modifier.padding(vertical = 16.dp),
     ) {
         items(alcoholDataList) { alcoholData ->

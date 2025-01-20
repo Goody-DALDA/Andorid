@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,6 +35,7 @@ import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
+import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.BookmarkAlcohol
@@ -129,8 +131,8 @@ fun HomeScreen(
     onClickBookmark: () -> Unit = {}
 ) {
     Surface(
-        modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        color = Color.White,
+        modifier = modifier.fillMaxSize()
     ) {
         ModalNavigationDrawer(
             drawerContent = {
@@ -148,12 +150,15 @@ fun HomeScreen(
             drawerState = drawerState
         ) {
             Scaffold(
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(
+                    horizontal = AppPaddingSize.HORIZONTAL.dp
+                ),
                 topBar = {
                     HomeTopBar(
                         onClickMenu = onClickMenu,
                     )
                 },
+                containerColor = Color.White
             ) { innerPadding ->
                 Column(
                     modifier = Modifier

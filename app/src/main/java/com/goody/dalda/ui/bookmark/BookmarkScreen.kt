@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.bookmark.component.BookmarkAlcoholCard
 import com.goody.dalda.ui.bookmark.component.BookmarkTopBar
 
@@ -40,7 +41,7 @@ fun BookmarkScreen(
         onClickBookmark = {
             viewModel.deleteBookMark(it)
         },
-        modifier = modifier
+        modifier = modifier.padding(horizontal = AppPaddingSize.HORIZONTAL.dp)
     )
 }
 
@@ -74,7 +75,6 @@ fun BookmarkScreen(
                         onClickBookmark = onClickBookmark,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
                             .height(50.dp)
                     )
                 }
@@ -143,5 +143,6 @@ private fun BookMarkScreenPrev() {
 
     BookmarkScreen(
         alcoholDataList = alcoholDataList,
+        modifier = Modifier.padding(horizontal = 16.dp)
     )
 }

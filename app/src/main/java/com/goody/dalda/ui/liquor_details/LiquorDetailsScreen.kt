@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.liquor_details
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.BlogData
+import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
@@ -75,7 +78,7 @@ fun LiquorDetailsScreen(
             viewModel.setBookmark(!isBookmark)
         },
         onClickBlog = onClickBlog,
-        modifier = modifier
+        modifier = modifier.padding(horizontal = AppPaddingSize.HORIZONTAL.dp)
     )
 }
 
@@ -108,8 +111,9 @@ fun LiquorDetailsScreen(
                 onClickBookmark = onClickBookmark
             )
         },
+        containerColor = Color.White,
         modifier = modifier
-            .fillMaxSize(),
+            .fillMaxSize()
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -122,8 +126,6 @@ fun LiquorDetailsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
-                            end = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
                             top = LIQUOR_INFO_SECTION_TOP_PADDING_SIZE.dp,
                             bottom = LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE.dp
                         ),
@@ -135,8 +137,6 @@ fun LiquorDetailsScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            start = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
-                            end = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
                             bottom = LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE.dp
                         ),
                 )
@@ -145,7 +145,6 @@ fun LiquorDetailsScreen(
             item {
                 Column(
                     modifier = Modifier.padding(
-                        horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp,
                         vertical = BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING.dp
                     )
                 ) {
@@ -175,13 +174,10 @@ fun LiquorDetailsScreen(
                         onClick = onClickBlog,
                         modifier = Modifier.padding(
                             vertical = BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE.dp,
-                            horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp
                         )
                     )
                     HorizontalDivider(
-                        modifier = Modifier.padding(
-                            horizontal = CONTENT_HORIZONTAL_PADDING_SIZE.dp
-                        )
+                        modifier = Modifier
                     )
                 }
             }
@@ -210,7 +206,8 @@ private fun LiquorDetailsScreenPrev_beer() {
         isDropDownMenuExpanded = false,
         isBookmark = true,
         onClickSideMenu = {},
-        onClickBookmark = {}
+        onClickBookmark = {},
+        modifier = Modifier.padding(horizontal = 16.dp)
     )
 }
 
