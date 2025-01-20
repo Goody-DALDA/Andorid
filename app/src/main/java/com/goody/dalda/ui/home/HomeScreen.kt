@@ -167,7 +167,7 @@ fun HomeScreen(
                             .padding(bottom = 30.dp)
                             .fillMaxWidth()
                             .height(120.dp),
-                        onClickSignIn = {/* TODO */ }
+                        onClickLogin = onClickLogin
                     )
 
                     Image(

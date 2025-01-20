@@ -10,7 +10,7 @@ import com.goody.dalda.ui.home.AuthState
 fun HomeBanner(
     authState: AuthState,
     modifier: Modifier = Modifier,
-    onClickSignIn: () -> Unit = {}
+    onClickLogin: () -> Unit = {}
 ) {
     when (authState) {
         AuthState.SignIn -> {
