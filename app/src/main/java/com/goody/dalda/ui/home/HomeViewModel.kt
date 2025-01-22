@@ -32,7 +32,7 @@ class HomeViewModel @Inject constructor(
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
 
-    private val _authState = MutableStateFlow<AuthState>(AuthState.SignOut)
+    private val _authState = MutableStateFlow<AuthState>(if(PreferenceManager.getAccessToken().isEmpty()) AuthState.SignOut else AuthState.SignIn)
     val authState: StateFlow<AuthState> = _authState
 
     private val _userName = MutableStateFlow("")
