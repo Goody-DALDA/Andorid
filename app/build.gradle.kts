@@ -36,6 +36,8 @@ android {
         buildConfigField("String", "KAKAO_NATIVE_APP_KEY", localProperties.getProperty("KAKAO_NATIVE_APP_KEY"))
         buildConfigField("String", "SERVER_API_URL", localProperties.getProperty("SERVER_API_URL"))
         buildConfigField("String", "NAVER_SEARCH_API_URL", localProperties.getProperty("NAVER_SEARCH_API_URL"))
+        buildConfigField("String", "NAVER_CLIENT_ID", localProperties.getProperty("NAVER_CLIENT_ID"))
+        buildConfigField("String", "NAVER_CLIENT_SECRET", localProperties.getProperty("NAVER_CLIENT_SECRET"))
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
