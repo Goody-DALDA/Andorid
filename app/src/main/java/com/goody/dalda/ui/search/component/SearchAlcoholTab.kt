@@ -32,6 +32,7 @@ fun SearchAlcoholTab(
     modifier: Modifier = Modifier,
 ) {
     ScrollableTabRow(
+        containerColor = Color.White,
         selectedTabIndex = pagerState.currentPage,
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
