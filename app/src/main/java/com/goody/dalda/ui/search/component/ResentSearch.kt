@@ -20,7 +20,7 @@ import com.goody.dalda.R
 @Composable
 fun ResentSearch(
     recentSearchWordList: List<String>,
-    onQueryChange: (String) -> Unit = {},
+    onClickSearchWord: (String) -> Unit = {},
     onClickClear: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -46,7 +46,7 @@ fun ResentSearch(
 
         AlcoholChipGrid(
             recentSearchWordList = recentSearchWordList,
-            onClickWord = onQueryChange
+            onClickWord = onClickSearchWord
         )
     }
 }

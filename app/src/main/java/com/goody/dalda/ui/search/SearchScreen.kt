@@ -112,7 +112,7 @@ fun SearchScreen(
                 trailingIcon = IconPack.IcCamera,
                 onValueChange = onQueryChange,
                 onClickBackIcon = onClickBack,
-                onClickLeadingIcon = { onSearch(it) },
+                onClickLeadingIcon = onSearch,
                 onClickTrailingIcon = onClickCamera,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -122,7 +122,10 @@ fun SearchScreen(
                 SearchUiState.RecentSearch -> {
                     ResentSearch(
                         recentSearchWordList = recentSearchWordList,
-                        onQueryChange = onQueryChange,
+                        onClickSearchWord = {
+                            onQueryChange(it)
+                            onSearch(it)
+                        },
                         onClickClear = onClickClear,
                     )
                 }
