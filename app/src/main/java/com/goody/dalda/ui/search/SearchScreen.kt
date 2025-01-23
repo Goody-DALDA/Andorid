@@ -26,6 +26,7 @@ import com.goody.dalda.ui.search.component.ResentSearch
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = viewModel(),
+    onClickBack: () -> Unit ={},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickFooter: (AlcoholType) -> Unit = {},
     onClickCamera: () -> Unit = {},
@@ -59,6 +60,7 @@ fun SearchScreen(
                 viewModel.fetchRecentSearchWordList(true)
             }
         },
+        onClickBack = onClickBack,
         onSearch = {
             viewModel.searchAlcoholData(it)
             viewModel.setUiState(SearchUiState.SearchResult)
@@ -89,6 +91,7 @@ fun SearchScreen(
     recentSearchWordList: List<String> = emptyList(),
     recommendAlcoholList: List<String> = emptyList(),
     onQueryChange: (String) -> Unit,
+    onClickBack: () -> Unit = {},
     onSearch: (String) -> Unit = {},
     onClickCamera: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
@@ -107,8 +110,9 @@ fun SearchScreen(
                 placeholder = "",
                 leadingIcon = Icons.Outlined.Search,
                 trailingIcon = IconPack.IcCamera,
-                onClickLeadingIcon = { onSearch(it) },
                 onValueChange = onQueryChange,
+                onClickBackIcon = onClickBack,
+                onClickLeadingIcon = { onSearch(it) },
                 onClickTrailingIcon = onClickCamera,
                 modifier = Modifier
                     .fillMaxWidth()
