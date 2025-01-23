@@ -3,6 +3,7 @@ package com.goody.dalda.data.database
 import android.content.Context
 import androidx.room.Room
 import com.goody.dalda.data.database.dao.BookmarkDao
+import com.goody.dalda.data.database.dao.SearchDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,17 +17,23 @@ object DataBaseModule {
 
     @Singleton
     @Provides
-    fun provideBookmarkDatabase(@ApplicationContext context: Context): BookmarkDatabase {
+    fun provideBookmarkDatabase(@ApplicationContext context: Context): DaldaDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
-            BookmarkDatabase::class.java,
-            "bookmark_database.db"
+            DaldaDatabase::class.java,
+            "dalda_database.db"
         ).build()
     }
 
     @Singleton
     @Provides
-    fun provideBookmarkDao(bookmarkDatabase: BookmarkDatabase): BookmarkDao {
-        return bookmarkDatabase.BookmarkDao()
+    fun provideBookmarkDao(daldaDatabase: DaldaDatabase): BookmarkDao {
+        return daldaDatabase.BookmarkDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchDao(daldaDatabase: DaldaDatabase): SearchDao {
+        return daldaDatabase.SearchDao()
     }
 }

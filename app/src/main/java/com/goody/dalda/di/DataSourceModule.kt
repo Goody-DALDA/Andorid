@@ -5,6 +5,8 @@ import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.local.BookmarkLocalDataSourceImpl
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.local.PreferenceLocalDataSourceImpl
+import com.goody.dalda.data.local.SearchLocalDataSource
+import com.goody.dalda.data.local.SearchLocalDataSourceImpl
 import com.goody.dalda.data.remote.NoticeRemoteDataSource
 import com.goody.dalda.data.remote.NoticeRemoteDataSourceImpl
 import com.goody.dalda.data.remote.UserRemoteDataSource
@@ -39,4 +41,7 @@ abstract class DataSourceModule {
 
     @Binds
     abstract fun bindNaverBlogDataSource(dataSource: NaverBlogDataSourceImpl): NaverBlogDataSource
+
+    @Binds
+    abstract fun bindSearchDataSource(dataSource: SearchLocalDataSourceImpl): SearchLocalDataSource
 }

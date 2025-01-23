@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.repository.home.AlcoholRepository
+import com.goody.dalda.data.repository.search.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository
+    private val alcoholRepository: AlcoholRepository,
+    private val searchRepository: SearchRepository
 ) : ViewModel() {
 
     private val _query = MutableStateFlow("")
@@ -51,8 +53,26 @@ class SearchViewModel @Inject constructor(
         _uiState.value = uiState
     }
 
-    fun getRecentSearchWordList() {
-//        _recentSearchWordList.value =
+    fun fetchRecentSearchWordList(isDesc: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _recentSearchWordList.value = searchRepository
+                .getSearchWordList(
+                    isDesc = isDesc
+                )
+        }
+    }
+
+    fun insertSearchWord(searchWord: String) {
+        if(searchWord.isBlank()) return
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepository.insertSearchWord(searchWord)
+        }
+    }
+
+    fun deleteAllSearchWord() {
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepository.deleteAllSearchWord()
+        }
     }
 
     fun updateRecommendAlcoholList() {
