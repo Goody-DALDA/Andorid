@@ -74,7 +74,8 @@ fun SearchBarComponent(
                 .background(
                     color = Color(0xFFF8F8F8),
                     shape = RoundedCornerShape(18.dp)
-                ).focusRequester(focusRequester),
+                )
+                .focusRequester(focusRequester),
             placeholder = { Text(text = placeholder) },
             leadingIcon = {
                 Icon(

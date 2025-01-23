@@ -22,7 +22,7 @@ fun AnnouncementScreen(
     modifier: Modifier = Modifier,
     viewModel: AnnouncementViewModel = viewModel()
 ) {
-    LazyColumn (modifier = modifier.fillMaxSize()) {
+    LazyColumn(modifier = modifier.fillMaxSize()) {
         items(viewModel.getNoticePosts()) { item ->
             NoticePost(item.title, item.updatedAt, onClick = { onClick(item) })
         }

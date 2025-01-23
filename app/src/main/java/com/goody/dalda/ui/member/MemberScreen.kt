@@ -84,13 +84,16 @@ fun MemberScreen(
         is UiState.Loading -> {
 
         }
+
         is UiState.Success -> {
             Toast.makeText(context, state.data, Toast.LENGTH_SHORT).show()
             onClickSeeLoginScreen()
         }
+
         is UiState.Error -> {
             Toast.makeText(context, state.exception?.message, Toast.LENGTH_SHORT).show()
         }
+
         else -> {}
     }
 }

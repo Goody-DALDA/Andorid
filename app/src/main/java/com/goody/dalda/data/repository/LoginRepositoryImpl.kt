@@ -15,7 +15,7 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
     private val preferenceLocalDataSource: PreferenceLocalDataSource
-): LoginRepository {
+) : LoginRepository {
     override suspend fun login(
         nickname: String,
         email: String,

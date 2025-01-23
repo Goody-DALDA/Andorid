@@ -11,7 +11,7 @@ import com.goody.dalda.databinding.FragmentMemberBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MemberFragment: BaseFragment<FragmentMemberBinding>() {
+class MemberFragment : BaseFragment<FragmentMemberBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMemberBinding
         get() = FragmentMemberBinding::inflate
 

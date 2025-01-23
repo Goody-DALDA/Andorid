@@ -337,7 +337,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     }
 
     data class Piece(val text: String, val height: Int) {
-        object HeightComparator: Comparator<Piece> {
+        object HeightComparator : Comparator<Piece> {
             override fun compare(o1: Piece, o2: Piece): Int {
                 return o2.height.compareTo(o1.height)
             }

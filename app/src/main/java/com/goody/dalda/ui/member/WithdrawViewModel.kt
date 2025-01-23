@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WithdrawViewModel  @Inject constructor(private val repository: LoginRepository): ViewModel() {
+class WithdrawViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
 
     companion object {
         private const val TAG = "WithdrawViewModel"
@@ -25,7 +25,7 @@ class WithdrawViewModel  @Inject constructor(private val repository: LoginReposi
 
     fun requestWithdraw() {
         _state.value = UiState.Loading
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val reseponse = repository.leaveUser()
 
@@ -45,8 +45,7 @@ class WithdrawViewModel  @Inject constructor(private val repository: LoginReposi
         UserApiClient.instance.unlink { error ->
             if (error != null) {
                 Log.e(TAG, "연결 끊기 실패", error)
-            }
-            else {
+            } else {
                 Log.i(TAG, "연결 끊기 성공. SDK에서 토큰 삭제 됨")
             }
         }

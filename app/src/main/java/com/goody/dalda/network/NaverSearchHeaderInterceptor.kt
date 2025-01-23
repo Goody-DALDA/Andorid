@@ -4,7 +4,7 @@ import com.goody.dalda.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NaverSearchHeaderInterceptor: Interceptor {
+class NaverSearchHeaderInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val newBuilder = chain.request().newBuilder()
         newBuilder.addHeader(CLIENT_ID, BuildConfig.NAVER_CLIENT_ID).build()

@@ -10,7 +10,7 @@ data class Post(
     val createdAt: String,
     val updatedAt: String,
     val isActive: Boolean
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",

@@ -21,7 +21,7 @@ fun Bitmap.resizeWidth(preview: PreviewView): Bitmap {
     val cw = (preview.width * height) / preview.height
     var x = 0
 
-    if(width > cw) x = (width - cw) / 2
+    if (width > cw) x = (width - cw) / 2
 
     return Bitmap.createBitmap(this, x, 0, cw, height)
 }
@@ -39,23 +39,23 @@ fun Bitmap.cropBitmap(parent: View, rect: View): Bitmap {
     val rectWidth = (rect.width * width) / parent.width
     val rectHeight = (rect.height * height) / parent.height
 
-    if(width < rectWidth && height < rectHeight)
+    if (width < rectWidth && height < rectHeight)
         return this
 
     var x = 0
     var y = 0
 
-    if(width > rectWidth) x = (width - rectWidth) / 2
+    if (width > rectWidth) x = (width - rectWidth) / 2
 
-    if(height > rectHeight) y = (height - rectHeight)/2
+    if (height > rectHeight) y = (height - rectHeight) / 2
 
     var cw = rectWidth
     var ch = rectHeight
 
-    if(rectWidth > width)
+    if (rectWidth > width)
         cw = width
 
-    if(rectHeight > height)
+    if (rectHeight > height)
         ch = height
 
 

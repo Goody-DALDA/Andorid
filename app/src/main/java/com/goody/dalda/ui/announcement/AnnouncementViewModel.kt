@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AnnouncementViewModel @Inject constructor(private val repository: NoticeRepository) : ViewModel() {
+class AnnouncementViewModel @Inject constructor(private val repository: NoticeRepository) :
+    ViewModel() {
     private val posts = mutableStateListOf<Post>()
 
     init {

@@ -65,7 +65,8 @@ class CategoryViewModel @Inject constructor(
 
         if (_alcoholDataListMap.value[key]?.isEmpty() == true) {
             val query =
-                AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }.toString()
+                AlcoholType.entries.first { it.alcoholName == category.value[categoryIndex] }
+                    .toString()
             fetchAlcoholData(query)
         }
     }

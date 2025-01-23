@@ -68,7 +68,6 @@ object NetworkModule {
     }
 
 
-
     @Provides
     @Singleton
     fun provideRetrofitService(@DaldaRetrofit retrofit: Retrofit): RetrofitService {

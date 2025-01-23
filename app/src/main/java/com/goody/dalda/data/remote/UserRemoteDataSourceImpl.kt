@@ -8,7 +8,8 @@ import com.goody.dalda.network.RetrofitService
 import retrofit2.Response
 import javax.inject.Inject
 
-class UserRemoteDataSourceImpl @Inject constructor(private val service: RetrofitService): UserRemoteDataSource {
+class UserRemoteDataSourceImpl @Inject constructor(private val service: RetrofitService) :
+    UserRemoteDataSource {
     override suspend fun login(
         nickname: String,
         email: String,

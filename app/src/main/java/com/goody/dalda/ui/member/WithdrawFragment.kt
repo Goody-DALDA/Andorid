@@ -11,7 +11,7 @@ import com.goody.dalda.databinding.FragmentWithdrawBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class WithdrawFragment: BaseFragment<FragmentWithdrawBinding>() {
+class WithdrawFragment : BaseFragment<FragmentWithdrawBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentWithdrawBinding
         get() = FragmentWithdrawBinding::inflate
 
