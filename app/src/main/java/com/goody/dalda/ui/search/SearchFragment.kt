@@ -29,6 +29,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             setContent {
                 MaterialTheme {
                     SearchScreen(
+                        onClickBack = {
+                            findNavController().popBackStack()
+                        },
                         onClickCard = { alcoholData ->
                             findNavController().navigate(
                                 SearchFragmentDirections.actionSearchFragmentToLiquorDetailsFragment(
