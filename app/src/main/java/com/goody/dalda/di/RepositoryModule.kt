@@ -1,7 +1,5 @@
 package com.goody.dalda.di
 
-import com.goody.dalda.data.remote.blog.NaverBlogDataSource
-import com.goody.dalda.data.remote.blog.NaverBlogDataSourceImpl
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.data.repository.LoginRepositoryImpl
 import com.goody.dalda.data.repository.NoticeRepository
@@ -10,6 +8,8 @@ import com.goody.dalda.data.repository.blog.BlogRepository
 import com.goody.dalda.data.repository.blog.BlogRepositoryImpl
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
+import com.goody.dalda.data.repository.search.SearchRepository
+import com.goody.dalda.data.repository.search.SearchRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -29,4 +29,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindBlogRepository(repository: BlogRepositoryImpl): BlogRepository
+
+    @Binds
+    abstract fun bindSearchRepository(repository: SearchRepositoryImpl): SearchRepository
 }
