@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +37,12 @@ fun SearchScreen(
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    LaunchedEffect(
+        key1 = "once"
+    ) {
+        viewModel.fetchRecentSearchWordList(true)
+    }
+
     SearchScreen(
         query = query,
         uiState = uiState,
@@ -49,14 +56,20 @@ fun SearchScreen(
                 viewModel.updateRecommendAlcoholList()
             } else {
                 viewModel.setUiState(SearchUiState.RecentSearch)
+                viewModel.fetchRecentSearchWordList(true)
             }
         },
         onSearch = {
             viewModel.searchAlcoholData(it)
             viewModel.setUiState(SearchUiState.SearchResult)
+            viewModel.insertSearchWord(it)
         },
         onClickCamera = onClickCamera,
         onClickCard = onClickCard,
+        onClickClear = {
+            viewModel.deleteAllSearchWord()
+            viewModel.fetchRecentSearchWordList(true)
+        },
         onClickFooter = {
             AlcoholType.entries.forEach { alcoholType ->
                 if (alcoholType.alcoholName == it) {
@@ -79,6 +92,7 @@ fun SearchScreen(
     onSearch: (String) -> Unit = {},
     onClickCamera: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
+    onClickClear: () -> Unit = {},
     onClickFooter: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -104,7 +118,8 @@ fun SearchScreen(
                 SearchUiState.RecentSearch -> {
                     ResentSearch(
                         recentSearchWordList = recentSearchWordList,
-                        onQueryChange = onQueryChange
+                        onQueryChange = onQueryChange,
+                        onClickClear = onClickClear,
                     )
                 }
 

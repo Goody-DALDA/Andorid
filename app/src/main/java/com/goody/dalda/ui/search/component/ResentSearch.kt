@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.search.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
@@ -18,7 +20,8 @@ import com.goody.dalda.R
 @Composable
 fun ResentSearch(
     recentSearchWordList: List<String>,
-    onQueryChange: (String) -> Unit,
+    onQueryChange: (String) -> Unit = {},
+    onClickClear: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -32,7 +35,13 @@ fun ResentSearch(
             Text(
                 text = stringResource(R.string.text_recent_search_work)
             )
-            Icon(Icons.Outlined.Clear, contentDescription = null)
+            Icon(
+                imageVector = Icons.Outlined.Clear,
+                contentDescription = null,
+                modifier = Modifier
+                    .alpha(if (recentSearchWordList.isEmpty()) 0f else 1f)
+                    .clickable { onClickClear() }
+            )
         }
 
         AlcoholChipGrid(
