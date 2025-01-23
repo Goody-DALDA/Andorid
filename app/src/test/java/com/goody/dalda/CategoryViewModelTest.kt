@@ -1,11 +1,7 @@
 package com.goody.dalda
 
-import androidx.room.Room
 import com.goody.dalda.data.converter.DynamicConverterFactory
-import com.goody.dalda.data.database.BookmarkDatabase
-import com.goody.dalda.data.database.dao.BookmarkDao
 import com.goody.dalda.data.local.BookmarkLocalDataSource
-import com.goody.dalda.data.local.BookmarkLocalDataSourceImpl
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
@@ -41,13 +37,11 @@ class CategoryViewModelTest {
             .build()
             .create()
 
-
-
         alcoholDataRemoteDataSource = AlcoholDataRemoteDataSourceImpl(
             service = service
         )
 
-        bookmarkLocalDataSource  = FakeBookmarkLocalDataSourceImpl()
+        bookmarkLocalDataSource = FakeBookmarkLocalDataSourceImpl()
 
         alcoholRepositoryImpl = AlcoholRepositoryImpl(
             alcoholDataRemoteDataSource = alcoholDataRemoteDataSource,

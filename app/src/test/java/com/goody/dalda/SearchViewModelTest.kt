@@ -5,6 +5,7 @@ import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
+import com.goody.dalda.data.repository.search.SearchRepositoryImpl
 import com.goody.dalda.network.RetrofitService
 import com.goody.dalda.ui.home.FakeBookmarkLocalDataSourceImpl
 import com.goody.dalda.ui.search.SearchViewModel
@@ -25,6 +26,7 @@ class SearchViewModelTest {
     private lateinit var alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
     private lateinit var bookmarkLocalDataSource: BookmarkLocalDataSource
     private lateinit var alcoholRepositoryImpl: AlcoholRepositoryImpl
+    private lateinit var searchRepositoryImpl: SearchRepositoryImpl
     private lateinit var viewModel: SearchViewModel
 
     @Before
@@ -46,7 +48,8 @@ class SearchViewModelTest {
             bookmarkLocalDataSource = bookmarkLocalDataSource
         )
         viewModel = SearchViewModel(
-            alcoholRepository = alcoholRepositoryImpl
+            alcoholRepository = alcoholRepositoryImpl,
+            searchRepository = searchRepositoryImpl
         )
     }
 
