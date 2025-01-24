@@ -7,7 +7,8 @@ import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.network.RetrofitService
 import retrofit2.Response
 
-class FakeAlcoholDataRemoteDataSourceImpl(private val service: RetrofitService) : AlcoholDataRemoteDataSource {
+class FakeAlcoholDataRemoteDataSourceImpl(private val service: RetrofitService) :
+    AlcoholDataRemoteDataSource {
     override suspend fun getAlcoholData(category: String): Response<AlcoholDataDto> {
         return service.getAlcoholData(category = category)
     }

@@ -6,5 +6,5 @@ data class Item(
     val description: String,
     val link: String,
     val postdate: String,
-    val title: String
+    val title: String,
 )

@@ -16,15 +16,18 @@ import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.repository.SearchAlcoholData
 import javax.inject.Inject
 
-class AlcoholRepositoryImpl @Inject constructor(
+class AlcoholRepositoryImpl
+@Inject
+constructor(
     private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource,
-    private val bookmarkLocalDataSource: BookmarkLocalDataSource
+    private val bookmarkLocalDataSource: BookmarkLocalDataSource,
 ) : AlcoholRepository {
     override suspend fun getAlcoholData(category: String): List<AlcoholData> {
         return try {
-            val response = alcoholDataRemoteDataSource.getAlcoholData(
-                category = category
-            )
+            val response =
+                alcoholDataRemoteDataSource.getAlcoholData(
+                    category = category,
+                )
 
             if (response.isSuccessful) {
                 val alcoholDataDto = requireNotNull(response.body()) { "Response body is null" }
@@ -37,7 +40,6 @@ class AlcoholRepositoryImpl @Inject constructor(
             Log.e(TAG, "getAlcoholData: ${e.message}")
             emptyList()
         }
-
     }
 
     override suspend fun getSearchedAlcoholData(query: String): SearchAlcoholData {
@@ -55,8 +57,6 @@ class AlcoholRepositoryImpl @Inject constructor(
             Log.e(TAG, "getSearchedAlcoholData: ${e.message}")
             return SearchAlcoholData()
         }
-
-
     }
 
     override suspend fun getRecommendAlcoholList(query: String): List<String> {
@@ -98,7 +98,7 @@ class AlcoholRepositoryImpl @Inject constructor(
 
     private fun alcoholDataDtoToAlcoholData(
         category: String,
-        alcoholDataDto: AlcoholDataDto
+        alcoholDataDto: AlcoholDataDto,
     ): List<AlcoholData> {
         when (category.lowercase()) {
             "soju" -> {
@@ -138,7 +138,7 @@ class AlcoholRepositoryImpl @Inject constructor(
             sakeList = dataToAlcoholData(searchResultDto.sake).map { it as AlcoholData.Sake },
             wineList = dataToAlcoholData(searchResultDto.wine).map { it as AlcoholData.Wine },
             wiskyList = dataToAlcoholData(searchResultDto.wisky).map { it as AlcoholData.Wisky },
-            traditionalLiquorList = dataToAlcoholData(searchResultDto.traditionalLiquor).map { it as AlcoholData.TraditionalLiquor }
+            traditionalLiquorList = dataToAlcoholData(searchResultDto.traditionalLiquor).map { it as AlcoholData.TraditionalLiquor },
         )
     }
 

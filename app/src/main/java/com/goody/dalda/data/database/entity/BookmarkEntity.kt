@@ -4,7 +4,7 @@ import androidx.room.Entity
 
 @Entity(
     primaryKeys = ["id", "name"],
-    tableName = "bookmarkRepo"
+    tableName = "bookmarkRepo",
 )
 data class BookmarkEntity(
     // 공통 요소

@@ -6,21 +6,17 @@ import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.repository.home.AlcoholRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookmarkViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository
+class BookmarkViewModel
+@Inject
+constructor(
+    private val alcoholRepository: AlcoholRepository,
 ) : ViewModel() {
-
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
 

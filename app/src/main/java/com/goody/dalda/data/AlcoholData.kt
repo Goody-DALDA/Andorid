@@ -34,7 +34,7 @@ sealed class AlcoholData(
         country = country,
         tag = tag,
         volume = volume,
-        abv = abv
+        abv = abv,
     )
 
     data class Sake(
@@ -56,7 +56,7 @@ sealed class AlcoholData(
         country = country,
         tag = tag,
         volume = volume,
-        abv = abv
+        abv = abv,
     )
 
     data class Soju(
@@ -76,7 +76,7 @@ sealed class AlcoholData(
         country = country,
         tag = tag,
         volume = volume,
-        abv = abv
+        abv = abv,
     )
 
     data class TraditionalLiquor(
@@ -91,7 +91,7 @@ sealed class AlcoholData(
         val type: String,
         val comment: String,
         val pairingFood: String,
-        val brewery: String
+        val brewery: String,
     ) : AlcoholData(
         id = id,
         name = name,
@@ -99,7 +99,7 @@ sealed class AlcoholData(
         country = country,
         tag = tag,
         volume = volume,
-        abv = abv
+        abv = abv,
     )
 
     data class Wine(
@@ -117,7 +117,7 @@ sealed class AlcoholData(
         val type: String,
         val comment: String,
         val pairingFood: String,
-        val winery: String
+        val winery: String,
     ) : AlcoholData(
         id = id,
         name = name,
@@ -125,7 +125,7 @@ sealed class AlcoholData(
         country = country,
         tag = tag,
         volume = volume,
-        abv = abv
+        abv = abv,
     )
 
     data class Wisky(
@@ -140,7 +140,7 @@ sealed class AlcoholData(
         val taste: String,
         val aroma: String,
         val finish: String,
-        val type: String
+        val type: String,
     ) : AlcoholData(
         id = id,
         name = name,
@@ -148,6 +148,6 @@ sealed class AlcoholData(
         country = country,
         tag = tag,
         volume = volume,
-        abv = abv
+        abv = abv,
     )
 }

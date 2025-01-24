@@ -32,7 +32,7 @@ fun AlcoholChipGrid(
         recentSearchWordList.forEach { item ->
             AlcoholChip(
                 text = item,
-                onClickWord = onClickWord
+                onClickWord = onClickWord,
             )
         }
     }
@@ -41,14 +41,15 @@ fun AlcoholChipGrid(
 @Composable
 fun AlcoholChip(
     text: String,
-    onClickWord: (String) -> Unit = {}
+    onClickWord: (String) -> Unit = {},
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
+        modifier =
+        Modifier
             .background(
                 Color(0xFFF5F5F5),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
             )
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable { onClickWord(text) },
@@ -57,7 +58,7 @@ fun AlcoholChip(
             text = text,
             fontSize = 16.sp,
             color = Color.Black,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

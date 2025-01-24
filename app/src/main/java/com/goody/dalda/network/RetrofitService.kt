@@ -21,12 +21,11 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/api/users")
     suspend fun login(
-        @FieldMap body: Map<String, String>
+        @FieldMap body: Map<String, String>,
     ): Response<LoginDto>
 
     @GET("/api/users/profile")
     suspend fun fetchProfile(): Response<ProfileDto>
-
 
     @POST("/api/users/logout")
     suspend fun logout(): Response<LogoutDto>
@@ -34,23 +33,22 @@ interface RetrofitService {
     @DELETE("/api/users")
     suspend fun leaveUser(): Response<LeaveDto>
 
-
     @Headers("Content-Type: application/json")
     @GET("/api/alcohols")
     suspend fun getAlcoholData(
-        @Query("category") category: String
+        @Query("category") category: String,
     ): Response<AlcoholDataDto>
 
     @Headers("Content-Type: application/json")
     @GET("/api/search/list")
     suspend fun getSearchedAlcoholData(
-        @Query("name") name: String
+        @Query("name") name: String,
     ): Response<SearchResultDto>
 
     @Headers("Content-Type: application/json")
     @GET("/api/search")
     suspend fun getRecommendAlcohol(
-        @Query("recommendations") recommendations: String
+        @Query("recommendations") recommendations: String,
     ): Response<RecommendAlcoholDto>
 
     @GET("/api/notices")

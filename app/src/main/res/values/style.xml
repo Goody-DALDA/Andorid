@@ -28,7 +28,7 @@
         <item name="android:background">@drawable/bottom_sheet_round_top_background</item>
     </style>
 
-    
+
     <style name="SojuChipStyle" parent="SpiritsCategoryChipStyle">
         <item name="chipBackgroundColor">@color/category_soju_background</item>
         <item name="android:textColor">@color/category_soju_text</item>

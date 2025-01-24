@@ -37,53 +37,57 @@ fun BlogInfoComponent(
     postingDates: String,
     blogLink: String,
     onClick: (String) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.clickable { onClick(blogLink) }
+        modifier = modifier.clickable { onClick(blogLink) },
     ) {
         Text(
             text = title,
             fontSize = TITLE_TEXT_SIZE.sp,
             maxLines = TITLE_MAX_LINE,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
-                .padding(bottom = CONTENT_BOTTOM_PADDING_SIZE.dp)
+                .padding(bottom = CONTENT_BOTTOM_PADDING_SIZE.dp),
         )
         Text(
             text = description,
             fontSize = DESCRIPTION_TEXT_SIZE.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = DESCRIPTION_MAX_LINE,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
-                .padding(bottom = CONTENT_BOTTOM_PADDING_SIZE.dp)
+                .padding(bottom = CONTENT_BOTTOM_PADDING_SIZE.dp),
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier =
+            Modifier
+                .fillMaxWidth(),
         ) {
             Text(
                 text = postingDates,
                 fontSize = POSTING_DATE_TEXT_SIZE.sp,
                 color = Color.Gray,
                 textAlign = TextAlign.End,
-                modifier = Modifier.align(Alignment.Bottom)
+                modifier = Modifier.align(Alignment.Bottom),
             )
             VerticalDivider(
                 color = Color.Gray,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .padding(horizontal = CONTENT_BOTTOM_PADDING_SIZE.dp)
-                    .height(VERTICAL_DIVIDER_HEIGHT.dp)
+                    .height(VERTICAL_DIVIDER_HEIGHT.dp),
             )
             Text(
                 text = stringResource(R.string.text_blog_naver),
                 fontSize = BLOG_SOURCE_TEXT_SIZE.sp,
                 color = Color.Gray,
-                modifier = Modifier.align(Alignment.Bottom)
+                modifier = Modifier.align(Alignment.Bottom),
             )
         }
     }
@@ -96,6 +100,6 @@ private fun BlogInfoComponentPrev() {
         title = "title",
         description = "2년 전쯤 단짝 친구 4명이서 부산 여행을 다녀온 남편 그때는 2명만 애 아빠였는데 지금은 모두 애 아빠가 되어 쉽게 여행을 가지 못함. 한동안 부산 여행 이야기 많이 하다 어느 날 회사앞 세계맥주 할인점",
         postingDates = "2021.09.09",
-        blogLink = "https://blog.naver.com/abc"
+        blogLink = "https://blog.naver.com/abc",
     )
 }

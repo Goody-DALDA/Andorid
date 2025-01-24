@@ -31,7 +31,8 @@ fun AlcoholCard(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier =
+        modifier
             .clickable { onClick(alcoholData) },
     ) {
         AsyncImage(
@@ -39,15 +40,16 @@ fun AlcoholCard(
             contentDescription = "",
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.FillHeight,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .height(152.dp)
                 .fillMaxWidth()
-                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
+                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
         )
         AutoResizedText(
             text = alcoholData.name,
             style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.align(Alignment.Start)
+            modifier = Modifier.align(Alignment.Start),
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -69,27 +71,29 @@ fun AlcoholCard(
     }
 }
 
-fun getTagImgRes(alcoholData: AlcoholData) = when (alcoholData) {
-    is AlcoholData.Soju -> R.drawable.tag_soju
-    is AlcoholData.Beer -> R.drawable.tag_beer
-    is AlcoholData.TraditionalLiquor -> R.drawable.tag_traditional_liquor
-    is AlcoholData.Wine -> R.drawable.tag_wine
-    is AlcoholData.Sake -> R.drawable.tag_sake
-    is AlcoholData.Wisky -> R.drawable.tag_whiskey
-}
+fun getTagImgRes(alcoholData: AlcoholData) =
+    when (alcoholData) {
+        is AlcoholData.Soju -> R.drawable.tag_soju
+        is AlcoholData.Beer -> R.drawable.tag_beer
+        is AlcoholData.TraditionalLiquor -> R.drawable.tag_traditional_liquor
+        is AlcoholData.Wine -> R.drawable.tag_wine
+        is AlcoholData.Sake -> R.drawable.tag_sake
+        is AlcoholData.Wisky -> R.drawable.tag_whiskey
+    }
 
 @Preview(showBackground = true)
 @Composable
 private fun AlcoholCardPreview() {
     AlcoholCard(
-        alcoholData = AlcoholData.Soju(
+        alcoholData =
+        AlcoholData.Soju(
             id = 0,
             name = "소주",
             imgUrl = "http://www.bing.com/search?q=sagittis",
             volume = "355ml",
             abv = "4.5%",
             price = 1000,
-            comment = "맛있어요"
-        )
+            comment = "맛있어요",
+        ),
     )
 }

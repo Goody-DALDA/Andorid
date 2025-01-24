@@ -20,7 +20,7 @@ import com.goody.dalda.ui.model.Post
 fun AnnouncementScreen(
     onClick: (Post) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AnnouncementViewModel = viewModel()
+    viewModel: AnnouncementViewModel = viewModel(),
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(viewModel.getNoticePosts()) { item ->
@@ -34,22 +34,23 @@ fun NoticePost(
     title: String,
     date: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    Column(modifier
-        .fillMaxWidth()
-        .clickable { onClick() }
-        .padding(horizontal = 20.dp, vertical = 20.dp)
+    Column(
+        modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(horizontal = 20.dp, vertical = 20.dp),
     ) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(bottom = 4.dp)
+            modifier = Modifier.padding(bottom = 4.dp),
         )
 
         Text(
             text = date,
-            style = MaterialTheme.typography.bodySmall
+            style = MaterialTheme.typography.bodySmall,
         )
     }
 }
@@ -59,8 +60,7 @@ fun NoticePost(
 fun AnnouncementScreenPreview() {
     MaterialTheme {
         AnnouncementScreen(
-            onClick = {}
+            onClick = {},
         )
     }
 }
-

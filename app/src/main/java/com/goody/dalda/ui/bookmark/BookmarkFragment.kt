@@ -14,14 +14,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>() {
-
     private val viewModel: BookmarkViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBookmarkBinding
         get() = FragmentBookmarkBinding::inflate
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fragmentBookmarkComposeView.apply {
@@ -34,15 +35,14 @@ class BookmarkFragment : BaseFragment<FragmentBookmarkBinding>() {
                     onClickCard = { alcoholData ->
                         findNavController().navigate(
                             BookmarkFragmentDirections.actionBookmarkFragmentToLiquorDetailsFragment(
-                                alcoholData
-                            )
+                                alcoholData,
+                            ),
                         )
                     },
                     modifier = Modifier,
-                    viewModel = viewModel
+                    viewModel = viewModel,
                 )
             }
         }
-
     }
 }

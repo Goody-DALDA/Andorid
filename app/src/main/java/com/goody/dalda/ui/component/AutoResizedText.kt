@@ -25,7 +25,7 @@ fun AutoResizedText(
     modifier: Modifier = Modifier,
     text: String,
     style: TextStyle = MaterialTheme.typography.bodyMedium,
-    color: Color = style.color
+    color: Color = style.color,
 ) {
     var resizedTextStyle by remember {
         mutableStateOf(style)
@@ -39,7 +39,8 @@ fun AutoResizedText(
 
     Text(
         text = text,
-        modifier = modifier.drawWithContent {
+        modifier =
+        modifier.drawWithContent {
             if (shouldDraw) {
                 drawContent()
             }
@@ -49,18 +50,20 @@ fun AutoResizedText(
         onTextLayout = { result ->
             if (result.didOverflowWidth) {
                 if (style.fontSize.isUnspecified) {
-                    resizedTextStyle = style.copy(
-                        fontSize = defaultFontSize
-                    )
+                    resizedTextStyle =
+                        style.copy(
+                            fontSize = defaultFontSize,
+                        )
                 }
-                resizedTextStyle = style.copy(
-                    fontSize = resizedTextStyle.fontSize * 0.95f
-                )
+                resizedTextStyle =
+                    style.copy(
+                        fontSize = resizedTextStyle.fontSize * 0.95f,
+                    )
             } else {
                 shouldDraw = true
             }
         },
-        style = resizedTextStyle
+        style = resizedTextStyle,
     )
 }
 
@@ -69,12 +72,13 @@ fun AutoResizedText(
 private fun AutoResizedTextPreview_1() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .width(230.dp)
-                .background((Color.LightGray))
+                .background((Color.LightGray)),
         ) {
             AutoResizedText(
                 text = "Hello, World!",
@@ -89,12 +93,13 @@ private fun AutoResizedTextPreview_1() {
 private fun AutoResizedTextPreview_2() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .width(180.dp)
-                .background((Color.LightGray))
+                .background((Color.LightGray)),
         ) {
             AutoResizedText(
                 text = "Hello, World!",

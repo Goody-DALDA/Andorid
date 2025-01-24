@@ -15,14 +15,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
-
     private val viewModel: SearchViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSearchBinding
         get() = FragmentSearchBinding::inflate
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -35,20 +36,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                         onClickCard = { alcoholData ->
                             findNavController().navigate(
                                 SearchFragmentDirections.actionSearchFragmentToLiquorDetailsFragment(
-                                    alcoholData
-                                )
+                                    alcoholData,
+                                ),
                             )
                         },
                         onClickFooter = { alcoholType ->
                             findNavController().navigate(
                                 SearchFragmentDirections.actionSearchFragmentToCategoryFragment(
-                                    alcoholType
-                                )
+                                    alcoholType,
+                                ),
                             )
                         },
                         onClickCamera = {
                             findNavController().navigate(
-                                SearchFragmentDirections.actionSearchFragmentToLabelSearchActivity()
+                                SearchFragmentDirections.actionSearchFragmentToLabelSearchActivity(),
                             )
                         },
                         modifier = Modifier,

@@ -42,10 +42,11 @@ import com.goody.dalda.ui.state.UiState
 fun WithdrawScreen(
     viewModel: WithdrawViewModel = viewModel(),
     onSuccess: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onBackground),
         topBar = {
@@ -53,19 +54,19 @@ fun WithdrawScreen(
                 title = {
                     Text(
                         text = "탈퇴하기",
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = {}) {
                         Icon(
                             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "close"
+                            contentDescription = "close",
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
         WithdrawLayout(
             viewModel,
@@ -75,7 +76,6 @@ fun WithdrawScreen(
     val context = LocalContext.current
     when (val state = viewModel.state.value) {
         is UiState.Loading -> {
-
         }
 
         is UiState.Success -> {
@@ -94,7 +94,7 @@ fun WithdrawScreen(
 @Composable
 fun WithdrawLayout(
     viewModel: WithdrawViewModel,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         WithdrawGuide("삼겹살에소주")
@@ -122,64 +122,67 @@ fun WithdrawLayout(
 private fun WithdrawGuide(nickname: String) {
     Column(modifier = Modifier.padding(20.dp)) {
         Text(
-            text = "${nickname} 님,\n정말로 탈퇴하시겠어요?",
-            style = MaterialTheme.typography.titleLarge
+            text = "$nickname 님,\n정말로 탈퇴하시겠어요?",
+            style = MaterialTheme.typography.titleLarge,
         )
 
         Text(
             text = "탈퇴하실 경우 좋아요한 술의 정보 및 기록한 술도감이 모두 삭제되고 데이터는 복구되지 않습니다.",
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = colorResource(R.color.text)
+            style =
+            MaterialTheme.typography.bodyMedium.copy(
+                color = colorResource(R.color.text),
             ),
-            modifier = Modifier.padding(top = 18.dp)
+            modifier = Modifier.padding(top = 18.dp),
         )
     }
 }
 
 @Composable
 private fun TermsCheckbox(checkState: MutableState<Boolean>) {
-
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.clickable {
+        modifier =
+        Modifier.clickable {
             checkState.value = !checkState.value
-        }
+        },
     ) {
         Checkbox(
             checked = checkState.value,
             onCheckedChange = { checkState.value = it },
-            colors = CheckboxDefaults.colors(
-                checkedColor = colorResource(R.color.primary)
+            colors =
+            CheckboxDefaults.colors(
+                checkedColor = colorResource(R.color.primary),
             ),
-            modifier = Modifier
+            modifier = Modifier,
         )
 
         Text(
             text = "탈퇴 유의사항을 확인했으며 이에 동의합니다.",
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = colorResource(R.color.gray_50)
-            )
+            style =
+            MaterialTheme.typography.bodyMedium.copy(
+                color = colorResource(R.color.gray_50),
+            ),
         )
     }
 }
 
 @Composable
-private fun WithdrawButton(
-    onClick: () -> Unit
-) {
+private fun WithdrawButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         shape = MaterialTheme.shapes.extraSmall,
-        colors = ButtonColors(
+        colors =
+        ButtonColors(
             containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onBackground,
             disabledContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContentColor = MaterialTheme.colorScheme.onSurface
+            disabledContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         border = BorderStroke(1.dp, Color(0xFFDDDDDF)),
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "탈퇴하기",
@@ -188,7 +191,6 @@ private fun WithdrawButton(
         )
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

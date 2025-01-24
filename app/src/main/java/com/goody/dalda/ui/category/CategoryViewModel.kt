@@ -16,10 +16,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository
+class CategoryViewModel
+@Inject
+constructor(
+    private val alcoholRepository: AlcoholRepository,
 ) : ViewModel() {
-
     private val _isFirst = MutableStateFlow(true)
     val isFirst: StateFlow<Boolean> = _isFirst
 
@@ -29,22 +30,25 @@ class CategoryViewModel @Inject constructor(
 
     // 주류 정보 호출 로직AlcoholData
     private val _alcoholDataListMap: MutableStateFlow<MutableMap<String, List<AlcoholData>>> =
-        MutableStateFlow(AlcoholType.entries.associate {
-            it.alcoholName to emptyList<AlcoholData>()
-        }.toMutableMap())
+        MutableStateFlow(
+            AlcoholType.entries.associate {
+                it.alcoholName to emptyList<AlcoholData>()
+            }.toMutableMap(),
+        )
     val alcoholDataListMap: StateFlow<Map<String, List<AlcoholData>>> = _alcoholDataListMap
 
     private val _pagerState = MutableStateFlow(PagerState { _category.value.size })
     val pagerState: StateFlow<PagerState> = _pagerState
 
     // 카테고리
-    private val _category = MutableStateFlow(
-        AlcoholType.entries.filter {
-            it.categoryStatus == AlcoholCategoryStatus.RELEASE
-        }.map {
-            it.alcoholName
-        }
-    )
+    private val _category =
+        MutableStateFlow(
+            AlcoholType.entries.filter {
+                it.categoryStatus == AlcoholCategoryStatus.RELEASE
+            }.map {
+                it.alcoholName
+            },
+        )
     val category: StateFlow<List<String>> = _category
 
     fun fetchAlcoholData(query: String) {

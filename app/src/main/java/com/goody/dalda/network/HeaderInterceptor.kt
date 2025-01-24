@@ -15,7 +15,7 @@ class HeaderInterceptor : Interceptor {
         return chain.proceed(request)
     }
 
-    private fun attachBearerString(token: String) = "Bearer ${token}"
+    private fun attachBearerString(token: String) = "Bearer $token"
 
     companion object {
         private const val CONTENT_TYPE = "Content-Type"

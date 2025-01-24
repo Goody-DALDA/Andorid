@@ -6,5 +6,5 @@ data class SearchResultDto(
     @SerializedName("data")
     val searchData: SearchData,
     val message: String,
-    val status: String
+    val status: String,
 )

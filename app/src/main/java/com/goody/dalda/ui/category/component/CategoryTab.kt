@@ -1,7 +1,6 @@
 package com.goody.dalda.ui.category.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
@@ -29,7 +28,7 @@ fun CategoryTab(
         indicator = { tabPositions ->
             TabRowDefaults.SecondaryIndicator(
                 modifier = Modifier.tabIndicatorOffset(tabPositions[currentPage]),
-                color = Color.Black
+                color = Color.Black,
             )
         },
         edgePadding = 0.dp,
@@ -40,7 +39,7 @@ fun CategoryTab(
                 text = { Text(text = title) },
                 selected = currentPage == index,
                 onClick = { onClickTab(index) },
-                unselectedContentColor = Color.Gray
+                unselectedContentColor = Color.Gray,
             )
         }
     }

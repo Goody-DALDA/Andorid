@@ -14,14 +14,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val repository: LoginRepository
+class LoginViewModel
+@Inject
+constructor(
+    private val repository: LoginRepository,
 ) : ViewModel() {
-
     private val _state = MutableLiveData<UiState<Profile>>()
     val state: LiveData<UiState<Profile>> get() = _state
 
-    fun login(nickname: String, email: String, profileImg: String, token: OAuthToken) {
+    fun login(
+        nickname: String,
+        email: String,
+        profileImg: String,
+        token: OAuthToken,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val profile = repository.login(nickname, email, profileImg, token)
 

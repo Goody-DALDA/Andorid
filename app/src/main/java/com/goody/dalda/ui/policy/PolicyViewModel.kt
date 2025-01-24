@@ -12,10 +12,15 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 
 @HiltViewModel
-class PolicyViewModel @Inject constructor() : ViewModel() {
+class PolicyViewModel
+@Inject
+constructor() : ViewModel() {
     private val termsOfUseState = mutableStateOf("")
 
-    fun fetchTermsOfUse(assetManager: AssetManager, fileName: String) {
+    fun fetchTermsOfUse(
+        assetManager: AssetManager,
+        fileName: String,
+    ) {
         viewModelScope.launch(Dispatchers.IO) {
             val sb = StringBuilder()
             assetManager.open(fileName).use { inputStream ->
@@ -29,7 +34,6 @@ class PolicyViewModel @Inject constructor() : ViewModel() {
 
             termsOfUseState.value = sb.toString()
         }
-
     }
 
     fun getTermsOfUseContent() = termsOfUseState.value

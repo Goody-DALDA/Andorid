@@ -33,38 +33,40 @@ fun OtherAlcoholRecommend(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier
+        modifier =
+        modifier
             .padding(vertical = 20.dp)
             .fillMaxWidth(),
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_alcohols),
             contentDescription = "",
-            modifier = Modifier.size(180.dp)
+            modifier = Modifier.size(180.dp),
         )
 
         Text(
             text = stringResource(id = R.string.text_other_alcohol, category),
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
 
         Button(
             onClick = { onClick(category) },
             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.white)),
-            modifier = modifier
+            modifier =
+            modifier
                 .background(
                     colorResource(id = R.color.white),
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(8.dp),
                 )
                 .border(
                     width = 1.dp, // 테두리 두께
                     color = Color.Black, // 테두리 색상
-                    shape = RoundedCornerShape(8.dp) // 둥근 모서리
+                    shape = RoundedCornerShape(8.dp), // 둥근 모서리
                 ),
         ) {
             Text(
                 text = "보러가기",
-                color = colorResource(id = R.color.black)
+                color = colorResource(id = R.color.black),
             )
         }
     }
@@ -74,6 +76,6 @@ fun OtherAlcoholRecommend(
 @Composable
 private fun OtherAlcoholRecommendPrev() {
     OtherAlcoholRecommend(
-        category = "소주"
+        category = "소주",
     )
 }

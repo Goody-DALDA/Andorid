@@ -5,8 +5,8 @@ import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.repository.SearchAlcoholData
 import com.goody.dalda.data.repository.home.AlcoholRepository
 
-class FakeAlcoholRepositoryImpl (
-    private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource
+class FakeAlcoholRepositoryImpl(
+    private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource,
 ) : AlcoholRepository {
     override suspend fun getAlcoholData(category: String): List<AlcoholData> {
         return emptyList()
@@ -36,4 +36,3 @@ class FakeAlcoholRepositoryImpl (
         TODO("Not yet implemented")
     }
 }
-

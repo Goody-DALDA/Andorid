@@ -27,15 +27,16 @@ fun HomeTopBar(
             IconButton(onClick = onClickMenu) {
                 Icon(
                     imageVector = Icons.Filled.Menu,
-                    contentDescription = stringResource(id = R.string.icon_menu)
+                    contentDescription = stringResource(id = R.string.icon_menu),
                 )
             }
         },
-        colors = TopAppBarDefaults.topAppBarColors(
+        colors =
+        TopAppBarDefaults.topAppBarColors(
             containerColor = Color.White,
-            titleContentColor = Color.Black
+            titleContentColor = Color.Black,
         ),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     )
 }
 

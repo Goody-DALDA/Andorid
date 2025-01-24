@@ -35,67 +35,67 @@ fun LiquorDetailTopBar(
             IconButton(onClick = omNavigationClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = stringResource(id = R.string.icon_menu)
+                    contentDescription = stringResource(id = R.string.icon_menu),
                 )
             }
         },
         actions = {
             IconButton(
-                onClick = { onClickMenu(!isDropDownMenuExpanded) }
+                onClick = { onClickMenu(!isDropDownMenuExpanded) },
             ) {
                 Icon(
                     imageVector = Icons.Filled.MoreVert,
-                    contentDescription = stringResource(id = R.string.icon_menu)
+                    contentDescription = stringResource(id = R.string.icon_menu),
                 )
             }
 
             DropdownMenu(
                 expanded = isDropDownMenuExpanded,
-                onDismissRequest = { onClickMenu(false) }
+                onDismissRequest = { onClickMenu(false) },
             ) {
-
                 DropdownMenuItem(
                     text = {
                         Text(
-                            stringResource(id = R.string.text_drop_down_menu_request_info)
+                            stringResource(id = R.string.text_drop_down_menu_request_info),
                         )
                     },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Filled.Edit,
-                            contentDescription = stringResource(id = R.string.icon_menu)
+                            contentDescription = stringResource(id = R.string.icon_menu),
                         )
                     },
                     onClick = {
                         // TODO: Handle "정보 수정 요청하기" action
                         onClickMenu(false)
-                    }
+                    },
                 )
 
                 DropdownMenuItem(
                     text = {
                         Text(
-                            stringResource(id = R.string.text_drop_down_menu_share)
+                            stringResource(id = R.string.text_drop_down_menu_share),
                         )
                     },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Filled.Share,
-                            contentDescription = stringResource(id = R.string.icon_menu)
+                            contentDescription = stringResource(id = R.string.icon_menu),
                         )
                     },
                     onClick = {
                         // TODO: Handle "공유하기" action
                         onClickMenu(false)
-                    }
+                    },
                 )
             }
         },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+        colors =
+        TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Color.White,
-            titleContentColor = Color.Black
+            titleContentColor = Color.Black,
         ),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     )
 }
 

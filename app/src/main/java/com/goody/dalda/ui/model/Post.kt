@@ -9,7 +9,7 @@ data class Post(
     val content: String,
     val createdAt: String,
     val updatedAt: String,
-    val isActive: Boolean
+    val isActive: Boolean,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -17,11 +17,14 @@ data class Post(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.readByte() != 0.toByte()
+        parcel.readByte() != 0.toByte(),
     ) {
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
+    override fun writeToParcel(
+        parcel: Parcel,
+        flags: Int,
+    ) {
         parcel.writeInt(id)
         parcel.writeString(title)
         parcel.writeString(content)
@@ -44,5 +47,3 @@ data class Post(
         }
     }
 }
-
-

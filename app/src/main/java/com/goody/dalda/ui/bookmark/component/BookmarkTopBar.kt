@@ -25,13 +25,14 @@ fun BookmarkTopBar(
             IconButton(onClick = omNavigationClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         },
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+        colors =
+        TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Color.White,
-            titleContentColor = Color.Black
+            titleContentColor = Color.Black,
         ),
         modifier = modifier.fillMaxWidth(),
     )

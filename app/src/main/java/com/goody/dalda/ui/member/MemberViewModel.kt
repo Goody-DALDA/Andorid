@@ -15,8 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MemberViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
-
+class MemberViewModel
+@Inject
+constructor(private val repository: LoginRepository) : ViewModel() {
     companion object {
         private const val TAG = "MemberViewModel"
     }

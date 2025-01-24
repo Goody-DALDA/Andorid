@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:background="@color/kakao_color"/>
+        tools:background="@color/kakao_color" />
 
     <TextView
         android:id="@+id/fragmentConfettiWelcomeText"
@@ -32,7 +32,7 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/fragmentConfettiImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/fragmentConfettiWelcomeSubText"
@@ -53,8 +53,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <Button
         android:id="@+id/fragmentConfettiConfirm"
         android:layout_width="0dp"
@@ -67,6 +67,6 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,11 +14,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LiquorDetailsViewModel @Inject constructor(
+class LiquorDetailsViewModel
+@Inject
+constructor(
     private val alcoholRepository: AlcoholRepository,
-    private val blogRepository: BlogRepository
+    private val blogRepository: BlogRepository,
 ) : ViewModel() {
-
     private val _isBookmark = MutableStateFlow(false)
     val isBookmark: StateFlow<Boolean> = _isBookmark
 
@@ -55,14 +56,15 @@ class LiquorDetailsViewModel @Inject constructor(
     }
 
     fun fetchBlogDataList(alcoholData: AlcoholData) {
-        val category = when (alcoholData) {
-            is AlcoholData.Beer -> TEXT_BEER
-            is AlcoholData.Sake -> TEXT_SAKE
-            is AlcoholData.Soju -> TEXT_SOJU
-            is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
-            is AlcoholData.Wine -> TEXT_WINE
-            is AlcoholData.Wisky -> TEXT_WISKY
-        }
+        val category =
+            when (alcoholData) {
+                is AlcoholData.Beer -> TEXT_BEER
+                is AlcoholData.Sake -> TEXT_SAKE
+                is AlcoholData.Soju -> TEXT_SOJU
+                is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
+                is AlcoholData.Wine -> TEXT_WINE
+                is AlcoholData.Wisky -> TEXT_WISKY
+            }
         val query = "${alcoholData.name} $category"
         fetchBlogDataList(query)
     }

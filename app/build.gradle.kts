@@ -9,12 +9,11 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("kotlinx-serialization")
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ktlint)
 }
 
-
-fun getApiKey(propertyKey: String): String {
-    return gradleLocalProperties(rootDir, providers).getProperty(propertyKey)
-}
+fun getApiKey(propertyKey: String): String =
+    gradleLocalProperties(rootDir, providers).getProperty(propertyKey)
 
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
@@ -33,11 +32,27 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", localProperties.getProperty("KAKAO_NATIVE_APP_KEY"))
+        buildConfigField(
+            "String",
+            "KAKAO_NATIVE_APP_KEY",
+            localProperties.getProperty("KAKAO_NATIVE_APP_KEY"),
+        )
         buildConfigField("String", "SERVER_API_URL", localProperties.getProperty("SERVER_API_URL"))
-        buildConfigField("String", "NAVER_SEARCH_API_URL", localProperties.getProperty("NAVER_SEARCH_API_URL"))
-        buildConfigField("String", "NAVER_CLIENT_ID", localProperties.getProperty("NAVER_CLIENT_ID"))
-        buildConfigField("String", "NAVER_CLIENT_SECRET", localProperties.getProperty("NAVER_CLIENT_SECRET"))
+        buildConfigField(
+            "String",
+            "NAVER_SEARCH_API_URL",
+            localProperties.getProperty("NAVER_SEARCH_API_URL"),
+        )
+        buildConfigField(
+            "String",
+            "NAVER_CLIENT_ID",
+            localProperties.getProperty("NAVER_CLIENT_ID"),
+        )
+        buildConfigField(
+            "String",
+            "NAVER_CLIENT_SECRET",
+            localProperties.getProperty("NAVER_CLIENT_SECRET"),
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,9 +62,10 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
-            manifestPlaceholders["KAKAO_REDIRECT_URI"] = localProperties.getProperty("KAKAO_REDIRECT_URI") ?: ""
+            manifestPlaceholders["KAKAO_REDIRECT_URI"] =
+                localProperties.getProperty("KAKAO_REDIRECT_URI") ?: ""
         }
     }
     compileOptions {
@@ -107,8 +123,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     testImplementation(libs.mockwebserver)
-    testImplementation (libs.assertj.core)
-    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation(libs.assertj.core)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // compose
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -127,4 +143,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    ktlintRuleset(libs.ktlint.compose)
 }

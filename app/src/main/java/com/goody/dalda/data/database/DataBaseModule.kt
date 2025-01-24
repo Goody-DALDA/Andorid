@@ -14,14 +14,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataBaseModule {
-
     @Singleton
     @Provides
-    fun provideBookmarkDatabase(@ApplicationContext context: Context): DaldaDatabase {
+    fun provideBookmarkDatabase(
+        @ApplicationContext context: Context,
+    ): DaldaDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
             DaldaDatabase::class.java,
-            "dalda_database.db"
+            "dalda_database.db",
         ).build()
     }
 

@@ -77,46 +77,48 @@ fun DetailSectionBeer(
     alcoholData: AlcoholData.Beer,
     modifier: Modifier = Modifier,
 ) {
-    val valueList = listOf(
-        "아로마" to alcoholData.aroma,
-        "색감" to alcoholData.appearance,
-        "맛" to alcoholData.flavor,
-        "바디감" to alcoholData.mouthfeel
-    ).map { (label, value) -> label to value / 2 }
+    val valueList =
+        listOf(
+            "아로마" to alcoholData.aroma,
+            "색감" to alcoholData.appearance,
+            "맛" to alcoholData.flavor,
+            "바디감" to alcoholData.mouthfeel,
+        ).map { (label, value) -> label to value / 2 }
 
-    val infoList = listOf(
-        "스타일" to alcoholData.type,
-        "제조지역" to alcoholData.country
-    )
+    val infoList =
+        listOf(
+            "스타일" to alcoholData.type,
+            "제조지역" to alcoholData.country,
+        )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (info in infoList) {
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
-                value = info.second
+                value = info.second,
             )
         }
 
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛표현",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (value in valueList) {
             DrawBarGraphWithTitle(
                 modifier = Modifier,
-                value = value
+                value = value,
             )
         }
     }
@@ -127,34 +129,37 @@ fun DetailSectionWine(
     alcoholData: AlcoholData.Wine,
     modifier: Modifier = Modifier,
 ) {
-    val graphDataList = listOf(
-        "단맛" to alcoholData.sugar,
-        "신맛" to alcoholData.acid,
-        "바디감" to alcoholData.mouthfeel
-    )
+    val graphDataList =
+        listOf(
+            "단맛" to alcoholData.sugar,
+            "신맛" to alcoholData.acid,
+            "바디감" to alcoholData.mouthfeel,
+        )
 
-    val infoList = listOf(
-        "포도종" to alcoholData.ingredient,
-        "종류" to alcoholData.type,
-        "제조지역" to alcoholData.country,
-        "양조장" to alcoholData.winery
-    )
+    val infoList =
+        listOf(
+            "포도종" to alcoholData.ingredient,
+            "종류" to alcoholData.type,
+            "제조지역" to alcoholData.country,
+            "양조장" to alcoholData.winery,
+        )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         Text(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(
                     colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
                 )
                 .padding(12.dp),
             text = alcoholData.comment,
@@ -164,40 +169,40 @@ fun DetailSectionWine(
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
-                value = info.second
+                value = info.second,
             )
         }
 
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛표현",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (value in graphDataList) {
             DrawBarGraphWithTitle(
                 modifier = Modifier,
-                value = value
+                value = value,
             )
         }
 
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "푸드 페어링",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         Text(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(
                     colorResource(id = R.color.primary_pale),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
                 )
                 .padding(12.dp)
                 .fillMaxWidth(),
             text = alcoholData.pairingFood,
         )
-
     }
 }
 
@@ -206,27 +211,29 @@ fun DetailSectionTraditionalLiquor(
     alcoholData: AlcoholData.TraditionalLiquor,
     modifier: Modifier = Modifier,
 ) {
-    val infoList = listOf(
-        "스타일" to alcoholData.type,
-        "재료" to alcoholData.ingredient,
-        "양조장" to alcoholData.brewery
-    )
+    val infoList =
+        listOf(
+            "스타일" to alcoholData.type,
+            "재료" to alcoholData.ingredient,
+            "양조장" to alcoholData.brewery,
+        )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         Text(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(
                     colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
                 )
                 .padding(12.dp),
             text = alcoholData.comment,
@@ -236,21 +243,22 @@ fun DetailSectionTraditionalLiquor(
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
-                value = info.second
+                value = info.second,
             )
         }
 
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "푸드 페어링",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         Text(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(
                     colorResource(id = R.color.primary_pale),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
                 )
                 .padding(12.dp)
                 .fillMaxWidth(),
@@ -266,47 +274,49 @@ fun DetailSectionWhiskey(
 ) {
     val dec = DecimalFormat("#,###")
 
-    val infoList = listOf(
-        "권장 소비자가" to dec.format(alcoholData.price) + "원",
-        "종류" to alcoholData.type,
-        "제조지역" to alcoholData.country
-    )
+    val infoList =
+        listOf(
+            "권장 소비자가" to dec.format(alcoholData.price) + "원",
+            "종류" to alcoholData.type,
+            "제조지역" to alcoholData.country,
+        )
 
-    val tasteInfoList = listOf(
-        "아로마" to alcoholData.aroma,
-        "맛" to alcoholData.taste,
-        "마무리" to alcoholData.finish
-    )
+    val tasteInfoList =
+        listOf(
+            "아로마" to alcoholData.aroma,
+            "맛" to alcoholData.taste,
+            "마무리" to alcoholData.finish,
+        )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (info in infoList) {
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
-                value = info.second
+                value = info.second,
             )
         }
 
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛 표현",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (tasteInfo in tasteInfoList) {
             TextTitleValue(
                 modifier = Modifier,
                 title = tasteInfo.first,
-                value = tasteInfo.second
+                value = tasteInfo.second,
             )
         }
     }
@@ -319,46 +329,48 @@ fun DetailSectionSake(
 ) {
     val dec = DecimalFormat("#,###")
 
-    val infoList = listOf(
-        "권장 소비자가" to dec.format(alcoholData.price) + "원",
-        "제조지역" to alcoholData.country
-    )
+    val infoList =
+        listOf(
+            "권장 소비자가" to dec.format(alcoholData.price) + "원",
+            "제조지역" to alcoholData.country,
+        )
 
-    val tasteInfoList = listOf(
-        "아로마" to alcoholData.aroma,
-        "맛" to alcoholData.taste,
-        "마무리" to alcoholData.finish
-    )
+    val tasteInfoList =
+        listOf(
+            "아로마" to alcoholData.aroma,
+            "맛" to alcoholData.taste,
+            "마무리" to alcoholData.finish,
+        )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (info in infoList) {
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
-                value = info.second
+                value = info.second,
             )
         }
 
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛 표현",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         for (tasteInfo in tasteInfoList) {
             TextTitleValue(
                 modifier = Modifier,
                 title = tasteInfo.first,
-                value = tasteInfo.second
+                value = tasteInfo.second,
             )
         }
     }
@@ -371,26 +383,28 @@ fun DetailSectionSoju(
 ) {
     val dec = DecimalFormat("#,###")
 
-    val infoList = listOf(
-        "권장 소비자가" to dec.format(alcoholData.price) + "원",
-        "제조지역" to alcoholData.country
-    )
+    val infoList =
+        listOf(
+            "권장 소비자가" to dec.format(alcoholData.price) + "원",
+            "제조지역" to alcoholData.country,
+        )
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
         )
 
         Text(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .background(
                     colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(12.dp)
+                    shape = RoundedCornerShape(12.dp),
                 )
                 .padding(12.dp)
                 .fillMaxWidth(),
@@ -401,13 +415,11 @@ fun DetailSectionSoju(
             TextTitleValue(
                 modifier = Modifier,
                 title = info.first,
-                value = info.second
+                value = info.second,
             )
         }
-
     }
 }
-
 
 @Composable
 fun TextTitleValue(
@@ -417,7 +429,7 @@ fun TextTitleValue(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(36.dp)
+        horizontalArrangement = Arrangement.spacedBy(36.dp),
     ) {
         Text(
             modifier = Modifier.weight(1f),
@@ -425,7 +437,7 @@ fun TextTitleValue(
         )
         Text(
             modifier = Modifier.weight(3f),
-            text = value
+            text = value,
         )
     }
 }
@@ -449,14 +461,14 @@ fun DrawBarGraph(
                 painter = painterResource(id = R.drawable.img_fill_start_bar),
                 contentDescription = null,
                 modifier = modifier.weight(1f),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.img_empty_start_bar),
                 contentDescription = null,
                 modifier = modifier.weight(1f),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
         }
 
@@ -467,16 +479,14 @@ fun DrawBarGraph(
                     painter = painterResource(id = R.drawable.img_fill_mid_bar),
                     contentDescription = null,
                     modifier = modifier.weight(1f),
-                    contentScale = ContentScale.Crop
-
+                    contentScale = ContentScale.Crop,
                 )
             } else {
                 Image(
                     painter = painterResource(id = R.drawable.img_empty_mid_bar),
                     contentDescription = null,
                     modifier = modifier.weight(1f),
-                    contentScale = ContentScale.Crop
-
+                    contentScale = ContentScale.Crop,
                 )
             }
         }
@@ -487,14 +497,14 @@ fun DrawBarGraph(
                 painter = painterResource(id = R.drawable.img_fill_end_bar),
                 contentDescription = null,
                 modifier = modifier.weight(1f),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.img_empty_end_bar),
                 contentDescription = null,
                 modifier = modifier.weight(1f),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             )
         }
     }
@@ -507,16 +517,16 @@ fun DrawBarGraphWithTitle(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.End,
-            text = value.first
+            text = value.first,
         )
         DrawBarGraph(
             modifier = Modifier.weight(7f),
-            value = value.second
+            value = value.second,
         )
     }
 }
@@ -526,7 +536,8 @@ fun DrawBarGraphWithTitle(
 private fun LiquorInfoDetailSectionPrev_beer() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.Beer(
+        alcoholData =
+        AlcoholData.Beer(
             id = 0,
             name = "카스",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -538,8 +549,8 @@ private fun LiquorInfoDetailSectionPrev_beer() {
             mouthfeel = 2.0f,
             aroma = 3.3f,
             type = "밀맥주",
-            country = "독일"
-        )
+            country = "독일",
+        ),
     )
 }
 
@@ -548,7 +559,8 @@ private fun LiquorInfoDetailSectionPrev_beer() {
 private fun LiquorInfoDetailSectionPrev_wine() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.Wine(
+        alcoholData =
+        AlcoholData.Wine(
             id = 0,
             name = "피치니 키안티 리제르바 ‘꼴레지오네 오로’",
             imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_005_E.GuigalCotesduRhoneRouge.jpg",
@@ -563,8 +575,8 @@ private fun LiquorInfoDetailSectionPrev_wine() {
             type = "레드 와인",
             comment = "밝게 빛나는 진한 적색을 띠고 있으며 붉은 딸기 류의 풍부한 향과 스파이시한 노트가 느껴진다. 과일 아로마가 풍부하면서도 입 안에서 느껴지는 질감이 풀 바디한 스타일이다. 끝 맛에서 섬세하고 우아한 여운이 남아 좋은 균형감을 보여준다. 35년 된 포도나무에서 수확한 포도를 전통적인 방식으로 양조했으며 수확연도로부터 6~8년 정도 더 두고 숙성시켜 마실 수 있다.",
             pairingFood = "차가운 육류요리나 가금류, 붉은육류요리, 치즈",
-            winery = "이 기갈"
-        )
+            winery = "이 기갈",
+        ),
     )
 }
 
@@ -573,7 +585,8 @@ private fun LiquorInfoDetailSectionPrev_wine() {
 private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.TraditionalLiquor(
+        alcoholData =
+        AlcoholData.TraditionalLiquor(
             id = 0,
             name = "벗이랑 강황",
             imgUrl = "https://thesool.com/common/imageView.do?targetId=PR00000950&targetNm=PRODUCT",
@@ -585,8 +598,8 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
             type = "탁주(고도)",
             comment = "벗이랑은 대전시와 인근지역에서 자연자생 및 청정재배를 통해 채취한 강황, 버찌 등 건강에 이로운 자연식물로 세 번 빚은 삼양 생탁주이다. 색, 향, 미 세가지가 조화롭게 어우러진 프리미엄 삼양주로, 저온 숙성을 거쳐 목넘김이 부드럽고 바디감이 깊은 생탁주 이다.",
             pairingFood = "약과, 약밥, 송편 등 좋은 떡류나 고추장 불고기, 사천 탕수육 등을 추천한다.",
-            brewery = "석이원주조"
-        )
+            brewery = "석이원주조",
+        ),
     )
 }
 
@@ -595,7 +608,8 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
 private fun LiquorInfoDetailSectionPrev_whiskey() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.Wisky(
+        alcoholData =
+        AlcoholData.Wisky(
             id = 0,
             name = "와일드터키 8년",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",
@@ -607,8 +621,8 @@ private fun LiquorInfoDetailSectionPrev_whiskey() {
             taste = "달콤한 과일맛과 호밀의 강렬한 스파이스, 약한 시나몬, 팔각, 감초, 후추",
             aroma = "풍부한 꿀과 레몬, 버터스카치, 구운 오크",
             finish = "오크와 다크초콜렛의 긴 여운",
-            type = "버번 위스키"
-        )
+            type = "버번 위스키",
+        ),
     )
 }
 
@@ -617,7 +631,8 @@ private fun LiquorInfoDetailSectionPrev_whiskey() {
 private fun LiquorInfoDetailSectionPrev_sake() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.Sake(
+        alcoholData =
+        AlcoholData.Sake(
             id = 0,
             name = "츠루우메 유즈",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/11/45/1000000183/1000000183_detail_032.png",
@@ -629,7 +644,7 @@ private fun LiquorInfoDetailSectionPrev_sake() {
             taste = "달콤한, 상큼한, 유자",
             aroma = "유자, 상큼한",
             finish = "감칠맛, 부드러운",
-        )
+        ),
     )
 }
 
@@ -638,7 +653,8 @@ private fun LiquorInfoDetailSectionPrev_sake() {
 private fun LiquorInfoDetailSectionPrev_soju() {
     LiquorInfoDetailSection(
         modifier = Modifier,
-        alcoholData = AlcoholData.Soju(
+        alcoholData =
+        AlcoholData.Soju(
             id = 0,
             name = "대선소주",
             imgUrl = "https://arqachylpmku8348141.cdn.ntruss.com/app/product/mst_product/8801137520018_L.jpg",
@@ -647,7 +663,7 @@ private fun LiquorInfoDetailSectionPrev_soju() {
             volume = "360ml",
             price = 1900,
             abv = "16.9%",
-            comment = "부산 지역에서 유명한 소주로, 깔끔한 맛이 특징"
-        )
+            comment = "부산 지역에서 유명한 소주로, 깔끔한 맛이 특징",
+        ),
     )
 }

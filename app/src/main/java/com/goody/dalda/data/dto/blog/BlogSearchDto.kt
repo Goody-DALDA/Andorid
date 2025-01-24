@@ -5,5 +5,5 @@ data class BlogSearchDto(
     val items: List<Item>,
     val lastBuildDate: String,
     val start: Int,
-    val total: Int
+    val total: Int,
 )

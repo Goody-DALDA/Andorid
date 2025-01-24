@@ -5,8 +5,9 @@ import com.goody.dalda.data.database.dao.BookmarkDao
 import com.goody.dalda.data.database.entity.BookmarkEntity
 import javax.inject.Inject
 
-
-class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: BookmarkDao) :
+class BookmarkLocalDataSourceImpl
+@Inject
+constructor(private val bookmarkDao: BookmarkDao) :
     BookmarkLocalDataSource {
     override fun insertAlcohol(alcoholData: AlcoholData) {
         val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholData)
@@ -61,8 +62,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     price = alcoholData.price,
                     taste = alcoholData.taste,
                     finish = alcoholData.finish,
-
-                    )
+                )
             }
 
             is AlcoholData.Soju -> {
@@ -112,7 +112,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     pairingFood = alcoholData.pairingFood,
                     sugar = alcoholData.sugar,
                     acid = alcoholData.acid,
-                    winery = alcoholData.winery
+                    winery = alcoholData.winery,
                 )
             }
 
@@ -149,7 +149,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     flavor = bookmarkEntity.flavor!!,
                     mouthfeel = bookmarkEntity.mouthfeel!!,
                     aroma = bookmarkEntity.aromaFlot!!,
-                    type = bookmarkEntity.type!!
+                    type = bookmarkEntity.type!!,
                 )
             }
 
@@ -164,7 +164,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     aroma = bookmarkEntity.aromaStr!!,
                     price = bookmarkEntity.price!!,
                     taste = bookmarkEntity.taste!!,
-                    finish = bookmarkEntity.finish!!
+                    finish = bookmarkEntity.finish!!,
                 )
             }
 
@@ -177,7 +177,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     volume = bookmarkEntity.volume,
                     abv = bookmarkEntity.abv,
                     price = bookmarkEntity.price!!,
-                    comment = bookmarkEntity.comment!!
+                    comment = bookmarkEntity.comment!!,
                 )
             }
 
@@ -193,7 +193,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     comment = bookmarkEntity.comment!!,
                     ingredient = bookmarkEntity.ingredient!!,
                     pairingFood = bookmarkEntity.pairingFood!!,
-                    brewery = bookmarkEntity.brewery!!
+                    brewery = bookmarkEntity.brewery!!,
                 )
             }
 
@@ -212,7 +212,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     pairingFood = bookmarkEntity.pairingFood!!,
                     sugar = bookmarkEntity.sugar!!,
                     acid = bookmarkEntity.acid!!,
-                    winery = bookmarkEntity.winery!!
+                    winery = bookmarkEntity.winery!!,
                 )
             }
 
@@ -228,7 +228,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(private val bookmarkDao: B
                     type = bookmarkEntity.type!!,
                     price = bookmarkEntity.price!!,
                     taste = bookmarkEntity.taste!!,
-                    finish = bookmarkEntity.finish!!
+                    finish = bookmarkEntity.finish!!,
                 )
             }
 

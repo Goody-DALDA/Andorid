@@ -22,30 +22,31 @@ fun PreviousPostAndNextPost(
     prevPost: Post? = null,
     onClickNext: () -> Unit = {},
     onClickPrevious: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier.padding(horizontal = 20.dp)
+        modifier = modifier.padding(horizontal = 20.dp),
     ) {
         HorizontalDivider(
             thickness = 1.dp,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(horizontal = 10.dp)
-                .padding(bottom = 24.dp)
+                .padding(bottom = 24.dp),
         )
 
         if (prevPost != null) {
             PreviousPose(
                 post = prevPost,
-                onClick = onClickPrevious
+                onClick = onClickPrevious,
             )
         }
 
         if (nextPost != null) {
             NextPost(
                 post = nextPost,
-                onClick = onClickNext
+                onClick = onClickNext,
             )
         }
     }
@@ -54,27 +55,29 @@ fun PreviousPostAndNextPost(
 @Composable
 fun NextPost(
     post: Post,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Row(
-        modifier = Modifier
+        modifier =
+        Modifier
             .padding(horizontal = 10.dp)
             .padding(bottom = 40.dp)
-            .clickable { onClick() }
+            .clickable { onClick() },
     ) {
         Text(
             text = "다음글",
-            style = MaterialTheme.typography.bodyLarge.copy(
-                color = colorResource(R.color.gray_40)
+            style =
+            MaterialTheme.typography.bodyLarge.copy(
+                color = colorResource(R.color.gray_40),
             ),
-            modifier = Modifier.padding(end = 18.dp)
+            modifier = Modifier.padding(end = 18.dp),
         )
 
         Text(
             text = post.title,
             style = MaterialTheme.typography.bodyLarge,
             maxLines = 1,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
     }
 }
@@ -82,26 +85,28 @@ fun NextPost(
 @Composable
 fun PreviousPose(
     post: Post,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Row(
-        modifier = Modifier
+        modifier =
+        Modifier
             .padding(horizontal = 10.dp)
-            .clickable { onClick() }
+            .clickable { onClick() },
     ) {
         Text(
             text = "이전글",
-            style = MaterialTheme.typography.bodyLarge.copy(
-                color = colorResource(R.color.gray_40)
+            style =
+            MaterialTheme.typography.bodyLarge.copy(
+                color = colorResource(R.color.gray_40),
             ),
-            modifier = Modifier.padding(end = 18.dp)
+            modifier = Modifier.padding(end = 18.dp),
         )
 
         Text(
             text = post.title,
             style = MaterialTheme.typography.bodyLarge,
             maxLines = 1,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
     }
 }

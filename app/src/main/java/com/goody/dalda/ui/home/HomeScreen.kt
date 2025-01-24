@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -56,7 +55,7 @@ fun HomeScreen(
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickSeeLoginScreen: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickBookmark: () -> Unit = {}
+    onClickBookmark: () -> Unit = {},
 ) {
     val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -100,7 +99,7 @@ fun HomeScreen(
                 onClickSideMenuItem = onClickSideMenuItem,
                 onClickLogin = onClickSeeLoginScreen,
                 onClickCard = onClickCard,
-                onClickBookmark = onClickBookmark
+                onClickBookmark = onClickBookmark,
             )
         }
 
@@ -128,11 +127,11 @@ fun HomeScreen(
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickLogin: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
-    onClickBookmark: () -> Unit = {}
+    onClickBookmark: () -> Unit = {},
 ) {
     Surface(
         color = Color.White,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         ModalNavigationDrawer(
             drawerContent = {
@@ -144,39 +143,43 @@ fun HomeScreen(
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = onChangeDrawerState,
                     onChangeSelectedItemIndex = onChangeSelectedItemIndex,
-                    onClickMenu = onClickSideMenuItem
+                    onClickMenu = onClickSideMenuItem,
                 )
             },
-            drawerState = drawerState
+            drawerState = drawerState,
         ) {
             Scaffold(
-                modifier = Modifier.padding(
-                    horizontal = AppPaddingSize.HORIZONTAL.dp
+                modifier =
+                Modifier.padding(
+                    horizontal = AppPaddingSize.HORIZONTAL.dp,
                 ),
                 topBar = {
                     HomeTopBar(
                         onClickMenu = onClickMenu,
                     )
                 },
-                containerColor = Color.White
+                containerColor = Color.White,
             ) { innerPadding ->
                 Column(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxSize()
                         .padding(innerPadding)
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(rememberScrollState()),
                 ) {
                     HomeBanner(
                         authState = authState,
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .padding(bottom = 30.dp)
                             .fillMaxWidth()
                             .height(120.dp),
-                        onClickLogin = onClickLogin
+                        onClickLogin = onClickLogin,
                     )
 
                     Image(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .fillMaxWidth()
                             .padding(bottom = 16.dp)
                             .clickable { onClickSearch() },
@@ -186,33 +189,36 @@ fun HomeScreen(
                     )
 
                     AlcoholCategory(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .padding(bottom = 40.dp)
                             .fillMaxWidth()
                             .wrapContentHeight(),
                         rowCount = categoryRowMaxCount,
-                        onClickAlcohol = onClickAlcohol
+                        onClickAlcohol = onClickAlcohol,
                     )
 
                     BookmarkAlcohol(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .wrapContentHeight()
                             .padding(bottom = 40.dp)
                             .fillMaxWidth(),
                         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                         onActionClick = onClickBookmark,
-                        onClickCard = onClickCard
+                        onClickCard = onClickCard,
                     )
 
                     AlcoholRecommendation(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .padding(bottom = 40.dp)
                             .alpha(0f)
                             .wrapContentHeight()
                             .fillMaxWidth(),
                         recommendAlcoholList = recommendAlcoholList,
                         onActionClick = { /*TODO*/ },
-                        onContentsClick = { /*TODO*/ }
+                        onContentsClick = { /*TODO*/ },
                     )
                 }
             }
@@ -225,59 +231,60 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     val userName = "Dalda"
     val userEmail = "nei@gmail.com"
-    val bookmarkAlcoholDataList = listOf(
-        AlcoholData.Wisky(
-            id = 0,
-            name = "위스키",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_whiskey,
-            volume = "750ml",
-            abv = "40%",
-            type = "위스키",
-            country = "스코틀랜드",
-            price = 170000,
-            taste = "써요",
-            aroma = "부드러워요",
-            finish = "깔끔해요",
-        ),
-        AlcoholData.Beer(
-            id = 0,
-            name = "카스",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_beer,
-            volume = "355ml",
-            abv = "4.5%",
-            appearance = 2.28f,
-            flavor = 4.4f,
-            mouthfeel = 2.0f,
-            aroma = 3.3f,
-            type = "밀맥주",
-            country = "독일"
-        ),
-        AlcoholData.Sake(
-            id = 0,
-            name = "사케",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_sake,
-            volume = "750ml",
-            abv = "15%",
-            price = 30000,
-            taste = "달아요",
-            aroma = "좋아요",
-            finish = "시원해요",
-            country = "일본",
-        ),
-        AlcoholData.Soju(
-            id = 0,
-            name = "소주",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_soju,
-            volume = "360ml",
-            abv = "17%",
-            price = 5000,
-            comment = "맛있어요"
+    val bookmarkAlcoholDataList =
+        listOf(
+            AlcoholData.Wisky(
+                id = 0,
+                name = "위스키",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_whiskey,
+                volume = "750ml",
+                abv = "40%",
+                type = "위스키",
+                country = "스코틀랜드",
+                price = 170000,
+                taste = "써요",
+                aroma = "부드러워요",
+                finish = "깔끔해요",
+            ),
+            AlcoholData.Beer(
+                id = 0,
+                name = "카스",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_beer,
+                volume = "355ml",
+                abv = "4.5%",
+                appearance = 2.28f,
+                flavor = 4.4f,
+                mouthfeel = 2.0f,
+                aroma = 3.3f,
+                type = "밀맥주",
+                country = "독일",
+            ),
+            AlcoholData.Sake(
+                id = 0,
+                name = "사케",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_sake,
+                volume = "750ml",
+                abv = "15%",
+                price = 30000,
+                taste = "달아요",
+                aroma = "좋아요",
+                finish = "시원해요",
+                country = "일본",
+            ),
+            AlcoholData.Soju(
+                id = 0,
+                name = "소주",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_soju,
+                volume = "360ml",
+                abv = "17%",
+                price = 5000,
+                comment = "맛있어요",
+            ),
         )
-    )
     val authState = AuthState.SignIn
     val drawerState = DrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
@@ -295,6 +302,6 @@ private fun HomeScreenPreview() {
         onClickSearch = {},
         onClickAlcohol = {},
         onChangeDrawerState = {},
-        onClickMenu = {}
+        onClickMenu = {},
     )
 }

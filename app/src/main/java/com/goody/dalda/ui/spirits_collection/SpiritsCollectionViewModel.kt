@@ -7,10 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SpiritsCollectionViewModel @Inject constructor() : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Spirits Collection Fragment"
-    }
+class SpiritsCollectionViewModel
+@Inject
+constructor() : ViewModel() {
+    private val _text =
+        MutableLiveData<String>().apply {
+            value = "This is Spirits Collection Fragment"
+        }
     val text: LiveData<String> = _text
 }

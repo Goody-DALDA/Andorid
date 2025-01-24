@@ -15,7 +15,10 @@ class WithdrawFragment : BaseFragment<FragmentWithdrawBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentWithdrawBinding
         get() = FragmentWithdrawBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentWithdrawComposeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -23,7 +26,7 @@ class WithdrawFragment : BaseFragment<FragmentWithdrawBinding>() {
                 WithdrawScreen(
                     onSuccess = {
                         findNavController().navigate(WithdrawFragmentDirections.actionWithdrawFragmentToLoginFragment())
-                    }
+                    },
                 )
             }
         }

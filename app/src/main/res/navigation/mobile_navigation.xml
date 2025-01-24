@@ -166,7 +166,7 @@
     <fragment
         android:id="@+id/memberFragment"
         android:name="com.goody.dalda.ui.member.MemberFragment"
-        android:label="MemberFragment" >
+        android:label="MemberFragment">
         <action
             android:id="@+id/action_memberFragment_to_withdrawFragment"
             app:destination="@id/withdrawFragment" />
@@ -179,7 +179,7 @@
     <fragment
         android:id="@+id/withdrawFragment"
         android:name="com.goody.dalda.ui.member.WithdrawFragment"
-        android:label="WithdrawFragment" >
+        android:label="WithdrawFragment">
         <action
             android:id="@+id/action_withdrawFragment_to_loginFragment"
             app:popUpToInclusive="true"
@@ -190,7 +190,7 @@
         android:id="@+id/bookmarkFragment"
         android:name="com.goody.dalda.ui.bookmark.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" >
+        tools:layout="@layout/fragment_bookmark">
         <action
             android:id="@+id/action_bookmarkFragment_to_liquorDetailsFragment"
             app:destination="@id/liquorDetailsFragment" />

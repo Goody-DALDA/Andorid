@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
-
     private var isReady = false
 
     override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
@@ -58,7 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         false
                     }
                 }
-            }
+            },
         )
     }
 

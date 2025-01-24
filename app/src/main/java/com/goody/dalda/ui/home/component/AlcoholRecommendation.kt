@@ -36,7 +36,7 @@ fun AlcoholRecommendation(
         ContentsTitle(
             title = stringResource(id = R.string.text_alcohol_recommendation),
             actionText = stringResource(id = R.string.text_more_contents),
-            onActionClick = { onActionClick() }
+            onActionClick = { onActionClick() },
         )
 
         LazyRow(
@@ -44,15 +44,17 @@ fun AlcoholRecommendation(
         ) {
             items(recommendAlcoholList.size) { idx ->
                 Box(
-                    modifier = Modifier
-                        .wrapContentSize()
+                    modifier =
+                    Modifier
+                        .wrapContentSize(),
                 ) {
                     AsyncImage(
                         model = recommendAlcoholList[idx].imgRes,
                         contentDescription = "",
                         placeholder = painterResource(R.drawable.ic_launcher_foreground),
                         contentScale = ContentScale.FillWidth,
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .width(240.dp)
                             .height(176.dp)
                             .clickable { onContentsClick() },
@@ -60,9 +62,10 @@ fun AlcoholRecommendation(
 
                     AutoResizedText(
                         text = recommendAlcoholList[idx].comment,
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .padding(start = 12.dp, bottom = 12.dp)
-                            .align(Alignment.BottomStart)
+                            .align(Alignment.BottomStart),
                     )
                 }
             }
@@ -74,19 +77,20 @@ fun AlcoholRecommendation(
 @Composable
 private fun AlcoholRecommendationPreview() {
     AlcoholRecommendation(
-        recommendAlcoholList = listOf(
+        recommendAlcoholList =
+        listOf(
             RecommendAlcohol(
                 imgRes = "https://picsum.photos/id/217/100/100",
-                comment = "이건 무슨 맛이래유?"
+                comment = "이건 무슨 맛이래유?",
             ),
             RecommendAlcohol(
                 imgRes = "https://picsum.photos/id/2/100/100",
-                comment = "첫번째 행입니다.\n두번째 행입니다."
+                comment = "첫번째 행입니다.\n두번째 행입니다.",
             ),
             RecommendAlcohol(
                 imgRes = "https://picsum.photos/id/237/100/100",
-                comment = "이건 어때요?"
-            )
-        )
+                comment = "이건 어때요?",
+            ),
+        ),
     )
 }

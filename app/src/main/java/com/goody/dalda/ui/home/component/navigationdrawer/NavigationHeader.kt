@@ -26,42 +26,45 @@ fun NavigationHeader(
     userName: String,
     userEmail: String,
     onClickCloseIcon: () -> Unit = {},
-    onClickProfile: () -> Unit = {}
+    onClickProfile: () -> Unit = {},
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
-        Icon(imageVector = Icons.Filled.Close,
+        Icon(
+            imageVector = Icons.Filled.Close,
             contentDescription = stringResource(id = R.string.description_close_icon),
-            modifier = Modifier.clickable { onClickCloseIcon() }
-
+            modifier = Modifier.clickable { onClickCloseIcon() },
         )
 
         Spacer(modifier = Modifier.padding(vertical = 15.dp))
 
         Row(
-            modifier = Modifier.clickable { onClickProfile() }
+            modifier = Modifier.clickable { onClickProfile() },
         ) {
             Column {
                 AutoResizedText(
                     text = userName,
                     style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(bottom = 3.dp)
+                    modifier = Modifier.padding(bottom = 3.dp),
                 )
                 AutoResizedText(
                     text = userEmail,
                     style = MaterialTheme.typography.titleSmall,
-                    color = Color(0xFF8E8E93)
+                    color = Color(0xFF8E8E93),
                 )
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Icon(imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = "stringResource(id = R.string.description_close_icon)",
-                modifier = Modifier
+                modifier =
+                Modifier
                     .clickable { onClickCloseIcon() }
-                    .align(Alignment.CenterVertically))
+                    .align(Alignment.CenterVertically),
+            )
         }
     }
 }

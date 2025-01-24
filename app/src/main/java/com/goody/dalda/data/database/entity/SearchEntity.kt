@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "searchWordRepo"
+    tableName = "searchWordRepo",
 )
 data class SearchEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val searchWord: String
+    val searchWord: String,
 )

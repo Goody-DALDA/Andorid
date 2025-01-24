@@ -29,25 +29,29 @@ fun WelcomeBanner(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxWidth(),
     ) {
         WelcomeComment(
             userName = userName,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(224f),
         )
 
         Spacer(
-            modifier = Modifier
-                .weight(26f)
+            modifier =
+            Modifier
+                .weight(26f),
         )
 
         Image(
             painter = painterResource(id = R.drawable.ic_profile_sample),
             contentDescription = stringResource(id = R.string.description_user_profile_img),
             contentScale = ContentScale.Fit,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(70f)
                 .fillMaxHeight()
                 .padding(vertical = 10.dp),
@@ -58,22 +62,23 @@ fun WelcomeBanner(
 @Composable
 private fun WelcomeComment(
     userName: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val welcomeMessage = stringResource(id = R.string.text_welcome_comment, userName)
 
-    val annotatedString = buildAnnotatedString {
-        val startIndex = welcomeMessage.indexOf(userName)
-        val endIndex = startIndex + userName.length
+    val annotatedString =
+        buildAnnotatedString {
+            val startIndex = welcomeMessage.indexOf(userName)
+            val endIndex = startIndex + userName.length
 
-        append(welcomeMessage.substring(0, startIndex))
+            append(welcomeMessage.substring(0, startIndex))
 
-        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-            append(userName)
-        }
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                append(userName)
+            }
 
-        append(welcomeMessage.substring(endIndex))
-    }.toString()
+            append(welcomeMessage.substring(endIndex))
+        }.toString()
 
     AutoResizedText(
         text = annotatedString,
@@ -86,7 +91,7 @@ private fun WelcomeComment(
 @Composable
 private fun WelcomeBannerPreview() {
     WelcomeBanner(
-        userName = "삼겹살에 소주"
+        userName = "삼겹살에 소주",
     )
 }
 
@@ -94,6 +99,6 @@ private fun WelcomeBannerPreview() {
 @Composable
 private fun WelcomeCommentPreview() {
     WelcomeComment(
-        userName = "오겹살에 콜라"
+        userName = "오겹살에 콜라",
     )
 }

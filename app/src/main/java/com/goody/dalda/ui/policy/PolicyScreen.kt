@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PolicyScreen(
@@ -31,7 +30,7 @@ fun PolicyScreen(
     fileName: String = "",
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {},
-    viewModel: PolicyViewModel = viewModel()
+    viewModel: PolicyViewModel = viewModel(),
 ) {
     val context = LocalContext.current
 
@@ -40,7 +39,8 @@ fun PolicyScreen(
     }
 
     Scaffold(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onBackground),
         topBar = {
@@ -48,23 +48,23 @@ fun PolicyScreen(
                 title = {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onClose) {
                         Icon(
                             Icons.Filled.Close,
-                            contentDescription = "close"
+                            contentDescription = "close",
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
         PolicyLayout(
             Modifier.padding(innerPadding),
-            viewModel.getTermsOfUseContent()
+            viewModel.getTermsOfUseContent(),
         )
     }
 }
@@ -72,22 +72,23 @@ fun PolicyScreen(
 @Composable
 fun PolicyLayout(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
 ) {
     val scroll = rememberScrollState()
 
     Column(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxSize()
-            .verticalScroll(scroll)
+            .verticalScroll(scroll),
     ) {
         Text(
             text = text,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxSize()
-                .padding(20.dp)
+                .padding(20.dp),
         )
-
     }
 }
 

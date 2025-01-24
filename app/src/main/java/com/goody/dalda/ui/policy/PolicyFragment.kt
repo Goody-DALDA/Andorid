@@ -8,12 +8,8 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.navigation.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentPolicyBinding
-import com.goody.dalda.extention.getParcelableCompat
-import com.goody.dalda.ui.announcement.PostDetailFragment.Companion.POST_KEY
-import com.goody.dalda.ui.model.Post
 
 class PolicyFragment : BaseFragment<FragmentPolicyBinding>() {
-
     companion object {
         const val PRIVACY_POLICY = "privacy_policy"
         const val TERMS_OF_USE = "terms_of_use"
@@ -23,7 +19,10 @@ class PolicyFragment : BaseFragment<FragmentPolicyBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPolicyBinding
         get() = FragmentPolicyBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         val title = arguments?.getString(TERMS_OF_USE) ?: arguments?.getString(PRIVACY_POLICY) ?: ""
@@ -35,7 +34,7 @@ class PolicyFragment : BaseFragment<FragmentPolicyBinding>() {
                 PolicyScreen(
                     title = title,
                     fileName = fileName,
-                    onClose = { findNavController().popBackStack() }
+                    onClose = { findNavController().popBackStack() },
                 )
             }
         }

@@ -30,38 +30,40 @@ fun BookmarkAlcoholCard(
     alcoholData: AlcoholData,
     onClickCard: (AlcoholData) -> Unit = {},
     onClickBookmark: (AlcoholData) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxWidth()
-            .clickable { onClickCard(alcoholData) }
+            .clickable { onClickCard(alcoholData) },
     ) {
         AsyncImage(
             model = alcoholData.imgUrl,
             contentDescription = "주류 이미지",
             contentScale = ContentScale.FillHeight,
-            modifier = Modifier.aspectRatio(1f)
+            modifier = Modifier.aspectRatio(1f),
         )
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(vertical = 4.dp)
-                .weight(1f)
+                .weight(1f),
         ) {
             Text(
                 text = alcoholData.name,
                 maxLines = 1,
                 fontWeight = FontWeight.Bold,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
+                modifier = Modifier,
             )
             Image(
                 painter = painterResource(alcoholData.tag),
                 contentDescription = "주류 이미지",
                 contentScale = ContentScale.FillHeight,
-                modifier = Modifier.height(20.dp)
+                modifier = Modifier.height(20.dp),
             )
         }
 
@@ -69,10 +71,11 @@ fun BookmarkAlcoholCard(
             painter = painterResource(id = R.drawable.img_heart_filled),
             contentDescription = "주류 이미지",
             contentScale = ContentScale.FillWidth,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .width(20.dp)
                 .fillMaxHeight()
-                .clickable { onClickBookmark(alcoholData) }
+                .clickable { onClickBookmark(alcoholData) },
         )
     }
 }
@@ -82,7 +85,8 @@ fun BookmarkAlcoholCard(
 private fun BookmarkCardPreview() {
     BookmarkAlcoholCard(
         modifier = Modifier.height(50.dp),
-        alcoholData = AlcoholData.Beer(
+        alcoholData =
+        AlcoholData.Beer(
             id = 1,
             name = "참이슬참이슬참이슬",
             imgUrl = "https://cdn.pixabay.com/photo/2016/11/29/05/45/alcohol-1869862_960_720.jpg",
@@ -93,7 +97,7 @@ private fun BookmarkCardPreview() {
             flavor = 10.11f,
             mouthfeel = 12.13f,
             aroma = 14.15f,
-            type = "mentitum"
-        )
+            type = "mentitum",
+        ),
     )
 }

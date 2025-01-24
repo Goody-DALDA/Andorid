@@ -23,8 +23,9 @@ fun ContentsTitle(
 ) {
     Column(modifier = modifier) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier =
+            Modifier
+                .fillMaxWidth(),
         ) {
             AutoResizedText(
                 text = title,
@@ -37,7 +38,8 @@ fun ContentsTitle(
             AutoResizedText(
                 text = actionText,
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .align(Alignment.Bottom)
                     .clickable { onActionClick() },
             )
@@ -50,7 +52,6 @@ fun ContentsTitle(
 private fun ContentsTitlePreview() {
     ContentsTitle(
         title = stringResource(id = R.string.text_my_favorite_alcohol),
-        actionText = stringResource(id = R.string.text_whole_view)
+        actionText = stringResource(id = R.string.text_whole_view),
     )
 }
-

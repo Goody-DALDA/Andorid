@@ -39,19 +39,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SearchBarTest(
-    modifier: Modifier = Modifier
-) {
+fun SearchBarTest(modifier: Modifier = Modifier) {
     var text by rememberSaveable { mutableStateOf("") }
     var expanded by rememberSaveable { mutableStateOf(false) }
     Scaffold(
         modifier = modifier,
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
         ) {
             SearchBar(
                 query = text,
@@ -59,11 +58,10 @@ fun SearchBarTest(
                 onQueryChange = { text = it },
                 onExpandedChange = { expanded = it },
                 onSearch = {},
-                modifier = modifier
+                modifier = modifier,
             )
         }
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,14 +72,17 @@ fun SearchBar(
     onQueryChange: (String) -> Unit,
     onExpandedChange: (Boolean) -> Unit,
     onSearch: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxSize()
-            .semantics { isTraversalGroup = true }) {
+            .semantics { isTraversalGroup = true },
+    ) {
         SearchBar(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .align(Alignment.TopCenter)
                 .semantics { traversalIndex = 0f },
             inputField = {
@@ -105,7 +106,7 @@ fun SearchBar(
             Column(
                 Modifier
                     .weight(1f)
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(rememberScrollState()),
             ) {
                 repeat(4) { idx ->
                     val resultText = "Suggestion $idx"
@@ -121,7 +122,7 @@ fun SearchBar(
                                 onExpandedChange(false)
                             }
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
+                            .padding(horizontal = 16.dp, vertical = 4.dp),
                     )
                 }
             }
@@ -130,7 +131,8 @@ fun SearchBar(
         LazyColumn(
             contentPadding = PaddingValues(start = 16.dp, top = 72.dp, end = 16.dp, bottom = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
+            modifier =
+            Modifier
                 .height(500.dp)
                 .semantics { traversalIndex = 1f },
         ) {
@@ -138,7 +140,8 @@ fun SearchBar(
             items(count = list.size) {
                 Text(
                     text = list[it],
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp),
                 )

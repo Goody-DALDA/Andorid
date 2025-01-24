@@ -6,5 +6,5 @@ data class AlcoholDataDto(
     @SerializedName("data")
     val alcoholDataList: List<Data>,
     val message: String,
-    val status: String
+    val status: String,
 )
