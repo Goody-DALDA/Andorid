@@ -4,15 +4,17 @@ import com.goody.dalda.data.database.dao.SearchDao
 import com.goody.dalda.data.database.entity.SearchEntity
 import javax.inject.Inject
 
-class SearchLocalDataSourceImpl @Inject constructor(private val searchDao: SearchDao) :
+class SearchLocalDataSourceImpl
+@Inject
+constructor(private val searchDao: SearchDao) :
     SearchLocalDataSource {
     override fun insertSearchWord(searchWord: String) {
-
         checkSearchWord(searchWord)
 
-        val searchEntity = SearchEntity(
-            searchWord = searchWord
-        )
+        val searchEntity =
+            SearchEntity(
+                searchWord = searchWord,
+            )
 
         searchDao.insertSearchWord(searchEntity)
     }
@@ -27,7 +29,7 @@ class SearchLocalDataSourceImpl @Inject constructor(private val searchDao: Searc
 
     override fun getSearchWordList(isDesc: Boolean): List<String> {
         return searchDao.getAllSearchWord(
-            isDesc = isDesc
+            isDesc = isDesc,
         ).map {
             it.searchWord
         }

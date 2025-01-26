@@ -14,7 +14,7 @@ data class Wisky(
     val price: String,
     val taste: String,
     val type: String,
-    val volume: String
+    val volume: String,
 ) : Data()
 
 data class Beer(
@@ -29,7 +29,7 @@ data class Beer(
     val mouthfeel: Float,
     val name: String,
     val type: String,
-    val enName: String
+    val enName: String,
 ) : Data()
 
 data class Soju(
@@ -40,7 +40,7 @@ data class Soju(
     val img: String,
     val name: String,
     val price: String,
-    val volume: String
+    val volume: String,
 ) : Data()
 
 data class Wine(
@@ -58,7 +58,7 @@ data class Wine(
     val type: String,
     val volume: String,
     val winery: String,
-    val category: String
+    val category: String,
 ) : Data()
 
 data class Sake(
@@ -72,7 +72,7 @@ data class Sake(
     val name: String,
     val price: String,
     val taste: String,
-    val volume: String
+    val volume: String,
 ) : Data()
 
 data class TraditionalLiquor(
@@ -86,5 +86,5 @@ data class TraditionalLiquor(
     val comment: String,
     val pairingFood: String,
     val brewery: String,
-    val category: String
+    val category: String,
 ) : Data()

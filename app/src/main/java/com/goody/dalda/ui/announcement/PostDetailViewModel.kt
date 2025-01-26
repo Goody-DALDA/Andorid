@@ -12,9 +12,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PostDetailViewModel @Inject constructor(private val repository: NoticeRepository) :
+class PostDetailViewModel
+@Inject
+constructor(private val repository: NoticeRepository) :
     ViewModel() {
-
     private val _postState = mutableStateOf<Post?>(null)
     val postState: State<Post?> get() = _postState
     private val nextPostState = mutableStateOf<Post?>(null)

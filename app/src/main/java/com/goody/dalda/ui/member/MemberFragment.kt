@@ -15,7 +15,10 @@ class MemberFragment : BaseFragment<FragmentMemberBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentMemberBinding
         get() = FragmentMemberBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentMemberComposeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -26,7 +29,7 @@ class MemberFragment : BaseFragment<FragmentMemberBinding>() {
                     },
                     onClickSeeWithdrawScreen = {
                         findNavController().navigate(MemberFragmentDirections.actionMemberFragmentToWithdrawFragment())
-                    }
+                    },
                 )
             }
         }

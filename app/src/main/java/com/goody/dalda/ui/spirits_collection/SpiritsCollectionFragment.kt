@@ -11,13 +11,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SpiritsCollectionFragment : BaseFragment<FragmentSpiritsCollectionBinding>() {
-
     private val viewModel: SpiritsCollectionViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSpiritsCollectionBinding
         get() = FragmentSpiritsCollectionBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.text.observe(viewLifecycleOwner) {

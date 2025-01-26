@@ -15,6 +15,7 @@ kotlinSerialization = "2.1.0"
 kotlinxCoroutinesTest = "1.9.0"
 kotlinxSerializationJson = "1.7.3"
 kotlinxSerializationJsonVersion = "1.7.3"
+ktlint = "12.1.2"
 lifecycleViewmodelCompose = "2.8.6"
 material = "1.12.0"
 activity = "1.9.1"
@@ -61,6 +62,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinSerialization" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJsonVersion" }
+ktlint-compose = { module = "io.nlopez.compose.rules:ktlint", version.ref = "ktlint" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
@@ -79,9 +81,9 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-room-runtime = {group = "androidx.room", name = "room-runtime", version.ref = "room"}
-androidx-room-ktx = {group="androidx.room", name = "room-ktx", version.ref = "room"}
-androidx-room-compiler = {group="androidx.room", name = "room-compiler", version.ref = "room"}
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 camera-core = { group = "androidx.camera", name = "camera-core", version.ref = "camerax" }
 camera-camera2 = { group = "androidx.camera", name = "camera-camera2", version.ref = "camerax" }
@@ -109,3 +111,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

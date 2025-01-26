@@ -2,12 +2,10 @@ package com.goody.dalda.ui.liquor_details.component
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
@@ -25,29 +23,31 @@ import com.goody.dalda.ui.component.OrangeColorButton
 fun LiquorDetailBottomBar(
     @DrawableRes bookmarkImg: Int = R.drawable.img_empty_heart,
     onClickBookmark: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     BottomAppBar(
         content = {
             Row(
                 modifier = Modifier.padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Image(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxHeight()
                         .weight(1.3f)
                         .clickable { onClickBookmark() },
                     painter = painterResource(bookmarkImg),
                     contentDescription = null,
-                    contentScale = ContentScale.FillHeight
+                    contentScale = ContentScale.FillHeight,
                 )
 
                 OrangeColorButton(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .weight(5f)
                         .fillMaxHeight(),
-                    text = stringResource(id = R.string.text_add_pictorial_book)
+                    text = stringResource(id = R.string.text_add_pictorial_book),
                 )
             }
         },
@@ -59,6 +59,5 @@ fun LiquorDetailBottomBar(
 @Preview
 @Composable
 private fun LiquorDetailBottomBarPrev() {
-    LiquorDetailBottomBar(
-    )
+    LiquorDetailBottomBar()
 }

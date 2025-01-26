@@ -23,9 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
-
     companion object {
         fun newInstance() = LoginFragment()
+
         private const val TAG = "LoginFragment"
     }
 
@@ -35,7 +35,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private val viewModel: LoginViewModel by viewModels()
 
     private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        Log.e(TAG, "callback token : ${token}")
+        Log.e(TAG, "callback token : $token")
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
@@ -52,7 +52,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentLoginKakaoBtn.setOnClickListener { requestKakaoLogin() }
         binding.fragmentLoginSkipBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_navigation_home) }
@@ -66,9 +69,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Log.e(TAG, "토큰 정보 보기 실패", error)
             } else if (tokenInfo != null) {
                 Log.i(
-                    TAG, "토큰 정보 보기 성공" +
+                    TAG,
+                    "토큰 정보 보기 성공" +
                             "\n회원번호: ${tokenInfo.id}" +
-                            "\n만료시간: ${tokenInfo.expiresIn} 초"
+                            "\n만료시간: ${tokenInfo.expiresIn} 초",
                 )
                 requestKakaoLogin()
             }
@@ -93,8 +97,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             R.id.action_loginFragment_to_confettiFragment,
                             bundleOf(
                                 ConfettiFragment.NICKNAME_KEY to profile.nickname,
-                                ConfettiFragment.PROFILE_IMAGE_KEY to profile.profileImg
-                            )
+                                ConfettiFragment.PROFILE_IMAGE_KEY to profile.profileImg,
+                            ),
                         )
                     } else {
                         // 기존 회원
@@ -123,7 +127,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                     UserApiClient.instance.loginWithKakaoAccount(
                         binding.root.context,
-                        callback = callback
+                        callback = callback,
                     )
                 } else if (token != null) {
                     requestUserInfo(token)
@@ -132,11 +136,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         } else {
             UserApiClient.instance.loginWithKakaoAccount(
                 binding.root.context,
-                callback = callback
+                callback = callback,
             )
         }
     }
-
 
     private fun requestUserInfo(token: OAuthToken) {
         Log.e(TAG, "사용자 정보 요청 실패 ${token.accessToken}")
@@ -145,11 +148,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Log.e(TAG, "사용자 정보 요청 실패", error)
             } else if (user != null) {
                 Log.i(
-                    TAG, "사용자 정보 요청 성공" +
+                    TAG,
+                    "사용자 정보 요청 성공" +
                             "\n회원번호: ${user.id}" +
                             "\n이메일: ${user.kakaoAccount?.email}" +
                             "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
+                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}",
                 )
 
                 val nickname = user.kakaoAccount?.profile?.nickname ?: ""

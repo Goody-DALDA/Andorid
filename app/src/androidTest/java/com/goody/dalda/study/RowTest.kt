@@ -21,30 +21,30 @@ import com.goody.dalda.R
 fun RowTest(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-
         Text(
             text = "RowTest",
             textAlign = TextAlign.Center,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(1f)
                 .align(Alignment.CenterVertically)
-                .background(Color.Red)
-
+                .background(Color.Red),
         )
 
         Spacer(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(1f)
-                .background(Color.Green)
+                .background(Color.Green),
         )
 
         AsyncImage(
             model = "",
             contentDescription = stringResource(id = R.string.description_user_profile_img),
             placeholder = ColorPainter(Color.Blue),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
     }
 }
@@ -55,50 +55,47 @@ fun RowTest1(modifier: Modifier = Modifier) {
         RowTest(modifier = Modifier.weight(1f))
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
-
     }
 }
 
 @Preview(
     showBackground = true,
-    backgroundColor = 0xFFFFFFFF
+    backgroundColor = 0xFFFFFFFF,
 )
 @Composable
 private fun RowTestPreview() {
     RowTest(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     )
 }
 
-
 @Preview(
     showBackground = true,
-    backgroundColor = 0xFFFFFFFF
+    backgroundColor = 0xFFFFFFFF,
 )
 @Composable
 private fun RowTest1Preview() {
     RowTest1()
 }
-

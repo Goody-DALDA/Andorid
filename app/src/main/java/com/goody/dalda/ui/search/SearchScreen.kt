@@ -26,7 +26,7 @@ import com.goody.dalda.ui.search.component.ResentSearch
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = viewModel(),
-    onClickBack: () -> Unit ={},
+    onClickBack: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickFooter: (AlcoholType) -> Unit = {},
     onClickCamera: () -> Unit = {},
@@ -39,7 +39,7 @@ fun SearchScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(
-        key1 = "once"
+        key1 = "once",
     ) {
         viewModel.fetchRecentSearchWordList(true)
     }
@@ -100,10 +100,10 @@ fun SearchScreen(
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = modifier.padding(vertical = 8.dp, horizontal = AppPaddingSize.HORIZONTAL.dp)
+        modifier = modifier.padding(vertical = 8.dp, horizontal = AppPaddingSize.HORIZONTAL.dp),
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         ) {
             SearchBarComponent(
                 query = query,
@@ -114,8 +114,9 @@ fun SearchScreen(
                 onClickBackIcon = onClickBack,
                 onClickLeadingIcon = onSearch,
                 onClickTrailingIcon = onClickCamera,
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier =
+                Modifier
+                    .fillMaxWidth(),
             )
 
             when (uiState) {
@@ -134,7 +135,7 @@ fun SearchScreen(
                     RecommendAlcoholList(
                         modifier = Modifier.fillMaxWidth(),
                         recommendAlcoholList = recommendAlcoholList,
-                        onClickWord = onQueryChange
+                        onClickWord = onQueryChange,
                     )
                 }
 
@@ -143,7 +144,7 @@ fun SearchScreen(
                         modifier = Modifier,
                         alcoholDataList = searchResultList,
                         onClickCard = onClickCard,
-                        onClickFooter = onClickFooter
+                        onClickFooter = onClickFooter,
                     )
                 }
             }
@@ -164,6 +165,6 @@ private fun SearchScreenPreview() {
         onClickCard = {},
         onClickFooter = {},
         onClickCamera = {},
-        modifier = Modifier
+        modifier = Modifier,
     )
 }

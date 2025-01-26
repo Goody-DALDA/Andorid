@@ -40,7 +40,8 @@ fun AlcoholCategory(
                 AlcoholTap(
                     alcoholType = alcoholType,
                     onClick = { onClickAlcohol(alcoholType) },
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .weight(1f),
                 )
             }
@@ -52,43 +53,47 @@ fun AlcoholCategory(
 fun AlcoholTap(
     modifier: Modifier,
     alcoholType: AlcoholType,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Column(
-        modifier = modifier
+        modifier =
+        modifier
             .clickable {
                 if (alcoholType.categoryStatus == AlcoholCategoryStatus.RELEASE) {
                     onClick()
                 }
-            }
+            },
     ) {
         Box(
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
         ) {
             Image(
                 painter = painterResource(id = alcoholType.image),
                 contentDescription = "",
-                modifier = Modifier
+                modifier =
+                Modifier
                     .width(80.dp)
                     .height(78.dp)
-                    .fillMaxSize()
+                    .fillMaxSize(),
             )
 
             if (alcoholType.categoryStatus != AlcoholCategoryStatus.RELEASE) {
                 Image(
                     imageVector = IconPack.IcComingSoon,
                     contentDescription = "",
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .width(80.dp)
                         .height(78.dp)
-                        .fillMaxSize()
+                        .fillMaxSize(),
                 )
             }
         }
 
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth(),
         ) {
             AutoResizedText(
@@ -105,7 +110,7 @@ private fun AlcoholTapPreview() {
     AlcoholTap(
         alcoholType = AlcoholType.SOJU,
         modifier = Modifier,
-        onClick = {}
+        onClick = {},
     )
 }
 
@@ -114,6 +119,6 @@ private fun AlcoholTapPreview() {
 fun AlcoholCategoryPreview(modifier: Modifier = Modifier) {
     AlcoholCategory(
         modifier = Modifier,
-        rowCount = 4
+        rowCount = 4,
     )
 }

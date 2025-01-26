@@ -6,5 +6,5 @@ data class BlogData(
     val description: String,
     val bloggerName: String,
     val bloggerLink: String,
-    val postdate: String
+    val postdate: String,
 )

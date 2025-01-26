@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.ui.home.AuthState
-import com.goody.dalda.ui.home.HomeFragmentDirections
 import com.goody.dalda.ui.home.data.Menu
 
 @Composable
@@ -28,20 +27,22 @@ fun HomeDrawerSheet(
     onClickMenu: (Menu) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val items: List<DrawerItem> = listOf(
-        DrawerItem(
-            title = stringResource(id = R.string.text_notice)
-        ),
-        DrawerItem(
-            title = stringResource(id = R.string.text_event)
-        ),
-        DrawerItem(
-            title = stringResource(id = R.string.text_inquire)
+    val items: List<DrawerItem> =
+        listOf(
+            DrawerItem(
+                title = stringResource(id = R.string.text_notice),
+            ),
+            DrawerItem(
+                title = stringResource(id = R.string.text_event),
+            ),
+            DrawerItem(
+                title = stringResource(id = R.string.text_inquire),
+            ),
         )
-    )
 
     ModalDrawerSheet(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxHeight(),
     ) {
         NavigationHeader(
@@ -55,11 +56,11 @@ fun HomeDrawerSheet(
                 } else {
                     onClickMenu(Menu.Login)
                 }
-            }
+            },
         )
 
         HorizontalDivider(
-            modifier = Modifier.padding(top = 20.dp, bottom = 30.dp, start = 16.dp, end = 24.dp)
+            modifier = Modifier.padding(top = 20.dp, bottom = 30.dp, start = 16.dp, end = 24.dp),
         )
 
         // 리스트
@@ -75,15 +76,16 @@ fun HomeDrawerSheet(
                     onChangeDrawerState()
                     onClickMenu(menu)
                 },
-                modifier = Modifier
-                    .padding(NavigationDrawerItemDefaults.ItemPadding)
+                modifier =
+                Modifier
+                    .padding(NavigationDrawerItemDefaults.ItemPadding),
             )
         }
 
         // 바텀
         NavigationBottom(
             modifier = Modifier.padding(top = 100.dp, start = 16.dp, end = 24.dp),
-            onClick = onClickMenu
+            onClick = onClickMenu,
         )
     }
 }
@@ -103,6 +105,6 @@ private fun HomeDrawerSheetPreview() {
     HomeDrawerSheet(
         userName = "삼겹살에 소주",
         userEmail = "oyj7677@gmail.com",
-        authState = AuthState.SignOut
+        authState = AuthState.SignOut,
     )
 }

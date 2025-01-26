@@ -15,9 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
-
     companion object {
         const val POST_KEY = "post"
+
         fun newInstance() = PostDetailFragment()
     }
 
@@ -25,8 +25,9 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
         get() = FragmentPostDetailBinding::inflate
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         val post = arguments?.getParcelableCompat(POST_KEY, Post::class.java) ?: return view
@@ -36,7 +37,7 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
                 MaterialTheme {
                     PostDetailScreen(
                         post = post,
-                        onClose = { findNavController().popBackStack() }
+                        onClose = { findNavController().popBackStack() },
                     )
                 }
             }
@@ -45,4 +46,3 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
         return view
     }
 }
-

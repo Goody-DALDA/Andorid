@@ -17,23 +17,24 @@ import com.goody.dalda.R
 fun OrangeColorButton(
     modifier: Modifier = Modifier,
     text: String,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
 ) {
     Button(
-        modifier = modifier.background(
+        modifier =
+        modifier.background(
             colorResource(id = R.color.buttonBackground),
-            shape = RoundedCornerShape(6.dp)
+            shape = RoundedCornerShape(6.dp),
         ),
-        colors = ButtonDefaults.buttonColors(
-            colorResource(id = R.color.buttonBackground)
+        colors =
+        ButtonDefaults.buttonColors(
+            colorResource(id = R.color.buttonBackground),
         ),
-
-        onClick = onClick
+        onClick = onClick,
     ) {
         AutoResizedText(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.White
+            color = Color.White,
         )
     }
 }
@@ -43,6 +44,6 @@ fun OrangeColorButton(
 private fun CenterTextButtonPreview() {
     OrangeColorButton(
         modifier = Modifier.background(Color.White),
-        text = "로그인하기 >"
+        text = "로그인하기 >",
     )
 }

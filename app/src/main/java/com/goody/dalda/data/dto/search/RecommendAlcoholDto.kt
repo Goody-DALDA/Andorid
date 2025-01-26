@@ -6,5 +6,5 @@ data class RecommendAlcoholDto(
     @SerializedName("data")
     val recommendAlcoholInfoList: List<RecommendAlcoholInfo>,
     val message: String,
-    val status: String
+    val status: String,
 )

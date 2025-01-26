@@ -60,20 +60,22 @@ fun SearchBarComponent(
         Icon(
             imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowLeft,
             contentDescription = null,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .align(Alignment.CenterVertically)
                 .weight(1f)
-                .clickable { onClickBackIcon() }
+                .clickable { onClickBackIcon() },
         )
         OutlinedTextField(
             value = query,
             onValueChange = onValueChange,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .weight(10f)
                 .background(
                     color = Color(0xFFF8F8F8),
-                    shape = RoundedCornerShape(18.dp)
+                    shape = RoundedCornerShape(18.dp),
                 )
                 .focusRequester(focusRequester),
             placeholder = { Text(text = placeholder) },
@@ -81,45 +83,49 @@ fun SearchBarComponent(
                 Icon(
                     modifier = Modifier.clickable { onClickLeadingIcon(query) },
                     imageVector = leadingIcon,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             },
             trailingIcon = {
                 Row(
                     modifier = Modifier.padding(end = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Clear,
                         contentDescription = null,
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .clickable {
                                 onValueChange("")
                             }
                             .alpha(
-                                if (query.isNotEmpty()) 1f else 0f
-                            )
+                                if (query.isNotEmpty()) 1f else 0f,
+                            ),
                     )
 
                     Icon(
                         imageVector = trailingIcon,
                         contentDescription = null,
-                        modifier = Modifier.clickable {
+                        modifier =
+                        Modifier.clickable {
                             onClickTrailingIcon()
                         },
                     )
                 }
             },
             shape = RoundedCornerShape(18.dp),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = Search
+            keyboardOptions =
+            KeyboardOptions.Default.copy(
+                imeAction = Search,
             ),
-            keyboardActions = KeyboardActions(
+            keyboardActions =
+            KeyboardActions(
                 onSearch = {
                     onClickLeadingIcon(query)
                     focusManager.clearFocus()
-                }
-            )
+                },
+            ),
         )
     }
 }
@@ -134,6 +140,6 @@ private fun SearchBarComponentPrev() {
         trailingIcon = IconPack.IcCamera,
         onValueChange = {},
         onClickBackIcon = {},
-        onClickTrailingIcon = {}
+        onClickTrailingIcon = {},
     )
 }

@@ -9,7 +9,6 @@ import com.goody.dalda.data.database.entity.BookmarkEntity
 
 @Dao
 interface BookmarkDao {
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAlcohol(bookmarkEntity: BookmarkEntity)
 
@@ -20,5 +19,8 @@ interface BookmarkDao {
     fun getAllBookMark(): List<BookmarkEntity>
 
     @Query("SELECT * FROM bookmarkRepo WHERE id=:id AND name=:name")
-    fun isBookMark(id: Int, name: String): Boolean
+    fun isBookMark(
+        id: Int,
+        name: String,
+    ): Boolean
 }

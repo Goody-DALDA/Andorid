@@ -9,7 +9,6 @@ import com.goody.dalda.R
 import com.goody.dalda.databinding.DialogNoResultsBinding
 
 class NoResultsDialog(context: Context) : Dialog(context, R.style.SearchLabel_EmptyDialog) {
-
     companion object {
         private const val SUGGESTION_URL = "https://forms.gle/f3Djzkf2ymhgcPRd6"
     }

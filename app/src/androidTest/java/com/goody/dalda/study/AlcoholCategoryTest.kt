@@ -25,16 +25,17 @@ import com.goody.dalda.data.AlcoholType
 fun AlcoholCategoryTest(modifier: Modifier = Modifier) {
     FlowRow(
         modifier = modifier,
-        maxItemsInEachRow = 4
+        maxItemsInEachRow = 4,
     ) {
         AlcoholType.entries.forEach { alcoholType ->
             if (alcoholType.categoryStatus != AlcoholCategoryStatus.NONE) {
                 AlcoholTap(
                     alcoholType = alcoholType,
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .weight(1f)
                         .fillMaxHeight(0.5f),
-                    onClick = {}
+                    onClick = {},
                 )
             }
         }
@@ -42,27 +43,33 @@ fun AlcoholCategoryTest(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AlcoholTap(alcoholType: AlcoholType, modifier: Modifier, onClick: () -> Unit) {
+fun AlcoholTap(
+    alcoholType: AlcoholType,
+    modifier: Modifier,
+    onClick: () -> Unit,
+) {
     Column(
-        modifier = modifier
+        modifier =
+        modifier
             .clickable { onClick() },
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
             model = "",
             contentDescription = stringResource(id = R.string.description_user_profile_img),
             placeholder = ColorPainter(Color.Blue),
-            modifier = Modifier.weight(2f)
+            modifier = Modifier.weight(2f),
         )
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .weight(1f),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Text(
                 text = alcoholType.alcoholName,
-                modifier = Modifier
+                modifier = Modifier,
             )
         }
     }
@@ -70,7 +77,7 @@ fun AlcoholTap(alcoholType: AlcoholType, modifier: Modifier, onClick: () -> Unit
 
 @Preview(
     showBackground = true,
-    backgroundColor = 0xFFFFFFFF
+    backgroundColor = 0xFFFFFFFF,
 )
 @Composable
 private fun AlcoholCategoryTestPreview() {
@@ -79,14 +86,13 @@ private fun AlcoholCategoryTestPreview() {
 
 @Preview(
     showBackground = true,
-    backgroundColor = 0xFFFFFFFF
+    backgroundColor = 0xFFFFFFFF,
 )
 @Composable
 private fun AlcoholTapPreview() {
     AlcoholTap(
         alcoholType = AlcoholType.BEER,
         modifier = Modifier,
-        onClick = {}
+        onClick = {},
     )
 }
-

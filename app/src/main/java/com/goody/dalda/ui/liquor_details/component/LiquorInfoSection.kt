@@ -37,7 +37,8 @@ fun LiquorInfoSection(
             contentDescription = "주류 이미지",
             contentScale = ContentScale.FillHeight,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
-            modifier = Modifier
+            modifier =
+            Modifier
                 .height(300.dp)
                 .fillMaxWidth(),
         )
@@ -58,7 +59,8 @@ fun BasicInfo(
         is AlcoholData.Soju,
         is AlcoholData.Beer,
         is AlcoholData.Sake,
-        is AlcoholData.Wisky -> {
+        is AlcoholData.Wisky,
+            -> {
             BasicInfoWithCountry(
                 alcoholData = alcoholData,
                 modifier = modifier,
@@ -66,7 +68,8 @@ fun BasicInfo(
         }
 
         is AlcoholData.TraditionalLiquor,
-        is AlcoholData.Wine -> {
+        is AlcoholData.Wine,
+            -> {
             BasicInfoWithBrewery(
                 alcoholData = alcoholData,
                 modifier = modifier,
@@ -84,7 +87,6 @@ fun BasicInfoWithCountry(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-
         // 카테고리
         Image(
             painter = painterResource(alcoholData.tag),
@@ -109,7 +111,6 @@ fun BasicInfoWithCountry(
             modifier = Modifier.padding(top = 8.dp),
         )
     }
-
 }
 
 @Composable
@@ -121,7 +122,6 @@ fun BasicInfoWithBrewery(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-
         // 카테고리
         Image(
             painter = painterResource(alcoholData.tag),
@@ -151,7 +151,6 @@ fun BasicInfoWithBrewery(
             modifier = Modifier.padding(top = 8.dp),
         )
     }
-
 }
 
 @Composable
@@ -166,19 +165,18 @@ fun RowAbvVolume(
     ) {
         SecondFloorText(
             topText = "도수",
-            bottomText = alcoholData.abv
+            bottomText = alcoholData.abv,
         )
 
         VerticalDivider(
-            modifier = Modifier.height(40.dp)
+            modifier = Modifier.height(40.dp),
         )
         SecondFloorText(
             topText = "용량",
-            bottomText = alcoholData.volume
+            bottomText = alcoholData.volume,
         )
     }
 }
-
 
 @Composable
 fun SecondFloorText(
@@ -200,7 +198,8 @@ fun SecondFloorText(
 @Composable
 private fun LiquorImageSectionPrev_soju() {
     LiquorInfoSection(
-        alcoholData = AlcoholData.Soju(
+        alcoholData =
+        AlcoholData.Soju(
             id = 7959,
             name = "대선",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -208,8 +207,8 @@ private fun LiquorImageSectionPrev_soju() {
             volume = "100ml",
             price = 2900,
             abv = "18%",
-            comment = "소주임"
-        )
+            comment = "소주임",
+        ),
     )
 }
 
@@ -217,7 +216,8 @@ private fun LiquorImageSectionPrev_soju() {
 @Composable
 private fun LiquorImageSectionPrev_beer() {
     LiquorInfoSection(
-        alcoholData = AlcoholData.Beer(
+        alcoholData =
+        AlcoholData.Beer(
             id = 7959,
             name = "1664 블랑",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -229,7 +229,7 @@ private fun LiquorImageSectionPrev_beer() {
             aroma = 18f,
             country = "독일",
             type = "밀맥주",
-        )
+        ),
     )
 }
 
@@ -237,7 +237,8 @@ private fun LiquorImageSectionPrev_beer() {
 @Composable
 private fun LiquorImageSectionPrev_sake() {
     LiquorInfoSection(
-        alcoholData = AlcoholData.Sake(
+        alcoholData =
+        AlcoholData.Sake(
             id = 7959,
             name = "닷사이 준마이 다이긴죠 23",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -248,8 +249,8 @@ private fun LiquorImageSectionPrev_sake() {
             taste = "달콤함",
             aroma = "향기",
             finish = "맛",
-            country = "일본"
-        )
+            country = "일본",
+        ),
     )
 }
 
@@ -257,7 +258,8 @@ private fun LiquorImageSectionPrev_sake() {
 @Composable
 private fun LiquorImageSectionPrev_wine() {
     LiquorInfoSection(
-        alcoholData = AlcoholData.Wine(
+        alcoholData =
+        AlcoholData.Wine(
             id = 0,
             name = "이기갈 꼬뜨 뒤 론 화이트",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -273,6 +275,6 @@ private fun LiquorImageSectionPrev_wine() {
             comment = "",
             pairingFood = "",
             winery = "",
-        )
+        ),
     )
 }

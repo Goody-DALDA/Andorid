@@ -6,21 +6,20 @@ import com.goody.dalda.data.dto.asDomain
 import com.goody.dalda.data.local.PreferenceLocalDataSource
 import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.ui.model.Profile
-import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
-import retrofit2.Response
 import javax.inject.Inject
 
-
-class LoginRepositoryImpl @Inject constructor(
+class LoginRepositoryImpl
+@Inject
+constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
-    private val preferenceLocalDataSource: PreferenceLocalDataSource
+    private val preferenceLocalDataSource: PreferenceLocalDataSource,
 ) : LoginRepository {
     override suspend fun login(
         nickname: String,
         email: String,
         profileImg: String,
-        token: OAuthToken
+        token: OAuthToken,
     ): Profile? {
         return try {
             preferenceLocalDataSource.setAccessToken(token.accessToken)

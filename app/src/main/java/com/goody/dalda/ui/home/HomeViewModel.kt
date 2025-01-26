@@ -18,11 +18,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel
+@Inject
+constructor(
     private val alcoholRepository: AlcoholRepository,
-    private val profileRepository: LoginRepository
+    private val profileRepository: LoginRepository,
 ) : ViewModel() {
-
     private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
     val bookmarkAlcoholDataList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
 
@@ -32,9 +33,16 @@ class HomeViewModel @Inject constructor(
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
 
-    private val _authState = MutableStateFlow<AuthState>(
-        if (PreferenceManager.getAccessToken().isEmpty()) AuthState.SignOut else AuthState.SignIn
-    )
+    private val _authState =
+        MutableStateFlow<AuthState>(
+            if (PreferenceManager.getAccessToken()
+                    .isEmpty()
+            ) {
+                AuthState.SignOut
+            } else {
+                AuthState.SignIn
+            },
+        )
     val authState: StateFlow<AuthState> = _authState
 
     private val _userName = MutableStateFlow("")

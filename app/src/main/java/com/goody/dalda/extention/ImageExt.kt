@@ -27,20 +27,24 @@ fun Bitmap.resizeWidth(preview: PreviewView): Bitmap {
 }
 
 private fun ByteBuffer.toByteArray(): ByteArray {
-    rewind()    // 버퍼의 포지션을 0으로 되돌림
+    rewind() // 버퍼의 포지션을 0으로 되돌림
     val data = ByteArray(remaining())
-    get(data)   // 바이트 버퍼를 바이트 배열로 복사함
+    get(data) // 바이트 버퍼를 바이트 배열로 복사함
     return data // 바이트 배열 반환함
 }
 
-fun Bitmap.cropBitmap(parent: View, rect: View): Bitmap {
+fun Bitmap.cropBitmap(
+    parent: View,
+    rect: View,
+): Bitmap {
     val width = width
     val height = height
     val rectWidth = (rect.width * width) / parent.width
     val rectHeight = (rect.height * height) / parent.height
 
-    if (width < rectWidth && height < rectHeight)
+    if (width < rectWidth && height < rectHeight) {
         return this
+    }
 
     var x = 0
     var y = 0
@@ -52,12 +56,13 @@ fun Bitmap.cropBitmap(parent: View, rect: View): Bitmap {
     var cw = rectWidth
     var ch = rectHeight
 
-    if (rectWidth > width)
+    if (rectWidth > width) {
         cw = width
+    }
 
-    if (rectHeight > height)
+    if (rectHeight > height) {
         ch = height
-
+    }
 
     return Bitmap.createBitmap(this, x, y, cw, ch)
 }

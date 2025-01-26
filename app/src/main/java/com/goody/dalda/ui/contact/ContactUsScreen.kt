@@ -37,11 +37,10 @@ import com.goody.dalda.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ContactUsScreen(
-    modifier: Modifier = Modifier
-) {
+fun ContactUsScreen(modifier: Modifier = Modifier) {
     Scaffold(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onBackground),
         topBar = {
@@ -49,14 +48,14 @@ fun ContactUsScreen(
                 title = {
                     Text(
                         text = "문의하기",
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = {}) {
                         Icon(
                             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                            contentDescription = "back"
+                            contentDescription = "back",
                         )
                     }
                 },
@@ -64,12 +63,12 @@ fun ContactUsScreen(
                     IconButton(onClick = {}) {
                         Icon(
                             imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "Localized description"
+                            contentDescription = "Localized description",
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
         ContactUsLayout(
             Modifier.padding(innerPadding),
@@ -80,7 +79,6 @@ fun ContactUsScreen(
 @Composable
 fun ContactUsLayout(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-
         Column(modifier = Modifier.weight(1f)) {
             val emailState = rememberSaveable { mutableStateOf("") }
             EmailContainer(emailState)
@@ -100,19 +98,22 @@ private fun InquirySendButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         shape = MaterialTheme.shapes.extraSmall,
-        colors = ButtonDefaults.buttonColors().copy(
-            containerColor = colorResource(R.color.primary)
+        colors =
+        ButtonDefaults.buttonColors().copy(
+            containerColor = colorResource(R.color.primary),
         ),
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
             .padding(20.dp)
-            .height(50.dp)
+            .height(50.dp),
     ) {
         Text(
             text = "문의 내용 보내기",
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontWeight = FontWeight.SemiBold
-            )
+            style =
+            MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.SemiBold,
+            ),
         )
     }
 }
@@ -121,24 +122,26 @@ private fun InquirySendButton(onClick: () -> Unit) {
 private fun InquiryGuide() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         Icon(
             imageVector = Icons.Filled.Check,
             contentDescription = "",
             tint = colorResource(R.color.gray_50),
-            modifier = Modifier
+            modifier =
+            Modifier
                 .width(12.dp)
-                .height(12.dp)
+                .height(12.dp),
         )
 
         Text(
             text = "구체적으로 작성하면 개선이 더 빠르게 이루어져요.",
             style = MaterialTheme.typography.bodySmall,
             color = colorResource(R.color.gray_50),
-            modifier = Modifier.padding(start = 4.dp)
+            modifier = Modifier.padding(start = 4.dp),
         )
     }
 }
@@ -146,36 +149,40 @@ private fun InquiryGuide() {
 @Composable
 private fun EmailContainer(emailState: MutableState<String>) {
     Column(
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "이메일",
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.SemiBold
+            style =
+            MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
             ),
-            modifier = Modifier.padding(top = 20.dp)
+            modifier = Modifier.padding(top = 20.dp),
         )
 
         OutlinedTextField(
             value = emailState.value,
             onValueChange = { text -> emailState.value = text },
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .padding(top = 10.dp),
             singleLine = true,
             shape = MaterialTheme.shapes.small,
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = colorResource(R.color.gray_80)
+            colors =
+            OutlinedTextFieldDefaults.colors(
+                unfocusedBorderColor = colorResource(R.color.gray_80),
             ),
             placeholder = {
                 Text(
                     text = "이메일을 입력해주세요.",
                     color = colorResource(R.color.gray_50),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
-            }
+            },
         )
     }
 }
@@ -183,37 +190,41 @@ private fun EmailContainer(emailState: MutableState<String>) {
 @Composable
 private fun InquiryContainer(textState: MutableState<String>) {
     Column(
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "문의 사항",
-            style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.SemiBold
+            style =
+            MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
             ),
-            modifier = Modifier.padding(top = 20.dp)
+            modifier = Modifier.padding(top = 20.dp),
         )
 
         OutlinedTextField(
             value = textState.value,
             onValueChange = { text -> textState.value = text },
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .height(140.dp)
                 .padding(top = 10.dp),
             singleLine = true,
             shape = MaterialTheme.shapes.small,
-            colors = OutlinedTextFieldDefaults.colors(
-                unfocusedBorderColor = colorResource(R.color.gray_80)
+            colors =
+            OutlinedTextFieldDefaults.colors(
+                unfocusedBorderColor = colorResource(R.color.gray_80),
             ),
             placeholder = {
                 Text(
                     text = "문의하실 내용을 입력해주세요.",
                     color = colorResource(R.color.gray_50),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
-            }
+            },
         )
     }
 }

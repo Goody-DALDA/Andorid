@@ -20,13 +20,15 @@ fun LoginBanner(
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxWidth(),
     ) {
         AutoResizedText(
             text = text,
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(bottom = 16.dp)
                 .weight(2f),
         )
@@ -41,11 +43,11 @@ fun LoginBanner(
 
 @Preview(
     showBackground = true,
-    backgroundColor = 0xFFFFFFFF
+    backgroundColor = 0xFFFFFFFF,
 )
 @Composable
 private fun LoginBannerPreview() {
     LoginBanner(
-        text = "달다에 로그인하고\n나만의 술도감을 만들어보세요"
+        text = "달다에 로그인하고\n나만의 술도감을 만들어보세요",
     )
 }

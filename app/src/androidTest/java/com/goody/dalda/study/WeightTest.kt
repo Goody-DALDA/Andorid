@@ -19,32 +19,31 @@ fun WeightTest(modifier: Modifier = Modifier) {
     Column {
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         Text(
             text = "WeightTest",
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         CardImage(modifier = Modifier.weight(1f))
     }
 }
-
 
 @Composable
 fun CardImage(modifier: Modifier = Modifier) {
@@ -53,21 +52,23 @@ fun CardImage(modifier: Modifier = Modifier) {
             model = "",
             contentDescription = stringResource(id = R.string.description_user_profile_img),
             placeholder = ColorPainter(Color.Blue),
-            modifier = Modifier.weight(2f)
+            modifier = Modifier.weight(2f),
         )
         Text(
             text = "CardImage",
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .background(Color.Red)
+                .background(Color.Red),
         )
         Text(
             text = "CardImage",
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .weight(1f)
-                .background(Color.Green)
+                .background(Color.Green),
         )
     }
 }

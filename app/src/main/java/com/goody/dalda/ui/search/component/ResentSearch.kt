@@ -26,27 +26,28 @@ fun ResentSearch(
 ) {
     Column(
         modifier = Modifier.padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = stringResource(R.string.text_recent_search_work)
+                text = stringResource(R.string.text_recent_search_work),
             )
             Icon(
                 imageVector = Icons.Outlined.Clear,
                 contentDescription = null,
-                modifier = Modifier
+                modifier =
+                Modifier
                     .alpha(if (recentSearchWordList.isEmpty()) 0f else 1f)
-                    .clickable { onClickClear() }
+                    .clickable { onClickClear() },
             )
         }
 
         AlcoholChipGrid(
             recentSearchWordList = recentSearchWordList,
-            onClickWord = onClickSearchWord
+            onClickWord = onClickSearchWord,
         )
     }
 }

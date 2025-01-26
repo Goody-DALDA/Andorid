@@ -6,8 +6,8 @@ import com.goody.dalda.data.dto.home.Data
 import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
-import com.goody.dalda.data.dto.home.Wisky
 import com.goody.dalda.data.dto.home.Wine
+import com.goody.dalda.data.dto.home.Wisky
 
 object AlcoholDataMapper {
     fun dataToAlcoholData(data: List<Data>): List<AlcoholData> {
@@ -55,7 +55,7 @@ object AlcoholDataMapper {
                 taste = it.taste.ifEmpty { "" },
                 aroma = it.aroma.ifEmpty { "" },
                 finish = it.finish.ifEmpty { "" },
-                volume = it.volume
+                volume = it.volume,
             )
         }
     }
@@ -73,7 +73,7 @@ object AlcoholDataMapper {
                 price = extractNumber(it.price),
                 taste = it.taste,
                 type = it.type,
-                volume = it.volume
+                volume = it.volume,
             )
         }
     }
@@ -108,7 +108,7 @@ object AlcoholDataMapper {
                 type = it.type,
                 volume = it.volume,
                 winery = it.winery,
-                abv = ""
+                abv = "",
             )
         }
     }
@@ -130,17 +130,14 @@ object AlcoholDataMapper {
         }
     }
 
-
     private fun extractNumber(strPrice: String): Int {
         return if (strPrice.isEmpty()) {
             0
         } else {
             strPrice.replace(
                 regex = "[^0-9]".toRegex(),
-                replacement = ""
+                replacement = "",
             ).toInt()
         }
     }
 }
-
-

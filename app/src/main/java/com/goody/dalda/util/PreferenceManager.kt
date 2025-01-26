@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object PreferenceManager {
-
     private const val ACCESS_TOKEN = "access_token"
 
     private var pref: SharedPreferences? = null
@@ -32,5 +31,4 @@ object PreferenceManager {
     fun clearAccessToken() {
         pref?.edit()?.putString(ACCESS_TOKEN, "")?.apply()
     }
-
 }

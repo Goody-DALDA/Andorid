@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface NaverSearchRetrofitService {
     @GET("blog.json")
     suspend fun searchBlog(
-        @Query("query") query: String
+        @Query("query") query: String,
     ): Response<BlogSearchDto>
 }

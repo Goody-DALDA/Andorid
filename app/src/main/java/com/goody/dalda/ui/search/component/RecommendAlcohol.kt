@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 fun RecommendAlcoholList(
     modifier: Modifier = Modifier,
     recommendAlcoholList: List<String>,
-    onClickWord: (String) -> Unit = {}
+    onClickWord: (String) -> Unit = {},
 ) {
     LazyColumn(
         modifier = modifier,
@@ -25,7 +25,8 @@ fun RecommendAlcoholList(
                     text = it,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = modifier
+                    modifier =
+                    modifier
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .clickable { onClickWord(it) },
                 )

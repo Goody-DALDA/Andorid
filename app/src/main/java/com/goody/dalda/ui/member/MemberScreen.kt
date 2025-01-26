@@ -44,14 +44,15 @@ fun MemberScreen(
     viewModel: MemberViewModel = viewModel(),
     onClickSeeLoginScreen: () -> Unit = {},
     onClickSeeWithdrawScreen: () -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LaunchedEffect("once") {
         viewModel.fetchProfile()
     }
 
     Scaffold(
-        modifier = modifier
+        modifier =
+        modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.onBackground),
         topBar = {
@@ -59,30 +60,29 @@ fun MemberScreen(
                 title = {
                     Text(
                         text = "회원 상세",
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = {}) {
                         Icon(
                             Icons.Filled.Close,
-                            contentDescription = "close"
+                            contentDescription = "close",
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
         MemberLayout(
             viewModel,
             Modifier.padding(innerPadding),
-            onClickWithdrawButton = onClickSeeWithdrawScreen
+            onClickWithdrawButton = onClickSeeWithdrawScreen,
         )
     }
     val context = LocalContext.current
     when (val state = viewModel.logout.value) {
         is UiState.Loading -> {
-
         }
 
         is UiState.Success -> {
@@ -102,19 +102,18 @@ fun MemberScreen(
 fun MemberLayout(
     viewModel: MemberViewModel,
     modifier: Modifier = Modifier,
-    onClickWithdrawButton: () -> Unit = {}
+    onClickWithdrawButton: () -> Unit = {},
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-
         Column(
             modifier
                 .fillMaxWidth()
                 .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MemberProfile(
                 R.drawable.img_profile,
-                viewModel.profile.value.nickname
+                viewModel.profile.value.nickname,
             )
 
             MemberInformation(viewModel.profile.value)
@@ -128,17 +127,18 @@ fun MemberLayout(
 @Composable
 private fun MemberInformation(profile: Profile) {
     Column(
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         MemberAttribute(
             title = "좋아하는 주종",
-            content = "소주"
+            content = "소주",
         )
         MemberAttribute(
             title = "메일 주소",
-            content = profile.email
+            content = profile.email,
         )
     }
 }
@@ -146,25 +146,26 @@ private fun MemberInformation(profile: Profile) {
 @Composable
 private fun MemberProfile(
     imageRes: Int,
-    nickname: String
+    nickname: String,
 ) {
     Column(
         modifier = Modifier.padding(top = 40.dp, bottom = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
             painter = painterResource(imageRes),
             contentDescription = "",
-            modifier = Modifier
+            modifier =
+            Modifier
                 .width(70.dp)
-                .height(70.dp)
+                .height(70.dp),
         )
 
         Text(
             text = nickname,
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 10.dp)
+            modifier = Modifier.padding(top = 10.dp),
         )
     }
 }
@@ -175,29 +176,30 @@ private fun WithdrawButton(onClick: () -> Unit) {
         text = "탈퇴하기",
         color = Color(0xFF8E8E93),
         style = MaterialTheme.typography.titleSmall,
-        modifier = Modifier
+        modifier =
+        Modifier
             .padding(start = 20.dp, top = 20.dp, bottom = 60.dp)
-            .clickable { onClick() }
+            .clickable { onClick() },
     )
 }
 
 @Composable
-private fun LogoutButton(
-    onClick: () -> Unit
-) {
+private fun LogoutButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         shape = MaterialTheme.shapes.extraSmall,
-        colors = ButtonColors(
+        colors =
+        ButtonColors(
             containerColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onBackground,
             disabledContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContentColor = MaterialTheme.colorScheme.onSurface
+            disabledContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         border = BorderStroke(1.dp, Color(0xFFDDDDDF)),
-        modifier = Modifier
+        modifier =
+        Modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "로그아웃 하기",
@@ -210,18 +212,18 @@ private fun LogoutButton(
 @Composable
 private fun MemberAttribute(
     title: String,
-    content: String
+    content: String,
 ) {
     Row(modifier = Modifier.padding(top = 10.dp)) {
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
         Text(
             text = content,
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Right,
-            color = Color.Gray
+            color = Color.Gray,
         )
     }
 }

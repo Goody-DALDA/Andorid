@@ -1,6 +1,5 @@
 package com.goody.dalda.ui.liquor_details
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -44,20 +43,19 @@ private const val TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE = 4
 private const val TEXT_BLOG_REVIEW_TITLE_FONT_SIZE = 18
 private const val TEXT_BLOG_REVIEW_SUB_TITLE_FONT_SIZE = 12
 
-
 @Composable
 fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
     onClickBlog: (String) -> Unit = {},
     modifier: Modifier = Modifier,
-    viewModel: LiquorDetailsViewModel = viewModel()
+    viewModel: LiquorDetailsViewModel = viewModel(),
 ) {
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
     val isBookmark by viewModel.isBookmark.collectAsStateWithLifecycle()
     val blogDataList by viewModel.blogDataList.collectAsStateWithLifecycle()
 
     LaunchedEffect(
-        "once"
+        "once",
     ) {
         viewModel.setIsBookmark(alcoholData)
         viewModel.fetchBlogDataList(alcoholData)
@@ -78,7 +76,7 @@ fun LiquorDetailsScreen(
             viewModel.setBookmark(!isBookmark)
         },
         onClickBlog = onClickBlog,
-        modifier = modifier.padding(horizontal = AppPaddingSize.HORIZONTAL.dp)
+        modifier = modifier.padding(horizontal = AppPaddingSize.HORIZONTAL.dp),
     )
 }
 
@@ -98,63 +96,70 @@ fun LiquorDetailsScreen(
             LiquorDetailTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
                 omNavigationClick = { },
-                onClickMenu = { onClickSideMenu(it) }
+                onClickMenu = { onClickSideMenu(it) },
             )
         },
         bottomBar = {
             LiquorDetailBottomBar(
-                bookmarkImg = if (isBookmark) {
+                bookmarkImg =
+                if (isBookmark) {
                     R.drawable.img_full_heart
                 } else {
                     R.drawable.img_empty_heart
                 },
-                onClickBookmark = onClickBookmark
+                onClickBookmark = onClickBookmark,
             )
         },
         containerColor = Color.White,
-        modifier = modifier
-            .fillMaxSize()
+        modifier =
+        modifier
+            .fillMaxSize(),
     ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             item {
                 LiquorInfoSection(
                     alcoholData = alcoholData,
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxWidth()
                         .padding(
                             top = LIQUOR_INFO_SECTION_TOP_PADDING_SIZE.dp,
-                            bottom = LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE.dp
+                            bottom = LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE.dp,
                         ),
                 )
             }
             item {
                 LiquorInfoDetailSection(
                     alcoholData = alcoholData,
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxWidth()
                         .padding(
-                            bottom = LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE.dp
+                            bottom = LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE.dp,
                         ),
                 )
             }
 
             item {
                 Column(
-                    modifier = Modifier.padding(
-                        vertical = BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING.dp
-                    )
+                    modifier =
+                    Modifier.padding(
+                        vertical = BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING.dp,
+                    ),
                 ) {
                     Text(
                         text = stringResource(R.string.text_blog_review),
                         fontSize = TEXT_BLOG_REVIEW_TITLE_FONT_SIZE.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(
-                            vertical = TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE.dp
-                        )
+                        modifier =
+                        Modifier.padding(
+                            vertical = TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE.dp,
+                        ),
                     )
 
                     Text(
@@ -172,12 +177,13 @@ fun LiquorDetailsScreen(
                         postingDates = blogData.postdate,
                         blogLink = blogData.link,
                         onClick = onClickBlog,
-                        modifier = Modifier.padding(
+                        modifier =
+                        Modifier.padding(
                             vertical = BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE.dp,
-                        )
+                        ),
                     )
                     HorizontalDivider(
-                        modifier = Modifier
+                        modifier = Modifier,
                     )
                 }
             }
@@ -189,7 +195,8 @@ fun LiquorDetailsScreen(
 @Composable
 private fun LiquorDetailsScreenPrev_beer() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.Beer(
+        alcoholData =
+        AlcoholData.Beer(
             id = 0,
             name = "카스",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -201,13 +208,13 @@ private fun LiquorDetailsScreenPrev_beer() {
             mouthfeel = 2.0f,
             aroma = 3.3f,
             type = "밀맥주",
-            country = "독일"
+            country = "독일",
         ),
         isDropDownMenuExpanded = false,
         isBookmark = true,
         onClickSideMenu = {},
         onClickBookmark = {},
-        modifier = Modifier.padding(horizontal = 16.dp)
+        modifier = Modifier.padding(horizontal = 16.dp),
     )
 }
 
@@ -215,7 +222,8 @@ private fun LiquorDetailsScreenPrev_beer() {
 @Composable
 private fun LiquorDetailsScreenPrev_wine() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.Wine(
+        alcoholData =
+        AlcoholData.Wine(
             id = 0,
             name = "피치니 키안티 리제르바 ‘꼴레지오네 오로’",
             imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_005_E.GuigalCotesduRhoneRouge.jpg",
@@ -230,12 +238,12 @@ private fun LiquorDetailsScreenPrev_wine() {
             type = "레드 와인",
             comment = "밝게 빛나는 진한 적색을 띠고 있으며 붉은 딸기 류의 풍부한 향과 스파이시한 노트가 느껴진다. 과일 아로마가 풍부하면서도 입 안에서 느껴지는 질감이 풀 바디한 스타일이다. 끝 맛에서 섬세하고 우아한 여운이 남아 좋은 균형감을 보여준다. 35년 된 포도나무에서 수확한 포도를 전통적인 방식으로 양조했으며 수확연도로부터 6~8년 정도 더 두고 숙성시켜 마실 수 있다.",
             pairingFood = "차가운 육류요리나 가금류, 붉은육류요리, 치즈",
-            winery = "이 기갈"
+            winery = "이 기갈",
         ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickSideMenu = {},
-        onClickBookmark = {}
+        onClickBookmark = {},
     )
 }
 
@@ -243,7 +251,8 @@ private fun LiquorDetailsScreenPrev_wine() {
 @Composable
 private fun LiquorDetailsScreenPrev_wine_liquor() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.TraditionalLiquor(
+        alcoholData =
+        AlcoholData.TraditionalLiquor(
             id = 0,
             name = "벗이랑 강황",
             imgUrl = "https://thesool.com/common/imageView.do?targetId=PR00000950&targetNm=PRODUCT",
@@ -255,12 +264,12 @@ private fun LiquorDetailsScreenPrev_wine_liquor() {
             type = "탁주(고도)",
             comment = "벗이랑은 대전시와 인근지역에서 자연자생 및 청정재배를 통해 채취한 강황, 버찌 등 건강에 이로운 자연식물로 세 번 빚은 삼양 생탁주이다. 색, 향, 미 세가지가 조화롭게 어우러진 프리미엄 삼양주로, 저온 숙성을 거쳐 목넘김이 부드럽고 바디감이 깊은 생탁주 이다.",
             pairingFood = "약과, 약밥, 송편 등 좋은 떡류나 고추장 불고기, 사천 탕수육 등을 추천한다.",
-            brewery = "석이원주조"
+            brewery = "석이원주조",
         ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickSideMenu = {},
-        onClickBookmark = {}
+        onClickBookmark = {},
     )
 }
 
@@ -268,7 +277,8 @@ private fun LiquorDetailsScreenPrev_wine_liquor() {
 @Composable
 private fun LiquorDetailsScreenPrev_whiskey() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.Wisky(
+        alcoholData =
+        AlcoholData.Wisky(
             id = 0,
             name = "와일드터키 8년",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",
@@ -280,12 +290,12 @@ private fun LiquorDetailsScreenPrev_whiskey() {
             taste = "달콤한 과일맛과 호밀의 강렬한 스파이스, 약한 시나몬, 팔각, 감초, 후추",
             aroma = "풍부한 꿀과 레몬, 버터스카치, 구운 오크",
             finish = "오크와 다크초콜렛의 긴 여운",
-            type = "버번 위스키"
+            type = "버번 위스키",
         ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickSideMenu = {},
-        onClickBookmark = {}
+        onClickBookmark = {},
     )
 }
 
@@ -293,7 +303,8 @@ private fun LiquorDetailsScreenPrev_whiskey() {
 @Composable
 private fun LiquorDetailsScreenPrev_sake() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.Sake(
+        alcoholData =
+        AlcoholData.Sake(
             id = 0,
             name = "츠루우메 유즈",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/11/45/1000000183/1000000183_detail_032.png",
@@ -309,7 +320,7 @@ private fun LiquorDetailsScreenPrev_sake() {
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickSideMenu = {},
-        onClickBookmark = {}
+        onClickBookmark = {},
     )
 }
 
@@ -317,7 +328,8 @@ private fun LiquorDetailsScreenPrev_sake() {
 @Composable
 private fun LiquorDetailsScreenPrev_soju() {
     LiquorDetailsScreen(
-        alcoholData = AlcoholData.Soju(
+        alcoholData =
+        AlcoholData.Soju(
             id = 0,
             name = "대선소주",
             imgUrl = "https://arqachylpmku8348141.cdn.ntruss.com/app/product/mst_product/8801137520018_L.jpg",
@@ -326,11 +338,11 @@ private fun LiquorDetailsScreenPrev_soju() {
             volume = "360ml",
             price = 1900,
             abv = "16.9%",
-            comment = "부산 지역에서 유명한 소주로, 깔끔한 맛이 특징"
+            comment = "부산 지역에서 유명한 소주로, 깔끔한 맛이 특징",
         ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickSideMenu = {},
-        onClickBookmark = {}
+        onClickBookmark = {},
     )
 }

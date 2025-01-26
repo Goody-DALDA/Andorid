@@ -5,8 +5,10 @@ import com.goody.dalda.data.BlogData
 import com.goody.dalda.data.remote.blog.NaverBlogDataSource
 import javax.inject.Inject
 
-class BlogRepositoryImpl @Inject constructor(
-    private val naverBlogDataSource: NaverBlogDataSource
+class BlogRepositoryImpl
+@Inject
+constructor(
+    private val naverBlogDataSource: NaverBlogDataSource,
 ) : BlogRepository {
     override suspend fun getBlogDataList(query: String): List<BlogData> {
         val blogSearchDto = naverBlogDataSource.getBlogData(query)
@@ -19,7 +21,7 @@ class BlogRepositoryImpl @Inject constructor(
                     description = it.description.replace("<b>", "").replace("</b>", ""),
                     bloggerName = it.bloggername,
                     bloggerLink = it.bloggerlink,
-                    postdate = it.postdate
+                    postdate = it.postdate,
                 )
             } ?: emptyList()
         } else {
@@ -32,4 +34,3 @@ class BlogRepositoryImpl @Inject constructor(
         private const val TAG = "BlogRepositoryImpl"
     }
 }
-

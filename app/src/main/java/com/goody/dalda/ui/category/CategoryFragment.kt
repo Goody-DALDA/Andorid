@@ -16,16 +16,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
-
     private val args: CategoryFragmentArgs by navArgs()
     private val viewModel: CategoryViewModel by viewModels()
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCategoryBinding
         get() = FragmentCategoryBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -36,13 +37,13 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                         onClickCard = { alcoholData ->
                             findNavController().navigate(
                                 CategoryFragmentDirections.actionCategoryFragmentToLiquorDetailsFragment(
-                                    alcoholData
-                                )
+                                    alcoholData,
+                                ),
                             )
                         },
                         onClickCamera = {
                             findNavController().navigate(
-                                CategoryFragmentDirections.actionCategoryFragmentToLabelSearchActivity()
+                                CategoryFragmentDirections.actionCategoryFragmentToLabelSearchActivity(),
                             )
                         },
                         modifier = Modifier,

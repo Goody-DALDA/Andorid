@@ -37,14 +37,17 @@ data class DrawerItem(
     val title: String,
     val selectIcon: ImageVector,
     val unSelectedIcon: ImageVector,
-    val badgeCount: Int? = null
+    val badgeCount: Int? = null,
 )
 
 @Composable
-fun Drawer(modifier: Modifier = Modifier, items: List<DrawerItem> = emptyList()) {
+fun Drawer(
+    modifier: Modifier = Modifier,
+    items: List<DrawerItem> = emptyList(),
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
+        color = MaterialTheme.colorScheme.background,
     ) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         val scope = rememberCoroutineScope()
@@ -55,7 +58,8 @@ fun Drawer(modifier: Modifier = Modifier, items: List<DrawerItem> = emptyList())
         ModalNavigationDrawer(
             drawerContent = {
                 ModalDrawerSheet(
-                    modifier = Modifier
+                    modifier =
+                    Modifier
                         .fillMaxHeight(),
                 ) {
                     items.forEachIndexed { index, item ->
@@ -72,21 +76,23 @@ fun Drawer(modifier: Modifier = Modifier, items: List<DrawerItem> = emptyList())
                             },
                             icon = {
                                 Icon(
-                                    imageVector = if (index == selectedItemIndex) {
+                                    imageVector =
+                                    if (index == selectedItemIndex) {
                                         item.selectIcon
                                     } else {
                                         item.unSelectedIcon
                                     },
-                                    contentDescription = item.title
+                                    contentDescription = item.title,
                                 )
                             },
-                            modifier = Modifier
-                                .padding(NavigationDrawerItemDefaults.ItemPadding)
+                            modifier =
+                            Modifier
+                                .padding(NavigationDrawerItemDefaults.ItemPadding),
                         )
                     }
                 }
             },
-            drawerState = drawerState
+            drawerState = drawerState,
         ) {
             Scaffold(
                 topBar = {
@@ -101,36 +107,36 @@ fun Drawer(modifier: Modifier = Modifier, items: List<DrawerItem> = emptyList())
             ) { innerPadding ->
                 Text(
                     text = "test",
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(innerPadding),
                 )
             }
         }
     }
 }
 
-
 @Preview
 @Composable
 private fun DrawerPreview() {
-    val items = listOf(
-        DrawerItem(
-            title = "Home",
-            selectIcon = Icons.Filled.Home,
-            unSelectedIcon = Icons.Outlined.Home
-        ),
-        DrawerItem(
-            title = "Info",
-            selectIcon = Icons.Filled.Info,
-            unSelectedIcon = Icons.Outlined.Info
-        ),
-        DrawerItem(
-            title = "Setting",
-            selectIcon = Icons.Filled.Settings,
-            unSelectedIcon = Icons.Outlined.Settings
+    val items =
+        listOf(
+            DrawerItem(
+                title = "Home",
+                selectIcon = Icons.Filled.Home,
+                unSelectedIcon = Icons.Outlined.Home,
+            ),
+            DrawerItem(
+                title = "Info",
+                selectIcon = Icons.Filled.Info,
+                unSelectedIcon = Icons.Outlined.Info,
+            ),
+            DrawerItem(
+                title = "Setting",
+                selectIcon = Icons.Filled.Settings,
+                unSelectedIcon = Icons.Outlined.Settings,
+            ),
         )
-    )
 
     Drawer(
-        items = items
+        items = items,
     )
 }

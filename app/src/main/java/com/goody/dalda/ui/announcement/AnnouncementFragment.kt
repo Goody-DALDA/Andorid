@@ -27,7 +27,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
-
     companion object {
         fun newInstance() = AnnouncementFragment()
     }
@@ -35,12 +34,11 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAnnouncementBinding
         get() = FragmentAnnouncementBinding::inflate
 
-
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         binding.fragmentAnnouncementComposeView.apply {
@@ -48,7 +46,8 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
             setContent {
                 MaterialTheme {
                     Scaffold(
-                        modifier = Modifier
+                        modifier =
+                        Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.onBackground),
                         topBar = {
@@ -56,25 +55,25 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
                                 title = { Text(text = "공지사항") },
                                 navigationIcon = {
                                     IconButton(
-                                        onClick = { findNavController().popBackStack() }
+                                        onClick = { findNavController().popBackStack() },
                                     ) {
                                         Icon(
                                             Icons.Filled.Close,
-                                            contentDescription = "close"
+                                            contentDescription = "close",
                                         )
                                     }
-                                }
+                                },
                             )
-                        }
+                        },
                     ) { innerPadding ->
                         AnnouncementScreen(
                             onClick = { post ->
                                 findNavController().navigate(
                                     R.id.action_announcementFragment_to_postDetailFragment,
-                                    bundleOf(PostDetailFragment.POST_KEY to post)
+                                    bundleOf(PostDetailFragment.POST_KEY to post),
                                 )
                             },
-                            Modifier.padding(innerPadding)
+                            Modifier.padding(innerPadding),
                         )
                     }
                 }
@@ -84,7 +83,10 @@ class AnnouncementFragment : BaseFragment<FragmentAnnouncementBinding>() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
     }
 }

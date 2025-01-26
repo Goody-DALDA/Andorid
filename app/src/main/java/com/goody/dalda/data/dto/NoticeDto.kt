@@ -5,7 +5,7 @@ import com.goody.dalda.ui.model.Post
 data class NoticeDto(
     val status: String,
     val message: String,
-    val data: List<PostDto>
+    val data: List<PostDto>,
 )
 
 data class PostDto(
@@ -14,7 +14,7 @@ data class PostDto(
     val content: String,
     val createdAt: String,
     val updatedAt: String,
-    val isActive: Boolean
+    val isActive: Boolean,
 )
 
 fun PostDto.asDomain() = Post(id, title, content, createdAt, updatedAt, isActive)

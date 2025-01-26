@@ -9,7 +9,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ConfettiViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
+class ConfettiViewModel
+@Inject
+constructor(private val repository: LoginRepository) : ViewModel() {
     fun fetchProfile() {
         viewModelScope.launch(Dispatchers.IO) {
             val profile = repository.getProfile()

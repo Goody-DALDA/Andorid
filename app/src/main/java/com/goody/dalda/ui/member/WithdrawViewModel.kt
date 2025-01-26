@@ -14,8 +14,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WithdrawViewModel @Inject constructor(private val repository: LoginRepository) : ViewModel() {
-
+class WithdrawViewModel
+@Inject
+constructor(private val repository: LoginRepository) : ViewModel() {
     companion object {
         private const val TAG = "WithdrawViewModel"
     }

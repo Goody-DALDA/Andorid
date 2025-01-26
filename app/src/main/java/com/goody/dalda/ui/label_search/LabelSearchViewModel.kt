@@ -15,9 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LabelSearchViewModel @Inject constructor(private val repository: AlcoholRepository) :
+class LabelSearchViewModel
+@Inject
+constructor(private val repository: AlcoholRepository) :
     ViewModel() {
-
     private val _state = MutableLiveData<UiState<List<SpiritsSearchResult>>>(UiState.Uninitialized)
     val state: LiveData<UiState<List<SpiritsSearchResult>>> get() = _state
 
@@ -35,14 +36,15 @@ class LabelSearchViewModel @Inject constructor(private val repository: AlcoholRe
             val spirit = alcoholDataList.firstOrNull()
 
             if (spirit != null) {
-                val results = listOf(
-                    SpiritsSearchResult(
-                        spirit.name,
-                        getCategory(spirit),
-                        spirit.abv,
-                        spirit.imgUrl
+                val results =
+                    listOf(
+                        SpiritsSearchResult(
+                            spirit.name,
+                            getCategory(spirit),
+                            spirit.abv,
+                            spirit.imgUrl,
+                        ),
                     )
-                )
                 _state.postValue(UiState.Success(results))
             } else {
                 _state.postValue(UiState.Empty)

@@ -44,10 +44,8 @@ import java.util.Locale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
 @AndroidEntryPoint
 class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
-
     private val viewModel: LabelSearchViewModel by viewModels()
     private var imageCapture: ImageCapture? = null
     private lateinit var photoFile: File
@@ -66,15 +64,15 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
             }
         }
 
-
     private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             // Handle Permission granted/rejected
             var permissionGranted = true
 
             permissions.entries.forEach {
-                if (it.key in REQUIRED_PERMISSIONS && !it.value)
+                if (it.key in REQUIRED_PERMISSIONS && !it.value) {
                     permissionGranted = false
+                }
             }
 
             if (permissionGranted) {
@@ -150,9 +148,10 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
     }
 
     private fun createCacheFile() {
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.KOREA)
-            .format(System.currentTimeMillis())
-        photoFile = File(cacheDir, "${name}.jpg")
+        val name =
+            SimpleDateFormat(FILENAME_FORMAT, Locale.KOREA)
+                .format(System.currentTimeMillis())
+        photoFile = File(cacheDir, "$name.jpg")
     }
 
     private fun setupCaptureClickListener() {
@@ -188,17 +187,18 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     super.onCaptureSuccess(image)
 
-                    val bitmap = image.toBitmap()
-                        .rotate(image.imageInfo.rotationDegrees.toFloat())
-                        .resizeWidth(binding.viewFinder)
-                        .cropBitmap(binding.viewFinder, binding.labelSearchGuideBox)
+                    val bitmap =
+                        image.toBitmap()
+                            .rotate(image.imageInfo.rotationDegrees.toFloat())
+                            .resizeWidth(binding.viewFinder)
+                            .cropBitmap(binding.viewFinder, binding.labelSearchGuideBox)
 
                     image.close()
 
                     val inputImage = InputImage.fromBitmap(bitmap, 0)
                     runTextRecognition(inputImage)
                 }
-            }
+            },
         )
     }
 
@@ -210,11 +210,12 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             // Preview
-            val preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
-                }
+            val preview =
+                Preview.Builder()
+                    .build()
+                    .also {
+                        it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                    }
 
             imageCapture = ImageCapture.Builder().build()
 
@@ -227,11 +228,12 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
             val cropRotation = ContextCompat.getDisplayOrDefault(this).rotation
 
             val viewPort = ViewPort.Builder(Rational(cropWidth, cropHeight), cropRotation).build()
-            val useCaseGroup = UseCaseGroup.Builder()
-                .addUseCase(preview)
-                .addUseCase(imageCapture!!)
-                .setViewPort(viewPort)
-                .build()
+            val useCaseGroup =
+                UseCaseGroup.Builder()
+                    .addUseCase(preview)
+                    .addUseCase(imageCapture!!)
+                    .setViewPort(viewPort)
+                    .build()
 
             try {
                 // Unbind use cases before rebinding
@@ -239,13 +241,13 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
-                    this, cameraSelector, useCaseGroup
+                    this,
+                    cameraSelector,
+                    useCaseGroup,
                 )
-
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
             }
-
         }, ContextCompat.getMainExecutor(this))
     }
 
@@ -253,11 +255,12 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         activityResultLauncher.launch(REQUIRED_PERMISSIONS)
     }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-            baseContext, it
-        ) == PackageManager.PERMISSION_GRANTED
-    }
+    private fun allPermissionsGranted() =
+        REQUIRED_PERMISSIONS.all {
+            ContextCompat.checkSelfPermission(
+                baseContext, it,
+            ) == PackageManager.PERMISSION_GRANTED
+        }
 
     /**
      * 텍스트 인식 감지기를 구성하고 processTextRecognitionResult 응답으로 함수를 호출
@@ -321,7 +324,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
                     val height = rect.bottom - rect.top
                     Log.d(
                         TAG,
-                        "kch [" + lines[j].text + "] rect Height : " + height
+                        "kch [" + lines[j].text + "] rect Height : " + height,
                     )
                 }
 
@@ -338,7 +341,10 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
 
     data class Piece(val text: String, val height: Int) {
         object HeightComparator : Comparator<Piece> {
-            override fun compare(o1: Piece, o2: Piece): Int {
+            override fun compare(
+                o1: Piece,
+                o2: Piece,
+            ): Int {
                 return o2.height.compareTo(o1.height)
             }
         }
@@ -349,7 +355,7 @@ class LabelSearchActivity : BaseActivity<ActivityLabelSearchBinding>() {
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private val REQUIRED_PERMISSIONS =
             mutableListOf(
-                Manifest.permission.CAMERA
+                Manifest.permission.CAMERA,
             ).apply {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     add(Manifest.permission.WRITE_EXTERNAL_STORAGE)

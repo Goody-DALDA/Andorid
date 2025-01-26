@@ -1,6 +1,5 @@
 package com.goody.dalda.di
 
-import com.goody.dalda.data.database.dao.BookmarkDao
 import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.local.BookmarkLocalDataSourceImpl
 import com.goody.dalda.data.local.PreferenceLocalDataSource
@@ -23,7 +22,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataSourceModule {
-
     @Binds
     abstract fun bindUserRemoteDataSource(dataSource: UserRemoteDataSourceImpl): UserRemoteDataSource
 

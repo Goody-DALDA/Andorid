@@ -27,23 +27,27 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        contents = listOf(
-            OnboardingContents(
-                R.drawable.img_onboarding_1,
-                getString(R.string.onboarding_first_guide)
-            ),
-            OnboardingContents(
-                R.drawable.img_onboarding_2,
-                getString(R.string.onboarding_second_guide)
-            ),
-            OnboardingContents(
-                R.drawable.img_onboarding_3,
-                getString(R.string.onboarding_third_guide)
+        contents =
+            listOf(
+                OnboardingContents(
+                    R.drawable.img_onboarding_1,
+                    getString(R.string.onboarding_first_guide),
+                ),
+                OnboardingContents(
+                    R.drawable.img_onboarding_2,
+                    getString(R.string.onboarding_second_guide),
+                ),
+                OnboardingContents(
+                    R.drawable.img_onboarding_3,
+                    getString(R.string.onboarding_third_guide),
+                ),
             )
-        )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setupViewPager()
         setupListener()
@@ -61,25 +65,27 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
         TabLayoutMediator(
             binding.fragmentOnboardingTabLayout,
-            binding.fragmentOnboardingViewPager
+            binding.fragmentOnboardingViewPager,
         ) { _, _ ->
             /**
              * FIXME : onConfigureTab 함수가 호출 되지 않음
              */
         }.attach()
 
-        binding.fragmentOnboardingTabLayout.addOnTabSelectedListener(object :
-            OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.position?.let { position ->
-                    binding.fragmentOnboardingGuideText.text = contents[position].guideText
+        binding.fragmentOnboardingTabLayout.addOnTabSelectedListener(
+            object :
+                OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.position?.let { position ->
+                        binding.fragmentOnboardingGuideText.text = contents[position].guideText
+                    }
                 }
-            }
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
+                override fun onTabReselected(tab: TabLayout.Tab?) {}
+            },
+        )
     }
 
     private fun setupListener() {
@@ -90,19 +96,23 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     }
 
     private fun autoScrolling() {
-        timer.schedule(object : TimerTask() {
-            override fun run() {
-                val nextItem = binding.fragmentOnboardingViewPager.currentItem + 1
-                val itemCount = binding.fragmentOnboardingViewPager.adapter!!.itemCount
-                binding.fragmentOnboardingViewPager.post {
-                    if (nextItem < itemCount) {
-                        binding.fragmentOnboardingViewPager.currentItem = nextItem
-                    } else {
-                        binding.fragmentOnboardingViewPager.currentItem = 0
+        timer.schedule(
+            object : TimerTask() {
+                override fun run() {
+                    val nextItem = binding.fragmentOnboardingViewPager.currentItem + 1
+                    val itemCount = binding.fragmentOnboardingViewPager.adapter!!.itemCount
+                    binding.fragmentOnboardingViewPager.post {
+                        if (nextItem < itemCount) {
+                            binding.fragmentOnboardingViewPager.currentItem = nextItem
+                        } else {
+                            binding.fragmentOnboardingViewPager.currentItem = 0
+                        }
                     }
                 }
-            }
-        }, DELAY_MILLISECOND, PERIOD_MILLISECOND)
+            },
+            DELAY_MILLISECOND,
+            PERIOD_MILLISECOND,
+        )
     }
 
     class OnboardingAdapter(fragment: Fragment, private val contents: List<OnboardingContents>) :
@@ -121,9 +131,9 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
         private const val PERIOD_MILLISECOND = 3000L
 
         @JvmStatic
-        fun newInstance() = OnboardingFragment().apply {
-            arguments = Bundle()
-        }
+        fun newInstance() =
+            OnboardingFragment().apply {
+                arguments = Bundle()
+            }
     }
 }
-

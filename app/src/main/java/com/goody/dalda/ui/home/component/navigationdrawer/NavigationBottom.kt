@@ -30,25 +30,27 @@ fun NavigationBottom(
 ) {
     // TODO 상태 호이스팅 - 버전 정보.
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         // 개인정보, 이용약관
         Row(
-            modifier = Modifier.height(30.dp), verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.height(30.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             AutoResizedText(
                 text = stringResource(R.string.text_personal_information_processing_policy),
-                modifier = Modifier.clickable { onClick(Menu.PrivacyPolicy) }
+                modifier = Modifier.clickable { onClick(Menu.PrivacyPolicy) },
             )
             VerticalDivider(
                 color = Color(0xffA9A9AD),
-                modifier = Modifier
+                modifier =
+                Modifier
                     .height(20.dp)
                     .padding(horizontal = 10.dp),
             )
             AutoResizedText(
                 text = stringResource(id = R.string.text_terms_and_conditions),
-                modifier = Modifier.clickable { onClick(Menu.TermsOfUse) }
+                modifier = Modifier.clickable { onClick(Menu.TermsOfUse) },
             )
         }
         // 인스타, 링크
@@ -59,12 +61,12 @@ fun NavigationBottom(
             Image(
                 imageVector = IconPack.IcLink,
                 contentDescription = stringResource(id = R.string.description_link_icon),
-                Modifier.clickable { onClick(Menu.Link) }
+                Modifier.clickable { onClick(Menu.Link) },
             )
             Image(
                 imageVector = IconPack.IcInsta,
                 contentDescription = stringResource(id = R.string.description_instagram_icon),
-                Modifier.clickable { onClick(Menu.Instagram) }
+                Modifier.clickable { onClick(Menu.Instagram) },
             )
         }
         // 카피라이트

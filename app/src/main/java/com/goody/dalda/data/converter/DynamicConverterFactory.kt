@@ -10,18 +10,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
 
 class DynamicConverterFactory : Converter.Factory() {
-
     private val gsonConverter = GsonConverterFactory.create()
 
-    private val alcoholGson = GsonBuilder()
-        .registerTypeAdapter(Data::class.java, DataDeserializer())
-        .create()
+    private val alcoholGson =
+        GsonBuilder()
+            .registerTypeAdapter(Data::class.java, DataDeserializer())
+            .create()
     private val alcoholGsonConverter = GsonConverterFactory.create(alcoholGson)
 
     override fun responseBodyConverter(
         type: Type,
         annotations: Array<out Annotation>,
-        retrofit: Retrofit
+        retrofit: Retrofit,
     ): Converter<ResponseBody, *>? {
         return if (type == AlcoholDataDto::class.java) {
             alcoholGsonConverter.responseBodyConverter(type, annotations, retrofit)

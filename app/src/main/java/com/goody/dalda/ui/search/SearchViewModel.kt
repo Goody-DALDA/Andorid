@@ -17,11 +17,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(
+class SearchViewModel
+@Inject
+constructor(
     private val alcoholRepository: AlcoholRepository,
-    private val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository,
 ) : ViewModel() {
-
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
 
@@ -31,16 +32,16 @@ class SearchViewModel @Inject constructor(
     private val _recommendAlcoholList = MutableStateFlow(emptyList<String>())
 
     @OptIn(FlowPreview::class)
-    val recommendAlcoholList = _recommendAlcoholList
-        .debounce(500L).stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(),
-            initialValue = emptyList()
-        )
+    val recommendAlcoholList =
+        _recommendAlcoholList
+            .debounce(500L).stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(),
+                initialValue = emptyList(),
+            )
 
     private val _searchResultList = MutableStateFlow(emptyList<AlcoholData>())
     val searchResultList: StateFlow<List<AlcoholData>> = _searchResultList
-
 
     private val _uiState = MutableStateFlow<SearchUiState>(SearchUiState.RecentSearch)
     val uiState: StateFlow<SearchUiState> = _uiState
@@ -55,15 +56,16 @@ class SearchViewModel @Inject constructor(
 
     fun fetchRecentSearchWordList(isDesc: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _recentSearchWordList.value = searchRepository
-                .getSearchWordList(
-                    isDesc = isDesc
-                )
+            _recentSearchWordList.value =
+                searchRepository
+                    .getSearchWordList(
+                        isDesc = isDesc,
+                    )
         }
     }
 
     fun insertSearchWord(searchWord: String) {
-        if(searchWord.isBlank()) return
+        if (searchWord.isBlank()) return
         viewModelScope.launch(Dispatchers.IO) {
             searchRepository.insertSearchWord(searchWord)
         }

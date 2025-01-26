@@ -4,5 +4,5 @@ data class Profile(
     val nickname: String = "",
     val email: String = "",
     val profileImg: String = "",
-    val isShowConfettiScreen: Boolean = false
+    val isShowConfettiScreen: Boolean = false,
 )
