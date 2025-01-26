@@ -1,4 +1,4 @@
-package com.goody.dalda.data.repository.home
+package com.goody.dalda.data.repository.alcohol
 
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.repository.SearchAlcoholData
