@@ -59,7 +59,7 @@ fun NavigationHeader(
 
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = "stringResource(id = R.string.description_close_icon)",
+                contentDescription = stringResource(id = R.string.description_close_icon),
                 modifier =
                 Modifier
                     .clickable { onClickCloseIcon() }

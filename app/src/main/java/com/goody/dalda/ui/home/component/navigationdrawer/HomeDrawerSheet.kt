@@ -33,9 +33,6 @@ fun HomeDrawerSheet(
                 title = stringResource(id = R.string.text_notice),
             ),
             DrawerItem(
-                title = stringResource(id = R.string.text_event),
-            ),
-            DrawerItem(
                 title = stringResource(id = R.string.text_inquire),
             ),
         )
@@ -93,7 +90,6 @@ fun HomeDrawerSheet(
 private fun convertTitleToMenu(title: String): Menu {
     return when (title) {
         "공지사항" -> Menu.Announcement
-        "이벤트" -> Menu.Event
         "문의하기" -> Menu.ContactUs
         else -> Menu.Announcement
     }
