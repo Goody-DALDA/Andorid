@@ -8,7 +8,7 @@ import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wine
-import com.goody.dalda.data.dto.home.Wisky
+import com.goody.dalda.data.dto.home.whisky
 import com.goody.dalda.data.dto.search.SearchData
 import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.mapper.AlcoholDataMapper.dataToAlcoholData
@@ -101,8 +101,8 @@ class AlcoholRepositoryImpl
                     return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Soju>())
                 }
 
-                "wisky" -> {
-                    return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Wisky>())
+                "whisky" -> {
+                    return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<whisky>())
                 }
 
                 "beer" -> {
@@ -133,7 +133,7 @@ class AlcoholRepositoryImpl
                 beerList = dataToAlcoholData(searchResultDto.beer).map { it as AlcoholData.Beer },
                 sakeList = dataToAlcoholData(searchResultDto.sake).map { it as AlcoholData.Sake },
                 wineList = dataToAlcoholData(searchResultDto.wine).map { it as AlcoholData.Wine },
-                wiskyList = dataToAlcoholData(searchResultDto.wisky).map { it as AlcoholData.Wisky },
+                whiskyList = dataToAlcoholData(searchResultDto.whisky).map { it as AlcoholData.Whisky },
                 traditionalLiquorList = dataToAlcoholData(searchResultDto.traditionalLiquor).map { it as AlcoholData.TraditionalLiquor },
             )
 

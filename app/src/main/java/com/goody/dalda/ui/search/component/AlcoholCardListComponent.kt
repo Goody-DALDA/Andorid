@@ -48,7 +48,7 @@ fun AlcoholCardListComponent(
 private fun AlcoholCardListComponentPreview() {
     val alcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

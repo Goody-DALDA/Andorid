@@ -6,7 +6,7 @@ import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wine
-import com.goody.dalda.data.dto.home.Wisky
+import com.goody.dalda.data.dto.home.whisky
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
@@ -28,9 +28,9 @@ class DataDeserializer : JsonDeserializer<Data> {
                 )
 
             jsonObject.has("aroma") && jsonObject.has("finish") ->
-                context.deserialize<Wisky>(
+                context.deserialize<whisky>(
                     json,
-                    Wisky::class.java,
+                    whisky::class.java,
                 )
 
             jsonObject.has("appearance") && jsonObject.has("mouthfeel") ->

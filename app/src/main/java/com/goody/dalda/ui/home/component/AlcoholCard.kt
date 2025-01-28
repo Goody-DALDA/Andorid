@@ -32,8 +32,8 @@ fun AlcoholCard(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier =
-        modifier
-            .clickable { onClick(alcoholData) },
+            modifier
+                .clickable { onClick(alcoholData) },
     ) {
         AsyncImage(
             model = alcoholData.imgUrl,
@@ -41,10 +41,10 @@ fun AlcoholCard(
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.FillHeight,
             modifier =
-            Modifier
-                .height(152.dp)
-                .fillMaxWidth()
-                .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
+                Modifier
+                    .height(152.dp)
+                    .fillMaxWidth()
+                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
         )
         AutoResizedText(
             text = alcoholData.name,
@@ -78,7 +78,7 @@ fun getTagImgRes(alcoholData: AlcoholData) =
         is AlcoholData.TraditionalLiquor -> R.drawable.tag_traditional_liquor
         is AlcoholData.Wine -> R.drawable.tag_wine
         is AlcoholData.Sake -> R.drawable.tag_sake
-        is AlcoholData.Wisky -> R.drawable.tag_whiskey
+        is AlcoholData.Whisky -> R.drawable.tag_whiskey
     }
 
 @Preview(showBackground = true)
@@ -86,14 +86,14 @@ fun getTagImgRes(alcoholData: AlcoholData) =
 private fun AlcoholCardPreview() {
     AlcoholCard(
         alcoholData =
-        AlcoholData.Soju(
-            id = 0,
-            name = "소주",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            volume = "355ml",
-            abv = "4.5%",
-            price = 1000,
-            comment = "맛있어요",
-        ),
+            AlcoholData.Soju(
+                id = 0,
+                name = "소주",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                volume = "355ml",
+                abv = "4.5%",
+                price = 1000,
+                comment = "맛있어요",
+            ),
     )
 }

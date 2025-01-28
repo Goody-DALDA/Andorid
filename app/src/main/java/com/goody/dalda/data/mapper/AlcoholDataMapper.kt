@@ -7,24 +7,23 @@ import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
 import com.goody.dalda.data.dto.home.Wine
-import com.goody.dalda.data.dto.home.Wisky
+import com.goody.dalda.data.dto.home.whisky
 
 object AlcoholDataMapper {
-    fun dataToAlcoholData(data: List<Data>): List<AlcoholData> {
-        return data.map {
+    fun dataToAlcoholData(data: List<Data>): List<AlcoholData> =
+        data.map {
             when (it) {
                 is Beer -> dataToBeer(it)
                 is Sake -> dataToSake(it)
-                is Wisky -> dataToWhisky(it)
+                is whisky -> dataToWhisky(it)
                 is Soju -> dataToSoju(it)
                 is Wine -> dataToWine(it)
                 is TraditionalLiquor -> dataToTraditionalLiquor(it)
             }
         }
-    }
 
-    private fun dataToBeer(data: Data): AlcoholData.Beer {
-        return (data as Beer).let {
+    private fun dataToBeer(data: Data): AlcoholData.Beer =
+        (data as Beer).let {
             AlcoholData.Beer(
                 id = it.id,
                 name = it.name,
@@ -38,10 +37,9 @@ object AlcoholDataMapper {
                 type = it.type,
             )
         }
-    }
 
-    private fun dataToSake(data: Data): AlcoholData.Sake {
-        return (data as Sake).let {
+    private fun dataToSake(data: Data): AlcoholData.Sake =
+        (data as Sake).let {
             if (it.taste.isEmpty()) {
                 println("dataToSake: ${it.name}")
             }
@@ -58,11 +56,10 @@ object AlcoholDataMapper {
                 volume = it.volume,
             )
         }
-    }
 
-    private fun dataToWhisky(data: Data): AlcoholData.Wisky {
-        return (data as Wisky).let {
-            AlcoholData.Wisky(
+    private fun dataToWhisky(data: Data): AlcoholData.Whisky =
+        (data as whisky).let {
+            AlcoholData.Whisky(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -76,10 +73,9 @@ object AlcoholDataMapper {
                 volume = it.volume,
             )
         }
-    }
 
-    private fun dataToSoju(data: Data): AlcoholData.Soju {
-        return (data as Soju).let {
+    private fun dataToSoju(data: Data): AlcoholData.Soju =
+        (data as Soju).let {
             AlcoholData.Soju(
                 id = it.id,
                 name = it.name,
@@ -90,10 +86,9 @@ object AlcoholDataMapper {
                 comment = it.comment,
             )
         }
-    }
 
-    private fun dataToWine(data: Data): AlcoholData.Wine {
-        return (data as Wine).let {
+    private fun dataToWine(data: Data): AlcoholData.Wine =
+        (data as Wine).let {
             AlcoholData.Wine(
                 id = it.id,
                 name = it.name,
@@ -111,10 +106,9 @@ object AlcoholDataMapper {
                 abv = "",
             )
         }
-    }
 
-    private fun dataToTraditionalLiquor(data: Data): AlcoholData.TraditionalLiquor {
-        return (data as TraditionalLiquor).let {
+    private fun dataToTraditionalLiquor(data: Data): AlcoholData.TraditionalLiquor =
+        (data as TraditionalLiquor).let {
             AlcoholData.TraditionalLiquor(
                 id = it.id,
                 name = it.name,
@@ -128,16 +122,15 @@ object AlcoholDataMapper {
                 brewery = it.brewery,
             )
         }
-    }
 
-    private fun extractNumber(strPrice: String): Int {
-        return if (strPrice.isEmpty()) {
+    private fun extractNumber(strPrice: String): Int =
+        if (strPrice.isEmpty()) {
             0
         } else {
-            strPrice.replace(
-                regex = "[^0-9]".toRegex(),
-                replacement = "",
-            ).toInt()
+            strPrice
+                .replace(
+                    regex = "[^0-9]".toRegex(),
+                    replacement = "",
+                ).toInt()
         }
-    }
 }

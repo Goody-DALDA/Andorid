@@ -28,14 +28,14 @@ sealed class AlcoholData(
         val aroma: Float,
         val type: String,
     ) : AlcoholData(
-        id = id,
-        name = name,
-        imgUrl = imgUrl,
-        country = country,
-        tag = tag,
-        volume = volume,
-        abv = abv,
-    )
+            id = id,
+            name = name,
+            imgUrl = imgUrl,
+            country = country,
+            tag = tag,
+            volume = volume,
+            abv = abv,
+        )
 
     data class Sake(
         override val id: Int,
@@ -50,14 +50,14 @@ sealed class AlcoholData(
         val aroma: String,
         val finish: String,
     ) : AlcoholData(
-        id = id,
-        name = name,
-        imgUrl = imgUrl,
-        country = country,
-        tag = tag,
-        volume = volume,
-        abv = abv,
-    )
+            id = id,
+            name = name,
+            imgUrl = imgUrl,
+            country = country,
+            tag = tag,
+            volume = volume,
+            abv = abv,
+        )
 
     data class Soju(
         override val id: Int,
@@ -70,14 +70,14 @@ sealed class AlcoholData(
         val price: Int,
         val comment: String,
     ) : AlcoholData(
-        id = id,
-        name = name,
-        imgUrl = imgUrl,
-        country = country,
-        tag = tag,
-        volume = volume,
-        abv = abv,
-    )
+            id = id,
+            name = name,
+            imgUrl = imgUrl,
+            country = country,
+            tag = tag,
+            volume = volume,
+            abv = abv,
+        )
 
     data class TraditionalLiquor(
         override val id: Int,
@@ -93,14 +93,14 @@ sealed class AlcoholData(
         val pairingFood: String,
         val brewery: String,
     ) : AlcoholData(
-        id = id,
-        name = name,
-        imgUrl = imgUrl,
-        country = country,
-        tag = tag,
-        volume = volume,
-        abv = abv,
-    )
+            id = id,
+            name = name,
+            imgUrl = imgUrl,
+            country = country,
+            tag = tag,
+            volume = volume,
+            abv = abv,
+        )
 
     data class Wine(
         override val id: Int,
@@ -119,16 +119,16 @@ sealed class AlcoholData(
         val pairingFood: String,
         val winery: String,
     ) : AlcoholData(
-        id = id,
-        name = name,
-        imgUrl = imgUrl,
-        country = country,
-        tag = tag,
-        volume = volume,
-        abv = abv,
-    )
+            id = id,
+            name = name,
+            imgUrl = imgUrl,
+            country = country,
+            tag = tag,
+            volume = volume,
+            abv = abv,
+        )
 
-    data class Wisky(
+    data class Whisky(
         override val id: Int,
         override val name: String,
         override val imgUrl: String,
@@ -142,12 +142,12 @@ sealed class AlcoholData(
         val finish: String,
         val type: String,
     ) : AlcoholData(
-        id = id,
-        name = name,
-        imgUrl = imgUrl,
-        country = country,
-        tag = tag,
-        volume = volume,
-        abv = abv,
-    )
+            id = id,
+            name = name,
+            imgUrl = imgUrl,
+            country = country,
+            tag = tag,
+            volume = volume,
+            abv = abv,
+        )
 }

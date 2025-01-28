@@ -49,9 +49,9 @@ fun SearchAlcoholTab(
                 onClick = { onClickTap(index) },
                 unselectedContentColor = Color.Gray,
                 modifier =
-                Modifier
-                    .background(Color.White)
-                    .padding(16.dp),
+                    Modifier
+                        .background(Color.White)
+                        .padding(16.dp),
             ) {
                 Row {
                     Text(
@@ -77,7 +77,7 @@ fun SearchAlcoholTab(
 private fun SearchAlcoholTabPrev() {
     val alcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -132,7 +132,8 @@ private fun SearchAlcoholTabPrev() {
 
     val category = alcoholDataList.map { getCategory(it) }.distinct()
     val categoryCount =
-        alcoholDataList.groupBy { getCategory(it) }
+        alcoholDataList
+            .groupBy { getCategory(it) }
             .mapValues { it.value.size }
     val pagerState = rememberPagerState { category.size }
 

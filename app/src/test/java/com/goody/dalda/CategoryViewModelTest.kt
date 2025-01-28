@@ -177,7 +177,7 @@ class CategoryViewModelTest {
         val actual =
             runCatching {
                 runTest {
-                    viewModel.fetchAlcoholData("wisky")
+                    viewModel.fetchAlcoholData("whisky")
                 }
             }
         // then : 오류가 없다.

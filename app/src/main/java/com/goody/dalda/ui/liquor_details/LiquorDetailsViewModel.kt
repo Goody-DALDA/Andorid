@@ -63,7 +63,7 @@ class LiquorDetailsViewModel
                     is AlcoholData.Soju -> TEXT_SOJU
                     is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
                     is AlcoholData.Wine -> TEXT_WINE
-                    is AlcoholData.Wisky -> TEXT_WISKY
+                    is AlcoholData.Whisky -> TEXT_WHISKY
                 }
             val query = "${alcoholData.name} $category"
             fetchBlogDataList(query)
@@ -75,7 +75,7 @@ class LiquorDetailsViewModel
             private const val TEXT_SOJU = "소주"
             private const val TEXT_TRADITIONAL_LIQUOR = "전통주"
             private const val TEXT_WINE = "와인"
-            private const val TEXT_WISKY = "위스키"
+            private const val TEXT_WHISKY = "위스키"
             private const val TEXT_SPACE = " "
             private const val TEXT_EMPTY = ""
         }

@@ -31,7 +31,7 @@ class LabelSearchViewModel
                 alcoholDataList.addAll(searchResult.sojuList)
                 alcoholDataList.addAll(searchResult.sakeList)
                 alcoholDataList.addAll(searchResult.wineList)
-                alcoholDataList.addAll(searchResult.wiskyList)
+                alcoholDataList.addAll(searchResult.whiskyList)
                 alcoholDataList.addAll(searchResult.traditionalLiquorList)
 
                 val spirit = alcoholDataList.firstOrNull()
@@ -59,7 +59,7 @@ class LabelSearchViewModel
                 is AlcoholData.Beer -> AlcoholType.BEER.alcoholName
                 is AlcoholData.Sake -> AlcoholType.SAKE.alcoholName
                 is AlcoholData.Wine -> AlcoholType.WINE.alcoholName
-                is AlcoholData.Wisky -> AlcoholType.WISKY.alcoholName
+                is AlcoholData.Whisky -> AlcoholType.WHISKY.alcoholName
                 is AlcoholData.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
             }
     }
