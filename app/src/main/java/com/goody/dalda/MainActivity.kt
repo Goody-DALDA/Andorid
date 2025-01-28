@@ -39,24 +39,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    private fun isBottomNavVisible(destinationId: Int): Boolean {
-        return when (destinationId) {
-            R.id.navigation_home, R.id.navigation_spirits_collection, R.id.navigation_undefined -> true
+    private fun isBottomNavVisible(destinationId: Int): Boolean =
+        when (destinationId) {
+            R.id.navigation_home, R.id.navigation_spirits_collection -> true
             else -> false
         }
-    }
 
     private fun setupPreDrawListener() {
         binding.root.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    return if (isReady) {
+                override fun onPreDraw(): Boolean =
+                    if (isReady) {
                         binding.root.viewTreeObserver.removeOnPreDrawListener(this)
                         true
                     } else {
                         false
                     }
-                }
             },
         )
     }
