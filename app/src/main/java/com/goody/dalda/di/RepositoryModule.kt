@@ -4,10 +4,10 @@ import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.data.repository.LoginRepositoryImpl
 import com.goody.dalda.data.repository.NoticeRepository
 import com.goody.dalda.data.repository.NoticeRepositoryImpl
+import com.goody.dalda.data.repository.alcohol.AlcoholRepository
+import com.goody.dalda.data.repository.alcohol.AlcoholRepositoryImpl
 import com.goody.dalda.data.repository.blog.BlogRepository
 import com.goody.dalda.data.repository.blog.BlogRepositoryImpl
-import com.goody.dalda.data.repository.home.AlcoholRepository
-import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
 import com.goody.dalda.data.repository.search.SearchRepository
 import com.goody.dalda.data.repository.search.SearchRepositoryImpl
 import dagger.Binds

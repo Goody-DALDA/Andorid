@@ -4,7 +4,7 @@ import com.goody.dalda.data.converter.DynamicConverterFactory
 import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSource
 import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
-import com.goody.dalda.data.repository.home.AlcoholRepositoryImpl
+import com.goody.dalda.data.repository.alcohol.AlcoholRepositoryImpl
 import com.goody.dalda.data.repository.search.SearchRepositoryImpl
 import com.goody.dalda.network.RetrofitService
 import com.goody.dalda.ui.home.FakeBookmarkLocalDataSourceImpl
@@ -33,7 +33,8 @@ class SearchViewModelTest {
         val baseUrl = server.url("")
 
         service =
-            Retrofit.Builder()
+            Retrofit
+                .Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(DynamicConverterFactory())
                 .build()
