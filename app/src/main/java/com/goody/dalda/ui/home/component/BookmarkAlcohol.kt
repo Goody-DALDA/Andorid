@@ -36,8 +36,8 @@ fun BookmarkAlcohol(
             actionText = stringResource(id = R.string.text_whole_view),
             onActionClick = { onActionClick() },
             modifier =
-            Modifier
-                .height(30.dp),
+                Modifier
+                    .height(30.dp),
         )
         if (bookmarkAlcoholDataList.isEmpty()) {
             Column(
@@ -48,27 +48,27 @@ fun BookmarkAlcohol(
                     contentDescription = "",
                     contentScale = ContentScale.FillWidth,
                     modifier =
-                    Modifier
-                        .height(150.dp)
-                        .width(150.dp)
-                        .align(Alignment.CenterHorizontally),
+                        Modifier
+                            .height(150.dp)
+                            .width(150.dp)
+                            .align(Alignment.CenterHorizontally),
                 )
 
                 Text(
                     text = stringResource(id = R.string.text_save_favorite_alcohol),
                     fontSize = 18.sp,
                     modifier =
-                    Modifier
-                        .align(Alignment.CenterHorizontally),
+                        Modifier
+                            .align(Alignment.CenterHorizontally),
                 )
             }
         } else {
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier =
-                Modifier
-                    .height(231.dp)
-                    .fillMaxWidth(),
+                    Modifier
+                        .height(231.dp)
+                        .fillMaxWidth(),
             ) {
                 items(bookmarkAlcoholDataList.size) { idx ->
                     AlcoholCard(
@@ -87,7 +87,7 @@ fun BookmarkAlcohol(
 private fun BookmarkAlcoholPreview() {
     val alcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

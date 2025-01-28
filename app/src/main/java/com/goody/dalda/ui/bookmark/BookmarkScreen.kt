@@ -65,8 +65,8 @@ fun BookmarkScreen(
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier =
-            Modifier
-                .padding(innerPadding),
+                Modifier
+                    .padding(innerPadding),
         ) {
             alcoholDataList.forEach {
                 item {
@@ -75,9 +75,9 @@ fun BookmarkScreen(
                         onClickCard = onClickCard,
                         onClickBookmark = onClickBookmark,
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(50.dp),
+                            Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
                     )
                 }
             }
@@ -90,7 +90,7 @@ fun BookmarkScreen(
 private fun BookMarkScreenPrev() {
     val alcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

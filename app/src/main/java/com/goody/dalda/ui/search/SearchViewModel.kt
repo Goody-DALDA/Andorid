@@ -93,7 +93,7 @@ class SearchViewModel
                 alcoholDataList.addAll(searchResult.sojuList)
                 alcoholDataList.addAll(searchResult.sakeList)
                 alcoholDataList.addAll(searchResult.wineList)
-                alcoholDataList.addAll(searchResult.wiskyList)
+                alcoholDataList.addAll(searchResult.whiskyList)
                 alcoholDataList.addAll(searchResult.traditionalLiquorList)
 
                 _searchResultList.value = alcoholDataList

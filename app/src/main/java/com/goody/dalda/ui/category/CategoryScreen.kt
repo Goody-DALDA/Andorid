@@ -106,9 +106,9 @@ fun CategoryScreen(
             onValueChange = onValueChange,
             onClickTrailingIcon = onClickTrailingIcon,
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = AppPaddingSize.HORIZONTAL.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = AppPaddingSize.HORIZONTAL.dp),
         )
 
         CategoryTab(
@@ -126,9 +126,9 @@ fun CategoryScreen(
         ) { currentPage ->
             AlcoholCardListComponent(
                 alcoholDataList =
-                alcoholDataListMap[category[currentPage]]?.filter {
-                    it.name.contains(query, ignoreCase = true)
-                } ?: emptyList(),
+                    alcoholDataListMap[category[currentPage]]?.filter {
+                        it.name.contains(query, ignoreCase = true)
+                    } ?: emptyList(),
                 onClickCard = onClickCard,
                 modifier = Modifier.fillMaxSize(),
             )
@@ -141,7 +141,7 @@ fun CategoryScreen(
 private fun CategoryScreenPrev() {
     val alcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

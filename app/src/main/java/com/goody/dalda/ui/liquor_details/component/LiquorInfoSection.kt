@@ -38,9 +38,9 @@ fun LiquorInfoSection(
             contentScale = ContentScale.FillHeight,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             modifier =
-            Modifier
-                .height(300.dp)
-                .fillMaxWidth(),
+                Modifier
+                    .height(300.dp)
+                    .fillMaxWidth(),
         )
 
         BasicInfo(
@@ -59,8 +59,8 @@ fun BasicInfo(
         is AlcoholData.Soju,
         is AlcoholData.Beer,
         is AlcoholData.Sake,
-        is AlcoholData.Wisky,
-            -> {
+        is AlcoholData.Whisky,
+        -> {
             BasicInfoWithCountry(
                 alcoholData = alcoholData,
                 modifier = modifier,
@@ -69,7 +69,7 @@ fun BasicInfo(
 
         is AlcoholData.TraditionalLiquor,
         is AlcoholData.Wine,
-            -> {
+        -> {
             BasicInfoWithBrewery(
                 alcoholData = alcoholData,
                 modifier = modifier,
@@ -199,16 +199,16 @@ fun SecondFloorText(
 private fun LiquorImageSectionPrev_soju() {
     LiquorInfoSection(
         alcoholData =
-        AlcoholData.Soju(
-            id = 7959,
-            name = "대선",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_soju,
-            volume = "100ml",
-            price = 2900,
-            abv = "18%",
-            comment = "소주임",
-        ),
+            AlcoholData.Soju(
+                id = 7959,
+                name = "대선",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_soju,
+                volume = "100ml",
+                price = 2900,
+                abv = "18%",
+                comment = "소주임",
+            ),
     )
 }
 
@@ -217,19 +217,19 @@ private fun LiquorImageSectionPrev_soju() {
 private fun LiquorImageSectionPrev_beer() {
     LiquorInfoSection(
         alcoholData =
-        AlcoholData.Beer(
-            id = 7959,
-            name = "1664 블랑",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_beer,
-            abv = "18%",
-            appearance = 18f,
-            flavor = 18f,
-            mouthfeel = 18f,
-            aroma = 18f,
-            country = "독일",
-            type = "밀맥주",
-        ),
+            AlcoholData.Beer(
+                id = 7959,
+                name = "1664 블랑",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_beer,
+                abv = "18%",
+                appearance = 18f,
+                flavor = 18f,
+                mouthfeel = 18f,
+                aroma = 18f,
+                country = "독일",
+                type = "밀맥주",
+            ),
     )
 }
 
@@ -238,19 +238,19 @@ private fun LiquorImageSectionPrev_beer() {
 private fun LiquorImageSectionPrev_sake() {
     LiquorInfoSection(
         alcoholData =
-        AlcoholData.Sake(
-            id = 7959,
-            name = "닷사이 준마이 다이긴죠 23",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_sake,
-            volume = "360ml",
-            price = 200000,
-            abv = "18%",
-            taste = "달콤함",
-            aroma = "향기",
-            finish = "맛",
-            country = "일본",
-        ),
+            AlcoholData.Sake(
+                id = 7959,
+                name = "닷사이 준마이 다이긴죠 23",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_sake,
+                volume = "360ml",
+                price = 200000,
+                abv = "18%",
+                taste = "달콤함",
+                aroma = "향기",
+                finish = "맛",
+                country = "일본",
+            ),
     )
 }
 
@@ -259,22 +259,22 @@ private fun LiquorImageSectionPrev_sake() {
 private fun LiquorImageSectionPrev_wine() {
     LiquorInfoSection(
         alcoholData =
-        AlcoholData.Wine(
-            id = 0,
-            name = "이기갈 꼬뜨 뒤 론 화이트",
-            imgUrl = "http://www.bing.com/search?q=sagittis",
-            tag = R.drawable.tag_wine,
-            volume = "750ml",
-            abv = "",
-            country = "프랑스",
-            ingredient = "",
-            mouthfeel = 0.0f,
-            sugar = 0.0f,
-            acid = 0.0f,
-            type = "",
-            comment = "",
-            pairingFood = "",
-            winery = "",
-        ),
+            AlcoholData.Wine(
+                id = 0,
+                name = "이기갈 꼬뜨 뒤 론 화이트",
+                imgUrl = "http://www.bing.com/search?q=sagittis",
+                tag = R.drawable.tag_wine,
+                volume = "750ml",
+                abv = "",
+                country = "프랑스",
+                ingredient = "",
+                mouthfeel = 0.0f,
+                sugar = 0.0f,
+                acid = 0.0f,
+                type = "",
+                comment = "",
+                pairingFood = "",
+                winery = "",
+            ),
     )
 }

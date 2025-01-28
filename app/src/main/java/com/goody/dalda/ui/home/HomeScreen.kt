@@ -150,9 +150,9 @@ fun HomeScreen(
         ) {
             Scaffold(
                 modifier =
-                Modifier.padding(
-                    horizontal = AppPaddingSize.HORIZONTAL.dp,
-                ),
+                    Modifier.padding(
+                        horizontal = AppPaddingSize.HORIZONTAL.dp,
+                    ),
                 topBar = {
                     HomeTopBar(
                         onClickMenu = onClickMenu,
@@ -162,27 +162,27 @@ fun HomeScreen(
             ) { innerPadding ->
                 Column(
                     modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                        .verticalScroll(rememberScrollState()),
+                        Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                            .verticalScroll(rememberScrollState()),
                 ) {
                     HomeBanner(
                         authState = authState,
                         modifier =
-                        Modifier
-                            .padding(bottom = 30.dp)
-                            .fillMaxWidth()
-                            .height(120.dp),
+                            Modifier
+                                .padding(bottom = 30.dp)
+                                .fillMaxWidth()
+                                .height(120.dp),
                         onClickLogin = onClickLogin,
                     )
 
                     Image(
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 16.dp)
-                            .clickable { onClickSearch() },
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 16.dp)
+                                .clickable { onClickSearch() },
                         contentScale = ContentScale.FillWidth,
                         painter = painterResource(id = R.drawable.img_search_bar),
                         contentDescription = null,
@@ -190,20 +190,20 @@ fun HomeScreen(
 
                     AlcoholCategory(
                         modifier =
-                        Modifier
-                            .padding(bottom = 40.dp)
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
+                            Modifier
+                                .padding(bottom = 40.dp)
+                                .fillMaxWidth()
+                                .wrapContentHeight(),
                         rowCount = categoryRowMaxCount,
                         onClickAlcohol = onClickAlcohol,
                     )
 
                     BookmarkAlcohol(
                         modifier =
-                        Modifier
-                            .wrapContentHeight()
-                            .padding(bottom = 40.dp)
-                            .fillMaxWidth(),
+                            Modifier
+                                .wrapContentHeight()
+                                .padding(bottom = 40.dp)
+                                .fillMaxWidth(),
                         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                         onActionClick = onClickBookmark,
                         onClickCard = onClickCard,
@@ -211,11 +211,11 @@ fun HomeScreen(
 
                     AlcoholRecommendation(
                         modifier =
-                        Modifier
-                            .padding(bottom = 40.dp)
-                            .alpha(0f)
-                            .wrapContentHeight()
-                            .fillMaxWidth(),
+                            Modifier
+                                .padding(bottom = 40.dp)
+                                .alpha(0f)
+                                .wrapContentHeight()
+                                .fillMaxWidth(),
                         recommendAlcoholList = recommendAlcoholList,
                         onActionClick = { /*TODO*/ },
                         onContentsClick = { /*TODO*/ },
@@ -233,7 +233,7 @@ private fun HomeScreenPreview() {
     val userEmail = "nei@gmail.com"
     val bookmarkAlcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

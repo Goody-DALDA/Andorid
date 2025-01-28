@@ -2,7 +2,7 @@
   "status": "SUCCESS",
   "message": "검색 결과 리턴",
   "data": {
-    "wisky": [
+    "whisky": [
       {
         "id": 74,
         "name": "오켄토션 소비뇽 블랑",

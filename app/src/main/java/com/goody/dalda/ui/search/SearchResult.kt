@@ -29,16 +29,17 @@ fun SearchResult(
 ) {
     val category = alcoholDataList.map { getCategory(it) }.distinct()
     val categoryCount =
-        alcoholDataList.groupBy { getCategory(it) }
+        alcoholDataList
+            .groupBy { getCategory(it) }
             .mapValues { it.value.size }
     val pagerState = rememberPagerState(pageCount = { category.size })
     val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(Color.White),
+            modifier
+                .fillMaxSize()
+                .background(Color.White),
     ) {
         if (alcoholDataList.isEmpty()) {
             RequestAdditional()
@@ -61,8 +62,8 @@ fun SearchResult(
             ) {
                 AlcoholCardListComponent(
                     alcoholDataList =
-                    alcoholDataList
-                        .filter { getCategory(it) == category[pagerState.currentPage] },
+                        alcoholDataList
+                            .filter { getCategory(it) == category[pagerState.currentPage] },
                     footer = {
                         OtherAlcoholRecommend(
                             category = category[pagerState.currentPage],
@@ -77,23 +78,22 @@ fun SearchResult(
     }
 }
 
-fun getCategory(alcoholData: AlcoholData): String {
-    return when (alcoholData) {
+fun getCategory(alcoholData: AlcoholData): String =
+    when (alcoholData) {
         is AlcoholData.Soju -> AlcoholType.SOJU.alcoholName
         is AlcoholData.Beer -> AlcoholType.BEER.alcoholName
         is AlcoholData.Sake -> AlcoholType.SAKE.alcoholName
         is AlcoholData.Wine -> AlcoholType.WINE.alcoholName
-        is AlcoholData.Wisky -> AlcoholType.WISKY.alcoholName
+        is AlcoholData.Whisky -> AlcoholType.WHISKY.alcoholName
         is AlcoholData.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
     }
-}
 
 @Preview(showBackground = true)
 @Composable
 private fun SearchResultPreview() {
     val alcoholDataList =
         listOf(
-            AlcoholData.Wisky(
+            AlcoholData.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
