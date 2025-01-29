@@ -33,7 +33,6 @@ import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
 import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
 
-private const val CONTENT_HORIZONTAL_PADDING_SIZE = 16
 private const val LIQUOR_INFO_SECTION_TOP_PADDING_SIZE = 16
 private const val LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE = 8
 private const val LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE = 20
@@ -47,6 +46,7 @@ private const val TEXT_BLOG_REVIEW_SUB_TITLE_FONT_SIZE = 12
 fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
     onClickBlog: (String) -> Unit = {},
+    onClickBackIcon: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: LiquorDetailsViewModel = viewModel(),
 ) {
@@ -66,6 +66,7 @@ fun LiquorDetailsScreen(
         isDropDownMenuExpanded = isDropDownMenuExpanded,
         isBookmark = isBookmark,
         blogDataList = blogDataList,
+        onClickBackIcon = onClickBackIcon,
         onClickSideMenu = { isDropDownMenuExpanded = it },
         onClickBookmark = {
             if (isBookmark) {
@@ -86,6 +87,7 @@ fun LiquorDetailsScreen(
     isDropDownMenuExpanded: Boolean,
     isBookmark: Boolean,
     blogDataList: List<BlogData> = emptyList(),
+    onClickBackIcon: () -> Unit,
     onClickSideMenu: (Boolean) -> Unit,
     onClickBookmark: () -> Unit,
     onClickBlog: (String) -> Unit = {},
@@ -95,7 +97,7 @@ fun LiquorDetailsScreen(
         topBar = {
             LiquorDetailTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
-                omNavigationClick = { },
+                omNavigationClick = onClickBackIcon,
                 onClickMenu = { onClickSideMenu(it) },
             )
         },
@@ -210,6 +212,7 @@ private fun LiquorDetailsScreenPrev_beer() {
                 type = "밀맥주",
                 country = "독일",
             ),
+        onClickBackIcon = {},
         isDropDownMenuExpanded = false,
         isBookmark = true,
         onClickSideMenu = {},
@@ -240,6 +243,7 @@ private fun LiquorDetailsScreenPrev_wine() {
                 pairingFood = "차가운 육류요리나 가금류, 붉은육류요리, 치즈",
                 winery = "이 기갈",
             ),
+        onClickBackIcon = {},
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickSideMenu = {},
@@ -268,6 +272,7 @@ private fun LiquorDetailsScreenPrev_wine_liquor() {
             ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
+        onClickBackIcon = {},
         onClickSideMenu = {},
         onClickBookmark = {},
     )
@@ -294,6 +299,7 @@ private fun LiquorDetailsScreenPrev_whiskey() {
             ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
+        onClickBackIcon = {},
         onClickSideMenu = {},
         onClickBookmark = {},
     )
@@ -319,6 +325,7 @@ private fun LiquorDetailsScreenPrev_sake() {
             ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
+        onClickBackIcon = {},
         onClickSideMenu = {},
         onClickBookmark = {},
     )
@@ -342,6 +349,7 @@ private fun LiquorDetailsScreenPrev_soju() {
             ),
         isDropDownMenuExpanded = false,
         isBookmark = false,
+        onClickBackIcon = {},
         onClickSideMenu = {},
         onClickBookmark = {},
     )

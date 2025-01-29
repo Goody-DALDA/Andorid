@@ -37,6 +37,7 @@ import kotlinx.coroutines.launch
 fun CategoryScreen(
     alcoholType: AlcoholType,
     onClickCard: (AlcoholData) -> Unit = {},
+    onClickBackIcon: () -> Unit = {},
     onClickCamera: () -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: CategoryViewModel = viewModel(),
@@ -72,6 +73,7 @@ fun CategoryScreen(
         category = category,
         alcoholDataListMap = alcoholDataListNew,
         onValueChange = { viewModel.setQuery(it) },
+        onClickBackIcon = onClickBackIcon,
         onClickCategory = { index ->
             coroutineScope.launch {
                 pagerState.animateScrollToPage(index)
@@ -90,6 +92,7 @@ fun CategoryScreen(
     category: List<String> = emptyList(),
     alcoholDataListMap: Map<String, List<AlcoholData>> = emptyMap(),
     onValueChange: (String) -> Unit = {},
+    onClickBackIcon: () -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickTrailingIcon: () -> Unit = {},
@@ -104,6 +107,7 @@ fun CategoryScreen(
             leadingIcon = Icons.Outlined.Search,
             trailingIcon = IconPack.IcCamera,
             onValueChange = onValueChange,
+            onClickBackIcon = onClickBackIcon,
             onClickTrailingIcon = onClickTrailingIcon,
             modifier =
                 Modifier

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentLiquorDetailsBinding
@@ -36,6 +37,9 @@ class LiquorDetailsFragment : BaseFragment<FragmentLiquorDetailsBinding>() {
                     onClickBlog = {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
                         startActivity(intent)
+                    },
+                    onClickBackIcon = {
+                        findNavController().popBackStack()
                     },
                     modifier = Modifier,
                     viewModel = viewModel,
