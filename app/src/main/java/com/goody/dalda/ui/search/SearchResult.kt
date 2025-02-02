@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SearchResult(
     alcoholDataList: List<AlcoholData> = emptyList(),
+    onClickRequest: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickFooter: (String) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -42,7 +43,9 @@ fun SearchResult(
                 .background(Color.White),
     ) {
         if (alcoholDataList.isEmpty()) {
-            RequestAdditional()
+            RequestAdditional(
+                onClickRequest = onClickRequest,
+            )
         } else {
             SearchAlcoholTab(
                 pagerState = pagerState,

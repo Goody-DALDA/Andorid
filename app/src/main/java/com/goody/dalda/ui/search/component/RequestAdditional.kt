@@ -21,15 +21,15 @@ import com.goody.dalda.ui.component.OrangeColorButton
 @Composable
 fun RequestAdditional(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClickRequest: () -> Unit = {},
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier =
-        modifier
-            .padding(vertical = 20.dp)
-            .fillMaxWidth(),
+            modifier
+                .padding(vertical = 20.dp)
+                .fillMaxWidth(),
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_break_glass),
@@ -43,7 +43,7 @@ fun RequestAdditional(
         )
         OrangeColorButton(
             text = stringResource(id = R.string.text_request_additional),
-            onClick = onClick,
+            onClick = onClickRequest,
         )
     }
 }

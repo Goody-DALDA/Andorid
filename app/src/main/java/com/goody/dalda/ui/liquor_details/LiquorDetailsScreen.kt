@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.goody.dalda.LiquorDetailsSideMenuItem
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.BlogData
@@ -47,6 +48,7 @@ fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
     onClickBlog: (String) -> Unit = {},
     onClickBackIcon: () -> Unit = {},
+    onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: LiquorDetailsViewModel = viewModel(),
 ) {
@@ -68,6 +70,7 @@ fun LiquorDetailsScreen(
         blogDataList = blogDataList,
         onClickBackIcon = onClickBackIcon,
         onClickSideMenu = { isDropDownMenuExpanded = it },
+        onClickMenu = onClickMenu,
         onClickBookmark = {
             if (isBookmark) {
                 viewModel.deleteBookMark(alcoholData)
@@ -89,6 +92,7 @@ fun LiquorDetailsScreen(
     blogDataList: List<BlogData> = emptyList(),
     onClickBackIcon: () -> Unit,
     onClickSideMenu: (Boolean) -> Unit,
+    onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
     onClickBookmark: () -> Unit,
     onClickBlog: (String) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -98,7 +102,8 @@ fun LiquorDetailsScreen(
             LiquorDetailTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
                 omNavigationClick = onClickBackIcon,
-                onClickMenu = { onClickSideMenu(it) },
+                onClickSideMenu = { onClickSideMenu(it) },
+                onClickMenu = onClickMenu
             )
         },
         bottomBar = {
