@@ -41,6 +41,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                                 ),
                             )
                         },
+                        onClickBackIcon = {
+                            findNavController().popBackStack()
+                        },
                         onClickCamera = {
                             findNavController().navigate(
                                 CategoryFragmentDirections.actionCategoryFragmentToLabelSearchActivity(),

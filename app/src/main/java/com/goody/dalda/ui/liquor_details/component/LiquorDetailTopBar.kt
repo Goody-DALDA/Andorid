@@ -5,7 +5,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,14 +18,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.goody.dalda.LiquorDetailsSideMenuItem
 import com.goody.dalda.R
+import com.goody.dalda.RequestInfoModify
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LiquorDetailTopBar(
     isDropDownMenuExpanded: Boolean = false,
     omNavigationClick: () -> Unit = {},
-    onClickMenu: (Boolean) -> Unit = {},
+    onClickSideMenu: (Boolean) -> Unit = {},
+    onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -35,13 +37,13 @@ fun LiquorDetailTopBar(
             IconButton(onClick = omNavigationClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = stringResource(id = R.string.icon_menu),
+                    contentDescription = stringResource(id = R.string.description_back_icon),
                 )
             }
         },
         actions = {
             IconButton(
-                onClick = { onClickMenu(!isDropDownMenuExpanded) },
+                onClick = { onClickSideMenu(!isDropDownMenuExpanded) },
             ) {
                 Icon(
                     imageVector = Icons.Filled.MoreVert,
@@ -51,7 +53,7 @@ fun LiquorDetailTopBar(
 
             DropdownMenu(
                 expanded = isDropDownMenuExpanded,
-                onDismissRequest = { onClickMenu(false) },
+                onDismissRequest = { onClickSideMenu(false) },
             ) {
                 DropdownMenuItem(
                     text = {
@@ -66,35 +68,17 @@ fun LiquorDetailTopBar(
                         )
                     },
                     onClick = {
-                        // TODO: Handle "정보 수정 요청하기" action
-                        onClickMenu(false)
-                    },
-                )
-
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            stringResource(id = R.string.text_drop_down_menu_share),
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.Share,
-                            contentDescription = stringResource(id = R.string.icon_menu),
-                        )
-                    },
-                    onClick = {
-                        // TODO: Handle "공유하기" action
-                        onClickMenu(false)
+                        onClickMenu(RequestInfoModify)
+                        onClickSideMenu(false)
                     },
                 )
             }
         },
         colors =
-        TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color.White,
-            titleContentColor = Color.Black,
-        ),
+            TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color.White,
+                titleContentColor = Color.Black,
+            ),
         modifier = modifier.fillMaxWidth(),
     )
 }

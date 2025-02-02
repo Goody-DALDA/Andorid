@@ -3,7 +3,7 @@ package com.goody.dalda.ui.search
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
@@ -30,6 +30,7 @@ fun SearchScreen(
     onClickCard: (AlcoholData) -> Unit = {},
     onClickFooter: (AlcoholType) -> Unit = {},
     onClickCamera: () -> Unit = {},
+    onClickRequest: () -> Unit = {},
     modifier: Modifier,
 ) {
     val query by viewModel.query.collectAsStateWithLifecycle()
@@ -67,6 +68,7 @@ fun SearchScreen(
             viewModel.insertSearchWord(it)
         },
         onClickCamera = onClickCamera,
+        onClickRequest = onClickRequest,
         onClickCard = onClickCard,
         onClickClear = {
             viewModel.deleteAllSearchWord()
@@ -94,6 +96,7 @@ fun SearchScreen(
     onClickBack: () -> Unit = {},
     onSearch: (String) -> Unit = {},
     onClickCamera: () -> Unit = {},
+    onClickRequest: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickClear: () -> Unit = {},
     onClickFooter: (String) -> Unit = {},
@@ -115,8 +118,8 @@ fun SearchScreen(
                 onClickLeadingIcon = onSearch,
                 onClickTrailingIcon = onClickCamera,
                 modifier =
-                Modifier
-                    .fillMaxWidth(),
+                    Modifier
+                        .fillMaxWidth(),
             )
 
             when (uiState) {
@@ -143,6 +146,7 @@ fun SearchScreen(
                     SearchResult(
                         modifier = Modifier,
                         alcoholDataList = searchResultList,
+                        onClickRequest = onClickRequest,
                         onClickCard = onClickCard,
                         onClickFooter = onClickFooter,
                     )
