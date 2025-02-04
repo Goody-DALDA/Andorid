@@ -7,8 +7,8 @@ import com.goody.dalda.data.dto.home.Beer
 import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
+import com.goody.dalda.data.dto.home.Whisky
 import com.goody.dalda.data.dto.home.Wine
-import com.goody.dalda.data.dto.home.whisky
 import com.goody.dalda.data.dto.search.SearchData
 import com.goody.dalda.data.local.BookmarkLocalDataSource
 import com.goody.dalda.data.mapper.AlcoholDataMapper.dataToAlcoholData
@@ -102,7 +102,7 @@ class AlcoholRepositoryImpl
                 }
 
                 "whisky" -> {
-                    return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<whisky>())
+                    return dataToAlcoholData(alcoholDataDto.alcoholDataList.filterIsInstance<Whisky>())
                 }
 
                 "beer" -> {

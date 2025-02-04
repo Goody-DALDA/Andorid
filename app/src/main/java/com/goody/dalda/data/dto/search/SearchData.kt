@@ -8,5 +8,5 @@ data class SearchData(
     val soju: List<Soju>,
     val traditionalLiquor: List<TraditionalLiquor>,
     val wine: List<Wine>,
-    val whisky: List<whisky>,
+    val whisky: List<Whisky>,
 )
