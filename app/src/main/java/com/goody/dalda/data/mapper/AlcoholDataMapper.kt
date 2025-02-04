@@ -6,8 +6,8 @@ import com.goody.dalda.data.dto.home.Data
 import com.goody.dalda.data.dto.home.Sake
 import com.goody.dalda.data.dto.home.Soju
 import com.goody.dalda.data.dto.home.TraditionalLiquor
+import com.goody.dalda.data.dto.home.Whisky
 import com.goody.dalda.data.dto.home.Wine
-import com.goody.dalda.data.dto.home.whisky
 
 object AlcoholDataMapper {
     fun dataToAlcoholData(data: List<Data>): List<AlcoholData> =
@@ -15,7 +15,7 @@ object AlcoholDataMapper {
             when (it) {
                 is Beer -> dataToBeer(it)
                 is Sake -> dataToSake(it)
-                is whisky -> dataToWhisky(it)
+                is Whisky -> dataToWhisky(it)
                 is Soju -> dataToSoju(it)
                 is Wine -> dataToWine(it)
                 is TraditionalLiquor -> dataToTraditionalLiquor(it)
@@ -58,7 +58,7 @@ object AlcoholDataMapper {
         }
 
     private fun dataToWhisky(data: Data): AlcoholData.Whisky =
-        (data as whisky).let {
+        (data as Whisky).let {
             AlcoholData.Whisky(
                 id = it.id,
                 name = it.name,

@@ -12,8 +12,7 @@ plugins {
     alias(libs.plugins.ktlint)
 }
 
-fun getApiKey(propertyKey: String): String =
-    gradleLocalProperties(rootDir, providers).getProperty(propertyKey)
+fun getApiKey(propertyKey: String): String = gradleLocalProperties(rootDir, providers).getProperty(propertyKey)
 
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
@@ -112,7 +111,9 @@ dependencies {
     implementation(libs.squareup.retrofit2.retrofit)
     implementation(libs.squareup.retrofit2.converter.gson)
     implementation(libs.squareup.okhttp3.logging.interceptor)
+    implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.google.gson)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

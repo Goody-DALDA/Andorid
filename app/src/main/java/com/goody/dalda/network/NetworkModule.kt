@@ -14,73 +14,68 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private fun getLoggingInterceptor(): HttpLoggingInterceptor {
-        return if (BuildConfig.DEBUG) {
+    private fun getLoggingInterceptor(): HttpLoggingInterceptor =
+        if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         } else {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
         }
-    }
 
     @Singleton
     @Provides
     @DaldaOkHttp
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun provideOkHttpClient(): OkHttpClient =
+        OkHttpClient
+            .Builder()
             .addInterceptor(getLoggingInterceptor())
             .addNetworkInterceptor(HeaderInterceptor())
             .build()
-    }
 
     @Singleton
     @Provides
     @NaverSearchOkHttp
-    fun provideNaverSearchOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun provideNaverSearchOkHttpClient(): OkHttpClient =
+        OkHttpClient
+            .Builder()
             .addInterceptor(getLoggingInterceptor())
             .addNetworkInterceptor(NaverSearchHeaderInterceptor())
             .build()
-    }
 
     @Singleton
     @Provides
     @DaldaRetrofit
     fun provideRetrofit(
         @DaldaOkHttp okHttpClient: OkHttpClient,
-    ): Retrofit {
-        return Retrofit.Builder()
+    ): Retrofit =
+        Retrofit
+            .Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.SERVER_API_URL)
             .addConverterFactory(DynamicConverterFactory())
             .build()
-    }
 
     @Singleton
     @Provides
     @NaverSearchRetrofit
     fun provideNaverSearchRetrofit(
         @NaverSearchOkHttp okHttpClient: OkHttpClient,
-    ): Retrofit {
-        return Retrofit.Builder()
+    ): Retrofit =
+        Retrofit
+            .Builder()
             .client(okHttpClient)
             .baseUrl(BuildConfig.NAVER_SEARCH_API_URL)
             .addConverterFactory(DynamicConverterFactory())
             .build()
-    }
 
     @Provides
     @Singleton
     fun provideRetrofitService(
         @DaldaRetrofit retrofit: Retrofit,
-    ): RetrofitService {
-        return retrofit.create(RetrofitService::class.java)
-    }
+    ): RetrofitService = retrofit.create(RetrofitService::class.java)
 
     @Provides
     @Singleton
     fun provideNaverSearchRetrofitService(
         @NaverSearchRetrofit retrofit: Retrofit,
-    ): NaverSearchRetrofitService {
-        return retrofit.create(NaverSearchRetrofitService::class.java)
-    }
+    ): NaverSearchRetrofitService = retrofit.create(NaverSearchRetrofitService::class.java)
 }
