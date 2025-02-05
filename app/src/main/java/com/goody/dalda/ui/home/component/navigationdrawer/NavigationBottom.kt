@@ -22,6 +22,7 @@ import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcInsta
 import com.goody.dalda.ui.home.component.iconpack.IcLink
 import com.goody.dalda.ui.home.data.Menu
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun NavigationBottom(
@@ -39,6 +40,8 @@ fun NavigationBottom(
         ) {
             AutoResizedText(
                 text = stringResource(R.string.text_personal_information_processing_policy),
+                style = DaldaTextStyle.body3,
+                color = Color.Gray,
                 modifier = Modifier.clickable { onClick(Menu.PrivacyPolicy) },
             )
             VerticalDivider(
@@ -50,6 +53,8 @@ fun NavigationBottom(
             )
             AutoResizedText(
                 text = stringResource(id = R.string.text_terms_and_conditions),
+                style = DaldaTextStyle.body3,
+                color = Color.Gray,
                 modifier = Modifier.clickable { onClick(Menu.TermsOfUse) },
             )
         }
@@ -70,9 +75,17 @@ fun NavigationBottom(
             )
         }
         // 카피라이트
-        Text(text = stringResource(id = R.string.text_copyright))
+        Text(
+            text = stringResource(id = R.string.text_copyright),
+            style = DaldaTextStyle.body4,
+            color = Color.Gray,
+        )
         // 버전 정보.
-        Text(text = "버전 정보 0.1.1.1")
+        Text(
+            text = "버전 정보 0.1.1.1",
+            style = DaldaTextStyle.body4,
+            color = Color.Gray,
+        )
     }
 }
 

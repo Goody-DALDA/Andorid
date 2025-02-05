@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.ui.component.AutoResizedText
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun NavigationHeader(
@@ -45,12 +46,12 @@ fun NavigationHeader(
             Column {
                 AutoResizedText(
                     text = userName,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = DaldaTextStyle.h3,
                     modifier = Modifier.padding(bottom = 3.dp),
                 )
                 AutoResizedText(
                     text = userEmail,
-                    style = MaterialTheme.typography.titleSmall,
+                    style = DaldaTextStyle.body4,
                     color = Color(0xFF8E8E93),
                 )
             }
