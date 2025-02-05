@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun LiquorInfoSection(
@@ -98,12 +99,16 @@ fun BasicInfoWithCountry(
         // 이름
         Text(
             text = alcoholData.name,
+            style = DaldaTextStyle.h1,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
 
         // 나라
-        Text(alcoholData.country)
+        Text(
+            text = alcoholData.country,
+            style = DaldaTextStyle.body3,
+        )
 
         // 도수 / 용량
         RowAbvVolume(
@@ -189,8 +194,14 @@ fun SecondFloorText(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        Text(topText)
-        Text(bottomText)
+        Text(
+            text = topText,
+            style = DaldaTextStyle.body2,
+        )
+        Text(
+            text = bottomText,
+            style = DaldaTextStyle.body1,
+        )
     }
 }
 
