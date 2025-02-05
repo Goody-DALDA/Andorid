@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun CategoryTab(
@@ -36,7 +37,12 @@ fun CategoryTab(
     ) {
         category.forEachIndexed { index, title ->
             Tab(
-                text = { Text(text = title) },
+                text = {
+                    Text(
+                        text = title,
+                        style = DaldaTextStyle.h4,
+                    )
+                },
                 selected = currentPage == index,
                 onClick = { onClickTab(index) },
                 unselectedContentColor = Color.Gray,
