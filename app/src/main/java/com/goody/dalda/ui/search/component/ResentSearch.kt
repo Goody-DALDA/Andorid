@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun ResentSearch(
@@ -34,6 +35,7 @@ fun ResentSearch(
         ) {
             Text(
                 text = stringResource(R.string.text_recent_search_work),
+                style = DaldaTextStyle.label1,
             )
             Icon(
                 imageVector = Icons.Outlined.Clear,

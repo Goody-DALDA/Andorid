@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -56,7 +57,7 @@ fun AlcoholChip(
     ) {
         Text(
             text = text,
-            fontSize = 16.sp,
+            style = DaldaTextStyle.label2,
             color = Color.Black,
             textAlign = TextAlign.Center,
         )

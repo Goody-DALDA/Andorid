@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -104,6 +105,7 @@ fun SearchScreen(
 ) {
     Scaffold(
         modifier = modifier.padding(vertical = 8.dp, horizontal = AppPaddingSize.HORIZONTAL.dp),
+        containerColor = Color.White
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding),

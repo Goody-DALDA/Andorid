@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun OtherAlcoholRecommend(
@@ -46,7 +47,7 @@ fun OtherAlcoholRecommend(
 
         Text(
             text = stringResource(id = R.string.text_other_alcohol, category),
-            style = MaterialTheme.typography.bodyMedium,
+            style = DaldaTextStyle.subtitle1
         )
 
         Button(
@@ -66,7 +67,8 @@ fun OtherAlcoholRecommend(
         ) {
             Text(
                 text = "보러가기",
-                color = colorResource(id = R.color.black),
+                style = DaldaTextStyle.subtitle1,
+                color = Color.Gray
             )
         }
     }

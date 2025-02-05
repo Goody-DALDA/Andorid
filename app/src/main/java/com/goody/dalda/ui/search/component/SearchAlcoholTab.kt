@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.search.getCategory
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun SearchAlcoholTab(
@@ -57,13 +58,13 @@ fun SearchAlcoholTab(
                     Text(
                         text = type,
                         maxLines = 1,
-                        fontSize = 18.sp,
+                        style = DaldaTextStyle.h3,
                     )
                     Text(
                         text = " ${categoryCount[type]}",
                         maxLines = 1,
                         color = colorResource(id = R.color.buttonBackground),
-                        fontSize = 20.sp,
+                        style = DaldaTextStyle.h3,
                         modifier = Modifier.align(Alignment.Bottom),
                     )
                 }
