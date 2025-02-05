@@ -39,9 +39,9 @@ fun ResentSearch(
                 imageVector = Icons.Outlined.Clear,
                 contentDescription = null,
                 modifier =
-                Modifier
-                    .alpha(if (recentSearchWordList.isEmpty()) 0f else 1f)
-                    .clickable { onClickClear() },
+                    Modifier
+                        .alpha(if (recentSearchWordList.isEmpty()) 0f else 1f)
+                        .clickable { onClickClear() },
             )
         }
 

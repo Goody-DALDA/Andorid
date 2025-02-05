@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun BookmarkAlcohol(
@@ -56,7 +57,7 @@ fun BookmarkAlcohol(
 
                 Text(
                     text = stringResource(id = R.string.text_save_favorite_alcohol),
-                    fontSize = 18.sp,
+                    style = DaldaTextStyle.body1,
                     modifier =
                         Modifier
                             .align(Alignment.CenterHorizontally),

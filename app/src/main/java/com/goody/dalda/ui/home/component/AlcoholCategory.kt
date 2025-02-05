@@ -22,6 +22,7 @@ import com.goody.dalda.data.AlcoholCategoryStatus
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.component.AutoResizedText
 import com.goody.dalda.ui.home.component.iconpack.IcComingSoon
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -98,7 +99,7 @@ fun AlcoholTap(
         ) {
             AutoResizedText(
                 text = alcoholType.alcoholName,
-                style = MaterialTheme.typography.bodyMedium,
+                style = DaldaTextStyle.subtitle2,
             )
         }
     }

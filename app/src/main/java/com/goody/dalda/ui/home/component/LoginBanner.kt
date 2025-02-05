@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.ui.component.AutoResizedText
 import com.goody.dalda.ui.component.OrangeColorButton
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun LoginBanner(
@@ -26,7 +27,7 @@ fun LoginBanner(
     ) {
         AutoResizedText(
             text = text,
-            style = MaterialTheme.typography.titleLarge,
+            style = DaldaTextStyle.h2,
             modifier =
             Modifier
                 .padding(bottom = 16.dp)
