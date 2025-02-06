@@ -2,6 +2,8 @@ package com.goody.dalda.data.converter
 
 import com.goody.dalda.data.dto.home.AlcoholDataDto
 import com.goody.dalda.data.dto.home.Data
+import com.goody.dalda.data.dto.search.RecommendAlcoholDto
+import com.goody.dalda.data.dto.search.SearchResultDto
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -18,7 +20,7 @@ class DynamicConverterFactory : Converter.Factory() {
         annotations: Array<out Annotation>,
         retrofit: Retrofit,
     ): Converter<ResponseBody, *>? =
-        if (type == AlcoholDataDto::class.java) {
+        if (type == AlcoholDataDto::class.java || type == SearchResultDto::class.java || type == RecommendAlcoholDto::class.java) {
             val alcoholGson =
                 GsonBuilder()
                     .registerTypeAdapter(Data::class.java, DataDeserializer())
