@@ -3,7 +3,6 @@ package com.goody.dalda.ui.member
 import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +23,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,12 +33,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.ui.state.UiState
+import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.launch
 
 @Composable
@@ -85,14 +87,14 @@ fun WithdrawScreen(
     Scaffold(
         modifier =
             modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground),
+                .fillMaxSize(),
+        containerColor = colorResource(R.color.white),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
                         text = "탈퇴하기",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = DaldaTextStyle.h2,
                     )
                 },
                 navigationIcon = {
@@ -103,6 +105,11 @@ fun WithdrawScreen(
                         )
                     }
                 },
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color.White,
+                        titleContentColor = Color.Black,
+                    ),
             )
         },
         snackbarHost = {
@@ -172,15 +179,15 @@ private fun WithdrawGuide(nickname: String) {
     Column(modifier = Modifier.padding(20.dp)) {
         Text(
             text = "$nickname 님,\n정말로 탈퇴하시겠어요?",
-            style = MaterialTheme.typography.titleLarge,
+            style = DaldaTextStyle.h2,
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.text),
         )
 
         Text(
             text = "탈퇴하실 경우 좋아요한 술의 정보 및 기록한 술도감이 모두 삭제되고 데이터는 복구되지 않습니다.",
-            style =
-                MaterialTheme.typography.bodyMedium.copy(
-                    color = colorResource(R.color.text),
-                ),
+            style = DaldaTextStyle.body2,
+            color = colorResource(R.color.text),
             modifier = Modifier.padding(top = 18.dp),
         )
     }
@@ -211,10 +218,8 @@ private fun TermsCheckbox(
 
         Text(
             text = "탈퇴 유의사항을 확인했으며 이에 동의합니다.",
-            style =
-                MaterialTheme.typography.bodyMedium.copy(
-                    color = colorResource(R.color.gray_50),
-                ),
+            style = DaldaTextStyle.body2,
+            color = colorResource(R.color.gray_50),
         )
     }
 }
@@ -226,10 +231,10 @@ private fun WithdrawButton(onClick: () -> Unit) {
         shape = MaterialTheme.shapes.extraSmall,
         colors =
             ButtonColors(
-                containerColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                disabledContainerColor = MaterialTheme.colorScheme.surface,
-                disabledContentColor = MaterialTheme.colorScheme.onSurface,
+                containerColor = colorResource(id = R.color.white),
+                contentColor = colorResource(id = R.color.white),
+                disabledContainerColor = colorResource(id = R.color.white),
+                disabledContentColor = colorResource(id = R.color.white),
             ),
         border = BorderStroke(1.dp, Color(0xFFDDDDDF)),
         modifier =
@@ -239,8 +244,8 @@ private fun WithdrawButton(onClick: () -> Unit) {
     ) {
         Text(
             text = "탈퇴하기",
-            color = Color(0xFF8E8E93),
-            style = MaterialTheme.typography.titleMedium,
+            style = DaldaTextStyle.h3,
+            color = colorResource(R.color.gray_50),
         )
     }
 }
