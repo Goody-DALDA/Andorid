@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun PolicyScreen(
@@ -64,14 +65,13 @@ fun PolicyScreen(
     Scaffold(
         modifier =
             modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground),
+                .fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = DaldaTextStyle.h2,
                     )
                 },
                 navigationIcon = {
@@ -117,6 +117,7 @@ fun PolicyLayout(
                 Modifier
                     .fillMaxSize()
                     .padding(20.dp),
+            style = DaldaTextStyle.body3,
         )
     }
 }
