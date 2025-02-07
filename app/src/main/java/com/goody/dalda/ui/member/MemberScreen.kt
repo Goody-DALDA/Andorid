@@ -1,6 +1,6 @@
 package com.goody.dalda.ui.member
 
-import android.widget.Toast
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
@@ -25,20 +26,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MemberScreen(
     viewModel: MemberViewModel = viewModel(),
@@ -46,15 +50,42 @@ fun MemberScreen(
     onClickSeeWithdrawScreen: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    val logoutState by viewModel.logoutState.collectAsStateWithLifecycle()
+    val profile by viewModel.profile.collectAsStateWithLifecycle()
+
     LaunchedEffect("once") {
-        viewModel.fetchProfile()
+        viewModel.fetchProfileNew()
     }
+
+    MemberScreenNew(
+        logoutState,
+        profile,
+        onClickSeeLoginScreen,
+        onClickSeeWithdrawScreen,
+        onClickLogout = { viewModel.requestLogoutNew() },
+    )
+}
+
+@SuppressLint("CoroutineCreationDuringComposition")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MemberScreenNew(
+    state: UiState<String>,
+    profile: Profile,
+    onClickSeeLoginScreen: () -> Unit = {},
+    onClickSeeWithdrawScreen: () -> Unit = {},
+    onClickLogout: () -> Unit = {},
+    onClickClose: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
+    val snackBarState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onBackground),
+            modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onBackground),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -64,7 +95,7 @@ fun MemberScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = onClickClose) {
                         Icon(
                             Icons.Filled.Close,
                             contentDescription = "close",
@@ -73,36 +104,40 @@ fun MemberScreen(
                 },
             )
         },
+        snackbarHost = {
+            coroutineScope.launch {
+                when (state) {
+                    is UiState.Empty -> TODO()
+                    is UiState.Error -> {
+                        snackBarState.showSnackbar(state.exception?.message ?: "에러 발생")
+                    }
+
+                    is UiState.Loading -> TODO()
+                    is UiState.Success -> {
+                        onClickSeeLoginScreen()
+                        snackBarState.showSnackbar(state.data)
+                    }
+
+                    is UiState.Uninitialized -> TODO()
+                }
+            }
+        },
     ) { innerPadding ->
         MemberLayout(
-            viewModel,
+            profile,
             Modifier.padding(innerPadding),
             onClickWithdrawButton = onClickSeeWithdrawScreen,
+            onClickLogout = onClickLogout,
         )
-    }
-    val context = LocalContext.current
-    when (val state = viewModel.logout.value) {
-        is UiState.Loading -> {
-        }
-
-        is UiState.Success -> {
-            Toast.makeText(context, state.data, Toast.LENGTH_SHORT).show()
-            onClickSeeLoginScreen()
-        }
-
-        is UiState.Error -> {
-            Toast.makeText(context, state.exception?.message, Toast.LENGTH_SHORT).show()
-        }
-
-        else -> {}
     }
 }
 
 @Composable
 fun MemberLayout(
-    viewModel: MemberViewModel,
+    profile: Profile,
     modifier: Modifier = Modifier,
     onClickWithdrawButton: () -> Unit = {},
+    onClickLogout: () -> Unit = {},
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         Column(
@@ -113,14 +148,23 @@ fun MemberLayout(
         ) {
             MemberProfile(
                 R.drawable.img_profile,
-                viewModel.profile.value.nickname,
+                profile.nickname,
             )
 
-            MemberInformation(viewModel.profile.value)
+            MemberInformation(profile)
         }
 
-        LogoutButton(onClick = { viewModel.requestLogout() })
-        WithdrawButton(onClick = onClickWithdrawButton)
+        LogoutButton(onClick = onClickLogout)
+
+        Text(
+            text = "탈퇴하기",
+            color = Color(0xFF8E8E93),
+            style = MaterialTheme.typography.titleSmall,
+            modifier =
+                Modifier
+                    .padding(start = 20.dp, top = 20.dp, bottom = 60.dp)
+                    .clickable { onClickWithdrawButton() },
+        )
     }
 }
 
@@ -128,9 +172,9 @@ fun MemberLayout(
 private fun MemberInformation(profile: Profile) {
     Column(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
     ) {
         MemberAttribute(
             title = "좋아하는 주종",
@@ -156,9 +200,9 @@ private fun MemberProfile(
             painter = painterResource(imageRes),
             contentDescription = "",
             modifier =
-            Modifier
-                .width(70.dp)
-                .height(70.dp),
+                Modifier
+                    .width(70.dp)
+                    .height(70.dp),
         )
 
         Text(
@@ -171,35 +215,22 @@ private fun MemberProfile(
 }
 
 @Composable
-private fun WithdrawButton(onClick: () -> Unit) {
-    Text(
-        text = "탈퇴하기",
-        color = Color(0xFF8E8E93),
-        style = MaterialTheme.typography.titleSmall,
-        modifier =
-        Modifier
-            .padding(start = 20.dp, top = 20.dp, bottom = 60.dp)
-            .clickable { onClick() },
-    )
-}
-
-@Composable
 private fun LogoutButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         shape = MaterialTheme.shapes.extraSmall,
         colors =
-        ButtonColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.onBackground,
-            disabledContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContentColor = MaterialTheme.colorScheme.onSurface,
-        ),
+            ButtonColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                disabledContainerColor = MaterialTheme.colorScheme.surface,
+                disabledContentColor = MaterialTheme.colorScheme.onSurface,
+            ),
         border = BorderStroke(1.dp, Color(0xFFDDDDDF)),
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "로그아웃 하기",
@@ -230,8 +261,14 @@ private fun MemberAttribute(
 
 @Preview(showBackground = true)
 @Composable
-fun MemberScreenPreview() {
-    MaterialTheme {
-        MemberScreen()
-    }
+fun MemberScreenNewPreview() {
+    val logoutState = UiState.Success("로그아웃 성공")
+    val profile = Profile("nickname", "email")
+
+    MemberScreenNew(
+        logoutState,
+        profile,
+        onClickSeeLoginScreen = {},
+        onClickSeeWithdrawScreen = {},
+    )
 }
