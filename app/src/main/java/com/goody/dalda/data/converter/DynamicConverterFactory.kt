@@ -1,9 +1,7 @@
 package com.goody.dalda.data.converter
 
-import com.goody.dalda.data.dto.home.AlcoholDataDto
+import com.goody.dalda.data.dto.blog.BlogSearchDto
 import com.goody.dalda.data.dto.home.Data
-import com.goody.dalda.data.dto.search.RecommendAlcoholDto
-import com.goody.dalda.data.dto.search.SearchResultDto
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
@@ -20,7 +18,12 @@ class DynamicConverterFactory : Converter.Factory() {
         annotations: Array<out Annotation>,
         retrofit: Retrofit,
     ): Converter<ResponseBody, *>? =
-        if (type == AlcoholDataDto::class.java || type == SearchResultDto::class.java || type == RecommendAlcoholDto::class.java) {
+        if (type == BlogSearchDto::class.java) {
+            val contentType = "application/json".toMediaType()
+            val converter = Json.asConverterFactory(contentType)
+
+            converter.responseBodyConverter(type, annotations, retrofit)
+        } else {
             val alcoholGson =
                 GsonBuilder()
                     .registerTypeAdapter(Data::class.java, DataDeserializer())
@@ -28,10 +31,5 @@ class DynamicConverterFactory : Converter.Factory() {
             val alcoholGsonConverter = GsonConverterFactory.create(alcoholGson)
 
             alcoholGsonConverter.responseBodyConverter(type, annotations, retrofit)
-        } else {
-            val contentType = "application/json".toMediaType()
-            val converter = Json.asConverterFactory(contentType)
-
-            converter.responseBodyConverter(type, annotations, retrofit)
         }
 }
