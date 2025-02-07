@@ -32,6 +32,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
+import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.launch
 
 @Composable
@@ -91,7 +93,7 @@ fun MemberScreenNew(
                 title = {
                     Text(
                         text = "회원 상세",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = DaldaTextStyle.h3,
                     )
                 },
                 navigationIcon = {
@@ -158,8 +160,8 @@ fun MemberLayout(
 
         Text(
             text = "탈퇴하기",
-            color = Color(0xFF8E8E93),
-            style = MaterialTheme.typography.titleSmall,
+            style = DaldaTextStyle.subtitle2,
+            color = colorResource(id = R.color.gray_50),
             modifier =
                 Modifier
                     .padding(start = 20.dp, top = 20.dp, bottom = 60.dp)
@@ -207,7 +209,8 @@ private fun MemberProfile(
 
         Text(
             text = nickname,
-            style = MaterialTheme.typography.titleMedium,
+            style = DaldaTextStyle.subtitle1,
+            color = colorResource(id = R.color.text),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 10.dp),
         )
@@ -234,8 +237,8 @@ private fun LogoutButton(onClick: () -> Unit) {
     ) {
         Text(
             text = "로그아웃 하기",
-            color = Color(0xFF8E8E93),
-            style = MaterialTheme.typography.titleMedium,
+            style = DaldaTextStyle.h4,
+            color = colorResource(id = R.color.gray_50),
         )
     }
 }
@@ -248,13 +251,14 @@ private fun MemberAttribute(
     Row(modifier = Modifier.padding(top = 10.dp)) {
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyMedium,
+            style = DaldaTextStyle.body2,
         )
         Text(
             text = content,
+            style = DaldaTextStyle.body2,
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Right,
-            color = Color.Gray,
+            color = colorResource(id = R.color.gray_50),
         )
     }
 }
