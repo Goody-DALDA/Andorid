@@ -7,6 +7,8 @@ import com.goody.dalda.data.repository.NoticeRepository
 import com.goody.dalda.ui.model.Post
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,7 +17,8 @@ class AnnouncementViewModel
 @Inject
 constructor(private val repository: NoticeRepository) :
     ViewModel() {
-    private val posts = mutableStateListOf<Post>()
+    private val _posts = MutableStateFlow<List<Post>>(emptyList())
+    val posts : StateFlow<List<Post>> = _posts
 
     init {
         fetchNoticePost()
@@ -23,9 +26,7 @@ constructor(private val repository: NoticeRepository) :
 
     private fun fetchNoticePost() {
         viewModelScope.launch(Dispatchers.IO) {
-            posts.addAll(repository.fetchNotice())
+            _posts.value = repository.fetchNotice()
         }
     }
-
-    fun getNoticePosts() = posts
 }
