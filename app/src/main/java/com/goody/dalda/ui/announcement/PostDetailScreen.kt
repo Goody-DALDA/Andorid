@@ -15,12 +15,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.goody.dalda.R
 import com.goody.dalda.ui.announcement.component.PostDetailTopBar
 import com.goody.dalda.ui.model.Post
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun PostDetailScreen(
@@ -81,6 +84,8 @@ fun PostDetailLayout(
 
             Text(
                 text = currentPost.content,
+                style = DaldaTextStyle.body2,
+                color = colorResource(id = R.color.text),
                 modifier =
                     Modifier
                         .padding(horizontal = 20.dp, vertical = 10.dp)
@@ -111,11 +116,13 @@ fun PostTitleContainer(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            style = DaldaTextStyle.h2,
+            color = colorResource(id = R.color.text),
         )
         Text(
             text = date,
-            style = MaterialTheme.typography.bodySmall,
+            style = DaldaTextStyle.body3,
+            color = colorResource(id = R.color.gray_40),
         )
     }
 }
@@ -137,7 +144,7 @@ private fun PostDetailScreenNewPrev() {
     val nextPost =
         Post(
             2,
-            "다음글",
+            "다음글 제목",
             "다음글 입니다.",
             "2025.01.09",
             "2025.01.10",
@@ -147,7 +154,7 @@ private fun PostDetailScreenNewPrev() {
     val prevPost =
         Post(
             3,
-            "이전글",
+            "이전글 제목",
             "이전글 입니다.",
             "2025.01.08",
             "2025.01.10",
