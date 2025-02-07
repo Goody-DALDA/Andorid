@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.ui.model.Post
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun PreviousPostAndNextPost(
@@ -31,9 +32,9 @@ fun PreviousPostAndNextPost(
         HorizontalDivider(
             thickness = 1.dp,
             modifier =
-            Modifier
-                .padding(horizontal = 10.dp)
-                .padding(bottom = 24.dp),
+                Modifier
+                    .padding(horizontal = 10.dp)
+                    .padding(bottom = 24.dp),
         )
 
         if (prevPost != null) {
@@ -59,23 +60,22 @@ fun NextPost(
 ) {
     Row(
         modifier =
-        Modifier
-            .padding(horizontal = 10.dp)
-            .padding(bottom = 40.dp)
-            .clickable { onClick() },
+            Modifier
+                .padding(horizontal = 10.dp)
+                .padding(bottom = 40.dp)
+                .clickable { onClick() },
     ) {
         Text(
             text = "다음글",
-            style =
-            MaterialTheme.typography.bodyLarge.copy(
-                color = colorResource(R.color.gray_40),
-            ),
+            style = DaldaTextStyle.body3,
+            color = colorResource(R.color.gray_40),
             modifier = Modifier.padding(end = 18.dp),
         )
 
         Text(
             text = post.title,
-            style = MaterialTheme.typography.bodyLarge,
+            style = DaldaTextStyle.body3,
+            color = colorResource(id = R.color.text),
             maxLines = 1,
             modifier = Modifier.weight(1f),
         )
@@ -89,22 +89,21 @@ fun PreviousPose(
 ) {
     Row(
         modifier =
-        Modifier
-            .padding(horizontal = 10.dp)
-            .clickable { onClick() },
+            Modifier
+                .padding(horizontal = 10.dp)
+                .clickable { onClick() },
     ) {
         Text(
             text = "이전글",
-            style =
-            MaterialTheme.typography.bodyLarge.copy(
-                color = colorResource(R.color.gray_40),
-            ),
+            style = DaldaTextStyle.body3,
+            color = colorResource(R.color.gray_40),
             modifier = Modifier.padding(end = 18.dp),
         )
 
         Text(
             text = post.title,
-            style = MaterialTheme.typography.bodyLarge,
+            style = DaldaTextStyle.body3,
+            color = colorResource(id = R.color.text),
             maxLines = 1,
             modifier = Modifier.weight(1f),
         )
@@ -114,7 +113,29 @@ fun PreviousPose(
 @Preview(showBackground = true)
 @Composable
 fun PreviousPostAndNextPostPreview() {
+    val nextPost =
+        Post(
+            2,
+            "다음글 제목",
+            "다음글 입니다.",
+            "2025.01.09",
+            "2025.01.10",
+            true,
+        )
+
+    val prevPost =
+        Post(
+            3,
+            "이전글 제목",
+            "이전글 입니다.",
+            "2025.01.08",
+            "2025.01.10",
+            true,
+        )
     MaterialTheme {
-        PreviousPostAndNextPost()
+        PreviousPostAndNextPost(
+            nextPost = nextPost,
+            prevPost = prevPost,
+        )
     }
 }

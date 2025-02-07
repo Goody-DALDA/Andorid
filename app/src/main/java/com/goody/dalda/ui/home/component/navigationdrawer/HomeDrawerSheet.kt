@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.ui.home.AuthState
 import com.goody.dalda.ui.home.data.Menu
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun HomeDrawerSheet(
@@ -64,7 +65,10 @@ fun HomeDrawerSheet(
         items.forEachIndexed { index, item ->
             NavigationDrawerItem(
                 label = {
-                    Text(text = item.title)
+                    Text(
+                        text = item.title,
+                        style = DaldaTextStyle.body1,
+                    )
                 },
                 selected = index == selectedItemIndex,
                 onClick = {

@@ -32,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.ui.home.component.IconPack
 import com.goody.dalda.ui.home.component.iconpack.IcCamera
+import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.delay
 
 @Composable
@@ -61,24 +62,28 @@ fun SearchBarComponent(
             imageVector = Icons.AutoMirrored.Outlined.KeyboardArrowLeft,
             contentDescription = null,
             modifier =
-            Modifier
-                .align(Alignment.CenterVertically)
-                .weight(1f)
-                .clickable { onClickBackIcon() },
+                Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f)
+                    .clickable { onClickBackIcon() },
         )
         OutlinedTextField(
             value = query,
             onValueChange = onValueChange,
             modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(10f)
-                .background(
-                    color = Color(0xFFF8F8F8),
-                    shape = RoundedCornerShape(18.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .weight(10f)
+                    .background(
+                        color = Color(0xFFF8F8F8),
+                        shape = RoundedCornerShape(18.dp),
+                    ).focusRequester(focusRequester),
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    style = DaldaTextStyle.body1,
                 )
-                .focusRequester(focusRequester),
-            placeholder = { Text(text = placeholder) },
+            },
             leadingIcon = {
                 Icon(
                     modifier = Modifier.clickable { onClickLeadingIcon(query) },
@@ -95,37 +100,36 @@ fun SearchBarComponent(
                         imageVector = Icons.Outlined.Clear,
                         contentDescription = null,
                         modifier =
-                        Modifier
-                            .clickable {
-                                onValueChange("")
-                            }
-                            .alpha(
-                                if (query.isNotEmpty()) 1f else 0f,
-                            ),
+                            Modifier
+                                .clickable {
+                                    onValueChange("")
+                                }.alpha(
+                                    if (query.isNotEmpty()) 1f else 0f,
+                                ),
                     )
 
                     Icon(
                         imageVector = trailingIcon,
                         contentDescription = null,
                         modifier =
-                        Modifier.clickable {
-                            onClickTrailingIcon()
-                        },
+                            Modifier.clickable {
+                                onClickTrailingIcon()
+                            },
                     )
                 }
             },
             shape = RoundedCornerShape(18.dp),
             keyboardOptions =
-            KeyboardOptions.Default.copy(
-                imeAction = Search,
-            ),
+                KeyboardOptions.Default.copy(
+                    imeAction = Search,
+                ),
             keyboardActions =
-            KeyboardActions(
-                onSearch = {
-                    onClickLeadingIcon(query)
-                    focusManager.clearFocus()
-                },
-            ),
+                KeyboardActions(
+                    onSearch = {
+                        onClickLeadingIcon(query)
+                        focusManager.clearFocus()
+                    },
+                ),
         )
     }
 }

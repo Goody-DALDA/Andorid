@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,6 +11,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun OrangeColorButton(
@@ -21,19 +21,19 @@ fun OrangeColorButton(
 ) {
     Button(
         modifier =
-        modifier.background(
-            colorResource(id = R.color.buttonBackground),
-            shape = RoundedCornerShape(6.dp),
-        ),
+            modifier.background(
+                colorResource(id = R.color.buttonBackground),
+                shape = RoundedCornerShape(6.dp),
+            ),
         colors =
-        ButtonDefaults.buttonColors(
-            colorResource(id = R.color.buttonBackground),
-        ),
+            ButtonDefaults.buttonColors(
+                colorResource(id = R.color.buttonBackground),
+            ),
         onClick = onClick,
     ) {
         AutoResizedText(
             text = text,
-            style = MaterialTheme.typography.bodyLarge,
+            style = DaldaTextStyle.label1,
             color = Color.White,
         )
     }

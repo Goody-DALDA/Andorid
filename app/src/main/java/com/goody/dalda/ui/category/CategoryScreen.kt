@@ -99,7 +99,7 @@ fun CategoryScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize().padding(vertical = 8.dp),
     ) {
         SearchBarComponent(
             query = query,

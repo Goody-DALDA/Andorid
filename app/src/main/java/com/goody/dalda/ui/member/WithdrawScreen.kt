@@ -1,14 +1,15 @@
 package com.goody.dalda.ui.member
 
+import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Button
@@ -22,39 +23,78 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.ui.state.UiState
+import com.goody.dalda.ui.theme.DaldaTextStyle
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WithdrawScreen(
     viewModel: WithdrawViewModel = viewModel(),
     onSuccess: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
+    val stateNew by viewModel.uiState.collectAsStateWithLifecycle()
+    val checkState by viewModel.checkState.collectAsStateWithLifecycle()
+
+    WithdrawScreen(
+        state = stateNew,
+        checkState = checkState,
+        onClickWithdraw = {
+            viewModel.requestWithdrawNew()
+        },
+        onSuccess = onSuccess,
+        onClickCheckBox = {
+            viewModel.checkBoxState()
+        },
+        onCheckedChange = {
+            viewModel.checkedChange(it)
+        },
+        modifier = modifier,
+    )
+}
+
+@SuppressLint("CoroutineCreationDuringComposition")
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WithdrawScreen(
+    state: UiState<String>,
+    checkState: Boolean,
+    onClickWithdraw: () -> Unit = {},
+    onSuccess: () -> Unit = {},
+    onClickCheckBox: () -> Unit = {},
+    onCheckedChange: (Boolean) -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
+    val snackBarState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
     Scaffold(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onBackground),
+            modifier
+                .fillMaxSize(),
+        containerColor = colorResource(R.color.white),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
                         text = "탈퇴하기",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = DaldaTextStyle.h2,
                     )
                 },
                 navigationIcon = {
@@ -65,35 +105,48 @@ fun WithdrawScreen(
                         )
                     }
                 },
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color.White,
+                        titleContentColor = Color.Black,
+                    ),
             )
+        },
+        snackbarHost = {
+            coroutineScope.launch {
+                when (state) {
+                    is UiState.Empty -> TODO()
+                    is UiState.Error -> {
+                        snackBarState.showSnackbar(state.exception?.message ?: "에러 발생")
+                    }
+
+                    is UiState.Loading -> TODO()
+                    is UiState.Success -> {
+                        onSuccess()
+                        snackBarState.showSnackbar(state.data)
+                    }
+
+                    is UiState.Uninitialized -> TODO()
+                }
+            }
         },
     ) { innerPadding ->
         WithdrawLayout(
-            viewModel,
+            checkState = checkState,
+            onClickWithdraw = onClickWithdraw,
+            onClickCheckBox = onClickCheckBox,
+            onCheckedChange = onCheckedChange,
             Modifier.padding(innerPadding),
         )
-    }
-    val context = LocalContext.current
-    when (val state = viewModel.state.value) {
-        is UiState.Loading -> {
-        }
-
-        is UiState.Success -> {
-            Toast.makeText(context, state.data, Toast.LENGTH_SHORT).show()
-            onSuccess()
-        }
-
-        is UiState.Error -> {
-            Toast.makeText(context, state.exception?.message, Toast.LENGTH_SHORT).show()
-        }
-
-        else -> {}
     }
 }
 
 @Composable
 fun WithdrawLayout(
-    viewModel: WithdrawViewModel,
+    checkState: Boolean,
+    onClickWithdraw: () -> Unit = {},
+    onClickCheckBox: () -> Unit = {},
+    onCheckedChange: (Boolean) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -101,14 +154,17 @@ fun WithdrawLayout(
 
         Column(modifier = Modifier) {
             val context = LocalContext.current
-            val checkState = remember { mutableStateOf(false) }
 
-            TermsCheckbox(checkState)
+            TermsCheckbox(
+                checkState,
+                onClickCheckBox = onClickCheckBox,
+                onCheckedChange = onCheckedChange,
+            )
 
             WithdrawButton(
                 onClick = {
-                    if (checkState.value) {
-                        viewModel.requestWithdraw()
+                    if (checkState) {
+                        onClickWithdraw()
                     } else {
                         Toast.makeText(context, "약관에 동의 해주세요.", Toast.LENGTH_SHORT).show()
                     }
@@ -123,45 +179,47 @@ private fun WithdrawGuide(nickname: String) {
     Column(modifier = Modifier.padding(20.dp)) {
         Text(
             text = "$nickname 님,\n정말로 탈퇴하시겠어요?",
-            style = MaterialTheme.typography.titleLarge,
+            style = DaldaTextStyle.h2,
+            fontWeight = FontWeight.Bold,
+            color = colorResource(R.color.text),
         )
 
         Text(
             text = "탈퇴하실 경우 좋아요한 술의 정보 및 기록한 술도감이 모두 삭제되고 데이터는 복구되지 않습니다.",
-            style =
-            MaterialTheme.typography.bodyMedium.copy(
-                color = colorResource(R.color.text),
-            ),
+            style = DaldaTextStyle.body2,
+            color = colorResource(R.color.text),
             modifier = Modifier.padding(top = 18.dp),
         )
     }
 }
 
 @Composable
-private fun TermsCheckbox(checkState: MutableState<Boolean>) {
+private fun TermsCheckbox(
+    checkState: Boolean,
+    onClickCheckBox: () -> Unit = {},
+    onCheckedChange: (Boolean) -> Unit = {},
+) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier =
-        Modifier.clickable {
-            checkState.value = !checkState.value
-        },
+            Modifier.clickable {
+                onClickCheckBox()
+            },
     ) {
         Checkbox(
-            checked = checkState.value,
-            onCheckedChange = { checkState.value = it },
+            checked = checkState,
+            onCheckedChange = { onCheckedChange(it) },
             colors =
-            CheckboxDefaults.colors(
-                checkedColor = colorResource(R.color.primary),
-            ),
+                CheckboxDefaults.colors(
+                    checkedColor = colorResource(R.color.primary),
+                ),
             modifier = Modifier,
         )
 
         Text(
             text = "탈퇴 유의사항을 확인했으며 이에 동의합니다.",
-            style =
-            MaterialTheme.typography.bodyMedium.copy(
-                color = colorResource(R.color.gray_50),
-            ),
+            style = DaldaTextStyle.body2,
+            color = colorResource(R.color.gray_50),
         )
     }
 }
@@ -172,22 +230,22 @@ private fun WithdrawButton(onClick: () -> Unit) {
         onClick = onClick,
         shape = MaterialTheme.shapes.extraSmall,
         colors =
-        ButtonColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.onBackground,
-            disabledContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContentColor = MaterialTheme.colorScheme.onSurface,
-        ),
+            ButtonColors(
+                containerColor = colorResource(id = R.color.white),
+                contentColor = colorResource(id = R.color.white),
+                disabledContainerColor = colorResource(id = R.color.white),
+                disabledContentColor = colorResource(id = R.color.white),
+            ),
         border = BorderStroke(1.dp, Color(0xFFDDDDDF)),
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "탈퇴하기",
-            color = Color(0xFF8E8E93),
-            style = MaterialTheme.typography.titleMedium,
+            style = DaldaTextStyle.h3,
+            color = colorResource(R.color.gray_50),
         )
     }
 }
@@ -195,7 +253,17 @@ private fun WithdrawButton(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun WithdrawScreenPreview() {
+    val state = UiState.Success("탈퇴 성공")
+    val checkState = false
+
     MaterialTheme {
-        WithdrawScreen()
+        WithdrawScreen(
+            state = state,
+            checkState = checkState,
+            onClickWithdraw = {},
+            onSuccess = {},
+            onClickCheckBox = {},
+            onCheckedChange = {},
+        )
     }
 }

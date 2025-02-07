@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.ui.component.OrangeColorButton
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun RequestAdditional(
@@ -39,7 +40,7 @@ fun RequestAdditional(
 
         Text(
             text = stringResource(id = R.string.text_no_search_result),
-            style = MaterialTheme.typography.bodyMedium,
+            style = DaldaTextStyle.body1,
         )
         OrangeColorButton(
             text = stringResource(id = R.string.text_request_additional),

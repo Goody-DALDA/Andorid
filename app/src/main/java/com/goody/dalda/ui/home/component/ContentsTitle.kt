@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.goody.dalda.R
 import com.goody.dalda.ui.component.AutoResizedText
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun ContentsTitle(
@@ -29,7 +30,7 @@ fun ContentsTitle(
         ) {
             AutoResizedText(
                 text = title,
-                style = MaterialTheme.typography.bodyLarge,
+                style = DaldaTextStyle.h2,
                 modifier = Modifier.align(Alignment.CenterVertically),
             )
 
@@ -37,7 +38,7 @@ fun ContentsTitle(
 
             AutoResizedText(
                 text = actionText,
-                style = MaterialTheme.typography.bodySmall,
+                style = DaldaTextStyle.label2,
                 modifier =
                 Modifier
                     .align(Alignment.Bottom)

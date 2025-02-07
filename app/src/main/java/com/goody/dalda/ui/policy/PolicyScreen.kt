@@ -15,40 +15,63 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.goody.dalda.R
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PolicyScreen(
-    title: String = "",
-    fileName: String = "",
+    title: String,
+    fileName: String,
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {},
     viewModel: PolicyViewModel = viewModel(),
 ) {
     val context = LocalContext.current
 
+    val termsOfUseStateNew by viewModel.termsOfUseStateNew.collectAsStateWithLifecycle()
+
     LaunchedEffect("once") {
         viewModel.fetchTermsOfUse(context.assets, fileName)
     }
 
+    PolicyScreen(
+        title = title,
+        termsOfUseStateNew = termsOfUseStateNew,
+        onClose = onClose,
+        modifier = modifier,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PolicyScreen(
+    title: String,
+    termsOfUseStateNew: String,
+    onClose: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
         modifier =
-        modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onBackground),
+            modifier
+                .fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = DaldaTextStyle.h2,
                     )
                 },
                 navigationIcon = {
@@ -59,12 +82,18 @@ fun PolicyScreen(
                         )
                     }
                 },
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color.White,
+                        titleContentColor = Color.Black,
+                    ),
             )
         },
+        containerColor = colorResource(id = R.color.white),
     ) { innerPadding ->
         PolicyLayout(
-            Modifier.padding(innerPadding),
-            viewModel.getTermsOfUseContent(),
+            modifier = Modifier.padding(innerPadding),
+            text = termsOfUseStateNew,
         )
     }
 }
@@ -78,16 +107,17 @@ fun PolicyLayout(
 
     Column(
         modifier =
-        modifier
-            .fillMaxSize()
-            .verticalScroll(scroll),
+            modifier
+                .fillMaxSize()
+                .verticalScroll(scroll),
     ) {
         Text(
             text = text,
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(20.dp),
+                Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
+            style = DaldaTextStyle.body3,
         )
     }
 }
@@ -96,6 +126,10 @@ fun PolicyLayout(
 @Composable
 fun PolicyScreenPreview() {
     MaterialTheme {
-        PolicyScreen()
+        PolicyScreen(
+            title = "이용약관",
+            termsOfUseStateNew = "이용약관내용",
+            onClose = {},
+        )
     }
 }

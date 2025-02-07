@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.ui.theme.DaldaTextStyle
 import java.text.DecimalFormat
 
 @Composable
@@ -98,7 +98,7 @@ fun DetailSectionBeer(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (info in infoList) {
@@ -112,7 +112,7 @@ fun DetailSectionBeer(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛표현",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (value in valueList) {
@@ -151,7 +151,7 @@ fun DetailSectionWine(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         Text(
@@ -162,6 +162,7 @@ fun DetailSectionWine(
                         shape = RoundedCornerShape(12.dp),
                     ).padding(12.dp),
             text = alcoholData.comment,
+            style = DaldaTextStyle.body3,
         )
 
         for (info in infoList) {
@@ -175,7 +176,7 @@ fun DetailSectionWine(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛표현",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (value in graphDataList) {
@@ -188,7 +189,7 @@ fun DetailSectionWine(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "푸드 페어링",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         Text(
@@ -200,6 +201,7 @@ fun DetailSectionWine(
                     ).padding(12.dp)
                     .fillMaxWidth(),
             text = alcoholData.pairingFood,
+            style = DaldaTextStyle.body3,
         )
     }
 }
@@ -223,7 +225,7 @@ fun DetailSectionTraditionalLiquor(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         Text(
@@ -234,6 +236,7 @@ fun DetailSectionTraditionalLiquor(
                         shape = RoundedCornerShape(12.dp),
                     ).padding(12.dp),
             text = alcoholData.comment,
+            style = DaldaTextStyle.body3,
         )
 
         for (info in infoList) {
@@ -247,7 +250,7 @@ fun DetailSectionTraditionalLiquor(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "푸드 페어링",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         Text(
@@ -259,6 +262,7 @@ fun DetailSectionTraditionalLiquor(
                     ).padding(12.dp)
                     .fillMaxWidth(),
             text = alcoholData.pairingFood,
+            style = DaldaTextStyle.body3,
         )
     }
 }
@@ -291,7 +295,7 @@ fun DetailSectionWhiskey(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (info in infoList) {
@@ -305,7 +309,7 @@ fun DetailSectionWhiskey(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛 표현",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (tasteInfo in tasteInfoList) {
@@ -345,7 +349,7 @@ fun DetailSectionSake(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (info in infoList) {
@@ -359,7 +363,7 @@ fun DetailSectionSake(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "맛 표현",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         for (tasteInfo in tasteInfoList) {
@@ -392,7 +396,7 @@ fun DetailSectionSoju(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = "술정보",
-            style = MaterialTheme.typography.headlineSmall,
+            style = DaldaTextStyle.h2,
         )
 
         Text(
@@ -404,6 +408,7 @@ fun DetailSectionSoju(
                     ).padding(12.dp)
                     .fillMaxWidth(),
             text = alcoholData.comment,
+            style = DaldaTextStyle.body3,
         )
 
         for (info in infoList) {
@@ -429,10 +434,12 @@ fun TextTitleValue(
         Text(
             modifier = Modifier.weight(1f),
             text = title,
+            style = DaldaTextStyle.body3,
         )
         Text(
             modifier = Modifier.weight(3f),
             text = value,
+            style = DaldaTextStyle.body3,
         )
     }
 }
@@ -518,6 +525,7 @@ fun DrawBarGraphWithTitle(
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.End,
             text = value.first,
+            style = DaldaTextStyle.body2,
         )
         DrawBarGraph(
             modifier = Modifier.weight(7f),

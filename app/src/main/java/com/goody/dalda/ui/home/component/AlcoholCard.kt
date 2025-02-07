@@ -22,6 +22,7 @@ import coil.compose.AsyncImage
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.component.AutoResizedText
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun AlcoholCard(
@@ -48,7 +49,7 @@ fun AlcoholCard(
         )
         AutoResizedText(
             text = alcoholData.name,
-            style = MaterialTheme.typography.bodyMedium,
+            style = DaldaTextStyle.h4,
             modifier = Modifier.align(Alignment.Start),
         )
         Row(
@@ -65,7 +66,8 @@ fun AlcoholCard(
 
             AutoResizedText(
                 text = alcoholData.abv,
-                style = MaterialTheme.typography.bodyMedium,
+                style = DaldaTextStyle.subtitle2,
+                color = Color.Gray
             )
         }
     }
