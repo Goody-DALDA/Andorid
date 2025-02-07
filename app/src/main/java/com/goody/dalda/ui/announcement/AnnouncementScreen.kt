@@ -22,11 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.goody.dalda.R
 import com.goody.dalda.ui.model.Post
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun AnnouncementScreen(
@@ -61,7 +64,12 @@ fun AnnouncementScreen(
         containerColor = Color.White,
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(text = "공지사항") },
+                title = {
+                    Text(
+                        text = "공지사항",
+                        style = DaldaTextStyle.h2,
+                    )
+                },
                 colors =
                     TopAppBarDefaults.topAppBarColors(
                         containerColor = Color.White,
@@ -112,13 +120,15 @@ fun NoticePost(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.titleMedium,
+            style = DaldaTextStyle.h3,
+            color = colorResource(id = R.color.text),
             modifier = Modifier.padding(bottom = 4.dp),
         )
 
         Text(
             text = date,
-            style = MaterialTheme.typography.bodySmall,
+            style = DaldaTextStyle.body3,
+            color = colorResource(id = R.color.gray_40),
         )
     }
 }
