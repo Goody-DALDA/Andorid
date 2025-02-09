@@ -54,6 +54,9 @@ android {
         )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["KAKAO_REDIRECT_URI"] =
+            localProperties.getProperty("KAKAO_REDIRECT_URI") ?: ""
     }
 
     buildTypes {
@@ -63,8 +66,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-            manifestPlaceholders["KAKAO_REDIRECT_URI"] =
-                localProperties.getProperty("KAKAO_REDIRECT_URI") ?: ""
         }
     }
     compileOptions {
