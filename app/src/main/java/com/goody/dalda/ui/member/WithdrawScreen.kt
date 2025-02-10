@@ -51,8 +51,10 @@ fun WithdrawScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val checkState by viewModel.checkState.collectAsStateWithLifecycle()
+    val profile by viewModel.profile.collectAsStateWithLifecycle()
 
     WithdrawScreen(
+        userNickname = profile.nickname,
         state = state,
         checkState = checkState,
         onClickWithdraw = {
@@ -73,6 +75,7 @@ fun WithdrawScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WithdrawScreen(
+    userNickname: String,
     state: UiState<String>,
     checkState: Boolean,
     onClickWithdraw: () -> Unit = {},
@@ -137,6 +140,7 @@ fun WithdrawScreen(
         },
     ) { innerPadding ->
         WithdrawLayout(
+            userNickname = userNickname,
             checkState = checkState,
             onClickWithdraw = onClickWithdraw,
             onClickCheckBox = onClickCheckBox,
@@ -148,6 +152,7 @@ fun WithdrawScreen(
 
 @Composable
 fun WithdrawLayout(
+    userNickname: String,
     checkState: Boolean,
     onClickWithdraw: () -> Unit = {},
     onClickCheckBox: () -> Unit = {},
@@ -155,7 +160,7 @@ fun WithdrawLayout(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        WithdrawGuide("삼겹살에소주")
+        WithdrawGuide(userNickname)
 
         Column(modifier = Modifier) {
             val context = LocalContext.current
@@ -258,11 +263,13 @@ private fun WithdrawButton(onClick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun WithdrawScreenPreview() {
+    val userNickname = "닉네임"
     val state = UiState.Success("탈퇴 성공")
     val checkState = false
 
     MaterialTheme {
         WithdrawScreen(
+            userNickname = userNickname,
             state = state,
             checkState = checkState,
             onClickWithdraw = {},
