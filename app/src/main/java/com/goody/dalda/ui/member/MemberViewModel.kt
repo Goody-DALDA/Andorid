@@ -43,6 +43,8 @@ class MemberViewModel
                     val response = repository.logout()
                     if (response.isSuccess()) {
                         logoutKakao()
+                        PreferenceManager.clearAccessToken()
+                        PreferenceManager.clearProfile()
                         _logoutState.value = UiState.Success(response.message)
                     } else {
                         _logoutState.value = UiState.Error(exception = Exception(response.message))
@@ -59,7 +61,6 @@ class MemberViewModel
                     Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
                 } else {
                     Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
-                    PreferenceManager.clearAccessToken()
                 }
             }
         }

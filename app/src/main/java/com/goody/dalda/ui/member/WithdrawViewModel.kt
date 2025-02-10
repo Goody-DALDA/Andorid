@@ -39,6 +39,7 @@ class WithdrawViewModel
                     if (response.isSuccess()) {
                         unlinkKakao()
                         PreferenceManager.clearAccessToken()
+                        PreferenceManager.clearProfile()
                         _uiState.value = UiState.Success(response.message)
                     } else {
                         _uiState.value = UiState.Error()

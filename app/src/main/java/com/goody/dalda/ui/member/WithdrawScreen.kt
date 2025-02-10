@@ -49,11 +49,11 @@ fun WithdrawScreen(
     onSuccess: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val stateNew by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val checkState by viewModel.checkState.collectAsStateWithLifecycle()
 
     WithdrawScreen(
-        state = stateNew,
+        state = state,
         checkState = checkState,
         onClickWithdraw = {
             viewModel.requestWithdrawNew()
@@ -123,6 +123,7 @@ fun WithdrawScreen(
                     is UiState.Loading -> {
                         // TODO()
                     }
+
                     is UiState.Success -> {
                         onSuccess()
                         snackBarState.showSnackbar(state.data)
