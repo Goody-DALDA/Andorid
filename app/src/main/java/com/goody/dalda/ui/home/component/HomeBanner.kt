@@ -10,14 +10,18 @@ import com.goody.dalda.ui.home.AuthState
 @Composable
 fun HomeBanner(
     authState: AuthState,
+    userName: String,
+    userImg: String,
     modifier: Modifier = Modifier,
     onClickLogin: () -> Unit = {},
 ) {
     when (authState) {
         AuthState.SignIn -> {
             WelcomeBanner(
+                authState = authState,
+                userName = userName,
+                userImg = userImg,
                 modifier = modifier,
-                userName = "Dalda",
             )
         }
 
@@ -31,18 +35,31 @@ fun HomeBanner(
     }
 }
 
-@Preview
+@Preview(
+    showBackground = true,
+    heightDp = 120,
+)
 @Composable
 private fun HomeBannerSignInPrev() {
+    val userName = "userName"
+    val userImg = "userImg"
+
     HomeBanner(
         authState = AuthState.SignIn,
+        userName = userName,
+        userImg = userImg,
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun HomeBannerSignOutPrev() {
+    val userName = "userName"
+    val userImg = "userImg"
+
     HomeBanner(
         authState = AuthState.SignOut,
+        userName = userName,
+        userImg = userImg,
     )
 }
