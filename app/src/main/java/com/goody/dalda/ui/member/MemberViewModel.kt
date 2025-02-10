@@ -36,7 +36,7 @@ class MemberViewModel
             }
         }
 
-        fun requestLogoutNew() {
+        fun requestLogout() {
             viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val response = repository.logout()
