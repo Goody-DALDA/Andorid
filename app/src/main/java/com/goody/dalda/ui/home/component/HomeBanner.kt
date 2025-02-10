@@ -18,7 +18,6 @@ fun HomeBanner(
     when (authState) {
         AuthState.SignIn -> {
             WelcomeBanner(
-                authState = authState,
                 userName = userName,
                 userImg = userImg,
                 modifier = modifier,
