@@ -120,13 +120,17 @@ fun WithdrawScreen(
                         snackBarState.showSnackbar(state.exception?.message ?: "에러 발생")
                     }
 
-                    is UiState.Loading -> TODO()
+                    is UiState.Loading -> {
+                        // TODO()
+                    }
                     is UiState.Success -> {
                         onSuccess()
                         snackBarState.showSnackbar(state.data)
                     }
 
-                    is UiState.Uninitialized -> TODO()
+                    is UiState.Uninitialized -> {
+                        // TODO()
+                    }
                 }
             }
         },
