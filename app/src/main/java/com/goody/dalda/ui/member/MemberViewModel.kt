@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
+import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +59,7 @@ class MemberViewModel
                     Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
                 } else {
                     Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+                    PreferenceManager.clearAccessToken()
                 }
             }
         }

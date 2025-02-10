@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.ui.state.UiState
+import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +38,7 @@ class WithdrawViewModel
 
                     if (response.isSuccess()) {
                         unlinkKakao()
+                        PreferenceManager.clearAccessToken()
                         _uiState.value = UiState.Success(response.message)
                     } else {
                         _uiState.value = UiState.Error()
