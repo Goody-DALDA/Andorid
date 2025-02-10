@@ -52,6 +52,9 @@ class HomeViewModel
         private val _userEmail = MutableStateFlow("")
         val userEmail: StateFlow<String> = _userEmail
 
+        private val _userImg = MutableStateFlow("")
+        val userImg: StateFlow<String> = _userImg
+
         private val _selectedItemIndex = MutableStateFlow(0)
         val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
 
@@ -69,6 +72,7 @@ class HomeViewModel
                     val profile = profileRepository.getProfile()
                     _userName.value = profile.nickname
                     _userEmail.value = profile.email
+                    _userImg.value = profile.profileImg
                 } catch (e: Exception) {
                     _homeUiState.value = HomeUiState.ErrorState
                 }

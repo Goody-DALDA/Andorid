@@ -63,6 +63,7 @@ fun HomeScreen(
     val authState by viewModel.authState.collectAsStateWithLifecycle()
     val userName by viewModel.userName.collectAsStateWithLifecycle()
     val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
+    val userImg by viewModel.userImg.collectAsStateWithLifecycle()
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
     val drawerState by viewModel.drawerState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -78,6 +79,7 @@ fun HomeScreen(
                 modifier = modifier,
                 userName = userName,
                 userEmail = userEmail,
+                userImg = userImg,
                 bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
@@ -114,6 +116,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     userName: String,
     userEmail: String,
+    userImg: String,
     bookmarkAlcoholDataList: List<AlcoholData> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     authState: AuthState,
@@ -169,6 +172,8 @@ fun HomeScreen(
                 ) {
                     HomeBanner(
                         authState = authState,
+                        userName = userName,
+                        userImg = userImg,
                         modifier =
                             Modifier
                                 .padding(bottom = 30.dp)
@@ -231,6 +236,7 @@ fun HomeScreen(
 private fun HomeScreenPreview() {
     val userName = "Dalda"
     val userEmail = "nei@gmail.com"
+    val userImg = "img"
     val bookmarkAlcoholDataList =
         listOf(
             AlcoholData.Whisky(
@@ -293,6 +299,7 @@ private fun HomeScreenPreview() {
         modifier = Modifier,
         userName = userName,
         userEmail = userEmail,
+        userImg = userImg,
         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
         recommendAlcoholList = emptyList(),
         authState = authState,

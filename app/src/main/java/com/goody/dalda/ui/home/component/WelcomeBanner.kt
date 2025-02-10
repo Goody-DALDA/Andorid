@@ -3,13 +3,18 @@ package com.goody.dalda.ui.home.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -19,43 +24,60 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.goody.dalda.R
 import com.goody.dalda.ui.component.AutoResizedText
+import com.goody.dalda.ui.home.AuthState
 
 @Composable
 fun WelcomeBanner(
+    authState: AuthState,
     userName: String,
+    userImg: String,
     modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier =
-        modifier
-            .fillMaxWidth(),
+            modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp),
     ) {
         WelcomeComment(
             userName = userName,
             modifier =
-            Modifier
-                .weight(224f),
+                Modifier
+                    .weight(224f),
         )
 
         Spacer(
             modifier =
-            Modifier
-                .weight(26f),
+                Modifier
+                    .weight(26f),
         )
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_profile_sample),
-            contentDescription = stringResource(id = R.string.description_user_profile_img),
-            contentScale = ContentScale.Fit,
-            modifier =
-            Modifier
-                .weight(70f)
-                .fillMaxHeight()
-                .padding(vertical = 10.dp),
-        )
+        if (authState == AuthState.SignIn) {
+            AsyncImage(
+                model = userImg,
+                contentDescription = stringResource(id = R.string.description_user_profile_img),
+                placeholder = ColorPainter(Color.Blue),
+                contentScale = ContentScale.Crop,
+                modifier =
+                    Modifier
+                        .weight(70f)
+                        .aspectRatio(1f)
+                        .clip(CircleShape),
+            )
+        } else {
+            Image(
+                painter = painterResource(id = R.drawable.ic_profile_sample),
+                contentDescription = stringResource(id = R.string.description_user_profile_img),
+                contentScale = ContentScale.Fit,
+                modifier =
+                    Modifier
+                        .weight(70f)
+                        .fillMaxHeight(),
+            )
+        }
     }
 }
 
@@ -87,11 +109,16 @@ private fun WelcomeComment(
     )
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    heightDp = 120,
+)
 @Composable
 private fun WelcomeBannerPreview() {
     WelcomeBanner(
         userName = "삼겹살에 소주",
+        authState = AuthState.SignIn,
+        userImg = "https://picsum.photos/200/300",
     )
 }
 
