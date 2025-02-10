@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.repository.LoginRepository
 import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
+import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -36,12 +37,14 @@ class MemberViewModel
             }
         }
 
-        fun requestLogoutNew() {
+        fun requestLogout() {
             viewModelScope.launch(Dispatchers.IO) {
                 try {
                     val response = repository.logout()
                     if (response.isSuccess()) {
                         logoutKakao()
+                        PreferenceManager.clearAccessToken()
+                        PreferenceManager.clearProfile()
                         _logoutState.value = UiState.Success(response.message)
                     } else {
                         _logoutState.value = UiState.Error(exception = Exception(response.message))

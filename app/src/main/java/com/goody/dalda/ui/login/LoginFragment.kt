@@ -59,24 +59,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentLoginKakaoBtn.setOnClickListener { requestKakaoLogin() }
         binding.fragmentLoginSkipBtn.setOnClickListener { findNavController().navigate(R.id.action_loginFragment_to_navigation_home) }
+        viewModel.checkLogin()
         subscribe()
-        checkLoginStatus()
-    }
-
-    private fun checkLoginStatus() {
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Log.e(TAG, "토큰 정보 보기 실패", error)
-            } else if (tokenInfo != null) {
-                Log.i(
-                    TAG,
-                    "토큰 정보 보기 성공" +
-                            "\n회원번호: ${tokenInfo.id}" +
-                            "\n만료시간: ${tokenInfo.expiresIn} 초",
-                )
-                requestKakaoLogin()
-            }
-        }
     }
 
     private fun subscribe() {
@@ -150,10 +134,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Log.i(
                     TAG,
                     "사용자 정보 요청 성공" +
-                            "\n회원번호: ${user.id}" +
-                            "\n이메일: ${user.kakaoAccount?.email}" +
-                            "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}",
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}",
                 )
 
                 val nickname = user.kakaoAccount?.profile?.nickname ?: ""

@@ -2,7 +2,6 @@ package com.goody.dalda.ui.member
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -12,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -31,14 +31,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.goody.dalda.R
 import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
@@ -59,19 +61,19 @@ fun MemberScreen(
         viewModel.fetchProfileNew()
     }
 
-    MemberScreenNew(
+    MemberScreen(
         logoutState,
         profile,
         onClickSeeLoginScreen,
         onClickSeeWithdrawScreen,
-        onClickLogout = { viewModel.requestLogoutNew() },
+        onClickLogout = { viewModel.requestLogout() },
     )
 }
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MemberScreenNew(
+fun MemberScreen(
     state: UiState<String>,
     profile: Profile,
     onClickSeeLoginScreen: () -> Unit = {},
@@ -120,7 +122,7 @@ fun MemberScreenNew(
                         snackBarState.showSnackbar(state.data)
                     }
 
-                    is UiState.Uninitialized -> TODO()
+                    is UiState.Uninitialized -> {}
                 }
             }
         },
@@ -149,8 +151,8 @@ fun MemberLayout(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MemberProfile(
-                R.drawable.img_profile,
-                profile.nickname,
+                imgUrl = profile.profileImg,
+                nickname = profile.nickname,
             )
 
             MemberInformation(profile)
@@ -191,20 +193,22 @@ private fun MemberInformation(profile: Profile) {
 
 @Composable
 private fun MemberProfile(
-    imageRes: Int,
+    imgUrl: String,
     nickname: String,
 ) {
     Column(
         modifier = Modifier.padding(top = 40.dp, bottom = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Image(
-            painter = painterResource(imageRes),
+        AsyncImage(
+            model = imgUrl,
             contentDescription = "",
+            placeholder = ColorPainter(Color.Blue),
             modifier =
                 Modifier
                     .width(70.dp)
-                    .height(70.dp),
+                    .height(70.dp)
+                    .clip(CircleShape),
         )
 
         Text(
@@ -269,7 +273,7 @@ fun MemberScreenNewPreview() {
     val logoutState = UiState.Success("로그아웃 성공")
     val profile = Profile("nickname", "email")
 
-    MemberScreenNew(
+    MemberScreen(
         logoutState,
         profile,
         onClickSeeLoginScreen = {},

@@ -49,11 +49,11 @@ fun WithdrawScreen(
     onSuccess: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val stateNew by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
     val checkState by viewModel.checkState.collectAsStateWithLifecycle()
 
     WithdrawScreen(
-        state = stateNew,
+        state = state,
         checkState = checkState,
         onClickWithdraw = {
             viewModel.requestWithdrawNew()
@@ -120,13 +120,18 @@ fun WithdrawScreen(
                         snackBarState.showSnackbar(state.exception?.message ?: "에러 발생")
                     }
 
-                    is UiState.Loading -> TODO()
+                    is UiState.Loading -> {
+                        // TODO()
+                    }
+
                     is UiState.Success -> {
                         onSuccess()
                         snackBarState.showSnackbar(state.data)
                     }
 
-                    is UiState.Uninitialized -> TODO()
+                    is UiState.Uninitialized -> {
+                        // TODO()
+                    }
                 }
             }
         },
