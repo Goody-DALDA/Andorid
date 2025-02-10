@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.repository.LoginRepository
+import com.goody.dalda.ui.model.Profile
 import com.goody.dalda.ui.state.UiState
 import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.user.UserApiClient
@@ -29,6 +30,11 @@ class WithdrawViewModel
 
         private val _checkState = MutableStateFlow(false)
         val checkState: StateFlow<Boolean> = _checkState
+
+        private val _profile = MutableStateFlow(
+            PreferenceManager.getProfile()
+        )
+        val profile: StateFlow<Profile> = _profile
 
         fun requestWithdrawNew() {
             _uiState.value = UiState.Loading
