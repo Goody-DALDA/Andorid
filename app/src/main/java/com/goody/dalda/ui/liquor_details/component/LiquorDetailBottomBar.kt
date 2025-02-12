@@ -23,6 +23,7 @@ import com.goody.dalda.ui.component.OrangeColorButton
 fun LiquorDetailBottomBar(
     @DrawableRes bookmarkImg: Int = R.drawable.img_empty_heart,
     onClickBookmark: () -> Unit = {},
+    onClickAddIllustratedBook: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     BottomAppBar(
@@ -48,6 +49,7 @@ fun LiquorDetailBottomBar(
                         .weight(5f)
                         .fillMaxHeight(),
                     text = stringResource(id = R.string.text_add_pictorial_book),
+                    onClick = onClickAddIllustratedBook,
                 )
             }
         },

@@ -47,6 +47,8 @@
     <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
     <string name="dialog_search_results_spirits_image">주류 이미지</string>
     <string name="dialog_search_results_spirits_title">검색결과</string>
+    <string name="dialog_preparing">준비중이예요.\n다음 업데이트에서 만나요.</string>
+    <string name="dialog_preparing_button">기대할게요!</string>
     <string name="description_login_background">주류 배경</string>
     <string name="login_welcome_text">달다에\n어서오세요!</string>
     <string name="login_kakao_button_text">카카오로 로그인</string>
