@@ -81,7 +81,6 @@ fun LiquorDetailsScreen(
             viewModel.setBookmark(!isBookmark)
         },
         onClickBlog = onClickBlog,
-        modifier = modifier.padding(horizontal = AppPaddingSize.HORIZONTAL.dp),
     )
 }
 
@@ -130,6 +129,7 @@ fun LiquorDetailsScreen(
                 .padding(innerPadding),
         ) {
             item {
+
                 LiquorInfoSection(
                     alcoholData = alcoholData,
                     modifier =
@@ -138,9 +138,20 @@ fun LiquorDetailsScreen(
                         .padding(
                             top = LIQUOR_INFO_SECTION_TOP_PADDING_SIZE.dp,
                             bottom = LIQUOR_INFO_SECTION_BOTTOM_PADDING_SIZE.dp,
+                            start = AppPaddingSize.HORIZONTAL.dp,
+                            end = AppPaddingSize.HORIZONTAL.dp,
                         ),
                 )
             }
+
+            item {
+                HorizontalDivider(
+                    modifier = Modifier,
+                    thickness = 8.dp,
+                    color = colorResource(id = R.color.gray_80),
+                )
+            }
+
             item {
                 LiquorInfoDetailSection(
                     alcoholData = alcoholData,
@@ -148,7 +159,10 @@ fun LiquorDetailsScreen(
                     Modifier
                         .fillMaxWidth()
                         .padding(
+                            top = 30.dp,
                             bottom = LIQUOR_INFO_DETAIL_SECTION_BOTTOM_PADDING_SIZE.dp,
+                            start = AppPaddingSize.HORIZONTAL.dp,
+                            end = AppPaddingSize.HORIZONTAL.dp,
                         ),
                 )
             }
@@ -158,6 +172,7 @@ fun LiquorDetailsScreen(
                     modifier =
                     Modifier.padding(
                         vertical = BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING.dp,
+                        horizontal = AppPaddingSize.HORIZONTAL.dp,
                     ),
                 ) {
                     Text(
@@ -190,6 +205,7 @@ fun LiquorDetailsScreen(
                         modifier =
                         Modifier.padding(
                             vertical = BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE.dp,
+                            horizontal = AppPaddingSize.HORIZONTAL.dp,
                         ),
                     )
                     HorizontalDivider(
@@ -225,7 +241,6 @@ private fun LiquorDetailsScreenPrev_beer() {
         isBookmark = true,
         onClickSideMenu = {},
         onClickBookmark = {},
-        modifier = Modifier.padding(horizontal = 16.dp),
     )
 }
 
