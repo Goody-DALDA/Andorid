@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
+import com.goody.dalda.ui.theme.DaldaTextStyle
 
 private const val TITLE_TEXT_SIZE = 20
 private const val DESCRIPTION_TEXT_SIZE = 12
@@ -47,8 +49,8 @@ fun BlogInfoComponent(
             fontSize = TITLE_TEXT_SIZE.sp,
             maxLines = TITLE_MAX_LINE,
             overflow = TextOverflow.Ellipsis,
-            modifier =
-            Modifier
+            style = DaldaTextStyle.body2,
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = CONTENT_BOTTOM_PADDING_SIZE.dp),
         )
@@ -57,36 +59,36 @@ fun BlogInfoComponent(
             fontSize = DESCRIPTION_TEXT_SIZE.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = DESCRIPTION_MAX_LINE,
-            modifier =
-            Modifier
+            style = DaldaTextStyle.body3,
+            color = colorResource(id = R.color.gray_40),
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = CONTENT_BOTTOM_PADDING_SIZE.dp),
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start,
-            modifier =
-            Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
                 text = postingDates,
                 fontSize = POSTING_DATE_TEXT_SIZE.sp,
-                color = Color.Gray,
+                color = colorResource(id = R.color.gray_60),
                 textAlign = TextAlign.End,
+                style = DaldaTextStyle.body4,
                 modifier = Modifier.align(Alignment.Bottom),
             )
             VerticalDivider(
                 color = Color.Gray,
-                modifier =
-                Modifier
+                modifier = Modifier
                     .padding(horizontal = CONTENT_BOTTOM_PADDING_SIZE.dp)
                     .height(VERTICAL_DIVIDER_HEIGHT.dp),
             )
             Text(
                 text = stringResource(R.string.text_blog_naver),
                 fontSize = BLOG_SOURCE_TEXT_SIZE.sp,
-                color = Color.Gray,
+                color = colorResource(id = R.color.gray_60),
+                style = DaldaTextStyle.body4,
                 modifier = Modifier.align(Alignment.Bottom),
             )
         }
