@@ -25,7 +25,6 @@ fun PreparingDialog(
     buttonText: String,
     onClickCancel: () -> Unit = {},
 ) {
-
     Dialog(
         onDismissRequest = onClickCancel,
         properties = DialogProperties(

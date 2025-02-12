@@ -49,29 +49,30 @@ class LiquorDetailsViewModel @Inject constructor(
         _isBookmark.value = isBookmark
     }
 
-    private fun fetchBlogDataList(query: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _blogDataList.value =
-                blogRepository.getBlogDataList(query.replace(TEXT_SPACE, TEXT_EMPTY))
-        }
-    }
-
     fun setDialogVisible(isVisible: Boolean) {
         _isDialogVisible.value = isVisible
     }
 
     fun fetchBlogDataList(alcoholData: AlcoholData) {
-        val category =
-            when (alcoholData) {
-                is AlcoholData.Beer -> TEXT_BEER
-                is AlcoholData.Sake -> TEXT_SAKE
-                is AlcoholData.Soju -> TEXT_SOJU
-                is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
-                is AlcoholData.Wine -> TEXT_WINE
-                is AlcoholData.Whisky -> TEXT_WHISKY
-            }
-        val query = "${alcoholData.name} $category"
-        fetchBlogDataList(query)
+        val category = gerCategory(alcoholData)
+        val query = "${alcoholData.name} $category".replace(TEXT_SPACE, TEXT_EMPTY)
+        fetchBlogDataListByQuery(query)
+    }
+
+    private fun fetchBlogDataListByQuery(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _blogDataList.value =
+                blogRepository.getBlogDataList(query)
+        }
+    }
+
+    private fun gerCategory(alcoholData: AlcoholData) = when (alcoholData) {
+        is AlcoholData.Beer -> TEXT_BEER
+        is AlcoholData.Sake -> TEXT_SAKE
+        is AlcoholData.Soju -> TEXT_SOJU
+        is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
+        is AlcoholData.Wine -> TEXT_WINE
+        is AlcoholData.Whisky -> TEXT_WHISKY
     }
 
     companion object {

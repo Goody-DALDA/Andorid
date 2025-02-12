@@ -23,10 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
-private const val TITLE_TEXT_SIZE = 20
-private const val DESCRIPTION_TEXT_SIZE = 12
-private const val POSTING_DATE_TEXT_SIZE = 10
-private const val BLOG_SOURCE_TEXT_SIZE = 9
 private const val CONTENT_BOTTOM_PADDING_SIZE = 4
 private const val VERTICAL_DIVIDER_HEIGHT = 10
 private const val TITLE_MAX_LINE = 1
@@ -46,7 +42,6 @@ fun BlogInfoComponent(
     ) {
         Text(
             text = title,
-            fontSize = TITLE_TEXT_SIZE.sp,
             maxLines = TITLE_MAX_LINE,
             overflow = TextOverflow.Ellipsis,
             style = DaldaTextStyle.body2,
@@ -56,7 +51,6 @@ fun BlogInfoComponent(
         )
         Text(
             text = description,
-            fontSize = DESCRIPTION_TEXT_SIZE.sp,
             overflow = TextOverflow.Ellipsis,
             maxLines = DESCRIPTION_MAX_LINE,
             style = DaldaTextStyle.body3,
@@ -72,7 +66,6 @@ fun BlogInfoComponent(
         ) {
             Text(
                 text = postingDates,
-                fontSize = POSTING_DATE_TEXT_SIZE.sp,
                 color = colorResource(id = R.color.gray_60),
                 textAlign = TextAlign.End,
                 style = DaldaTextStyle.body4,
@@ -86,7 +79,6 @@ fun BlogInfoComponent(
             )
             Text(
                 text = stringResource(R.string.text_blog_naver),
-                fontSize = BLOG_SOURCE_TEXT_SIZE.sp,
                 color = colorResource(id = R.color.gray_60),
                 style = DaldaTextStyle.body4,
                 modifier = Modifier.align(Alignment.Bottom),
