@@ -3,7 +3,9 @@ package com.goody.dalda.ui.liquor_details
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material3.HorizontalDivider
@@ -29,6 +31,7 @@ import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.BlogData
 import com.goody.dalda.ui.AppPaddingSize
+import com.goody.dalda.ui.component.PreparingDialog
 import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
@@ -56,6 +59,7 @@ fun LiquorDetailsScreen(
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
     val isBookmark by viewModel.isBookmark.collectAsStateWithLifecycle()
     val blogDataList by viewModel.blogDataList.collectAsStateWithLifecycle()
+    val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
 
     LaunchedEffect(
         "once",
@@ -68,6 +72,7 @@ fun LiquorDetailsScreen(
         alcoholData = alcoholData,
         isDropDownMenuExpanded = isDropDownMenuExpanded,
         isBookmark = isBookmark,
+        isDialogVisible = isDialogVisible,
         blogDataList = blogDataList,
         onClickBackIcon = onClickBackIcon,
         onClickSideMenu = { isDropDownMenuExpanded = it },
@@ -81,6 +86,8 @@ fun LiquorDetailsScreen(
             viewModel.setBookmark(!isBookmark)
         },
         onClickBlog = onClickBlog,
+        onClickDialogCancel = { viewModel.setDialogVisible(false) },
+        onClickAddIllustratedBook = { viewModel.setDialogVisible(true) },
     )
 }
 
@@ -89,12 +96,15 @@ fun LiquorDetailsScreen(
     alcoholData: AlcoholData,
     isDropDownMenuExpanded: Boolean,
     isBookmark: Boolean,
+    isDialogVisible: Boolean = false,
     blogDataList: List<BlogData> = emptyList(),
     onClickBackIcon: () -> Unit,
     onClickSideMenu: (Boolean) -> Unit,
     onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
     onClickBookmark: () -> Unit,
     onClickBlog: (String) -> Unit = {},
+    onClickDialogCancel: () -> Unit = {},
+    onClickAddIllustratedBook: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -115,6 +125,7 @@ fun LiquorDetailsScreen(
                     R.drawable.img_empty_heart
                 },
                 onClickBookmark = onClickBookmark,
+                onClickAddIllustratedBook = onClickAddIllustratedBook
             )
         },
         containerColor = Color.White,
@@ -122,6 +133,17 @@ fun LiquorDetailsScreen(
         modifier
             .fillMaxSize(),
     ) { innerPadding ->
+
+        if (isDialogVisible) {
+            PreparingDialog(
+                text = stringResource(id = R.string.dialog_preparing),
+                buttonText = stringResource(id = R.string.dialog_preparing_button),
+                modifier = Modifier
+                    .width(320.dp)
+                    .height(160.dp),
+                onClickCancel = onClickDialogCancel,
+            )
+        }
         LazyColumn(
             modifier =
             Modifier
@@ -129,7 +151,6 @@ fun LiquorDetailsScreen(
                 .padding(innerPadding),
         ) {
             item {
-
                 LiquorInfoSection(
                     alcoholData = alcoholData,
                     modifier =
@@ -236,6 +257,7 @@ private fun LiquorDetailsScreenPrev_beer() {
             type = "밀맥주",
             country = "독일",
         ),
+        isDialogVisible = true,
         onClickBackIcon = {},
         isDropDownMenuExpanded = false,
         isBookmark = true,
