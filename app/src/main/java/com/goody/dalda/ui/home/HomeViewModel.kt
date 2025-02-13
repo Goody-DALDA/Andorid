@@ -75,8 +75,8 @@ class HomeViewModel @Inject constructor(
                 _userEmail.value = profile.email
                 _userImg.value = profile.profileImg
             } catch (e: Exception) {
-                Log.e(TAG, "fetchProfile: $e")
-                _homeUiState.value = HomeUiState.ErrorState
+                Log.e(TAG, "프로필 조회 실패: ${e.message}", e)
+                _homeUiState.value = HomeUiState.ErrorState("프로필을 불러오는데 실패했습니다.")
             }
         }
     }
@@ -89,7 +89,7 @@ class HomeViewModel @Inject constructor(
                     alcoholRepository.getBookmarkAlcoholList().reversed()
             } catch (e: Exception) {
                 Log.e(TAG, "fetchBookmarkAlcoholList: $e")
-                _homeUiState.value = HomeUiState.ErrorState
+                _homeUiState.value = HomeUiState.ErrorState("북마크 목록을 불러오는데 실패했습니다")
             }
         }
     }

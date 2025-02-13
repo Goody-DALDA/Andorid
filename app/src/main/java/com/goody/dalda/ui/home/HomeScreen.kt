@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -215,7 +216,6 @@ fun HomeScreen(
                         rowCount = categoryRowMaxCount,
                         onClickAlcohol = { alcoholType ->
                             if (alcoholType.categoryStatus == AlcoholCategoryStatus.WAITING) {
-                                // TODO : Show dialog
                                 onClickUnServiceAlcohol()
                             } else {
                                 onClickAlcohol(alcoholType)
@@ -249,10 +249,10 @@ fun HomeScreen(
                 if (isDialogVisible) {
                     PreparingDialog(
                         modifier = Modifier
-                            .width(320.dp)
-                            .height(160.dp),
-                        text = "준비중이예요.\n다음 업데이트에서 만나요!",
-                        buttonText = "기대할게요!",
+                            .fillMaxWidth(0.85f)
+                            .wrapContentHeight(),
+                        text = stringResource(id = R.string.dialog_preparing),
+                        buttonText = stringResource(id = R.string.dialog_preparing_button),
                         onClickCancel = onClickDialogCancel,
                     )
                 }
