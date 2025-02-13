@@ -19,7 +19,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
-fun PreparingDialog(
+fun SimpleMessageDialog(
     modifier: Modifier = Modifier,
     text: String,
     buttonText: String,
@@ -65,8 +65,8 @@ fun PreparingDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreparingDialogPrev() {
-    PreparingDialog(
+private fun SimpleMessageDialogPrev() {
+    SimpleMessageDialog(
         modifier = Modifier
             .width(320.dp)
             .height(160.dp),

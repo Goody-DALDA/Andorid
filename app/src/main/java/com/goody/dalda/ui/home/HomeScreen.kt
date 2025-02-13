@@ -1,6 +1,5 @@
 package com.goody.dalda.ui.home
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -37,7 +36,7 @@ import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.AppPaddingSize
-import com.goody.dalda.ui.component.PreparingDialog
+import com.goody.dalda.ui.component.SimpleMessageDialog
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.BookmarkAlcohol
@@ -247,7 +246,7 @@ fun HomeScreen(
                     )
                 }
                 if (isDialogVisible) {
-                    PreparingDialog(
+                    SimpleMessageDialog(
                         modifier = Modifier
                             .fillMaxWidth(0.85f)
                             .wrapContentHeight(),
