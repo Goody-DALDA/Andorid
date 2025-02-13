@@ -6,11 +6,12 @@ import com.goody.dalda.data.remote.blog.NaverBlogDataSource
 import javax.inject.Inject
 
 class BlogRepositoryImpl
-    @Inject
-    constructor(
-        private val naverBlogDataSource: NaverBlogDataSource,
-    ) : BlogRepository {
-        override suspend fun getBlogDataList(query: String): List<BlogData> {
+@Inject
+constructor(
+    private val naverBlogDataSource: NaverBlogDataSource,
+) : BlogRepository {
+    override suspend fun getBlogDataList(query: String): List<BlogData> {
+        try {
             val blogSearchDto = naverBlogDataSource.getBlogData(query)
 
             return if (blogSearchDto.isSuccessful) {
@@ -28,9 +29,14 @@ class BlogRepositoryImpl
                 Log.e(TAG, "getBlogDataList: ${blogSearchDto.errorBody()}")
                 emptyList()
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "getBlogDataList: ${e.message}")
+            return emptyList()
         }
 
-        companion object {
-            private const val TAG = "BlogRepositoryImpl"
-        }
     }
+
+    companion object {
+        private const val TAG = "BlogRepositoryImpl"
+    }
+}

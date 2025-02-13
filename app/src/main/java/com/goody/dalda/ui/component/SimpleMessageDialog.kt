@@ -19,7 +19,7 @@ import androidx.compose.ui.window.DialogProperties
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
-fun PreparingDialog(
+fun SimpleMessageDialog(
     modifier: Modifier = Modifier,
     text: String,
     buttonText: String,
@@ -65,12 +65,21 @@ fun PreparingDialog(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreparingDialogPrev() {
-    PreparingDialog(
+private fun SimpleMessageDialogPrev() {
+    SimpleMessageDialog(
         modifier = Modifier
             .width(320.dp)
             .height(160.dp),
         text = "준비중이예요.\n다음 업데이트에서 만나요!",
         buttonText = "기대할게요!",
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SimpleMessageDialogPrevLongText() {
+    SimpleMessageDialog(
+        text = "매우 긴 메시지를 표시하는 경우 매우 긴 메시지를 표시하는 경우\n여러 줄에 걸쳐 표시될 수 있습니다.",
+        buttonText = "확인",
     )
 }

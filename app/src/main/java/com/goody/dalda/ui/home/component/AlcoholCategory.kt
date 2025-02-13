@@ -60,9 +60,7 @@ fun AlcoholTap(
         modifier =
         modifier
             .clickable {
-                if (alcoholType.categoryStatus == AlcoholCategoryStatus.RELEASE) {
-                    onClick()
-                }
+                onClick()
             },
     ) {
         Box(
