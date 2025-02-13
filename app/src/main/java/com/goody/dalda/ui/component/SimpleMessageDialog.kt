@@ -74,3 +74,12 @@ private fun SimpleMessageDialogPrev() {
         buttonText = "기대할게요!",
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun SimpleMessageDialogPrevLongText() {
+    SimpleMessageDialog(
+        text = "매우 긴 메시지를 표시하는 경우 매우 긴 메시지를 표시하는 경우\n여러 줄에 걸쳐 표시될 수 있습니다.",
+        buttonText = "확인",
+    )
+}

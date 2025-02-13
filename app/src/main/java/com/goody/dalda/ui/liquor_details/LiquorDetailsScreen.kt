@@ -45,6 +45,7 @@ private const val BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING = 8
 private const val BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE = 8
 private const val TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE = 4
 private const val TEXT_BLOG_REVIEW_TITLE_FONT_SIZE = 18
+private const val DIALOG_WIDTH_RATIO = 0.85f
 
 @Composable
 fun LiquorDetailsScreen(
@@ -138,7 +139,7 @@ fun LiquorDetailsScreen(
                 text = stringResource(id = R.string.dialog_preparing),
                 buttonText = stringResource(id = R.string.dialog_preparing_button),
                 modifier = Modifier
-                    .fillMaxWidth(0.85f)
+                    .fillMaxWidth(DIALOG_WIDTH_RATIO)
                     .wrapContentHeight(),
                 onClickCancel = onClickDialogCancel,
             )

@@ -47,6 +47,7 @@ import com.goody.dalda.ui.home.data.Menu
 import kotlinx.coroutines.launch
 
 const val categoryRowMaxCount = 4
+private const val DIALOG_WIDTH_RATIO = 0.85f
 
 @Composable
 fun HomeScreen(
@@ -248,7 +249,7 @@ fun HomeScreen(
                 if (isDialogVisible) {
                     SimpleMessageDialog(
                         modifier = Modifier
-                            .fillMaxWidth(0.85f)
+                            .fillMaxWidth(DIALOG_WIDTH_RATIO)
                             .wrapContentHeight(),
                         text = stringResource(id = R.string.dialog_preparing),
                         buttonText = stringResource(id = R.string.dialog_preparing_button),
