@@ -3,9 +3,8 @@ package com.goody.dalda.ui.liquor_details
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material3.HorizontalDivider
@@ -31,7 +30,7 @@ import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.BlogData
 import com.goody.dalda.ui.AppPaddingSize
-import com.goody.dalda.ui.component.PreparingDialog
+import com.goody.dalda.ui.component.SimpleMessageDialog
 import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
 import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
@@ -46,6 +45,7 @@ private const val BLOG_REVIEW_TEXT_COLUMN_VERTICAL_PADDING = 8
 private const val BLOG_INFO_COMPONENT_VERTICAL_PADDING_SIZE = 8
 private const val TEXT_BLOG_REVIEW_TITLE_VERTICAL_PADDING_SIZE = 4
 private const val TEXT_BLOG_REVIEW_TITLE_FONT_SIZE = 18
+private const val DIALOG_WIDTH_RATIO = 0.85f
 
 @Composable
 fun LiquorDetailsScreen(
@@ -135,12 +135,12 @@ fun LiquorDetailsScreen(
     ) { innerPadding ->
 
         if (isDialogVisible) {
-            PreparingDialog(
+            SimpleMessageDialog(
                 text = stringResource(id = R.string.dialog_preparing),
                 buttonText = stringResource(id = R.string.dialog_preparing_button),
                 modifier = Modifier
-                    .width(320.dp)
-                    .height(160.dp),
+                    .fillMaxWidth(DIALOG_WIDTH_RATIO)
+                    .wrapContentHeight(),
                 onClickCancel = onClickDialogCancel,
             )
         }
