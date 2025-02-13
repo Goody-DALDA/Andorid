@@ -18,77 +18,88 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel
-    @Inject
-    constructor(
-        private val alcoholRepository: AlcoholRepository,
-        private val profileRepository: LoginRepository,
-    ) : ViewModel() {
-        private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
-        val bookmarkAlcoholDataList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
+class HomeViewModel @Inject constructor(
+    private val alcoholRepository: AlcoholRepository,
+    private val profileRepository: LoginRepository,
+) : ViewModel() {
+    private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
+    val bookmarkAlcoholDataList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
 
-        private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
-        val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
+    private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
+    val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
 
-        private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
-        val homeUiState: StateFlow<HomeUiState> = _homeUiState
+    private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
+    val homeUiState: StateFlow<HomeUiState> = _homeUiState
 
-        private val _authState =
-            MutableStateFlow<AuthState>(
-                if (PreferenceManager
-                        .getAccessToken()
-                        .isEmpty()
-                ) {
-                    AuthState.SignOut
-                } else {
-                    AuthState.SignIn
-                },
-            )
-        val authState: StateFlow<AuthState> = _authState
+    private val _authState =
+        MutableStateFlow<AuthState>(
+            if (PreferenceManager
+                    .getAccessToken()
+                    .isEmpty()
+            ) {
+                AuthState.SignOut
+            } else {
+                AuthState.SignIn
+            },
+        )
+    val authState: StateFlow<AuthState> = _authState
 
-        private val _userName = MutableStateFlow("")
-        val userName: StateFlow<String> = _userName
+    private val _userName = MutableStateFlow("")
+    val userName: StateFlow<String> = _userName
 
-        private val _userEmail = MutableStateFlow("")
-        val userEmail: StateFlow<String> = _userEmail
+    private val _userEmail = MutableStateFlow("")
+    val userEmail: StateFlow<String> = _userEmail
 
-        private val _userImg = MutableStateFlow("")
-        val userImg: StateFlow<String> = _userImg
+    private val _userImg = MutableStateFlow("")
+    val userImg: StateFlow<String> = _userImg
 
-        private val _selectedItemIndex = MutableStateFlow(0)
-        val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
+    private val _selectedItemIndex = MutableStateFlow(0)
+    val selectedItemIndex: StateFlow<Int> = _selectedItemIndex
 
-        private val _drawerState = MutableStateFlow(DrawerState(DrawerValue.Closed))
-        val drawerState: StateFlow<DrawerState> = _drawerState
+    private val _drawerState = MutableStateFlow(DrawerState(DrawerValue.Closed))
+    val drawerState: StateFlow<DrawerState> = _drawerState
 
-        fun setSelectedItemIndex(itemIndex: Int) {
-            _selectedItemIndex.value = itemIndex
-        }
+    private val _isDialogVisible = MutableStateFlow(false)
+    val isDialogVisible: StateFlow<Boolean> = _isDialogVisible
 
-        fun fetchProfile() {
-            if (PreferenceManager.getAccessToken().isEmpty()) return
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    val profile = profileRepository.getProfile()
-                    _userName.value = profile.nickname
-                    _userEmail.value = profile.email
-                    _userImg.value = profile.profileImg
-                } catch (e: Exception) {
-                    _homeUiState.value = HomeUiState.ErrorState
-                }
-            }
-        }
+    fun setSelectedItemIndex(itemIndex: Int) {
+        _selectedItemIndex.value = itemIndex
+    }
 
-        fun fetchBookmarkAlcoholList() {
-//        if (PreferenceManager.getAccessToken().isEmpty()) return
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    _bookmarkAlcoholDataList.value =
-                        alcoholRepository.getBookmarkAlcoholList().reversed()
-                } catch (e: Exception) {
-                    Log.e("TAG", "fetchBookmarkAlcoholList: ${e.message}")
-                    _homeUiState.value = HomeUiState.ErrorState
-                }
+    fun fetchProfile() {
+        if (PreferenceManager.getAccessToken().isEmpty()) return
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val profile = profileRepository.getProfile()
+                _userName.value = profile.nickname
+                _userEmail.value = profile.email
+                _userImg.value = profile.profileImg
+            } catch (e: Exception) {
+                Log.e(TAG, "fetchProfile: $e")
+                _homeUiState.value = HomeUiState.ErrorState
             }
         }
     }
+
+    fun fetchBookmarkAlcoholList() {
+//        if (PreferenceManager.getAccessToken().isEmpty()) return
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _bookmarkAlcoholDataList.value =
+                    alcoholRepository.getBookmarkAlcoholList().reversed()
+            } catch (e: Exception) {
+                Log.e(TAG, "fetchBookmarkAlcoholList: $e")
+                _homeUiState.value = HomeUiState.ErrorState
+            }
+        }
+    }
+
+    fun setDialogVisible(isVisible: Boolean) {
+        _isDialogVisible.value = isVisible
+    }
+
+    companion object {
+        private const val TAG = "HomeViewModel"
+    }
+}
+

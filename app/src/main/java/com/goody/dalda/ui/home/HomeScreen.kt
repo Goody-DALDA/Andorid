@@ -31,10 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
+import com.goody.dalda.data.AlcoholCategoryStatus
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.AppPaddingSize
+import com.goody.dalda.ui.component.PreparingDialog
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.BookmarkAlcohol
@@ -66,6 +68,7 @@ fun HomeScreen(
     val userImg by viewModel.userImg.collectAsStateWithLifecycle()
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
     val drawerState by viewModel.drawerState.collectAsStateWithLifecycle()
+    val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
     LaunchedEffect("once") {
@@ -84,6 +87,7 @@ fun HomeScreen(
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
                 drawerState = drawerState,
+                isDialogVisible = isDialogVisible,
                 selectedItemIndex = selectedItemIndex,
                 onChangeSelectedItemIndex = { viewModel.setSelectedItemIndex(it) },
                 onClickAlcohol = onClickAlcohol,
@@ -102,6 +106,12 @@ fun HomeScreen(
                 onClickLogin = onClickSeeLoginScreen,
                 onClickCard = onClickCard,
                 onClickBookmark = onClickBookmark,
+                onClickDialogCancel = {
+                    viewModel.setDialogVisible(false)
+                },
+                onClickUnServiceAlcohol = {
+                    viewModel.setDialogVisible(true)
+                },
             )
         }
 
@@ -121,6 +131,7 @@ fun HomeScreen(
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     authState: AuthState,
     drawerState: DrawerState,
+    isDialogVisible: Boolean,
     selectedItemIndex: Int,
     onChangeSelectedItemIndex: (Int) -> Unit = {},
     onClickSearch: () -> Unit = {},
@@ -131,6 +142,8 @@ fun HomeScreen(
     onClickLogin: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickBookmark: () -> Unit = {},
+    onClickDialogCancel: () -> Unit = {},
+    onClickUnServiceAlcohol: () -> Unit = {},
 ) {
     Surface(
         color = Color.White,
@@ -153,9 +166,9 @@ fun HomeScreen(
         ) {
             Scaffold(
                 modifier =
-                    Modifier.padding(
-                        horizontal = AppPaddingSize.HORIZONTAL.dp,
-                    ),
+                Modifier.padding(
+                    horizontal = AppPaddingSize.HORIZONTAL.dp,
+                ),
                 topBar = {
                     HomeTopBar(
                         onClickMenu = onClickMenu,
@@ -165,29 +178,29 @@ fun HomeScreen(
             ) { innerPadding ->
                 Column(
                     modifier =
-                        Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding)
-                            .verticalScroll(rememberScrollState()),
+                    Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .verticalScroll(rememberScrollState()),
                 ) {
                     HomeBanner(
                         authState = authState,
                         userName = userName,
                         userImg = userImg,
                         modifier =
-                            Modifier
-                                .padding(bottom = 30.dp)
-                                .fillMaxWidth()
-                                .height(120.dp),
+                        Modifier
+                            .padding(bottom = 30.dp)
+                            .fillMaxWidth()
+                            .height(120.dp),
                         onClickLogin = onClickLogin,
                     )
 
                     Image(
                         modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 16.dp)
-                                .clickable { onClickSearch() },
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp)
+                            .clickable { onClickSearch() },
                         contentScale = ContentScale.FillWidth,
                         painter = painterResource(id = R.drawable.img_search_bar),
                         contentDescription = null,
@@ -195,20 +208,27 @@ fun HomeScreen(
 
                     AlcoholCategory(
                         modifier =
-                            Modifier
-                                .padding(bottom = 40.dp)
-                                .fillMaxWidth()
-                                .wrapContentHeight(),
+                        Modifier
+                            .padding(bottom = 40.dp)
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
                         rowCount = categoryRowMaxCount,
-                        onClickAlcohol = onClickAlcohol,
+                        onClickAlcohol = { alcoholType ->
+                            if (alcoholType.categoryStatus == AlcoholCategoryStatus.WAITING) {
+                                // TODO : Show dialog
+                                onClickUnServiceAlcohol()
+                            } else {
+                                onClickAlcohol(alcoholType)
+                            }
+                        },
                     )
 
                     BookmarkAlcohol(
                         modifier =
-                            Modifier
-                                .wrapContentHeight()
-                                .padding(bottom = 40.dp)
-                                .fillMaxWidth(),
+                        Modifier
+                            .wrapContentHeight()
+                            .padding(bottom = 40.dp)
+                            .fillMaxWidth(),
                         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                         onActionClick = onClickBookmark,
                         onClickCard = onClickCard,
@@ -216,14 +236,24 @@ fun HomeScreen(
 
                     AlcoholRecommendation(
                         modifier =
-                            Modifier
-                                .padding(bottom = 40.dp)
-                                .alpha(0f)
-                                .wrapContentHeight()
-                                .fillMaxWidth(),
+                        Modifier
+                            .padding(bottom = 40.dp)
+                            .alpha(0f)
+                            .wrapContentHeight()
+                            .fillMaxWidth(),
                         recommendAlcoholList = recommendAlcoholList,
                         onActionClick = { /*TODO*/ },
                         onContentsClick = { /*TODO*/ },
+                    )
+                }
+                if (isDialogVisible) {
+                    PreparingDialog(
+                        modifier = Modifier
+                            .width(320.dp)
+                            .height(160.dp),
+                        text = "준비중이예요.\n다음 업데이트에서 만나요!",
+                        buttonText = "기대할게요!",
+                        onClickCancel = onClickDialogCancel,
                     )
                 }
             }
@@ -294,7 +324,7 @@ private fun HomeScreenPreview() {
     val authState = AuthState.SignIn
     val drawerState = DrawerState(initialValue = DrawerValue.Closed)
     val selectedItemIndex = 0
-
+    val isDialogVisible = false
     HomeScreen(
         modifier = Modifier,
         userName = userName,
@@ -304,6 +334,7 @@ private fun HomeScreenPreview() {
         recommendAlcoholList = emptyList(),
         authState = authState,
         drawerState = drawerState,
+        isDialogVisible = isDialogVisible,
         selectedItemIndex = selectedItemIndex,
         onChangeSelectedItemIndex = {},
         onClickSearch = {},
