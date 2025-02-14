@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.search
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,11 +40,27 @@ fun SearchScreen(
     val recentSearchWordList by viewModel.recentSearchWordList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val sideEffect by viewModel.sideEffect.collectAsStateWithLifecycle()
 
     LaunchedEffect(
         key1 = "once",
     ) {
         viewModel.fetchRecentSearchWordList(true)
+    }
+
+    LaunchedEffect(
+        key1 = sideEffect
+    ) {
+        when (sideEffect) {
+            is SearchSideEffect.Default -> {
+                // noting to do
+            }
+
+            is SearchSideEffect.NavigateToLiquorDetail -> {
+                onClickCard((sideEffect as SearchSideEffect.NavigateToLiquorDetail).alcoholData)
+                viewModel.setSideEffect(SearchSideEffect.Default)
+            }
+        }
     }
 
     SearchScreen(
@@ -53,27 +70,20 @@ fun SearchScreen(
         recentSearchWordList = recentSearchWordList,
         recommendAlcoholList = recommendAlcoholList,
         onQueryChange = {
-            viewModel.setQuery(it)
-            if (it.isNotEmpty()) {
-                viewModel.setUiState(SearchUiState.Recommendation)
-                viewModel.updateRecommendAlcoholList()
-            } else {
-                viewModel.setUiState(SearchUiState.RecentSearch)
-                viewModel.fetchRecentSearchWordList(true)
-            }
+            viewModel.queryChanged(it)
         },
         onClickBack = onClickBack,
         onSearch = {
-            viewModel.searchAlcoholData(it)
-            viewModel.setUiState(SearchUiState.SearchResult)
-            viewModel.insertSearchWord(it)
+            viewModel.search(it)
         },
         onClickCamera = onClickCamera,
         onClickRequest = onClickRequest,
+        onClickRecommend = {
+            viewModel.onClickRecommend(it)
+        },
         onClickCard = onClickCard,
         onClickClear = {
-            viewModel.deleteAllSearchWord()
-            viewModel.fetchRecentSearchWordList(true)
+            viewModel.clearRecentSearchWord()
         },
         onClickFooter = {
             AlcoholType.entries.forEach { alcoholType ->
@@ -98,6 +108,7 @@ fun SearchScreen(
     onSearch: (String) -> Unit = {},
     onClickCamera: () -> Unit = {},
     onClickRequest: () -> Unit = {},
+    onClickRecommend: (String) -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickClear: () -> Unit = {},
     onClickFooter: (String) -> Unit = {},
@@ -120,8 +131,8 @@ fun SearchScreen(
                 onClickLeadingIcon = onSearch,
                 onClickTrailingIcon = onClickCamera,
                 modifier =
-                    Modifier
-                        .fillMaxWidth(),
+                Modifier
+                    .fillMaxWidth(),
             )
 
             when (uiState) {
@@ -140,7 +151,7 @@ fun SearchScreen(
                     RecommendAlcoholList(
                         modifier = Modifier.fillMaxWidth(),
                         recommendAlcoholList = recommendAlcoholList,
-                        onClickWord = onQueryChange,
+                        onClickWord = onClickRecommend,
                     )
                 }
 
