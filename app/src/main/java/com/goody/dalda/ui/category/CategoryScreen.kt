@@ -28,8 +28,8 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.category.component.CategoryTab
 import com.goody.dalda.ui.component.SearchBarComponent
-import com.goody.dalda.ui.home.component.IconPack
-import com.goody.dalda.ui.home.component.iconpack.IcCamera
+import com.goody.dalda.ui.icon.IconPack
+import com.goody.dalda.ui.icon.iconpack.IcCamera
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import kotlinx.coroutines.launch
 

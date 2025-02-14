@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
 import com.goody.dalda.ui.component.AutoResizedText
-import com.goody.dalda.ui.home.component.IconPack
-import com.goody.dalda.ui.home.component.iconpack.IcInsta
-import com.goody.dalda.ui.home.component.iconpack.IcLink
+import com.goody.dalda.ui.icon.IconPack
+import com.goody.dalda.ui.icon.iconpack.IcInsta
+import com.goody.dalda.ui.icon.iconpack.IcLink
 import com.goody.dalda.ui.home.data.Menu
 import com.goody.dalda.ui.theme.DaldaTextStyle
 

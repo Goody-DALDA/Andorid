@@ -1,11 +1,11 @@
-package com.goody.dalda.ui.home.component
+package com.goody.dalda.ui.icon
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.goody.dalda.ui.home.component.iconpack.IcCamera
-import com.goody.dalda.ui.home.component.iconpack.IcComingSoon
-import com.goody.dalda.ui.home.component.iconpack.IcInsta
-import com.goody.dalda.ui.home.component.iconpack.IcLink
-import com.goody.dalda.ui.home.component.iconpack.IcMenuDot
+import com.goody.dalda.ui.icon.iconpack.IcCamera
+import com.goody.dalda.ui.icon.iconpack.IcComingSoon
+import com.goody.dalda.ui.icon.iconpack.IcInsta
+import com.goody.dalda.ui.icon.iconpack.IcLink
+import com.goody.dalda.ui.icon.iconpack.IcMenuDot
 import kotlin.collections.List as ____KtList
 
 public object IconPack

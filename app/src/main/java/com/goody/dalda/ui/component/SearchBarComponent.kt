@@ -30,8 +30,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction.Companion.Search
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.goody.dalda.ui.home.component.IconPack
-import com.goody.dalda.ui.home.component.iconpack.IcCamera
+import com.goody.dalda.ui.icon.IconPack
+import com.goody.dalda.ui.icon.iconpack.IcCamera
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.delay
 
