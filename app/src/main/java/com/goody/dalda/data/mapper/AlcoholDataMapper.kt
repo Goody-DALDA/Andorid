@@ -40,9 +40,6 @@ object AlcoholDataMapper {
 
     private fun dataToSake(data: Data): AlcoholData.Sake =
         (data as Sake).let {
-            if (it.taste.isEmpty()) {
-                println("dataToSake: ${it.name}")
-            }
             AlcoholData.Sake(
                 id = it.id,
                 name = it.name,

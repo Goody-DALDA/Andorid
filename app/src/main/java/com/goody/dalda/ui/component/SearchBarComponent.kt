@@ -30,8 +30,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction.Companion.Search
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.goody.dalda.ui.home.component.IconPack
-import com.goody.dalda.ui.home.component.iconpack.IcCamera
+import com.goody.dalda.ui.icon.IconPack
+import com.goody.dalda.ui.icon.iconpack.IcCamera
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.delay
 
@@ -39,6 +39,7 @@ import kotlinx.coroutines.delay
 fun SearchBarComponent(
     query: String = "",
     placeholder: String = "",
+    isFocus: Boolean = false,
     leadingIcon: ImageVector,
     trailingIcon: ImageVector,
     onValueChange: (String) -> Unit = {},
@@ -52,7 +53,9 @@ fun SearchBarComponent(
 
     LaunchedEffect(Unit) {
         delay(300)
-        focusRequester.requestFocus()
+        if(isFocus) {
+            focusRequester.requestFocus()
+        }
     }
 
     Row(
@@ -103,7 +106,8 @@ fun SearchBarComponent(
                             Modifier
                                 .clickable {
                                     onValueChange("")
-                                }.alpha(
+                                }
+                                .alpha(
                                     if (query.isNotEmpty()) 1f else 0f,
                                 ),
                     )
@@ -139,6 +143,21 @@ fun SearchBarComponent(
 private fun SearchBarComponentPrev() {
     SearchBarComponent(
         query = "",
+        placeholder = "placeholder",
+        leadingIcon = Icons.Outlined.Search,
+        trailingIcon = IconPack.IcCamera,
+        onValueChange = {},
+        onClickBackIcon = {},
+        onClickTrailingIcon = {},
+    )
+}
+
+@Preview
+@Composable
+private fun SearchBarComponentWithQueryPrev() {
+    val query = "query"
+    SearchBarComponent(
+        query = query,
         placeholder = "placeholder",
         leadingIcon = Icons.Outlined.Search,
         trailingIcon = IconPack.IcCamera,
