@@ -104,6 +104,7 @@ fun CategoryScreen(
         SearchBarComponent(
             query = query,
             placeholder = "",
+            isFocus = false,
             leadingIcon = Icons.Outlined.Search,
             trailingIcon = IconPack.IcCamera,
             onValueChange = onValueChange,

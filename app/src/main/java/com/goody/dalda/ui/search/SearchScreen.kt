@@ -124,6 +124,7 @@ fun SearchScreen(
             SearchBarComponent(
                 query = query,
                 placeholder = "",
+                isFocus = true,
                 leadingIcon = Icons.Outlined.Search,
                 trailingIcon = IconPack.IcCamera,
                 onValueChange = onQueryChange,

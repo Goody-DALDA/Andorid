@@ -39,6 +39,7 @@ import kotlinx.coroutines.delay
 fun SearchBarComponent(
     query: String = "",
     placeholder: String = "",
+    isFocus: Boolean = false,
     leadingIcon: ImageVector,
     trailingIcon: ImageVector,
     onValueChange: (String) -> Unit = {},
@@ -52,7 +53,9 @@ fun SearchBarComponent(
 
     LaunchedEffect(Unit) {
         delay(300)
-        focusRequester.requestFocus()
+        if(isFocus) {
+            focusRequester.requestFocus()
+        }
     }
 
     Row(
