@@ -174,3 +174,35 @@ private fun SearchScreenPreview() {
         modifier = Modifier,
     )
 }
+
+@Preview
+@Composable
+private fun SearchScreenSearchResultPreview() {
+
+    val searchResultList = listOf(
+        AlcoholData.Soju(
+            id = 2316,
+            name = "Justine Long",
+            imgUrl = "https://duckduckgo.com/?q=dicunt",
+            country = "Macedonia",
+            volume = "quidam",
+            abv = "montes",
+            price = 1000,
+            comment = "코멘트",
+        )
+    )
+
+    SearchScreen(
+        uiState = SearchUiState.SearchResult,
+        query = "",
+        searchResultList = searchResultList,
+        recentSearchWordList = listOf("소주", "맥주", "막걸리"),
+        recommendAlcoholList = listOf("소주", "맥주", "막걸리"),
+        onQueryChange = {},
+        onClickCard = {},
+        onClickFooter = {},
+        onClickCamera = {},
+        modifier = Modifier,
+    )
+}
+
