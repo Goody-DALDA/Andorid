@@ -103,7 +103,8 @@ fun SearchBarComponent(
                             Modifier
                                 .clickable {
                                     onValueChange("")
-                                }.alpha(
+                                }
+                                .alpha(
                                     if (query.isNotEmpty()) 1f else 0f,
                                 ),
                     )
@@ -139,6 +140,21 @@ fun SearchBarComponent(
 private fun SearchBarComponentPrev() {
     SearchBarComponent(
         query = "",
+        placeholder = "placeholder",
+        leadingIcon = Icons.Outlined.Search,
+        trailingIcon = IconPack.IcCamera,
+        onValueChange = {},
+        onClickBackIcon = {},
+        onClickTrailingIcon = {},
+    )
+}
+
+@Preview
+@Composable
+private fun SearchBarComponentWithQueryPrev() {
+    val query = "query"
+    SearchBarComponent(
+        query = query,
         placeholder = "placeholder",
         leadingIcon = Icons.Outlined.Search,
         trailingIcon = IconPack.IcCamera,
