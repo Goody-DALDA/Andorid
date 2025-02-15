@@ -56,7 +56,7 @@ fun BookmarkScreen(
     Scaffold(
         topBar = {
             BookmarkTopBar(
-                omNavigationClick = onClickNavigation,
+                onNavigationClick = onClickNavigation,
             )
         },
         containerColor = Color.White,

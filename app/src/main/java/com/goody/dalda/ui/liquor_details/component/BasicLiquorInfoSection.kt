@@ -24,7 +24,7 @@ import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
-fun LiquorInfoSection(
+fun BasicLiquorInfoSection(
     alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
 ) {
@@ -208,7 +208,7 @@ fun SecondFloorText(
 @Preview(showBackground = true)
 @Composable
 private fun LiquorImageSectionPrev_soju() {
-    LiquorInfoSection(
+    BasicLiquorInfoSection(
         alcoholData =
             AlcoholData.Soju(
                 id = 7959,
@@ -226,7 +226,7 @@ private fun LiquorImageSectionPrev_soju() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorImageSectionPrev_beer() {
-    LiquorInfoSection(
+    BasicLiquorInfoSection(
         alcoholData =
             AlcoholData.Beer(
                 id = 7959,
@@ -247,7 +247,7 @@ private fun LiquorImageSectionPrev_beer() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorImageSectionPrev_sake() {
-    LiquorInfoSection(
+    BasicLiquorInfoSection(
         alcoholData =
             AlcoholData.Sake(
                 id = 7959,
@@ -268,7 +268,7 @@ private fun LiquorImageSectionPrev_sake() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorImageSectionPrev_wine() {
-    LiquorInfoSection(
+    BasicLiquorInfoSection(
         alcoholData =
             AlcoholData.Wine(
                 id = 0,

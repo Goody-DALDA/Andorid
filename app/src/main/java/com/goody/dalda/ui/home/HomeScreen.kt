@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -44,6 +45,7 @@ import com.goody.dalda.ui.home.component.HomeBanner
 import com.goody.dalda.ui.home.component.HomeTopBar
 import com.goody.dalda.ui.home.component.navigationdrawer.HomeDrawerSheet
 import com.goody.dalda.ui.home.data.Menu
+import com.goody.dalda.ui.home.data.UserProfile
 import kotlinx.coroutines.launch
 
 const val categoryRowMaxCount = 4
@@ -64,9 +66,7 @@ fun HomeScreen(
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
     val authState by viewModel.authState.collectAsStateWithLifecycle()
-    val userName by viewModel.userName.collectAsStateWithLifecycle()
-    val userEmail by viewModel.userEmail.collectAsStateWithLifecycle()
-    val userImg by viewModel.userImg.collectAsStateWithLifecycle()
+    val userProfile by viewModel.userProfile.collectAsStateWithLifecycle()
     val selectedItemIndex by viewModel.selectedItemIndex.collectAsStateWithLifecycle()
     val drawerState by viewModel.drawerState.collectAsStateWithLifecycle()
     val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
@@ -81,9 +81,7 @@ fun HomeScreen(
         is HomeUiState.CommonState -> {
             HomeScreen(
                 modifier = modifier,
-                userName = userName,
-                userEmail = userEmail,
-                userImg = userImg,
+                userProfile = userProfile,
                 bookmarkAlcoholDataList = bookmarkAlcoholDataList,
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
@@ -118,6 +116,7 @@ fun HomeScreen(
 
         is HomeUiState.ErrorState -> {
             // TODO : Error UI
+            Log.e("HomeScreen", "HomeScreen: ${(homeUiState as HomeUiState.ErrorState).errorMsg}", )
         }
     }
 }
@@ -125,9 +124,7 @@ fun HomeScreen(
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    userName: String,
-    userEmail: String,
-    userImg: String,
+    userProfile: UserProfile,
     bookmarkAlcoholDataList: List<AlcoholData> = emptyList(),
     recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
     authState: AuthState,
@@ -154,8 +151,12 @@ fun HomeScreen(
             drawerContent = {
                 HomeDrawerSheet(
                     modifier = Modifier.width(250.dp),
-                    userName = if (authState == AuthState.SignIn) userName else stringResource(R.string.text_do_sign_in),
-                    userEmail = if (authState == AuthState.SignIn) userEmail else stringResource(R.string.text_sign_in_recommendation),
+                    userName = if (authState == AuthState.SignIn) userProfile.name else stringResource(
+                        R.string.text_do_sign_in
+                    ),
+                    userEmail = if (authState == AuthState.SignIn) userProfile.email else stringResource(
+                        R.string.text_sign_in_recommendation
+                    ),
                     authState = authState,
                     selectedItemIndex = selectedItemIndex,
                     onChangeDrawerState = onChangeDrawerState,
@@ -186,8 +187,8 @@ fun HomeScreen(
                 ) {
                     HomeBanner(
                         authState = authState,
-                        userName = userName,
-                        userImg = userImg,
+                        userName = userProfile.name,
+                        userImg = userProfile.img,
                         modifier =
                         Modifier
                             .padding(bottom = 30.dp)
@@ -264,9 +265,12 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    val userName = "Dalda"
-    val userEmail = "nei@gmail.com"
-    val userImg = "img"
+    val userProfile = UserProfile(
+        name = "김다르다",
+        email = "odh@djdj.com",
+        img = "http://www.bing.com/search?q=sagittis"
+    )
+
     val bookmarkAlcoholDataList =
         listOf(
             AlcoholData.Whisky(
@@ -327,9 +331,7 @@ private fun HomeScreenPreview() {
     val isDialogVisible = false
     HomeScreen(
         modifier = Modifier,
-        userName = userName,
-        userEmail = userEmail,
-        userImg = userImg,
+        userProfile = userProfile,
         bookmarkAlcoholDataList = bookmarkAlcoholDataList,
         recommendAlcoholList = emptyList(),
         authState = authState,

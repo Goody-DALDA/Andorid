@@ -20,7 +20,7 @@ import com.goody.dalda.R
 import com.goody.dalda.ui.component.OrangeColorButton
 
 @Composable
-fun LiquorDetailBottomBar(
+fun DetailLiquorBottomBar(
     @DrawableRes bookmarkImg: Int = R.drawable.img_empty_heart,
     onClickBookmark: () -> Unit = {},
     onClickAddIllustratedBook: () -> Unit = {},
@@ -60,6 +60,6 @@ fun LiquorDetailBottomBar(
 
 @Preview
 @Composable
-private fun LiquorDetailBottomBarPrev() {
-    LiquorDetailBottomBar()
+private fun DetailLiquorBottomBarPrev() {
+    DetailLiquorBottomBar()
 }
