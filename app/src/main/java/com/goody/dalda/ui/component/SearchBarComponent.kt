@@ -35,6 +35,8 @@ import com.goody.dalda.ui.icon.iconpack.IcCamera
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.delay
 
+private const val FOCUS_DELAY_MS = 300L
+
 @Composable
 fun SearchBarComponent(
     query: String = "",
@@ -52,7 +54,7 @@ fun SearchBarComponent(
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {
-        delay(300)
+        delay(FOCUS_DELAY_MS)
         if(isFocus) {
             focusRequester.requestFocus()
         }
@@ -144,6 +146,7 @@ private fun SearchBarComponentPrev() {
     SearchBarComponent(
         query = "",
         placeholder = "placeholder",
+        isFocus = false,
         leadingIcon = Icons.Outlined.Search,
         trailingIcon = IconPack.IcCamera,
         onValueChange = {},
@@ -159,6 +162,7 @@ private fun SearchBarComponentWithQueryPrev() {
     SearchBarComponent(
         query = query,
         placeholder = "placeholder",
+        isFocus = false,
         leadingIcon = Icons.Outlined.Search,
         trailingIcon = IconPack.IcCamera,
         onValueChange = {},

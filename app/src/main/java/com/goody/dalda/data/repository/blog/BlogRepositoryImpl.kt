@@ -5,9 +5,7 @@ import com.goody.dalda.data.BlogData
 import com.goody.dalda.data.remote.blog.NaverBlogDataSource
 import javax.inject.Inject
 
-class BlogRepositoryImpl
-@Inject
-constructor(
+class BlogRepositoryImpl @Inject constructor(
     private val naverBlogDataSource: NaverBlogDataSource,
 ) : BlogRepository {
     override suspend fun getBlogDataList(query: String): List<BlogData> {

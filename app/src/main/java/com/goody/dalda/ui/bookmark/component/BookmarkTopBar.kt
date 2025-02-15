@@ -16,13 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarkTopBar(
-    omNavigationClick: () -> Unit = {},
+    onNavigationClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
         title = {},
         navigationIcon = {
-            IconButton(onClick = omNavigationClick) {
+            IconButton(onClick = onNavigationClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = null,

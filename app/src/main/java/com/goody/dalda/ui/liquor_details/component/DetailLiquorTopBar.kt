@@ -24,9 +24,9 @@ import com.goody.dalda.RequestInfoModify
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LiquorDetailTopBar(
+fun DetailLiquorTopBar(
     isDropDownMenuExpanded: Boolean = false,
-    omNavigationClick: () -> Unit = {},
+    onNavigationClick: () -> Unit = {},
     onClickSideMenu: (Boolean) -> Unit = {},
     onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -34,7 +34,7 @@ fun LiquorDetailTopBar(
     TopAppBar(
         title = {},
         navigationIcon = {
-            IconButton(onClick = omNavigationClick) {
+            IconButton(onClick = onNavigationClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = stringResource(id = R.string.description_back_icon),
@@ -85,6 +85,6 @@ fun LiquorDetailTopBar(
 
 @Preview
 @Composable
-private fun LiquorDetailTopBarPrev() {
-    LiquorDetailTopBar()
+private fun DetailLiquorTopBarPrev() {
+    DetailLiquorTopBar()
 }

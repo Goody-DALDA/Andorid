@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,10 +32,10 @@ import com.goody.dalda.data.BlogData
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SimpleMessageDialog
 import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
-import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
-import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
-import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
-import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
+import com.goody.dalda.ui.liquor_details.component.DetailLiquorBottomBar
+import com.goody.dalda.ui.liquor_details.component.DetailLiquorTopBar
+import com.goody.dalda.ui.liquor_details.component.DetailLiquorInfoSection
+import com.goody.dalda.ui.liquor_details.component.BasicLiquorInfoSection
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 private const val LIQUOR_INFO_SECTION_TOP_PADDING_SIZE = 16
@@ -109,15 +109,15 @@ fun LiquorDetailsScreen(
 ) {
     Scaffold(
         topBar = {
-            LiquorDetailTopBar(
+            DetailLiquorTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
-                omNavigationClick = onClickBackIcon,
+                onNavigationClick = onClickBackIcon,
                 onClickSideMenu = { onClickSideMenu(it) },
                 onClickMenu = onClickMenu
             )
         },
         bottomBar = {
-            LiquorDetailBottomBar(
+            DetailLiquorBottomBar(
                 bookmarkImg =
                 if (isBookmark) {
                     R.drawable.img_full_heart
@@ -151,7 +151,7 @@ fun LiquorDetailsScreen(
                 .padding(innerPadding),
         ) {
             item {
-                LiquorInfoSection(
+                BasicLiquorInfoSection(
                     alcoholData = alcoholData,
                     modifier =
                     Modifier
@@ -174,7 +174,7 @@ fun LiquorDetailsScreen(
             }
 
             item {
-                LiquorInfoDetailSection(
+                DetailLiquorInfoSection(
                     alcoholData = alcoholData,
                     modifier =
                     Modifier
@@ -288,6 +288,7 @@ private fun LiquorDetailsScreenPrev_wine() {
             pairingFood = "차가운 육류요리나 가금류, 붉은육류요리, 치즈",
             winery = "이 기갈",
         ),
+        isDialogVisible = false,
         onClickBackIcon = {},
         isDropDownMenuExpanded = false,
         isBookmark = false,
@@ -315,6 +316,7 @@ private fun LiquorDetailsScreenPrev_wine_liquor() {
             pairingFood = "약과, 약밥, 송편 등 좋은 떡류나 고추장 불고기, 사천 탕수육 등을 추천한다.",
             brewery = "석이원주조",
         ),
+        isDialogVisible = false,
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickBackIcon = {},
@@ -342,6 +344,7 @@ private fun LiquorDetailsScreenPrev_whiskey() {
             finish = "오크와 다크초콜렛의 긴 여운",
             type = "버번 위스키",
         ),
+        isDialogVisible = false,
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickBackIcon = {},
@@ -368,6 +371,7 @@ private fun LiquorDetailsScreenPrev_sake() {
             aroma = "유자, 상큼한",
             finish = "감칠맛, 부드러운",
         ),
+        isDialogVisible = false,
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickBackIcon = {},
@@ -392,6 +396,7 @@ private fun LiquorDetailsScreenPrev_soju() {
             abv = "16.9%",
             comment = "부산 지역에서 유명한 소주로, 깔끔한 맛이 특징",
         ),
+        isDialogVisible = false,
         isDropDownMenuExpanded = false,
         isBookmark = false,
         onClickBackIcon = {},
