@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Text
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,10 +32,10 @@ import com.goody.dalda.data.BlogData
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SimpleMessageDialog
 import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
-import com.goody.dalda.ui.liquor_details.component.LiquorDetailBottomBar
-import com.goody.dalda.ui.liquor_details.component.LiquorDetailTopBar
-import com.goody.dalda.ui.liquor_details.component.LiquorInfoDetailSection
-import com.goody.dalda.ui.liquor_details.component.LiquorInfoSection
+import com.goody.dalda.ui.liquor_details.component.DetailLiquorBottomBar
+import com.goody.dalda.ui.liquor_details.component.DetailLiquorTopBar
+import com.goody.dalda.ui.liquor_details.component.DetailLiquorInfoSection
+import com.goody.dalda.ui.liquor_details.component.BasicLiquorInfoSection
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 private const val LIQUOR_INFO_SECTION_TOP_PADDING_SIZE = 16
@@ -109,7 +109,7 @@ fun LiquorDetailsScreen(
 ) {
     Scaffold(
         topBar = {
-            LiquorDetailTopBar(
+            DetailLiquorTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
                 omNavigationClick = onClickBackIcon,
                 onClickSideMenu = { onClickSideMenu(it) },
@@ -117,7 +117,7 @@ fun LiquorDetailsScreen(
             )
         },
         bottomBar = {
-            LiquorDetailBottomBar(
+            DetailLiquorBottomBar(
                 bookmarkImg =
                 if (isBookmark) {
                     R.drawable.img_full_heart
@@ -151,7 +151,7 @@ fun LiquorDetailsScreen(
                 .padding(innerPadding),
         ) {
             item {
-                LiquorInfoSection(
+                BasicLiquorInfoSection(
                     alcoholData = alcoholData,
                     modifier =
                     Modifier
@@ -174,7 +174,7 @@ fun LiquorDetailsScreen(
             }
 
             item {
-                LiquorInfoDetailSection(
+                DetailLiquorInfoSection(
                     alcoholData = alcoholData,
                     modifier =
                     Modifier

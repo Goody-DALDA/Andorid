@@ -24,7 +24,7 @@ import java.text.DecimalFormat
 private const val BAR_COUNT = 5
 
 @Composable
-fun LiquorInfoDetailSection(
+fun DetailLiquorInfoSection(
     alcoholData: AlcoholData,
     modifier: Modifier = Modifier,
 ) {
@@ -520,7 +520,7 @@ fun DrawBarGraphWithTitle(
 @Preview(showBackground = true)
 @Composable
 private fun LiquorInfoDetailSectionPrev_beer() {
-    LiquorInfoDetailSection(
+    DetailLiquorInfoSection(
         modifier = Modifier,
         alcoholData =
         AlcoholData.Beer(
@@ -543,7 +543,7 @@ private fun LiquorInfoDetailSectionPrev_beer() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorInfoDetailSectionPrev_wine() {
-    LiquorInfoDetailSection(
+    DetailLiquorInfoSection(
         modifier = Modifier,
         alcoholData =
         AlcoholData.Wine(
@@ -569,7 +569,7 @@ private fun LiquorInfoDetailSectionPrev_wine() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
-    LiquorInfoDetailSection(
+    DetailLiquorInfoSection(
         modifier = Modifier,
         alcoholData =
         AlcoholData.TraditionalLiquor(
@@ -592,7 +592,7 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorInfoDetailSectionPrev_whiskey() {
-    LiquorInfoDetailSection(
+    DetailLiquorInfoSection(
         modifier = Modifier,
         alcoholData =
         AlcoholData.Whisky(
@@ -615,7 +615,7 @@ private fun LiquorInfoDetailSectionPrev_whiskey() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorInfoDetailSectionPrev_sake() {
-    LiquorInfoDetailSection(
+    DetailLiquorInfoSection(
         modifier = Modifier,
         alcoholData =
         AlcoholData.Sake(
@@ -637,7 +637,7 @@ private fun LiquorInfoDetailSectionPrev_sake() {
 @Preview(showBackground = true)
 @Composable
 private fun LiquorInfoDetailSectionPrev_soju() {
-    LiquorInfoDetailSection(
+    DetailLiquorInfoSection(
         modifier = Modifier,
         alcoholData =
         AlcoholData.Soju(
