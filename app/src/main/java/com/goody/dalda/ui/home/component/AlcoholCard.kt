@@ -6,15 +6,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,19 +34,23 @@ fun AlcoholCard(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier =
-            modifier
-                .clickable { onClick(alcoholData) },
+        modifier
+            .clickable { onClick(alcoholData) },
     ) {
         AsyncImage(
             model = alcoholData.imgUrl,
             contentDescription = "",
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
-            contentScale = ContentScale.FillHeight,
+            contentScale = ContentScale.Fit,
             modifier =
-                Modifier
-                    .height(152.dp)
-                    .fillMaxWidth()
-                    .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
+            Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+                .border(
+                    width = 1.dp,
+                    color = colorResource(id = R.color.gray_80),
+                    shape = RoundedCornerShape(8.dp)
+                ),
         )
         AutoResizedText(
             text = alcoholData.name,
@@ -88,14 +93,14 @@ fun getTagImgRes(alcoholData: AlcoholData) =
 private fun AlcoholCardPreview() {
     AlcoholCard(
         alcoholData =
-            AlcoholData.Soju(
-                id = 0,
-                name = "소주",
-                imgUrl = "http://www.bing.com/search?q=sagittis",
-                volume = "355ml",
-                abv = "4.5%",
-                price = 1000,
-                comment = "맛있어요",
-            ),
+        AlcoholData.Soju(
+            id = 0,
+            name = "소주",
+            imgUrl = "http://www.bing.com/search?q=sagittis",
+            volume = "355ml",
+            abv = "4.5%",
+            price = 1000,
+            comment = "맛있어요",
+        ),
     )
 }

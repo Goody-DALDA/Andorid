@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.home.component.iconpack
+package com.goody.dalda.ui.icon.iconpack
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathFillType.Companion.NonZero
@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
-import com.goody.dalda.ui.home.component.IconPack
+import com.goody.dalda.ui.icon.IconPack
 
 public val IconPack.IcComingSoon: ImageVector
     get() {
@@ -18,10 +18,11 @@ public val IconPack.IcComingSoon: ImageVector
         }
         _icComingSoon =
             Builder(
-                name = "IcComingSoon", defaultWidth = 48.0.dp,
-                defaultHeight =
-                48.0.dp,
-                viewportWidth = 48.0f, viewportHeight = 48.0f,
+                name = "IcComingSoon",
+                defaultWidth = 48.0.dp,
+                defaultHeight = 48.0.dp,
+                viewportWidth = 48.0f,
+                viewportHeight = 48.0f,
             ).apply {
                 path(
                     fill = SolidColor(Color(0xFF000000)), stroke = null, fillAlpha = 0.3f,

@@ -2,6 +2,7 @@ package com.goody.dalda.ui.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
@@ -61,7 +62,7 @@ fun SearchResult(
 
             HorizontalPager(
                 state = pagerState,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxHeight(),
             ) {
                 AlcoholCardListComponent(
                     alcoholDataList =
@@ -74,7 +75,7 @@ fun SearchResult(
                         )
                     },
                     onClickCard = onClickCard,
-                    modifier = Modifier,
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }
