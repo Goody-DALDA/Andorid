@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
@@ -40,7 +41,9 @@ fun BarGraph(
     color: Color,
     modifier: Modifier = Modifier
 ) {
-    val clampedValue = value.coerceIn(0f, 1f)
+    val clampedValue = remember(value) {
+        value.coerceIn(0f, 1f)
+    }
 
     val customModifier = getCustomModifierByState(state, modifier, height)
 
@@ -69,44 +72,40 @@ private fun getCustomModifierByState(
     state: BarGraphState,
     modifier: Modifier,
     height: Int
-) = when (state) {
-    BarGraphState.Start -> modifier
-        .clip(
-            shape = RoundedCornerShape(
-                topStart = height.dp,
-                bottomStart = height.dp
-            )
-        )
-        .border(
-            width = 1.dp,
-            color = colorResource(id = R.color.gray_80),
-            shape = RoundedCornerShape(
-                topStart = height.dp,
-                bottomStart = height.dp
-            )
-        )
+): Modifier {
+    val startShape = RoundedCornerShape(
+        topStart = height.dp,
+        bottomStart = height.dp
+    )
 
-    BarGraphState.Middle -> modifier
-        .border(
-            width = 1.dp,
-            color = colorResource(id = R.color.gray_80)
-        )
+    val endShape = RoundedCornerShape(
+        topEnd = height.dp,
+        bottomEnd = height.dp
+    )
 
-    BarGraphState.End -> modifier
-        .clip(
-            shape = RoundedCornerShape(
-                topEnd = height.dp,
-                bottomEnd = height.dp
+    return when (state) {
+        BarGraphState.Start -> modifier
+            .clip(startShape)
+            .border(
+                width = 1.dp,
+                color = colorResource(id = R.color.gray_80),
+                shape = startShape
             )
-        )
-        .border(
-            width = 1.dp,
-            color = colorResource(id = R.color.gray_80),
-            shape = RoundedCornerShape(
-                topEnd = height.dp,
-                bottomEnd = height.dp
+
+        BarGraphState.Middle -> modifier
+            .border(
+                width = 1.dp,
+                color = colorResource(id = R.color.gray_80)
             )
-        )
+
+        BarGraphState.End -> modifier
+            .clip(endShape)
+            .border(
+                width = 1.dp,
+                color = colorResource(id = R.color.gray_80),
+                shape = endShape
+            )
+    }
 }
 
 @Preview(showBackground = true)
