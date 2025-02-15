@@ -22,6 +22,16 @@ sealed class BarGraphState {
     data object End : BarGraphState()
 }
 
+/**
+ * 바 그래프를 그리는 Composable 함수
+ *
+ * @param value 바 그래프의 값 (0.0f ~ 1.0f)
+ * @param state 바 그래프의 상태 (시작, 중간, 끝)
+ * @param height 바 그래프의 높이 (dp 단위)
+ * @param color 바 그래프의 색상
+ * @param modifier 추가적인 수정자
+ */
+
 @Composable
 fun BarGraph(
     value: Float,
@@ -30,45 +40,9 @@ fun BarGraph(
     color: Color,
     modifier: Modifier = Modifier
 ) {
-    val customModifier = when (state) {
-        BarGraphState.Start -> modifier
-            .clip(
-                shape = RoundedCornerShape(
-                    topStart = height.dp,
-                    bottomStart = height.dp
-                )
-            )
-            .border(
-                width = 1.dp,
-                color = colorResource(id = R.color.gray_80),
-                shape = RoundedCornerShape(
-                    topStart = height.dp,
-                    bottomStart = height.dp
-                )
-            )
+    val clampedValue = value.coerceIn(0f, 1f)
 
-        BarGraphState.Middle -> modifier
-            .border(
-                width = 1.dp,
-                color = colorResource(id = R.color.gray_80)
-            )
-
-        BarGraphState.End -> modifier
-            .clip(
-                shape = RoundedCornerShape(
-                    topEnd = height.dp,
-                    bottomEnd = height.dp
-                )
-            )
-            .border(
-                width = 1.dp,
-                color = colorResource(id = R.color.gray_80),
-                shape = RoundedCornerShape(
-                    topEnd = height.dp,
-                    bottomEnd = height.dp
-                )
-            )
-    }
+    val customModifier = getCustomModifierByState(state, modifier, height)
 
     Box(
         modifier = customModifier
@@ -81,7 +55,7 @@ fun BarGraph(
                     drawRect(
                         color = color,
                         size = Size(
-                            width = size.width * value,
+                            width = size.width * clampedValue,
                             height = size.height
                         )
                     )
@@ -90,11 +64,56 @@ fun BarGraph(
     )
 }
 
+@Composable
+private fun getCustomModifierByState(
+    state: BarGraphState,
+    modifier: Modifier,
+    height: Int
+) = when (state) {
+    BarGraphState.Start -> modifier
+        .clip(
+            shape = RoundedCornerShape(
+                topStart = height.dp,
+                bottomStart = height.dp
+            )
+        )
+        .border(
+            width = 1.dp,
+            color = colorResource(id = R.color.gray_80),
+            shape = RoundedCornerShape(
+                topStart = height.dp,
+                bottomStart = height.dp
+            )
+        )
+
+    BarGraphState.Middle -> modifier
+        .border(
+            width = 1.dp,
+            color = colorResource(id = R.color.gray_80)
+        )
+
+    BarGraphState.End -> modifier
+        .clip(
+            shape = RoundedCornerShape(
+                topEnd = height.dp,
+                bottomEnd = height.dp
+            )
+        )
+        .border(
+            width = 1.dp,
+            color = colorResource(id = R.color.gray_80),
+            shape = RoundedCornerShape(
+                topEnd = height.dp,
+                bottomEnd = height.dp
+            )
+        )
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun BarGraphStartPrev() {
     BarGraph(
-        value = 1f,
+        value = 0.2f,
         state = BarGraphState.Start,
         height = 40,
         color = colorResource(id = R.color.primary_light),
@@ -118,8 +137,20 @@ private fun BarGraphEndPrev() {
 @Composable
 private fun BarGraphMidPrev() {
     BarGraph(
-        value = 1f,
+        value = 0.8f,
         state = BarGraphState.Middle,
+        height = 40,
+        color = colorResource(id = R.color.primary_light),
+        modifier = Modifier
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun BarGraphEmptyPrev() {
+    BarGraph(
+        value = 0f,
+        state = BarGraphState.Start,
         height = 40,
         color = colorResource(id = R.color.primary_light),
         modifier = Modifier

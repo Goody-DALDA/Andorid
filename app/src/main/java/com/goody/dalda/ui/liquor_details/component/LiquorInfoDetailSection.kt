@@ -20,6 +20,8 @@ import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import java.text.DecimalFormat
 
+private const val BAR_COUNT = 5
+
 @Composable
 fun LiquorInfoDetailSection(
     alcoholData: AlcoholData,
@@ -450,12 +452,12 @@ fun TextTitleValue(
 @Composable
 fun DrawBarGraph(
     value: Float,
+    barCount: Int,
     modifier: Modifier = Modifier,
 ) {
-    val fillWeightList = List(5) { index ->
+    val fillWeightList = List(barCount) { index ->
         minOf(maxOf(value - index, 0f), 1f)
     }
-    val barCount = 5
     var barGraphState: BarGraphState
 
     Row(
@@ -504,6 +506,7 @@ fun DrawBarGraphWithTitle(
         DrawBarGraph(
             modifier = Modifier.weight(7f),
             value = value.second,
+            barCount = BAR_COUNT,
         )
     }
 }
