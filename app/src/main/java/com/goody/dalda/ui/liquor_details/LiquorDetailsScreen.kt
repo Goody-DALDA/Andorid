@@ -111,7 +111,7 @@ fun LiquorDetailsScreen(
         topBar = {
             DetailLiquorTopBar(
                 isDropDownMenuExpanded = isDropDownMenuExpanded,
-                omNavigationClick = onClickBackIcon,
+                onNavigationClick = onClickBackIcon,
                 onClickSideMenu = { onClickSideMenu(it) },
                 onClickMenu = onClickMenu
             )

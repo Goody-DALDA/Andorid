@@ -26,7 +26,7 @@ import com.goody.dalda.RequestInfoModify
 @Composable
 fun DetailLiquorTopBar(
     isDropDownMenuExpanded: Boolean = false,
-    omNavigationClick: () -> Unit = {},
+    onNavigationClick: () -> Unit = {},
     onClickSideMenu: (Boolean) -> Unit = {},
     onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -34,7 +34,7 @@ fun DetailLiquorTopBar(
     TopAppBar(
         title = {},
         navigationIcon = {
-            IconButton(onClick = omNavigationClick) {
+            IconButton(onClick = onNavigationClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                     contentDescription = stringResource(id = R.string.description_back_icon),
