@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <style name="BasicDialog">
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+        <item name="android:background">@drawable/dialog_default_background</item>
+
+        <!-- Dim(Activity 배경) -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+
+    <style name="SearchLabel.EmptyDialog" parent="BasicDialog">
+        <item name="android:windowMinWidthMajor">@dimen/empty_dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/empty_dialog_min_width_minor</item>
+    </style>
+
+    <style name="RoundCornerBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundCornerModalStyle</item>
+    </style>
+
+    <style name="RoundCornerModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_round_top_background</item>
+    </style>
+
+
+    <style name="SojuChipStyle" parent="SpiritsCategoryChipStyle">
+        <item name="chipBackgroundColor">@color/category_soju_background</item>
+        <item name="android:textColor">@color/category_soju_text</item>
+    </style>
+
+    <style name="SpiritsCategoryChipStyle" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="shapeAppearanceOverlay">@null</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
+        <item name="chipMinHeight">24dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:clickable">false</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="android:maxWidth">0dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/primary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ThemeOverlay.Kakao.Button" parent="">
+        <item name="colorPrimary">@color/kakao_color</item>
+        <item name="colorOnPrimary">@color/kakao_color</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Circular">
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
