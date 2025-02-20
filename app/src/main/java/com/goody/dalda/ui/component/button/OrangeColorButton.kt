@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.component
+package com.goody.dalda.ui.component.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,6 +11,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
+import com.goody.dalda.ui.component.AutoResizedText
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable

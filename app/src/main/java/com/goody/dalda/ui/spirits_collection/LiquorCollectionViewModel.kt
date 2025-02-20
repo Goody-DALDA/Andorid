@@ -7,9 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SpiritsCollectionViewModel
-@Inject
-constructor() : ViewModel() {
+class LiquorCollectionViewModel @Inject constructor() : ViewModel() {
     private val _text =
         MutableLiveData<String>().apply {
             value = "This is Spirits Collection Fragment"

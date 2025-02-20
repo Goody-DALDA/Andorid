@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.goody.dalda.base.BaseFragment
-import com.goody.dalda.databinding.FragmentSpiritsCollectionBinding
+import com.goody.dalda.databinding.FragmentLiquorCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SpiritsCollectionFragment : BaseFragment<FragmentSpiritsCollectionBinding>() {
-    private val viewModel: SpiritsCollectionViewModel by viewModels()
+class LiquorCollectionFragment : BaseFragment<FragmentLiquorCollectionBinding>() {
+    private val viewModel: LiquorCollectionViewModel by viewModels()
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSpiritsCollectionBinding
-        get() = FragmentSpiritsCollectionBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLiquorCollectionBinding
+        get() = FragmentLiquorCollectionBinding::inflate
 
     override fun onViewCreated(
         view: View,
