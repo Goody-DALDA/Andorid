@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentLiquorCollectionBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,9 +24,18 @@ class LiquorCollectionFragment : BaseFragment<FragmentLiquorCollectionBinding>()
         savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
+        binding.composeView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
 
-        viewModel.text.observe(viewLifecycleOwner) {
-            binding.textSpiritsCollection.text = it
+            setContent {
+                LiquorCollectionScreen(
+                    modifier = Modifier,
+                    onClickButton = {
+                        findNavController().popBackStack()
+                    },
+                    viewModel = viewModel
+                )
+            }
         }
     }
 }
