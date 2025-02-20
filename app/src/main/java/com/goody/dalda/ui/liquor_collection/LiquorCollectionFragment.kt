@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.spirits_collection
+package com.goody.dalda.ui.liquor_collection
 
 import android.os.Bundle
 import android.view.LayoutInflater

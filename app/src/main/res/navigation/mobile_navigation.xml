@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/navigation_liquor_collection"
-        android:name="com.goody.dalda.ui.spirits_collection.LiquorCollectionFragment"
+        android:name="com.goody.dalda.ui.liquor_collection.LiquorCollectionFragment"
         android:label="@string/title_liquor_collection"
         tools:layout="@layout/fragment_liquor_collection" />
 

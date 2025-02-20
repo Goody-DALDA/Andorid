@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.spirits_collection
+package com.goody.dalda.ui.liquor_collection
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
