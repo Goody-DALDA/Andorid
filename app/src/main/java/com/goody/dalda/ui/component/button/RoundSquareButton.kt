@@ -1,7 +1,7 @@
 package com.goody.dalda.ui.component.button
 
 import androidx.annotation.ColorRes
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -24,11 +24,8 @@ fun RoundSquareButton(
     onClick: () -> Unit = {}
 ) {
     Button(
-        modifier =
-        modifier.background(
-            colorResource(id = buttonColorRes),
-            shape = RoundedCornerShape(roundedCornerShapeValue.dp),
-        ),
+        modifier = modifier,
+        shape = RoundedCornerShape(roundedCornerShapeValue.dp),
         colors =
         ButtonDefaults.buttonColors(
             colorResource(id = buttonColorRes),
@@ -43,14 +40,18 @@ fun RoundSquareButton(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun RoundSquareButtonPreview() {
     RoundSquareButton(
-        modifier = Modifier,
+        modifier = Modifier.border(
+            width = 1.dp,
+            color = colorResource(id = R.color.black),
+            shape = RoundedCornerShape(4.dp)
+        ),
         text = "감사합니다.",
-        textColorRes =  R.color.text,
-        buttonColorRes =  R.color.primary,
+        textColorRes = R.color.text,
+        buttonColorRes = R.color.white,
         roundedCornerShapeValue = 4,
         onClick = {}
     )

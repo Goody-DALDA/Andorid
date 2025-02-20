@@ -21,15 +21,11 @@ fun OrangeColorButton(
     onClick: () -> Unit = {},
 ) {
     Button(
-        modifier =
-        modifier.background(
-            colorResource(id = R.color.primary),
-            shape = RoundedCornerShape(6.dp),
-        ),
-        colors =
-        ButtonDefaults.buttonColors(
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
             colorResource(id = R.color.primary),
         ),
+        shape = RoundedCornerShape(6.dp),
         onClick = onClick,
     ) {
         AutoResizedText(

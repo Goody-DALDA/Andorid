@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -66,7 +67,8 @@ fun LiquorCollectionScreen(
                 .height(42.dp)
                 .border(
                     width = 1.dp,
-                    color = colorResource(id = R.color.gray_80)
+                    color = colorResource(id = R.color.gray_80),
+                    shape = RoundedCornerShape(4.dp)
                 ),
             text = "메인으로 돌아가기",
             textColorRes = R.color.gray_50,
