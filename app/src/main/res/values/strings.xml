@@ -29,6 +29,9 @@
     <string name="text_blog_naver">네이버 블로그</string>
     <string name="text_blog_review">블로그 리뷰</string>
     <string name="text_keyword_search_result">키워드로 수집한 정보를 확인해보세요</string>
+    <string name="text_preparing">준비중이예요.\n다음 업데이트에서 만나요.</string>
+    <string name="text_preparing_button">기대할게요!</string>
+    <string name="text_comeback_main">메인으로 돌아가기</string>
 
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>
@@ -37,6 +40,7 @@
     <string name="description_instagram_icon">인스타그램 아이콘</string>
     <string name="description_link_icon">링크 아이콘</string>
     <string name="description_back_icon">뒤로가기 아이콘</string>
+    <string name="description_liquors_img">주류 모임 이미지</string>
     <string name="label_search_camera_button">카메라 버튼</string>
     <string name="label_search_album_button">앨범 버튼</string>
     <string name="label_search_guide_text">술 전면의 라벨을 촬영해 주세요.</string>
@@ -47,8 +51,7 @@
     <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
     <string name="dialog_search_results_spirits_image">주류 이미지</string>
     <string name="dialog_search_results_spirits_title">검색결과</string>
-    <string name="dialog_preparing">준비중이예요.\n다음 업데이트에서 만나요.</string>
-    <string name="dialog_preparing_button">기대할게요!</string>
+
     <string name="description_login_background">주류 배경</string>
     <string name="login_welcome_text">달다에\n어서오세요!</string>
     <string name="login_kakao_button_text">카카오로 로그인</string>
