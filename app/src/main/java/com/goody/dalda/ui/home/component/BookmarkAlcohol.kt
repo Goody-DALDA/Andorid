@@ -46,7 +46,7 @@ fun BookmarkAlcohol(
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.img_alcohols),
-                    contentDescription = "",
+                    contentDescription = stringResource(id = R.string.description_liquors_img),
                     contentScale = ContentScale.FillWidth,
                     modifier =
                         Modifier

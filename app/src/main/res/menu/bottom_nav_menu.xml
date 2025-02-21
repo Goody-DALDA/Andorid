@@ -7,7 +7,7 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_spirits_collection"
+        android:id="@+id/navigation_liquor_collection"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_spirits_collection" />
+        android:title="@string/title_liquor_collection" />
 </menu>

@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.ui.component.OrangeColorButton
+import com.goody.dalda.ui.component.button.OrangeColorButton
 
 @Composable
 fun DetailLiquorBottomBar(

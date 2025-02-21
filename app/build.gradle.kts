@@ -28,7 +28,7 @@ android {
         applicationId = "com.goody.dalda"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 3
         versionName = "1.0"
 
         buildConfigField(
