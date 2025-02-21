@@ -41,7 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun isBottomNavVisible(destinationId: Int): Boolean =
         when (destinationId) {
-            R.id.navigation_home, R.id.navigation_spirits_collection -> true
+            R.id.navigation_home, R.id.navigation_liquor_collection -> true
             else -> false
         }
 

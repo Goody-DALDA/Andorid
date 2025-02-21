@@ -136,8 +136,8 @@ fun LiquorDetailsScreen(
 
         if (isDialogVisible) {
             SimpleMessageDialog(
-                text = stringResource(id = R.string.dialog_preparing),
-                buttonText = stringResource(id = R.string.dialog_preparing_button),
+                text = stringResource(id = R.string.text_preparing),
+                buttonText = stringResource(id = R.string.text_preparing_button),
                 modifier = Modifier
                     .fillMaxWidth(DIALOG_WIDTH_RATIO)
                     .wrapContentHeight(),
