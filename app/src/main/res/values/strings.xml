@@ -32,6 +32,7 @@
     <string name="text_preparing">준비중이예요.\n다음 업데이트에서 만나요.</string>
     <string name="text_preparing_button">기대할게요!</string>
     <string name="text_comeback_main">메인으로 돌아가기</string>
+    <string name="text_occur_error">오류가 발생했어요</string>
 
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>
@@ -41,6 +42,7 @@
     <string name="description_link_icon">링크 아이콘</string>
     <string name="description_back_icon">뒤로가기 아이콘</string>
     <string name="description_liquors_img">주류 모임 이미지</string>
+    <string name="description_break_glass_img">깨진 유리잔 이미지</string>
     <string name="label_search_camera_button">카메라 버튼</string>
     <string name="label_search_album_button">앨범 버튼</string>
     <string name="label_search_guide_text">술 전면의 라벨을 촬영해 주세요.</string>
