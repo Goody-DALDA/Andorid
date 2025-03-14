@@ -38,6 +38,7 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SimpleMessageDialog
+import com.goody.dalda.ui.error.ErrorPageScreen
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.BookmarkAlcohol
@@ -61,6 +62,7 @@ fun HomeScreen(
     onClickSeeLoginScreen: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickBookmark: () -> Unit = {},
+    onClickBack:() -> Unit = {},
 ) {
     val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -117,6 +119,9 @@ fun HomeScreen(
         is HomeUiState.ErrorState -> {
             // TODO : Error UI
             Log.e("HomeScreen", "HomeScreen: ${(homeUiState as HomeUiState.ErrorState).errorMsg}", )
+            ErrorPageScreen(
+                onClickButton = onClickBack
+            )
         }
     }
 }
