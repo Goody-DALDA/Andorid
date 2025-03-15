@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.home
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -63,6 +64,7 @@ fun HomeScreen(
     onClickCard: (AlcoholData) -> Unit = {},
     onClickBookmark: () -> Unit = {},
     onClickBack:() -> Unit = {},
+    onFinishActivity:() -> Unit = {},
 ) {
     val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -78,6 +80,19 @@ fun HomeScreen(
         viewModel.fetchProfile()
         viewModel.fetchBookmarkAlcoholList()
     }
+
+    BackHandler(
+        enabled = true,
+        onBack = {
+            if(drawerState.isOpen) {
+                scope.launch {
+                    drawerState.close()
+                }
+            } else {
+                onFinishActivity()
+            }
+        }
+    )
 
     when (homeUiState) {
         is HomeUiState.CommonState -> {
