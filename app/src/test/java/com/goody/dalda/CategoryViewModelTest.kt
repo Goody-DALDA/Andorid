@@ -7,7 +7,7 @@ import com.goody.dalda.data.remote.home.AlcoholDataRemoteDataSourceImpl
 import com.goody.dalda.data.repository.alcohol.AlcoholRepositoryImpl
 import com.goody.dalda.network.RetrofitService
 import com.goody.dalda.ui.category.CategoryViewModel
-import com.goody.dalda.ui.home.FakeBookmarkLocalDataSourceImpl
+import com.goody.dalda.repository.FakeBookmarkLocalDataSourceImpl
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
