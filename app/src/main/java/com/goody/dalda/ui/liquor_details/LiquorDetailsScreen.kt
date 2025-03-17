@@ -61,9 +61,7 @@ fun LiquorDetailsScreen(
     val blogDataList by viewModel.blogDataList.collectAsStateWithLifecycle()
     val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
 
-    LaunchedEffect(
-        "once",
-    ) {
+    LaunchedEffect(Unit) {
         viewModel.setIsBookmark(alcoholData)
         viewModel.fetchBlogDataList(alcoholData)
     }
