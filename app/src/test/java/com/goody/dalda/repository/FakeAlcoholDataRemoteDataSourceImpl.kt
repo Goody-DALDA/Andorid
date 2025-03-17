@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.home
+package com.goody.dalda.repository
 
 import com.goody.dalda.data.dto.home.AlcoholDataDto
 import com.goody.dalda.data.dto.search.RecommendAlcoholDto

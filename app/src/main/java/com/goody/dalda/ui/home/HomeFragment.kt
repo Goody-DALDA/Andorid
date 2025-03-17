@@ -104,6 +104,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                 HomeFragmentDirections.actionNavigationHomeToBookmarkFragment(),
                             )
                         },
+                        onClickBack = {
+                            // TODO : 홈 화면에서 뒤로가기는 의미 없음.
+                            findNavController().popBackStack()
+                        },
+                        onFinishActivity = {
+                            requireActivity().finish()
+                        },
                     )
                 }
             }
