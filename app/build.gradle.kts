@@ -28,7 +28,7 @@ android {
         applicationId = "com.goody.dalda"
         minSdk = 24
         targetSdk = 34
-        versionCode = 3
+        versionCode = 4
         versionName = "1.0"
 
         buildConfigField(
@@ -118,6 +118,7 @@ dependencies {
     implementation(libs.google.gson)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    testImplementation(libs.junit.junit)
     ksp(libs.androidx.room.compiler)
 
     ksp(libs.hilt.compiler)

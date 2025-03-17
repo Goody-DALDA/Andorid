@@ -40,18 +40,19 @@ fun DetailSectionSoju(
             style = DaldaTextStyle.h2,
         )
 
-        Text(
-            modifier =
-            Modifier
-                .background(
-                    colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(12.dp),
-                )
-                .padding(12.dp)
-                .fillMaxWidth(),
-            text = alcoholData.comment,
-            style = DaldaTextStyle.body3,
-        )
+        if(alcoholData.comment.isNotEmpty()){
+            Text(
+                modifier = Modifier
+                    .background(
+                        colorResource(id = R.color.gray_80),
+                        shape = RoundedCornerShape(12.dp),
+                    )
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                text = alcoholData.comment,
+                style = DaldaTextStyle.body3,
+            )
+        }
 
         for (info in infoList) {
             TextTitleValue(

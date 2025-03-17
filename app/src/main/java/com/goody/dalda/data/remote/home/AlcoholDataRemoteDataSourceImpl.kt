@@ -7,10 +7,9 @@ import com.goody.dalda.network.RetrofitService
 import retrofit2.Response
 import javax.inject.Inject
 
-class AlcoholDataRemoteDataSourceImpl
-@Inject
-constructor(private val service: RetrofitService) :
-    AlcoholDataRemoteDataSource {
+class AlcoholDataRemoteDataSourceImpl @Inject constructor(
+    private val service: RetrofitService
+) : AlcoholDataRemoteDataSource {
     override suspend fun getAlcoholData(category: String): Response<AlcoholDataDto> {
         return service.getAlcoholData(category = category)
     }
