@@ -133,6 +133,9 @@ fun HomeScreen(
         is HomeUiState.ErrorState -> {
             Log.e("HomeScreen", "HomeScreen: ${(homeUiState as HomeUiState.ErrorState).errorMsg}", )
             ErrorPageScreen(
+                modifier = Modifier.fillMaxSize(),
+                errorMessage = stringResource(id = R.string.text_occur_error),
+                buttonTitle = stringResource(id = R.string.text_comeback_main),
                 onClickButton = onClickBack
             )
         }
