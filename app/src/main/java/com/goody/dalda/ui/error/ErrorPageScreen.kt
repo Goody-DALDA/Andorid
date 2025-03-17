@@ -25,10 +25,12 @@ import com.goody.dalda.ui.theme.DaldaTextStyle
 @Composable
 fun ErrorPageScreen(
     modifier: Modifier = Modifier,
+    errorMessage: String,
+    buttonTitle: String,
     onClickButton: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(
             space = 20.dp,
@@ -44,7 +46,7 @@ fun ErrorPageScreen(
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(id = R.string.text_occur_error),
+            text = errorMessage,
             style = DaldaTextStyle.body1,
             textAlign = TextAlign.Center
         )
@@ -58,7 +60,7 @@ fun ErrorPageScreen(
                     color = colorResource(id = R.color.gray_80),
                     shape = RoundedCornerShape(4.dp)
                 ),
-            text = stringResource(id = R.string.text_comeback_main),
+            text = buttonTitle,
             textColorRes = R.color.white,
             buttonColorRes = R.color.primary,
             roundedCornerShapeValue = 4,
@@ -70,5 +72,10 @@ fun ErrorPageScreen(
 @Preview(showBackground = true)
 @Composable
 private fun ErrorPageScreenPreview() {
-    ErrorPageScreen()
+    ErrorPageScreen(
+        modifier = Modifier,
+        errorMessage = "Error message",
+        buttonTitle = "Try again",
+        onClickButton = {}
+    )
 }
