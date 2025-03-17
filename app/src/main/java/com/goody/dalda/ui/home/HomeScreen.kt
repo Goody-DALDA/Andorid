@@ -50,7 +50,7 @@ import com.goody.dalda.ui.home.data.Menu
 import com.goody.dalda.ui.home.data.UserProfile
 import kotlinx.coroutines.launch
 
-const val categoryRowMaxCount = 4
+private const val categoryRowMaxCount = 4
 private const val DIALOG_WIDTH_RATIO = 0.85f
 
 @Composable
@@ -76,7 +76,7 @@ fun HomeScreen(
     val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect("once") {
+    LaunchedEffect(Unit) {
         viewModel.fetchProfile()
         viewModel.fetchBookmarkAlcoholList()
     }
@@ -132,7 +132,6 @@ fun HomeScreen(
         }
 
         is HomeUiState.ErrorState -> {
-            // TODO : Error UI
             Log.e("HomeScreen", "HomeScreen: ${(homeUiState as HomeUiState.ErrorState).errorMsg}", )
             ErrorPageScreen(
                 onClickButton = onClickBack

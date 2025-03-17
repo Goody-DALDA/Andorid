@@ -59,7 +59,7 @@ fun MemberScreen(
     val logoutState by viewModel.logoutState.collectAsStateWithLifecycle()
     val profile by viewModel.profile.collectAsStateWithLifecycle()
 
-    LaunchedEffect("once") {
+    LaunchedEffect(Unit) {
         viewModel.fetchProfileNew()
     }
 
