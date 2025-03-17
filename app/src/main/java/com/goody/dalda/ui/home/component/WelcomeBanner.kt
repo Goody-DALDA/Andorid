@@ -11,9 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -24,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
 import com.goody.dalda.ui.component.AutoResizedText
-import com.goody.dalda.ui.home.AuthState
 
 @Composable
 fun WelcomeBanner(
@@ -35,32 +33,32 @@ fun WelcomeBanner(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp),
+        modifier
+            .fillMaxWidth()
+            .padding(vertical = 10.dp),
     ) {
         WelcomeComment(
             userName = userName,
             modifier =
-                Modifier
-                    .weight(224f),
+            Modifier
+                .weight(224f),
         )
 
         Spacer(
             modifier =
-                Modifier
-                    .weight(26f),
+            Modifier
+                .weight(26f),
         )
         AsyncImage(
             model = userImg,
             contentDescription = stringResource(id = R.string.description_user_profile_img),
-            placeholder = ColorPainter(Color.Blue),
+            placeholder = painterResource(id = R.drawable.ic_profile_sample),
             contentScale = ContentScale.Crop,
             modifier =
-                Modifier
-                    .weight(70f)
-                    .aspectRatio(1f)
-                    .clip(CircleShape),
+            Modifier
+                .weight(70f)
+                .aspectRatio(1f)
+                .clip(CircleShape),
         )
     }
 }

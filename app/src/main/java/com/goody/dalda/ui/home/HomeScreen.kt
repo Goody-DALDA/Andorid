@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.home
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -38,6 +39,7 @@ import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.RecommendAlcohol
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SimpleMessageDialog
+import com.goody.dalda.ui.error.ErrorPageScreen
 import com.goody.dalda.ui.home.component.AlcoholCategory
 import com.goody.dalda.ui.home.component.AlcoholRecommendation
 import com.goody.dalda.ui.home.component.BookmarkAlcohol
@@ -48,7 +50,7 @@ import com.goody.dalda.ui.home.data.Menu
 import com.goody.dalda.ui.home.data.UserProfile
 import kotlinx.coroutines.launch
 
-const val categoryRowMaxCount = 4
+private const val categoryRowMaxCount = 4
 private const val DIALOG_WIDTH_RATIO = 0.85f
 
 @Composable
@@ -61,6 +63,8 @@ fun HomeScreen(
     onClickSeeLoginScreen: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickBookmark: () -> Unit = {},
+    onClickBack:() -> Unit = {},
+    onFinishActivity:() -> Unit = {},
 ) {
     val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
@@ -72,10 +76,22 @@ fun HomeScreen(
     val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect("once") {
-        viewModel.fetchProfile()
+    LaunchedEffect(Unit) {
         viewModel.fetchBookmarkAlcoholList()
     }
+
+    BackHandler(
+        enabled = true,
+        onBack = {
+            if(drawerState.isOpen) {
+                scope.launch {
+                    drawerState.close()
+                }
+            } else {
+                onFinishActivity()
+            }
+        }
+    )
 
     when (homeUiState) {
         is HomeUiState.CommonState -> {
@@ -115,8 +131,13 @@ fun HomeScreen(
         }
 
         is HomeUiState.ErrorState -> {
-            // TODO : Error UI
             Log.e("HomeScreen", "HomeScreen: ${(homeUiState as HomeUiState.ErrorState).errorMsg}", )
+            ErrorPageScreen(
+                modifier = Modifier.fillMaxSize(),
+                errorMessage = stringResource(id = R.string.text_occur_error),
+                buttonTitle = stringResource(id = R.string.text_comeback_main),
+                onClickButton = onClickBack
+            )
         }
     }
 }
@@ -252,8 +273,8 @@ fun HomeScreen(
                         modifier = Modifier
                             .fillMaxWidth(DIALOG_WIDTH_RATIO)
                             .wrapContentHeight(),
-                        text = stringResource(id = R.string.dialog_preparing),
-                        buttonText = stringResource(id = R.string.dialog_preparing_button),
+                        text = stringResource(id = R.string.text_preparing),
+                        buttonText = stringResource(id = R.string.text_preparing_button),
                         onClickCancel = onClickDialogCancel,
                     )
                 }

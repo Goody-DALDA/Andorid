@@ -10,17 +10,14 @@ import com.goody.dalda.data.database.entity.BookmarkEntity
 @Dao
 interface BookmarkDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAlcohol(bookmarkEntity: BookmarkEntity)
+    suspend fun insertAlcohol(bookmarkEntity: BookmarkEntity)
 
     @Delete
-    fun deleteAlcohol(bookmarkEntity: BookmarkEntity)
+    suspend fun deleteAlcohol(bookmarkEntity: BookmarkEntity)
 
     @Query("SELECT * FROM bookmarkRepo")
-    fun getAllBookMark(): List<BookmarkEntity>
+    suspend fun getAllBookMark(): List<BookmarkEntity>
 
     @Query("SELECT * FROM bookmarkRepo WHERE id=:id AND name=:name")
-    fun isBookMark(
-        id: Int,
-        name: String,
-    ): Boolean
+    suspend fun isBookMark(id: Int, name: String): Boolean
 }
