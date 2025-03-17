@@ -34,6 +34,7 @@
     <string name="text_comeback_main">메인으로 돌아가기</string>
     <string name="text_occur_error">오류가 발생했어요</string>
     <string name="text_member_detail">회원 상세</string>
+    <string name="text_empty_bookmark">좋아하는 술을 추가해 주세요.</string>
 
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>

@@ -66,7 +66,7 @@ fun HomeScreen(
     onClickBack:() -> Unit = {},
     onFinishActivity:() -> Unit = {},
 ) {
-    val bookmarkAlcoholDataList by viewModel.bookmarkAlcoholDataList.collectAsStateWithLifecycle()
+    val bookmarkList by viewModel.bookmarkList.collectAsStateWithLifecycle()
     val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
     val authState by viewModel.authState.collectAsStateWithLifecycle()
@@ -98,7 +98,7 @@ fun HomeScreen(
             HomeScreen(
                 modifier = modifier,
                 userProfile = userProfile,
-                bookmarkAlcoholDataList = bookmarkAlcoholDataList,
+                bookmarkAlcoholDataList = bookmarkList,
                 recommendAlcoholList = recommendAlcoholList,
                 authState = authState,
                 drawerState = drawerState,
