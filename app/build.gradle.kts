@@ -118,6 +118,7 @@ dependencies {
     implementation(libs.google.gson)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    testImplementation(libs.junit.junit)
     ksp(libs.androidx.room.compiler)
 
     ksp(libs.hilt.compiler)

@@ -1,6 +1,7 @@
 package com.goody.dalda.ui.bookmark
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -20,23 +22,24 @@ import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.bookmark.component.BookmarkAlcoholCard
 import com.goody.dalda.ui.bookmark.component.BookmarkTopBar
+import com.goody.dalda.ui.error.ErrorPageScreen
 
 @Composable
 fun BookmarkScreen(
-    onClickNavigation: () -> Unit = {},
+    onClickNavIcon: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: BookmarkViewModel = viewModel(),
 ) {
-    val searchResult by viewModel.searchResultList.collectAsStateWithLifecycle()
+    val bookmarkList by viewModel.bookmarkList.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.getBookmarkList()
     }
 
     BookmarkScreen(
-        alcoholDataList = searchResult,
-        onClickNavigation = onClickNavigation,
+        alcoholDataList = bookmarkList,
+        onClickNavIcon = onClickNavIcon,
         onClickCard = onClickCard,
         onClickBookmark = {
             viewModel.deleteBookMark(it)
@@ -48,7 +51,7 @@ fun BookmarkScreen(
 @Composable
 fun BookmarkScreen(
     alcoholDataList: List<AlcoholData>,
-    onClickNavigation: () -> Unit = {},
+    onClickNavIcon: () -> Unit = {},
     onClickCard: (AlcoholData) -> Unit = {},
     onClickBookmark: (AlcoholData) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -56,32 +59,41 @@ fun BookmarkScreen(
     Scaffold(
         topBar = {
             BookmarkTopBar(
-                onNavigationClick = onClickNavigation,
+                onClickNavIcon = onClickNavIcon,
             )
         },
         containerColor = Color.White,
         modifier = modifier,
     ) { innerPadding ->
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier =
-                Modifier
+        if (alcoholDataList.isEmpty()) {
+            ErrorPageScreen(
+                modifier = Modifier.fillMaxSize(),
+                errorMessage = stringResource(id = R.string.text_empty_bookmark),
+                buttonTitle = stringResource(id = R.string.text_comeback_main),
+                onClickButton = onClickNavIcon
+            )
+        } else {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
                     .padding(innerPadding),
-        ) {
-            alcoholDataList.forEach {
-                item {
-                    BookmarkAlcoholCard(
-                        alcoholData = it,
-                        onClickCard = onClickCard,
-                        onClickBookmark = onClickBookmark,
-                        modifier =
+            ) {
+                alcoholDataList.forEach {
+                    item {
+                        BookmarkAlcoholCard(
+                            alcoholData = it,
+                            onClickCard = onClickCard,
+                            onClickBookmark = onClickBookmark,
+                            modifier =
                             Modifier
                                 .fillMaxWidth()
                                 .height(50.dp),
-                    )
+                        )
+                    }
                 }
             }
         }
+
     }
 }
 

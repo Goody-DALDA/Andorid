@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Dalda</string>
     <string name="title_home">홈</string>
-    <string name="title_spirits_collection">술 도감</string>
+    <string name="title_liquor_collection">술 도감</string>
     <string name="title_undefined">미정</string>
     <string name="icon_menu">메뉴</string>
     <string name="text_welcome_comment">%1$s 님,\n안녕하세요!</string>
@@ -29,6 +29,12 @@
     <string name="text_blog_naver">네이버 블로그</string>
     <string name="text_blog_review">블로그 리뷰</string>
     <string name="text_keyword_search_result">키워드로 수집한 정보를 확인해보세요</string>
+    <string name="text_preparing">준비중이예요.\n다음 업데이트에서 만나요.</string>
+    <string name="text_preparing_button">기대할게요!</string>
+    <string name="text_comeback_main">메인으로 돌아가기</string>
+    <string name="text_occur_error">오류가 발생했어요</string>
+    <string name="text_member_detail">회원 상세</string>
+    <string name="text_empty_bookmark">좋아하는 술을 추가해 주세요.</string>
 
     <string name="description_user_profile_img">유저 프로필 이미지</string>
     <string name="description_search_icon">검색 아이콘</string>
@@ -37,6 +43,12 @@
     <string name="description_instagram_icon">인스타그램 아이콘</string>
     <string name="description_link_icon">링크 아이콘</string>
     <string name="description_back_icon">뒤로가기 아이콘</string>
+    <string name="description_liquors_img">주류 모임 이미지</string>
+    <string name="description_break_glass_img">깨진 유리잔 이미지</string>
+    <string name="description_login_background">주류 배경</string>
+    <string name="description_alcohol_image">주류 이미지</string>
+    <string name="description_alcohol_tag">주류 태그</string>
+
     <string name="label_search_camera_button">카메라 버튼</string>
     <string name="label_search_album_button">앨범 버튼</string>
     <string name="label_search_guide_text">술 전면의 라벨을 촬영해 주세요.</string>
@@ -47,9 +59,8 @@
     <string name="dialog_no_results_suggestion_button_title">추가 요청하기</string>
     <string name="dialog_search_results_spirits_image">주류 이미지</string>
     <string name="dialog_search_results_spirits_title">검색결과</string>
-    <string name="dialog_preparing">준비중이예요.\n다음 업데이트에서 만나요.</string>
-    <string name="dialog_preparing_button">기대할게요!</string>
-    <string name="description_login_background">주류 배경</string>
+
+
     <string name="login_welcome_text">달다에\n어서오세요!</string>
     <string name="login_kakao_button_text">카카오로 로그인</string>
     <string name="login_kakao_skip_button_text">로그인 없이 둘러보기</string>

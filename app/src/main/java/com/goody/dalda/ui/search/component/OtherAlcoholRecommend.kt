@@ -41,7 +41,7 @@ fun OtherAlcoholRecommend(
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_alcohols),
-            contentDescription = "",
+            contentDescription = stringResource(id = R.string.description_liquors_img),
             modifier = Modifier.size(180.dp),
         )
 

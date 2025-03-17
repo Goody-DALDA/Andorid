@@ -42,10 +42,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_spirits_collection"
-        android:name="com.goody.dalda.ui.spirits_collection.SpiritsCollectionFragment"
-        android:label="@string/title_spirits_collection"
-        tools:layout="@layout/fragment_spirits_collection" />
+        android:id="@+id/navigation_liquor_collection"
+        android:name="com.goody.dalda.ui.liquor_collection.LiquorCollectionFragment"
+        android:label="@string/title_liquor_collection"
+        tools:layout="@layout/fragment_liquor_collection" />
 
     <fragment
         android:id="@+id/loginFragment"

@@ -11,10 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.AlcoholType
+import com.goody.dalda.ui.error.ErrorPageScreen
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
 import com.goody.dalda.ui.search.component.RequestAdditional
@@ -44,8 +46,11 @@ fun SearchResult(
                 .background(Color.White),
     ) {
         if (alcoholDataList.isEmpty()) {
-            RequestAdditional(
-                onClickRequest = onClickRequest,
+            ErrorPageScreen(
+                modifier = Modifier.fillMaxSize(),
+                errorMessage = stringResource(id = R.string.text_no_search_result),
+                buttonTitle = stringResource(id = R.string.text_request_additional),
+                onClickButton = onClickRequest
             )
         } else {
             SearchAlcoholTab(
@@ -151,5 +156,14 @@ private fun SearchResultPreview() {
         )
     SearchResult(
         alcoholDataList = alcoholDataList,
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun SearchResultEmptyPreview() {
+
+    SearchResult(
+        alcoholDataList = emptyList(),
     )
 }
