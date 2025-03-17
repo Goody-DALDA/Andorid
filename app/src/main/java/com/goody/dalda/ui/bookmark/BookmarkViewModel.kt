@@ -12,27 +12,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookmarkViewModel
-    @Inject
-    constructor(
-        private val alcoholRepository: AlcoholRepository,
-    ) : ViewModel() {
-        private val _query = MutableStateFlow("")
-        val query: StateFlow<String> = _query
+class BookmarkViewModel @Inject constructor(
+    private val alcoholRepository: AlcoholRepository,
+) : ViewModel() {
+    private val _query = MutableStateFlow("")
+    val query: StateFlow<String> = _query
 
-        private val _searchResultList = MutableStateFlow(emptyList<AlcoholData>())
-        val searchResultList: StateFlow<List<AlcoholData>> = _searchResultList
+    private val _bookmarkList = MutableStateFlow(emptyList<AlcoholData>())
+    val bookmarkList: StateFlow<List<AlcoholData>> = _bookmarkList
 
-        fun getBookmarkList() {
-            viewModelScope.launch(Dispatchers.IO) {
-                _searchResultList.value = alcoholRepository.getBookmarkAlcoholList().reversed()
-            }
-        }
-
-        fun deleteBookMark(alcoholData: AlcoholData) {
-            viewModelScope.launch(Dispatchers.IO) {
-                alcoholRepository.deleteBookmarkAlcohol(alcoholData)
-                getBookmarkList()
-            }
+    fun getBookmarkList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _bookmarkList.value = alcoholRepository.getBookmarkAlcoholList().reversed()
         }
     }
+
+    fun deleteBookMark(alcoholData: AlcoholData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            alcoholRepository.deleteBookmarkAlcohol(alcoholData)
+            getBookmarkList()
+        }
+    }
+}

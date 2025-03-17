@@ -65,12 +65,7 @@ fun LiquorCollectionScreen(
         RoundSquareButton(
             modifier = Modifier
                 .width(141.dp)
-                .height(42.dp)
-                .border(
-                    width = 1.dp,
-                    color = colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(4.dp)
-                ),
+                .height(42.dp),
             text = stringResource(id = R.string.text_comeback_main),
             textColorRes = R.color.gray_50,
             buttonColorRes = R.color.white,

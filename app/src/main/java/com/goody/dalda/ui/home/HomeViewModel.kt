@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
     private val profileRepository: LoginRepository,
 ) : ViewModel() {
     private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
-    val bookmarkAlcoholDataList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
+    val bookmarkList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
 
     private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
     val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList

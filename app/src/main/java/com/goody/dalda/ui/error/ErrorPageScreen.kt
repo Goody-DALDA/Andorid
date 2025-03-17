@@ -54,12 +54,7 @@ fun ErrorPageScreen(
         RoundSquareButton(
             modifier = Modifier
                 .width(141.dp)
-                .height(42.dp)
-                .border(
-                    width = 1.dp,
-                    color = colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(4.dp)
-                ),
+                .height(42.dp),
             text = buttonTitle,
             textColorRes = R.color.white,
             buttonColorRes = R.color.primary,
