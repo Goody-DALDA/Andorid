@@ -77,7 +77,6 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchProfile()
         viewModel.fetchBookmarkAlcoholList()
     }
 

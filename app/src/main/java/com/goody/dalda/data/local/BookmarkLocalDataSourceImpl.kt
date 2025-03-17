@@ -8,24 +8,24 @@ import javax.inject.Inject
 class BookmarkLocalDataSourceImpl @Inject constructor(
     private val bookmarkDao: BookmarkDao,
 ) : BookmarkLocalDataSource {
-    override fun insertAlcohol(alcoholData: AlcoholData) {
+    override suspend fun insertAlcohol(alcoholData: AlcoholData) {
         val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholData)
         return bookmarkDao.insertAlcohol(bookmarkEntity)
     }
 
-    override fun deleteAlcohol(alcoholData: AlcoholData) {
+    override suspend fun deleteAlcohol(alcoholData: AlcoholData) {
         val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholData)
         return bookmarkDao.deleteAlcohol(bookmarkEntity)
     }
 
-    override fun getBookmarkAlcoholList(): List<AlcoholData> {
+    override suspend fun getBookmarkAlcoholList(): List<AlcoholData> {
         val bookmarkEntityList = bookmarkDao.getAllBookMark()
         return bookmarkEntityList.map {
             bookmarkToAlcoholData(it)
         }
     }
 
-    override fun isBookMark(alcoholData: AlcoholData): Boolean =
+    override suspend fun isBookMark(alcoholData: AlcoholData): Boolean =
         bookmarkDao.isBookMark(alcoholData.id, alcoholData.name)
 
     private fun alcoholDataToBookmarkEntity(alcoholData: AlcoholData): BookmarkEntity =
