@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.VectorPainter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -23,6 +25,8 @@ import coil.compose.AsyncImage
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.ui.component.AutoResizedText
+import com.goody.dalda.ui.icon.IconPack
+import com.goody.dalda.ui.icon.iconpack.IcEmptyCard
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
@@ -40,7 +44,7 @@ fun AlcoholCard(
         AsyncImage(
             model = alcoholData.imgUrl,
             contentDescription = "",
-            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            placeholder = rememberVectorPainter(image = IconPack.IcEmptyCard),
             contentScale = ContentScale.Fit,
             modifier =
             Modifier
