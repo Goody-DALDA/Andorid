@@ -18,6 +18,6 @@ interface BookmarkDao {
     @Query("SELECT * FROM bookmarkRepo")
     suspend fun getAllBookMark(): List<BookmarkEntity>
 
-    @Query("SELECT * FROM bookmarkRepo WHERE id=:id AND name=:name")
+    @Query("SELECT COUNT(*) > 0 FROM bookmarkRepo WHERE id=:id AND name=:name")
     suspend fun isBookMark(id: Int, name: String): Boolean
 }
