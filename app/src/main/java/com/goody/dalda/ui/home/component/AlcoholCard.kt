@@ -46,6 +46,7 @@ fun AlcoholCard(
             model = alcoholData.imgUrl,
             contentDescription = stringResource(id = R.string.description_alcohol_image),
             placeholder = rememberVectorPainter(image = IconPack.IcEmptyCard),
+            error = rememberVectorPainter(image = IconPack.IcEmptyCard),
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxWidth()
