@@ -4,19 +4,19 @@ import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.local.BookmarkLocalDataSource
 
 class FakeBookmarkLocalDataSourceImpl : BookmarkLocalDataSource {
-    override fun insertAlcohol(alcoholData: AlcoholData) {
+    override suspend fun insertAlcohol(alcoholData: AlcoholData) {
         TODO("Not yet implemented")
     }
 
-    override fun deleteAlcohol(alcoholData: AlcoholData) {
+    override suspend fun deleteAlcohol(alcoholData: AlcoholData) {
         TODO("Not yet implemented")
     }
 
-    override fun getBookmarkAlcoholList(): List<AlcoholData> {
+    override suspend fun getBookmarkAlcoholList(): List<AlcoholData> {
         TODO("Not yet implemented")
     }
 
-    override fun isBookMark(alcoholData: AlcoholData): Boolean {
+    override suspend fun isBookMark(alcoholData: AlcoholData): Boolean {
         TODO("Not yet implemented")
     }
 }
