@@ -19,15 +19,13 @@ fun DetailSectionWhiskey(
 ) {
     val dec = DecimalFormat("#,###")
 
-    val infoList =
-        listOf(
+    val infoList = listOf(
             "권장 소비자가" to dec.format(alcoholData.price) + "원",
             "종류" to alcoholData.type,
             "제조지역" to alcoholData.country,
         )
 
-    val tasteInfoList =
-        listOf(
+    val tasteInfoList = listOf(
             "아로마" to alcoholData.aroma,
             "맛" to alcoholData.taste,
             "마무리" to alcoholData.finish,

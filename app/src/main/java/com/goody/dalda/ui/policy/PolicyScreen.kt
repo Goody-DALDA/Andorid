@@ -42,7 +42,7 @@ fun PolicyScreen(
 
     val termsOfUseStateNew by viewModel.termsOfUseStateNew.collectAsStateWithLifecycle()
 
-    LaunchedEffect("once") {
+    LaunchedEffect(Unit) {
         viewModel.fetchTermsOfUse(context.assets, fileName)
     }
 

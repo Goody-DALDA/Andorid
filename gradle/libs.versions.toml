@@ -11,13 +11,13 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
-kotlinSerialization = "2.1.0"
+kotlinSerialization = "2.1.10"
 kotlinStdlib = "2.1.0"
-kotlinxCoroutinesTest = "1.9.0"
+kotlinxCoroutinesTest = "1.10.1"
 kotlinxSerializationJson = "1.7.3"
-kotlinxSerializationJsonVersion = "1.7.3"
+kotlinxSerializationJsonVersion = "1.8.0"
 ktlint = "12.1.2"
-lifecycleViewmodelCompose = "2.8.6"
+lifecycleViewmodelCompose = "2.8.7"
 material = "1.12.0"
 activity = "1.9.1"
 constraintlayout = "2.1.4"
@@ -44,6 +44,7 @@ retrofit = "2.9.0"
 loggingInterceptor = "4.5.0"
 gson = "2.10.1"
 room = "2.6.1"
+junitJunit = "4.12"
 
 [libraries]
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanistPagerIndicators" }
@@ -107,6 +108,7 @@ squareup-retrofit2-converter-gson = { group = "com.squareup.retrofit2", name = "
 squareup-okhttp3-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
 
 google-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 
 
 [plugins]

@@ -1,5 +1,6 @@
 package com.goody.dalda.data.repository
 
+import android.util.Log
 import com.goody.dalda.data.dto.LeaveDto
 import com.goody.dalda.data.dto.LogoutDto
 import com.goody.dalda.data.dto.asDomain
@@ -8,10 +9,9 @@ import com.goody.dalda.data.remote.UserRemoteDataSource
 import com.goody.dalda.ui.model.Profile
 import com.kakao.sdk.auth.model.OAuthToken
 import javax.inject.Inject
+import kotlin.math.log
 
-class LoginRepositoryImpl
-@Inject
-constructor(
+class LoginRepositoryImpl @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
     private val preferenceLocalDataSource: PreferenceLocalDataSource,
 ) : LoginRepository {

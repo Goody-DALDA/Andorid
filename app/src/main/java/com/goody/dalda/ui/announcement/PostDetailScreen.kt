@@ -36,7 +36,7 @@ fun PostDetailScreen(
     val nextPost by viewModel.nextPost.collectAsStateWithLifecycle()
     val prevPost by viewModel.prevPost.collectAsStateWithLifecycle()
 
-    LaunchedEffect("once") {
+    LaunchedEffect(Unit) {
         viewModel.fetchNoticePost(post)
     }
 
