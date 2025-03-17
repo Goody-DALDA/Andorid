@@ -22,15 +22,13 @@ fun DetailSectionWine(
     alcoholData: AlcoholData.Wine,
     modifier: Modifier = Modifier,
 ) {
-    val graphDataList =
-        listOf(
+    val graphDataList = listOf(
             "단맛" to alcoholData.sugar,
             "신맛" to alcoholData.acid,
             "바디감" to alcoholData.mouthfeel,
         )
 
-    val infoList =
-        listOf(
+    val infoList = listOf(
             "포도종" to alcoholData.ingredient,
             "종류" to alcoholData.type,
             "제조지역" to alcoholData.country,
@@ -47,17 +45,18 @@ fun DetailSectionWine(
             style = DaldaTextStyle.h2,
         )
 
-        Text(
-            modifier =
-            Modifier
-                .background(
-                    colorResource(id = R.color.gray_80),
-                    shape = RoundedCornerShape(12.dp),
-                )
-                .padding(12.dp),
-            text = alcoholData.comment,
-            style = DaldaTextStyle.body3,
-        )
+        if(alcoholData.comment.isNotEmpty()) {
+            Text(
+                modifier = Modifier
+                    .background(
+                        colorResource(id = R.color.gray_80),
+                        shape = RoundedCornerShape(12.dp),
+                    )
+                    .padding(12.dp),
+                text = alcoholData.comment,
+                style = DaldaTextStyle.body3,
+            )
+        }
 
         for (info in infoList) {
             TextTitleValue(
@@ -80,23 +79,24 @@ fun DetailSectionWine(
             )
         }
 
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = "푸드 페어링",
-            style = DaldaTextStyle.h2,
-        )
+        if(alcoholData.pairingFood.isNotEmpty()) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = "푸드 페어링",
+                style = DaldaTextStyle.h2,
+            )
 
-        Text(
-            modifier =
-            Modifier
-                .background(
-                    colorResource(id = R.color.primary_pale),
-                    shape = RoundedCornerShape(12.dp),
-                )
-                .padding(12.dp)
-                .fillMaxWidth(),
-            text = alcoholData.pairingFood,
-            style = DaldaTextStyle.body3,
-        )
+            Text(
+                modifier = Modifier
+                    .background(
+                        colorResource(id = R.color.primary_pale),
+                        shape = RoundedCornerShape(12.dp),
+                    )
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                text = alcoholData.pairingFood,
+                style = DaldaTextStyle.body3,
+            )
+        }
     }
 }

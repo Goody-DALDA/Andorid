@@ -19,16 +19,14 @@ fun DetailSectionBeer(
     alcoholData: AlcoholData.Beer,
     modifier: Modifier = Modifier,
 ) {
-    val valueList =
-        listOf(
+    val valueList = listOf(
             "아로마" to alcoholData.aroma,
             "색감" to alcoholData.appearance,
             "맛" to alcoholData.flavor,
             "바디감" to alcoholData.mouthfeel,
         ).map { (label, value) -> label to value / 2 }
 
-    val infoList =
-        listOf(
+    val infoList = listOf(
             "스타일" to alcoholData.type,
             "제조지역" to alcoholData.country,
         )
@@ -66,7 +64,6 @@ fun DetailSectionBeer(
     }
 }
 
-// create preview for DetailSectionBeer
 @Preview(showBackground = true)
 @Composable
 private fun DetailSectionBeerPrev() {

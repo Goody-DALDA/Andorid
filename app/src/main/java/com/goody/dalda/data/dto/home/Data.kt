@@ -45,6 +45,7 @@ data class Soju(
 
 data class Wine(
     val id: Int,
+    val abv: String?,
     val acid: Float,
     val body: Float,
     val comment: String,
@@ -77,11 +78,11 @@ data class Sake(
 
 data class TraditionalLiquor(
     val id: Int,
+    val abv: String,
     val name: String,
     val img: String,
     val type: String,
     val ingredients: String,
-    val abv: String,
     val volume: String,
     val comment: String,
     val pairingFood: String,
