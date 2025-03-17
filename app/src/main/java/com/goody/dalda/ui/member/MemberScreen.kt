@@ -33,8 +33,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,21 +53,23 @@ fun MemberScreen(
     viewModel: MemberViewModel = viewModel(),
     onClickSeeLoginScreen: () -> Unit = {},
     onClickSeeWithdrawScreen: () -> Unit = {},
+    onClickClose: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val logoutState by viewModel.logoutState.collectAsStateWithLifecycle()
     val profile by viewModel.profile.collectAsStateWithLifecycle()
 
-    LaunchedEffect("once") {
+    LaunchedEffect(Unit) {
         viewModel.fetchProfileNew()
     }
 
     MemberScreen(
-        logoutState,
-        profile,
-        onClickSeeLoginScreen,
-        onClickSeeWithdrawScreen,
+        state = logoutState,
+        profile = profile,
+        onClickSeeLoginScreen = onClickSeeLoginScreen,
+        onClickSeeWithdrawScreen = onClickSeeWithdrawScreen,
         onClickLogout = { viewModel.requestLogout() },
+        onClickClose = onClickClose
     )
 }
 
@@ -87,22 +90,22 @@ fun MemberScreen(
 
     Scaffold(
         modifier =
-            modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground),
+        modifier
+            .fillMaxSize()
+            .background(color = Color.White),
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "회원 상세",
+                        text = stringResource(id = R.string.text_member_detail),
                         style = DaldaTextStyle.h3,
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onClickClose) {
                         Icon(
-                            Icons.Filled.Close,
-                            contentDescription = "close",
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = stringResource(id = R.string.description_close_icon),
                         )
                     }
                 },
@@ -165,9 +168,9 @@ fun MemberLayout(
             style = DaldaTextStyle.subtitle2,
             color = colorResource(id = R.color.gray_50),
             modifier =
-                Modifier
-                    .padding(start = 20.dp, top = 20.dp, bottom = 60.dp)
-                    .clickable { onClickWithdrawButton() },
+            Modifier
+                .padding(start = 20.dp, top = 20.dp, bottom = 60.dp)
+                .clickable { onClickWithdrawButton() },
         )
     }
 }
@@ -176,9 +179,9 @@ fun MemberLayout(
 private fun MemberInformation(profile: Profile) {
     Column(
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
     ) {
         MemberAttribute(
             title = "좋아하는 주종",
@@ -203,12 +206,12 @@ private fun MemberProfile(
         AsyncImage(
             model = imgUrl,
             contentDescription = "",
-            placeholder = ColorPainter(Color.Blue),
+            placeholder = painterResource(id = R.drawable.ic_profile_sample),
             modifier =
-                Modifier
-                    .width(70.dp)
-                    .height(70.dp)
-                    .clip(CircleShape),
+            Modifier
+                .width(70.dp)
+                .height(70.dp)
+                .clip(CircleShape),
         )
 
         Text(
@@ -227,17 +230,17 @@ private fun LogoutButton(onClick: () -> Unit) {
         onClick = onClick,
         shape = MaterialTheme.shapes.extraSmall,
         colors =
-            ButtonColors(
-                containerColor = MaterialTheme.colorScheme.background,
-                contentColor = MaterialTheme.colorScheme.onBackground,
-                disabledContainerColor = MaterialTheme.colorScheme.surface,
-                disabledContentColor = MaterialTheme.colorScheme.onSurface,
-            ),
+        ButtonColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            contentColor = MaterialTheme.colorScheme.onBackground,
+            disabledContainerColor = MaterialTheme.colorScheme.surface,
+            disabledContentColor = MaterialTheme.colorScheme.onSurface,
+        ),
         border = BorderStroke(1.dp, Color(0xFFDDDDDF)),
         modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
     ) {
         Text(
             text = "로그아웃 하기",

@@ -30,6 +30,9 @@ class MemberFragment : BaseFragment<FragmentMemberBinding>() {
                     onClickSeeWithdrawScreen = {
                         findNavController().navigate(MemberFragmentDirections.actionMemberFragmentToWithdrawFragment())
                     },
+                    onClickClose = {
+                        findNavController().popBackStack()
+                    }
                 )
             }
         }
