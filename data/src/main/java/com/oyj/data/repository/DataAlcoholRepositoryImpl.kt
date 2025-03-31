@@ -1,4 +1,4 @@
-package com.oyj.dataa.repository
+package com.oyj.data.repository
 
 import com.oyj.domain.repository.DataAlcoholRepository
 import com.oyj.domain.Alcohol
