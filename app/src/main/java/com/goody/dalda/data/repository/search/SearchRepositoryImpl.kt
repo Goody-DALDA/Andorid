@@ -3,9 +3,7 @@ package com.goody.dalda.data.repository.search
 import com.goody.dalda.data.local.SearchLocalDataSource
 import javax.inject.Inject
 
-class SearchRepositoryImpl
-@Inject
-constructor(
+class SearchRepositoryImpl @Inject constructor(
     private val searchLocalDataSource: SearchLocalDataSource,
 ) : SearchRepository {
     override fun insertSearchWord(searchWord: String) {
