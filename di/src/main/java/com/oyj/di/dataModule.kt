@@ -1,20 +1,50 @@
 package com.oyj.di
 
-import com.oyj.dataa.repository.DataAlcoholRepositoryImpl
-import com.oyj.dataa.repository.DataSearchRepositoryImpl
-import com.oyj.domain.repository.DataAlcoholRepository
-import com.oyj.domain.repository.DataSearchRepository
-import dagger.Binds
+import android.content.Context
+import android.content.SharedPreferences
+import com.oyj.dataa.database.DaldaDatabase
+import com.oyj.dataa.database.dao.BookmarkDao
+import com.oyj.dataa.database.dao.SearchDao
+import androidx.room.Room
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DataModule {
-    @Binds
-    abstract fun bindDataAlcoholRepository(dataAlcoholRepository: DataAlcoholRepositoryImpl): DataAlcoholRepository
+object DataModule {
+    @Singleton
+    @Provides
+    fun provideBookmarkDatabase(
+        @ApplicationContext context: Context,
+    ): DaldaDatabase {
+        return Room.databaseBuilder(
+            context = context.applicationContext,
+            klass = DaldaDatabase::class.java,
+            name = "dalda_database.db",
+        ).build()
+    }
 
-    @Binds
-    abstract fun bindDataSearchRepository(dataSearchRepository: DataSearchRepositoryImpl): DataSearchRepository
+    @Singleton
+    @Provides
+    fun provideBookmarkDao(daldaDatabase: DaldaDatabase): BookmarkDao {
+        return daldaDatabase.BookmarkDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchDao(daldaDatabase: DaldaDatabase): SearchDao {
+        return daldaDatabase.SearchDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context
+    ): SharedPreferences {
+        return context.getSharedPreferences("STATUS_PREFS", Context.MODE_PRIVATE)
+    }
 }
