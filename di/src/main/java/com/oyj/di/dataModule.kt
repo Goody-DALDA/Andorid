@@ -2,9 +2,9 @@ package com.oyj.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.oyj.dataa.database.DaldaDatabase
-import com.oyj.dataa.database.dao.BookmarkDao
-import com.oyj.dataa.database.dao.SearchDao
+import com.oyj.data.database.DaldaDatabase
+import com.oyj.data.database.dao.BookmarkDao
+import com.oyj.data.database.dao.SearchDao
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides

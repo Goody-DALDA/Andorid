@@ -1,11 +1,11 @@
 package com.oyj.di
 
-import com.oyj.dataa.repository.BlogRepositoryImpl
-import com.oyj.dataa.repository.DataAlcoholRepositoryImpl
-import com.oyj.dataa.repository.DataSearchRepositoryImpl
-import com.oyj.dataa.repository.LoginRepositoryImpl
-import com.oyj.dataa.repository.NoticeRepositoryImpl
-import com.oyj.dataa.repository.alcohol.AlcoholRepositoryImpl
+import com.oyj.data.repository.BlogRepositoryImpl
+import com.oyj.data.repository.DataAlcoholRepositoryImpl
+import com.oyj.data.repository.DataSearchRepositoryImpl
+import com.oyj.data.repository.LoginRepositoryImpl
+import com.oyj.data.repository.NoticeRepositoryImpl
+import com.oyj.data.repository.alcohol.AlcoholRepositoryImpl
 import com.oyj.domain.repository.AlcoholRepository
 import com.oyj.domain.repository.BlogRepository
 import com.oyj.domain.repository.DataAlcoholRepository

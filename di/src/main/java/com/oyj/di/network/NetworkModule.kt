@@ -1,14 +1,14 @@
 package com.oyj.di.network
 
-import com.oyj.dataa.network.DaldaOkHttp
-import com.oyj.dataa.network.DaldaRetrofit
-import com.oyj.dataa.network.HeaderInterceptor
-import com.oyj.dataa.network.NaverSearchHeaderInterceptor
-import com.oyj.dataa.network.NaverSearchOkHttp
-import com.oyj.dataa.network.NaverSearchRetrofit
-import com.oyj.dataa.network.NaverSearchRetrofitService
-import com.oyj.dataa.network.RetrofitService
-import com.oyj.dataa.source.local.PreferenceLocalDataSource
+import com.oyj.data.network.DaldaOkHttp
+import com.oyj.data.network.DaldaRetrofit
+import com.oyj.data.network.HeaderInterceptor
+import com.oyj.data.network.NaverSearchHeaderInterceptor
+import com.oyj.data.network.NaverSearchOkHttp
+import com.oyj.data.network.NaverSearchRetrofit
+import com.oyj.data.network.NaverSearchRetrofitService
+import com.oyj.data.network.RetrofitService
+import com.oyj.data.source.local.PreferenceLocalDataSource
 import com.oyj.di.BuildConfig
 import com.oyj.di.converter.DynamicConverterFactory
 import dagger.Module

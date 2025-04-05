@@ -19,7 +19,7 @@ if (localPropertiesFile.exists()) {
 
 
 android {
-    namespace = "com.oyj.dataa"
+    namespace = "com.oyj.data"
     compileSdk = 34
 
     defaultConfig {

@@ -4,13 +4,13 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
-import com.oyj.dataa.dto.home.Beer
-import com.oyj.dataa.dto.home.Data
-import com.oyj.dataa.dto.home.Sake
-import com.oyj.dataa.dto.home.Soju
-import com.oyj.dataa.dto.home.TraditionalLiquor
-import com.oyj.dataa.dto.home.Whisky
-import com.oyj.dataa.dto.home.Wine
+import com.oyj.data.dto.home.Beer
+import com.oyj.data.dto.home.Data
+import com.oyj.data.dto.home.Sake
+import com.oyj.data.dto.home.Soju
+import com.oyj.data.dto.home.TraditionalLiquor
+import com.oyj.data.dto.home.Whisky
+import com.oyj.data.dto.home.Wine
 import java.lang.reflect.Type
 
 class DataDeserializer : JsonDeserializer<Data> {

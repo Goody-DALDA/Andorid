@@ -9,8 +9,8 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
-import com.oyj.dataa.dto.home.Data
-import com.oyj.dataa.dto.blog.BlogSearchDto
+import com.oyj.data.dto.home.Data
+import com.oyj.data.dto.blog.BlogSearchDto
 
 class DynamicConverterFactory : Converter.Factory() {
     override fun responseBodyConverter(
