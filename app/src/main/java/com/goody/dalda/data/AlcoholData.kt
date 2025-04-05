@@ -2,6 +2,7 @@ package com.goody.dalda.data
 
 import androidx.annotation.DrawableRes
 import com.goody.dalda.R
+import com.oyj.domain.Alcohol
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -150,4 +151,183 @@ sealed class AlcoholData(
             volume = volume,
             abv = abv,
         )
+}
+
+/**
+ * App 모델 -> Domain 모델
+ * */
+fun AlcoholData.toDomainModel(): Alcohol = when (this) {
+    is AlcoholData.Beer -> Alcohol.Beer(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        appearance = this.appearance,
+        flavor = this.flavor,
+        mouthfeel = this.mouthfeel,
+        aroma = this.aroma,
+        type = this.type
+    )
+    is AlcoholData.Sake -> Alcohol.Sake(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        price = this.price,
+        taste = this.taste,
+        aroma = this.aroma,
+        finish = this.finish
+    )
+    is AlcoholData.Soju -> Alcohol.Soju(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        price = this.price,
+        comment = this.comment
+    )
+    is AlcoholData.TraditionalLiquor -> Alcohol.TraditionalLiquor(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        ingredient = this.ingredient,
+        type = this.type,
+        comment = this.comment,
+        pairingFood = this.pairingFood,
+        brewery = this.brewery
+    )
+    is AlcoholData.Wine -> Alcohol.Wine(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        ingredient = this.ingredient,
+        mouthfeel = this.mouthfeel,
+        sugar = this.sugar,
+        acid = this.acid,
+        type = this.type,
+        comment = this.comment,
+        pairingFood = this.pairingFood,
+        winery = this.winery
+    )
+    is AlcoholData.Whisky -> Alcohol.Whisky(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        price = this.price,
+        taste = this.taste,
+        aroma = this.aroma,
+        finish = this.finish,
+        type = this.type
+    )
+}
+
+/**
+ * Domain 모델 -> App 모델
+ * */
+fun Alcohol.toDataModel(): AlcoholData = when (this) {
+    is Alcohol.Beer -> AlcoholData.Beer(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        appearance = this.appearance,
+        flavor = this.flavor,
+        mouthfeel = this.mouthfeel,
+        aroma = this.aroma,
+        type = this.type,
+        tag = R.drawable.tag_beer
+    )
+    is Alcohol.Sake -> AlcoholData.Sake(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        price = this.price,
+        taste = this.taste,
+        aroma = this.aroma,
+        finish = this.finish,
+        tag = R.drawable.tag_sake
+    )
+    is Alcohol.Soju -> AlcoholData.Soju(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        price = this.price,
+        comment = this.comment,
+        tag = R.drawable.tag_soju
+    )
+    is Alcohol.TraditionalLiquor -> AlcoholData.TraditionalLiquor(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        ingredient = this.ingredient,
+        type = this.type,
+        comment = this.comment,
+        pairingFood = this.pairingFood,
+        brewery = this.brewery,
+        tag = R.drawable.tag_traditional_liquor
+    )
+    is Alcohol.Wine -> AlcoholData.Wine(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        ingredient = this.ingredient,
+        mouthfeel = this.mouthfeel,
+        sugar = this.sugar,
+        acid = this.acid,
+        type = this.type,
+        comment = this.comment,
+        pairingFood = this.pairingFood,
+        winery = this.winery,
+        tag = R.drawable.tag_wine
+    )
+    is Alcohol.Whisky -> AlcoholData.Whisky(
+        id = this.id,
+        name = this.name,
+        imgUrl = this.imgUrl,
+        country = this.country,
+        volume = this.volume,
+        abv = this.abv,
+        price = this.price,
+        taste = this.taste,
+        aroma = this.aroma,
+        finish = this.finish,
+        type = this.type,
+        tag = R.drawable.tag_whiskey
+    )
+}
+
+/**
+ * Domain 모델 List -> App 모델 List
+ * */
+fun List<Alcohol>.toDataModelList(): List<AlcoholData> {
+    return this.map { it.toDataModel() }
 }

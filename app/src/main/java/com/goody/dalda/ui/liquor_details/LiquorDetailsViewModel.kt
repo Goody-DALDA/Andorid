@@ -4,8 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.BlogData
-import com.goody.dalda.data.repository.alcohol.AlcoholRepository
-import com.goody.dalda.data.repository.blog.BlogRepository
+import com.goody.dalda.data.toAppModelList
+import com.goody.dalda.data.toDomainModel
+import com.oyj.domain.usecase.bookmark.DeleteBookmarkAlcoholUseCase
+import com.oyj.domain.usecase.GetBlogDataListUseCase
+import com.oyj.domain.usecase.bookmark.InsertBookmarkAlcoholUseCase
+import com.oyj.domain.usecase.bookmark.IsBookmarkAlcoholUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +19,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LiquorDetailsViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
-    private val blogRepository: BlogRepository,
+    private val insertBookmarkAlcoholUseCase: InsertBookmarkAlcoholUseCase,
+    private val deleteBookmarkAlcoholUseCase: DeleteBookmarkAlcoholUseCase,
+    private val isBookmarkAlcoholUseCase: IsBookmarkAlcoholUseCase,
+    private val getBlogDataListUseCase: GetBlogDataListUseCase
 ) : ViewModel() {
     private val _isBookmark = MutableStateFlow(false)
     val isBookmark: StateFlow<Boolean> = _isBookmark
@@ -29,19 +35,19 @@ class LiquorDetailsViewModel @Inject constructor(
 
     fun insertBookMark(alcoholData: AlcoholData) {
         viewModelScope.launch(Dispatchers.IO) {
-            alcoholRepository.insertBookmarkAlcohol(alcoholData)
+            insertBookmarkAlcoholUseCase(alcoholData.toDomainModel())
         }
     }
 
     fun deleteBookMark(alcoholData: AlcoholData) {
         viewModelScope.launch(Dispatchers.IO) {
-            alcoholRepository.deleteBookmarkAlcohol(alcoholData)
+            deleteBookmarkAlcoholUseCase(alcoholData.toDomainModel())
         }
     }
 
     fun setIsBookmark(alcoholData: AlcoholData) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isBookmark.value = alcoholRepository.isBookmarkAlcohol(alcoholData)
+            _isBookmark.value = isBookmarkAlcoholUseCase(alcoholData.toDomainModel())
         }
     }
 
@@ -61,8 +67,7 @@ class LiquorDetailsViewModel @Inject constructor(
 
     private fun fetchBlogDataListByQuery(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _blogDataList.value =
-                blogRepository.getBlogDataList(query)
+            _blogDataList.value = getBlogDataListUseCase(query).toAppModelList()
         }
     }
 

@@ -10,14 +10,19 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.goody.dalda.R
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentOnboardingBinding
-import com.goody.dalda.util.PreferenceManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
+import com.oyj.domain.usecase.login.pref.UpdateShowOnboardingUseCase
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Timer
 import java.util.TimerTask
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
+    @Inject lateinit var updateShowOnboardingUseCase: UpdateShowOnboardingUseCase
+
     private val timer = Timer()
     private lateinit var contents: List<OnboardingContents>
 
@@ -90,7 +95,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
     private fun setupListener() {
         binding.fragmentOnboardingSkipBtn.setOnClickListener {
-            PreferenceManager.updateShowOnboarding()
+            updateShowOnboardingUseCase()
             findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
         }
     }
@@ -129,7 +134,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
     companion object {
         private const val DELAY_MILLISECOND = 3000L
         private const val PERIOD_MILLISECOND = 3000L
-
+        private const val TAG = "OnboardingFragment"
         @JvmStatic
         fun newInstance() =
             OnboardingFragment().apply {

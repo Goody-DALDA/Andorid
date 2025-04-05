@@ -3,8 +3,13 @@ package com.goody.dalda.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.repository.alcohol.AlcoholRepository
-import com.goody.dalda.data.repository.search.SearchRepository
+import com.goody.dalda.data.mapper.DomainToPresenter.toAlcoholDataList
+import com.oyj.domain.usecase.search.DeleteAllSearchWordUseCase
+import com.oyj.domain.usecase.search.DeleteSearchWordUseCase
+import com.oyj.domain.usecase.search.GetRecommendAlcoholListUseCase
+import com.oyj.domain.usecase.search.GetRecentSearchWordListUseCase
+import com.oyj.domain.usecase.search.SearchAlcoholUseCase
+import com.oyj.domain.usecase.search.InsertSearchWordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -18,8 +23,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
-    private val searchRepository: SearchRepository,
+    private val searchAlcoholUseCase: SearchAlcoholUseCase,
+    private val getRecentSearchWordListUseCase: GetRecentSearchWordListUseCase,
+    private val getRecommendAlcoholListUseCase: GetRecommendAlcoholListUseCase,
+    private val deleteSearchWordUseCase: DeleteSearchWordUseCase,
+    private val deleteAllSearchWordUseCase: DeleteAllSearchWordUseCase,
+    private val insertSearchWordUseCase: InsertSearchWordUseCase
 ) : ViewModel() {
     private val _sideEffect = MutableStateFlow<SearchSideEffect>(SearchSideEffect.Default)
     val sideEffect: StateFlow<SearchSideEffect> = _sideEffect
@@ -33,8 +42,7 @@ class SearchViewModel @Inject constructor(
     private val _recommendAlcoholList = MutableStateFlow(emptyList<String>())
 
     @OptIn(FlowPreview::class)
-    val recommendAlcoholList =
-        _recommendAlcoholList
+    val recommendAlcoholList = _recommendAlcoholList
             .debounce(500L)
             .stateIn(
                 scope = viewModelScope,
@@ -58,26 +66,26 @@ class SearchViewModel @Inject constructor(
 
     private fun updateRecommendAlcoholList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _recommendAlcoholList.value = alcoholRepository.getRecommendAlcoholList(query.value)
+            _recommendAlcoholList.value = getRecommendAlcoholListUseCase(query.value)
         }
     }
 
     private fun insertSearchWord(searchWord: String) {
         if (searchWord.isBlank()) return
         viewModelScope.launch(Dispatchers.IO) {
-            searchRepository.insertSearchWord(searchWord)
+            insertSearchWordUseCase(searchWord)
         }
     }
 
     private fun deleteAllSearchWord() {
         viewModelScope.launch(Dispatchers.IO) {
-            searchRepository.deleteAllSearchWord()
+            deleteAllSearchWordUseCase()
         }
     }
 
     fun fetchRecentSearchWordList(isDesc: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _recentSearchWordList.value = searchRepository.getSearchWordList(isDesc = isDesc)
+            _recentSearchWordList.value = getRecentSearchWordListUseCase(isDesc = isDesc)
         }
     }
 
@@ -86,16 +94,11 @@ class SearchViewModel @Inject constructor(
         fetchRecentSearchWordList(true)
     }
 
-    fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
-        val searchResult = alcoholRepository.getSearchedAlcoholData(query)
+    private fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
+        val searchResult = searchAlcoholUseCase(query).toAlcoholDataList()
         val alcoholDataList = mutableListOf<AlcoholData>()
 
-        alcoholDataList.addAll(searchResult.beerList)
-        alcoholDataList.addAll(searchResult.sojuList)
-        alcoholDataList.addAll(searchResult.sakeList)
-        alcoholDataList.addAll(searchResult.wineList)
-        alcoholDataList.addAll(searchResult.whiskyList)
-        alcoholDataList.addAll(searchResult.traditionalLiquorList)
+        alcoholDataList.addAll(searchResult)
 
         _searchResultList.value = alcoholDataList
     }

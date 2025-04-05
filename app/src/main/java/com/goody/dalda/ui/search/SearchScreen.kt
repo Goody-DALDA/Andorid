@@ -130,8 +130,7 @@ fun SearchScreen(
                 onClickBackIcon = onClickBack,
                 onClickLeadingIcon = onSearch,
                 onClickTrailingIcon = onClickCamera,
-                modifier =
-                Modifier
+                modifier = Modifier
                     .fillMaxWidth(),
             )
 

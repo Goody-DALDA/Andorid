@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholData
 import com.goody.dalda.data.RecommendAlcohol
-import com.goody.dalda.data.repository.LoginRepository
-import com.goody.dalda.data.repository.alcohol.AlcoholRepository
+import com.goody.dalda.data.toDataModelList
 import com.goody.dalda.ui.home.data.UserProfile
-import com.goody.dalda.util.PreferenceManager
+import com.goody.dalda.ui.model.toAppModel
+import com.oyj.domain.usecase.bookmark.GetBookmarkAlcoholListUseCase
+import com.oyj.domain.usecase.login.pref.GetOAuthTokenUseCase
+import com.oyj.domain.usecase.login.FetchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,8 +23,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
-    private val profileRepository: LoginRepository,
+    private val getBookmarkAlcoholListUseCase: GetBookmarkAlcoholListUseCase,
+    private val fetchProfileUseCase: FetchProfileUseCase,
+    private val getOAuthTokenUseCase: GetOAuthTokenUseCase
 ) : ViewModel() {
     private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
     val bookmarkList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
@@ -60,10 +63,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchProfile() {
-        if (PreferenceManager.getAccessToken().isEmpty()) return
         viewModelScope.launch {
             try {
-                val profile = profileRepository.getProfile()
+                val profile = fetchProfileUseCase().toAppModel()
+                Log.d(TAG, "fetchProfile: $profile")
                 _userProfile.value = UserProfile(
                     profile.nickname,
                     profile.email,
@@ -82,8 +85,8 @@ class HomeViewModel @Inject constructor(
     fun fetchBookmarkAlcoholList() {
         viewModelScope.launch {
             try {
-                _bookmarkAlcoholDataList.value = alcoholRepository
-                    .getBookmarkAlcoholList()
+                _bookmarkAlcoholDataList.value = getBookmarkAlcoholListUseCase()
+                    .toDataModelList()
                     .asReversed()
             } catch (e: Exception) {
                 handleError(e, "북마크 목록을 불러오는데 실패했습니다")
@@ -105,7 +108,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun determineInitialAuthState(): AuthState {
-        return if (PreferenceManager.getAccessToken().isEmpty()) {
+        return if (getOAuthTokenUseCase().isEmpty()) {
             AuthState.SignOut
         } else {
             AuthState.SignIn

@@ -2,6 +2,7 @@ package com.goody.dalda.ui.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.oyj.domain.model.PostDomain
 
 data class Post(
     val id: Int,
@@ -18,8 +19,7 @@ data class Post(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte(),
-    ) {
-    }
+    )
 
     override fun writeToParcel(
         parcel: Parcel,
@@ -45,5 +45,22 @@ data class Post(
         override fun newArray(size: Int): Array<Post?> {
             return arrayOfNulls(size)
         }
+    }
+}
+
+fun PostDomain.toAppModel(): Post {
+    return Post(
+        id = this.id,
+        title = this.title,
+        content = this.content,
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt,
+        isActive = this.isActive
+    )
+}
+
+fun List<PostDomain>.toAppModel(): List<Post> {
+    return this.map { postDomain ->
+        postDomain.toAppModel()
     }
 }
