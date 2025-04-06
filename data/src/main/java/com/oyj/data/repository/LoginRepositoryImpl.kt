@@ -39,7 +39,7 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFetchProfile(): ProfileDomain {
+    override suspend fun fetchProfile(): ProfileDomain {
         val response = userRemoteDataSource.fetchProfile()
         return response.body()!!.data?.toDomain() ?: ProfileDomain()
     }

@@ -13,7 +13,7 @@ import com.goody.dalda.databinding.FragmentOnboardingBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
-import com.oyj.domain.usecase.login.pref.UpdateShowOnboardingUseCase
+import com.oyj.domain.usecase.login.pref.UpdateOnboardingPreferenceUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Timer
 import java.util.TimerTask
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
-    @Inject lateinit var updateShowOnboardingUseCase: UpdateShowOnboardingUseCase
+    @Inject lateinit var updateOnboardingPreferenceUseCase: UpdateOnboardingPreferenceUseCase
 
     private val timer = Timer()
     private lateinit var contents: List<OnboardingContents>
@@ -95,7 +95,7 @@ class OnboardingFragment : BaseFragment<FragmentOnboardingBinding>() {
 
     private fun setupListener() {
         binding.fragmentOnboardingSkipBtn.setOnClickListener {
-            updateShowOnboardingUseCase()
+            updateOnboardingPreferenceUseCase()
             findNavController().navigate(R.id.action_onboardingFragment_to_loginFragment)
         }
     }

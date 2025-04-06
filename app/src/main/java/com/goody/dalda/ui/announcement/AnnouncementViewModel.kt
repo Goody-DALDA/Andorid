@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.ui.model.Post
 import com.goody.dalda.ui.model.toAppModel
-import com.oyj.domain.usecase.FetchNoticePostUseCase
+import com.oyj.domain.usecase.FetchNoticeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AnnouncementViewModel @Inject constructor(
-    private val fetchNoticePostUseCase: FetchNoticePostUseCase
+    private val fetchNoticeUseCase: FetchNoticeUseCase
 ) : ViewModel() {
     private val _posts = MutableStateFlow<List<Post>>(emptyList())
     val posts: StateFlow<List<Post>> = _posts
@@ -25,7 +25,7 @@ class AnnouncementViewModel @Inject constructor(
 
     private fun fetchNoticePost() {
         viewModelScope.launch(Dispatchers.IO) {
-            _posts.value = fetchNoticePostUseCase().toAppModel()
+            _posts.value = fetchNoticeUseCase().toAppModel()
         }
     }
 }

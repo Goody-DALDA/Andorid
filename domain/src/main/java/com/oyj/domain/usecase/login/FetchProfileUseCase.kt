@@ -8,6 +8,6 @@ class FetchProfileUseCase @Inject constructor(
     private val loginRepository: LoginRepository
 ) {
     suspend operator fun invoke(): ProfileDomain {
-        return loginRepository.getFetchProfile()
+        return loginRepository.fetchProfile()
     }
 }

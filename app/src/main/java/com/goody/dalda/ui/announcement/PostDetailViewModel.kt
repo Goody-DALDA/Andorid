@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.oyj.domain.usecase.FetchNoticePostUseCase
+import com.oyj.domain.usecase.FetchNoticeUseCase
 
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
-    private val fetchNoticePostUseCase: FetchNoticePostUseCase
+    private val fetchNoticeUseCase: FetchNoticeUseCase
 ) : ViewModel() {
     private val _currentPost = MutableStateFlow<Post?>(null)
     val currentPost: StateFlow<Post?> = _currentPost
@@ -31,7 +31,7 @@ class PostDetailViewModel @Inject constructor(
 
     fun fetchNoticePost(post: Post) {
         viewModelScope.launch(Dispatchers.IO) {
-            postList = fetchNoticePostUseCase().toAppModel()
+            postList = fetchNoticeUseCase().toAppModel()
             setPost(post)
             setNextPost()
             setPrevPost()

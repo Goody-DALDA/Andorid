@@ -12,7 +12,7 @@ interface LoginRepository {
         token: OAuthTokenDomain,
     ): ProfileDomain?
 
-    suspend fun getFetchProfile(): ProfileDomain
+    suspend fun fetchProfile(): ProfileDomain
 
     suspend fun logout(): ResultMessageDomain
 
