@@ -27,8 +27,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.LiquorDetailsSideMenuItem
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.BlogData
+import com.goody.dalda.data.model.AlcoholUIModel
+import com.goody.dalda.data.model.BlogUIModel
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SimpleMessageDialog
 import com.goody.dalda.ui.liquor_details.component.BlogInfoComponent
@@ -49,7 +49,7 @@ private const val DIALOG_WIDTH_RATIO = 0.85f
 
 @Composable
 fun LiquorDetailsScreen(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     onClickBlog: (String) -> Unit = {},
     onClickBackIcon: () -> Unit = {},
     onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
@@ -58,28 +58,28 @@ fun LiquorDetailsScreen(
 ) {
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
     val isBookmark by viewModel.isBookmark.collectAsStateWithLifecycle()
-    val blogDataList by viewModel.blogDataList.collectAsStateWithLifecycle()
+    val blogDataList by viewModel.blogUIModelList.collectAsStateWithLifecycle()
     val isDialogVisible by viewModel.isDialogVisible.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.setIsBookmark(alcoholData)
-        viewModel.fetchBlogDataList(alcoholData)
+        viewModel.setIsBookmark(alcoholUIModel)
+        viewModel.fetchBlogDataList(alcoholUIModel)
     }
 
     LiquorDetailsScreen(
-        alcoholData = alcoholData,
+        alcoholUIModel = alcoholUIModel,
         isDropDownMenuExpanded = isDropDownMenuExpanded,
         isBookmark = isBookmark,
         isDialogVisible = isDialogVisible,
-        blogDataList = blogDataList,
+        blogUIModelList = blogDataList,
         onClickBackIcon = onClickBackIcon,
         onClickSideMenu = { isDropDownMenuExpanded = it },
         onClickMenu = onClickMenu,
         onClickBookmark = {
             if (isBookmark) {
-                viewModel.deleteBookMark(alcoholData)
+                viewModel.deleteBookMark(alcoholUIModel)
             } else {
-                viewModel.insertBookMark(alcoholData)
+                viewModel.insertBookMark(alcoholUIModel)
             }
             viewModel.setBookmark(!isBookmark)
         },
@@ -91,11 +91,11 @@ fun LiquorDetailsScreen(
 
 @Composable
 fun LiquorDetailsScreen(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     isDropDownMenuExpanded: Boolean,
     isBookmark: Boolean,
     isDialogVisible: Boolean = false,
-    blogDataList: List<BlogData> = emptyList(),
+    blogUIModelList: List<BlogUIModel> = emptyList(),
     onClickBackIcon: () -> Unit,
     onClickSideMenu: (Boolean) -> Unit,
     onClickMenu: (LiquorDetailsSideMenuItem) -> Unit = {},
@@ -150,7 +150,7 @@ fun LiquorDetailsScreen(
         ) {
             item {
                 BasicLiquorInfoSection(
-                    alcoholData = alcoholData,
+                    alcoholUIModel = alcoholUIModel,
                     modifier =
                     Modifier
                         .fillMaxWidth()
@@ -173,7 +173,7 @@ fun LiquorDetailsScreen(
 
             item {
                 DetailLiquorInfoSection(
-                    alcoholData = alcoholData,
+                    alcoholUIModel = alcoholUIModel,
                     modifier =
                     Modifier
                         .fillMaxWidth()
@@ -213,7 +213,7 @@ fun LiquorDetailsScreen(
                 }
             }
 
-            blogDataList.forEach { blogData ->
+            blogUIModelList.forEach { blogData ->
                 item {
                     BlogInfoComponent(
                         title = blogData.title,
@@ -240,8 +240,8 @@ fun LiquorDetailsScreen(
 @Composable
 private fun LiquorDetailsScreenPrev_beer() {
     LiquorDetailsScreen(
-        alcoholData =
-        AlcoholData.Beer(
+        alcoholUIModel =
+        AlcoholUIModel.Beer(
             id = 0,
             name = "카스",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -268,8 +268,8 @@ private fun LiquorDetailsScreenPrev_beer() {
 @Composable
 private fun LiquorDetailsScreenPrev_wine() {
     LiquorDetailsScreen(
-        alcoholData =
-        AlcoholData.Wine(
+        alcoholUIModel =
+        AlcoholUIModel.Wine(
             id = 0,
             name = "피치니 키안티 리제르바 ‘꼴레지오네 오로’",
             imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_005_E.GuigalCotesduRhoneRouge.jpg",
@@ -299,8 +299,8 @@ private fun LiquorDetailsScreenPrev_wine() {
 @Composable
 private fun LiquorDetailsScreenPrev_wine_liquor() {
     LiquorDetailsScreen(
-        alcoholData =
-        AlcoholData.TraditionalLiquor(
+        alcoholUIModel =
+        AlcoholUIModel.TraditionalLiquor(
             id = 0,
             name = "벗이랑 강황",
             imgUrl = "https://thesool.com/common/imageView.do?targetId=PR00000950&targetNm=PRODUCT",
@@ -327,8 +327,8 @@ private fun LiquorDetailsScreenPrev_wine_liquor() {
 @Composable
 private fun LiquorDetailsScreenPrev_whiskey() {
     LiquorDetailsScreen(
-        alcoholData =
-        AlcoholData.Whisky(
+        alcoholUIModel =
+        AlcoholUIModel.Whisky(
             id = 0,
             name = "와일드터키 8년",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",
@@ -355,8 +355,8 @@ private fun LiquorDetailsScreenPrev_whiskey() {
 @Composable
 private fun LiquorDetailsScreenPrev_sake() {
     LiquorDetailsScreen(
-        alcoholData =
-        AlcoholData.Sake(
+        alcoholUIModel =
+        AlcoholUIModel.Sake(
             id = 0,
             name = "츠루우메 유즈",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/11/45/1000000183/1000000183_detail_032.png",
@@ -382,8 +382,8 @@ private fun LiquorDetailsScreenPrev_sake() {
 @Composable
 private fun LiquorDetailsScreenPrev_soju() {
     LiquorDetailsScreen(
-        alcoholData =
-        AlcoholData.Soju(
+        alcoholUIModel =
+        AlcoholUIModel.Soju(
             id = 0,
             name = "대선소주",
             imgUrl = "https://arqachylpmku8348141.cdn.ntruss.com/app/product/mst_product/8801137520018_L.jpg",

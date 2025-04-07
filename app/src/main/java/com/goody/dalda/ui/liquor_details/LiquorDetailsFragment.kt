@@ -35,7 +35,7 @@ class LiquorDetailsFragment : BaseFragment<FragmentLiquorDetailsBinding>() {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 LiquorDetailsScreen(
-                    alcoholData = args.alcoholData,
+                    alcoholUIModel = args.alcoholData,
                     onClickBlog = {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
                         startActivity(intent)
