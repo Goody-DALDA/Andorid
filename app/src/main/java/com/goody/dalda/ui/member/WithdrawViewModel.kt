@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.Profile
-import com.goody.dalda.data.model.toAppModel
+import com.goody.dalda.data.model.toUIModel
 import com.goody.dalda.ui.state.UiState
 import com.kakao.sdk.user.UserApiClient
 import com.oyj.domain.usecase.login.LeaveUserUseCase
@@ -36,7 +36,7 @@ class WithdrawViewModel @Inject constructor(
     val checkState: StateFlow<Boolean> = _checkState
 
     private val _profile = MutableStateFlow(
-        getProfileUseCase().toAppModel()
+        getProfileUseCase().toUIModel()
     )
     val profile: StateFlow<Profile> = _profile
 

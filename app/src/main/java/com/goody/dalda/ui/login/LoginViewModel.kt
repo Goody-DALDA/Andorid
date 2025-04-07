@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.Profile
-import com.goody.dalda.data.model.toAppModel
+import com.goody.dalda.data.model.toUIModel
 import com.goody.dalda.ui.state.UiState
 import com.kakao.sdk.auth.model.OAuthToken
 import com.oyj.domain.usecase.login.LoginUseCase
@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor(
     val state: LiveData<UiState<Profile>> get() = _state
 
     fun checkLogin() {
-        val profile = getProfileUseCase().toAppModel()
+        val profile = getProfileUseCase().toUIModel()
         if (profile.email.isNotEmpty()) {
             _state.postValue(UiState.Success(profile))
         }
@@ -51,7 +51,7 @@ class LoginViewModel @Inject constructor(
             )
             loginUseCase(nickname, email, profileImg, domainToken)?.let { profileDomain ->
                 setProfileUseCase(profileDomain)
-                _state.postValue(UiState.Success(profileDomain.toAppModel()))
+                _state.postValue(UiState.Success(profileDomain.toUIModel()))
             }
         }
     }

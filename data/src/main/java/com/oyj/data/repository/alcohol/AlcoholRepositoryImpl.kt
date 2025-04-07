@@ -8,8 +8,8 @@ import com.oyj.data.dto.home.Soju
 import com.oyj.data.dto.home.TraditionalLiquor
 import com.oyj.data.dto.home.Whisky
 import com.oyj.data.dto.home.Wine
-import com.oyj.data.mapper.AlcoholDtoMapper.dataToAlcohol
-import com.oyj.data.mapper.AlcoholDtoMapper.searchResultDtoToSearchAlcoholData
+import com.oyj.data.mapper.DtoToDomainMapper.dataToAlcohol
+import com.oyj.data.mapper.DtoToDomainMapper.searchResultDtoToSearchAlcoholData
 import com.oyj.data.source.local.BookmarkLocalDataSource
 import com.oyj.data.source.remote.home.AlcoholDataRemoteDataSource
 import com.oyj.domain.model.AlcoholEntity

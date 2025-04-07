@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.model.BlogUIModel
 import com.goody.dalda.data.model.toAppModelList
-import com.goody.dalda.data.model.toDomainModel
+import com.goody.dalda.data.model.toDomain
 import com.oyj.domain.usecase.bookmark.DeleteBookmarkAlcoholUseCase
 import com.oyj.domain.usecase.GetBlogDataListUseCase
 import com.oyj.domain.usecase.bookmark.InsertBookmarkAlcoholUseCase
@@ -35,19 +35,19 @@ class LiquorDetailsViewModel @Inject constructor(
 
     fun insertBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            insertBookmarkAlcoholUseCase(alcoholUIModel.toDomainModel())
+            insertBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
         }
     }
 
     fun deleteBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomainModel())
+            deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
         }
     }
 
     fun setIsBookmark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isBookmark.value = isBookmarkAlcoholUseCase(alcoholUIModel.toDomainModel())
+            _isBookmark.value = isBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
         }
     }
 

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
-import com.goody.dalda.data.mapper.DomainToPresenter.toAlcoholDataList
+import com.goody.dalda.data.model.toUIModelList
 import com.goody.dalda.ui.dialog.SpiritsSearchResult
 import com.goody.dalda.ui.state.UiState
 import com.oyj.domain.usecase.search.SearchAlcoholUseCase
@@ -24,7 +24,7 @@ class LabelSearchViewModel @Inject constructor(
 
     fun requestSearchApi(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val searchResult = searchAlcoholUseCase(query).toAlcoholDataList()
+            val searchResult = searchAlcoholUseCase(query).toUIModelList()
             val alcoholUIModelList = mutableListOf<AlcoholUIModel>()
             alcoholUIModelList.addAll(searchResult)
 

@@ -1,7 +1,7 @@
 package com.oyj.data.repository
 
-import com.oyj.data.mapper.AlcoholDtoMapper.toDomain
-import com.oyj.data.mapper.AlcoholDtoMapper.toResultMessageDomain
+import com.oyj.data.dto.toDomain
+import com.oyj.data.dto.toResultMessageDomain
 import com.oyj.data.source.local.PreferenceLocalDataSource
 import com.oyj.data.source.remote.UserRemoteDataSource
 import com.oyj.domain.model.OAuthTokenEntity

@@ -48,7 +48,7 @@ data class PostUIModel(
     }
 }
 
-fun PostEntity.toAppModel(): PostUIModel {
+fun PostEntity.toUIModel(): PostUIModel {
     return PostUIModel(
         id = this.id,
         title = this.title,
@@ -59,8 +59,8 @@ fun PostEntity.toAppModel(): PostUIModel {
     )
 }
 
-fun List<PostEntity>.toAppModel(): List<PostUIModel> {
+fun List<PostEntity>.toUIModel(): List<PostUIModel> {
     return this.map { postDomain ->
-        postDomain.toAppModel()
+        postDomain.toUIModel()
     }
 }

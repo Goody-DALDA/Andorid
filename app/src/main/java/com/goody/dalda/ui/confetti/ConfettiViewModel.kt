@@ -2,7 +2,7 @@ package com.goody.dalda.ui.confetti
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.model.toAppModel
+import com.goody.dalda.data.model.toUIModel
 import com.oyj.domain.usecase.login.FetchProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ class ConfettiViewModel @Inject constructor(
 ) : ViewModel() {
     fun fetchProfile() {
         viewModelScope.launch(Dispatchers.IO) {
-            val profile = fetchProfileUseCase().toAppModel()
+            val profile = fetchProfileUseCase().toUIModel()
         }
     }
 }

@@ -3,7 +3,7 @@ package com.goody.dalda.ui.announcement
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.PostUIModel
-import com.goody.dalda.data.model.toAppModel
+import com.goody.dalda.data.model.toUIModel
 import com.oyj.domain.usecase.FetchNoticeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ class AnnouncementViewModel @Inject constructor(
 
     private fun fetchNoticePost() {
         viewModelScope.launch(Dispatchers.IO) {
-            _posts.value = fetchNoticeUseCase().toAppModel()
+            _posts.value = fetchNoticeUseCase().toUIModel()
         }
     }
 }

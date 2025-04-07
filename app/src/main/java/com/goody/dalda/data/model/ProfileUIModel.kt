@@ -9,7 +9,7 @@ data class Profile(
     val isShowConfettiScreen: Boolean = false,
 )
 
-fun ProfileEntity.toAppModel() : Profile {
+fun ProfileEntity.toUIModel() : Profile {
     return Profile(
         nickname = this.nickname,
         email = this.email,

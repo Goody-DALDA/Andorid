@@ -3,7 +3,7 @@ package com.goody.dalda.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.AlcoholUIModel
-import com.goody.dalda.data.mapper.DomainToPresenter.toAlcoholDataList
+import com.goody.dalda.data.model.toUIModelList
 import com.oyj.domain.usecase.search.DeleteAllSearchWordUseCase
 import com.oyj.domain.usecase.search.DeleteSearchWordUseCase
 import com.oyj.domain.usecase.search.GetRecommendAlcoholListUseCase
@@ -95,7 +95,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
-        val searchResult = searchAlcoholUseCase(query).toAlcoholDataList()
+        val searchResult = searchAlcoholUseCase(query).toUIModelList()
         val alcoholUIModelList = mutableListOf<AlcoholUIModel>()
 
         alcoholUIModelList.addAll(searchResult)

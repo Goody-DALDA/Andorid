@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholCategoryStatus
 import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
-import com.goody.dalda.data.model.toDataModelList
+import com.goody.dalda.data.model.toUIModelList
 import com.oyj.domain.usecase.search.GetAlcoholDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +59,7 @@ class CategoryViewModel @Inject constructor(
 
             _alcoholUIModelListMap.update { currentMap ->
                 currentMap.toMutableMap().apply {
-                    this[key] = value.toDataModelList()
+                    this[key] = value.toUIModelList()
                 }
             }
         }

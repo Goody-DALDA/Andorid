@@ -3,7 +3,7 @@ package com.goody.dalda.ui.announcement
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.PostUIModel
-import com.goody.dalda.data.model.toAppModel
+import com.goody.dalda.data.model.toUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,7 +31,7 @@ class PostDetailViewModel @Inject constructor(
 
     fun fetchNoticePost(postUIModel: PostUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            postUIModelList = fetchNoticeUseCase().toAppModel()
+            postUIModelList = fetchNoticeUseCase().toUIModel()
             setPost(postUIModel)
             setNextPost()
             setPrevPost()

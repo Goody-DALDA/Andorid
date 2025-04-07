@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.model.RecommendAlcoholUIModel
-import com.goody.dalda.data.model.toDataModelList
+import com.goody.dalda.data.model.toUIModelList
 import com.goody.dalda.ui.home.data.UserProfile
-import com.goody.dalda.data.model.toAppModel
+import com.goody.dalda.data.model.toUIModel
 import com.oyj.domain.usecase.bookmark.GetBookmarkAlcoholListUseCase
 import com.oyj.domain.usecase.login.pref.GetOAuthTokenUseCase
 import com.oyj.domain.usecase.login.FetchProfileUseCase
@@ -65,7 +65,7 @@ class HomeViewModel @Inject constructor(
     fun fetchProfile() {
         viewModelScope.launch {
             try {
-                val profile = fetchProfileUseCase().toAppModel()
+                val profile = fetchProfileUseCase().toUIModel()
                 Log.d(TAG, "fetchProfile: $profile")
                 _userProfile.value = UserProfile(
                     profile.nickname,
@@ -86,7 +86,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _bookmarkAlcoholUIModelList.value = getBookmarkAlcoholListUseCase()
-                    .toDataModelList()
+                    .toUIModelList()
                     .asReversed()
             } catch (e: Exception) {
                 handleError(e, "북마크 목록을 불러오는데 실패했습니다")

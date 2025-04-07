@@ -2,8 +2,8 @@ package com.oyj.data.repository
 
 import android.util.Log
 import com.oyj.data.dto.home.AlcoholDataDto
-import com.oyj.data.mapper.AlcoholDtoMapper.dataToAlcohol
-import com.oyj.data.mapper.AlcoholDtoMapper.searchResultDtoToSearchAlcoholData
+import com.oyj.data.mapper.DtoToDomainMapper.dataToAlcohol
+import com.oyj.data.mapper.DtoToDomainMapper.searchResultDtoToSearchAlcoholData
 import com.oyj.data.source.local.BookmarkLocalDataSource
 import com.oyj.data.source.remote.home.AlcoholDataRemoteDataSource
 import com.oyj.domain.repository.DataAlcoholRepository

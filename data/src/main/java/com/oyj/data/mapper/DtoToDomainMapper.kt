@@ -1,9 +1,5 @@
 package com.oyj.data.mapper
 
-import com.oyj.data.dto.LeaveDto
-import com.oyj.data.dto.LogoutDto
-import com.oyj.data.dto.PostDto
-import com.oyj.data.dto.ProfileData
 import com.oyj.data.dto.home.Beer
 import com.oyj.data.dto.home.Data
 import com.oyj.data.dto.home.Sake
@@ -13,11 +9,8 @@ import com.oyj.data.dto.home.Whisky
 import com.oyj.data.dto.home.Wine
 import com.oyj.data.dto.search.SearchData
 import com.oyj.domain.model.AlcoholEntity
-import com.oyj.domain.model.PostEntity
-import com.oyj.domain.model.ProfileEntity
-import com.oyj.domain.model.ResultMessageEntity
 
-object AlcoholDtoMapper {
+object DtoToDomainMapper {
 
     fun dataToAlcohol(data: List<Data>): List<AlcoholEntity> =
         data.map {
@@ -154,39 +147,5 @@ object AlcoholDtoMapper {
         ).flatMap { alcoholList ->
             dataToAlcohol(alcoholList)
         }
-    }
-
-    fun ProfileData.toDomain(): ProfileEntity {
-        return ProfileEntity(
-            nickname = this.nickname,
-            email = this.email,
-            profileImg = this.profileImg,
-            isShowConfettiScreen = false
-        )
-    }
-
-    fun LogoutDto.toResultMessageDomain(): ResultMessageEntity {
-        return ResultMessageEntity(
-            status = this.status,
-            message = this.message,
-        )
-    }
-
-    fun LeaveDto.toResultMessageDomain(): ResultMessageEntity {
-        return ResultMessageEntity(
-            status = this.status,
-            message = this.message,
-        )
-    }
-
-    fun PostDto.toPostDomain(): PostEntity {
-        return PostEntity(
-            id = this.id,
-            content = this.content,
-            createdAt = this.createdAt,
-            updatedAt = this.updatedAt,
-            title = this.title,
-            isActive = this.isActive,
-        )
     }
 }

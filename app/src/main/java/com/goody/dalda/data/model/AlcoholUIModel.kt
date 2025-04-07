@@ -156,7 +156,7 @@ sealed class AlcoholUIModel(
 /**
  * App 모델 -> Domain 모델
  * */
-fun AlcoholUIModel.toDomainModel(): AlcoholEntity = when (this) {
+fun AlcoholUIModel.toDomain(): AlcoholEntity = when (this) {
     is AlcoholUIModel.Beer -> AlcoholEntity.Beer(
         id = this.id,
         name = this.name,
@@ -237,9 +237,9 @@ fun AlcoholUIModel.toDomainModel(): AlcoholEntity = when (this) {
 }
 
 /**
- * Domain 모델 -> App 모델
+ * Domain 모델 -> UIModel 모델
  * */
-fun AlcoholEntity.toDataModel(): AlcoholUIModel = when (this) {
+fun AlcoholEntity.toUIModel(): AlcoholUIModel = when (this) {
     is AlcoholEntity.Beer -> AlcoholUIModel.Beer(
         id = this.id,
         name = this.name,
@@ -328,6 +328,6 @@ fun AlcoholEntity.toDataModel(): AlcoholUIModel = when (this) {
 /**
  * Domain 모델 List -> App 모델 List
  * */
-fun List<AlcoholEntity>.toDataModelList(): List<AlcoholUIModel> {
-    return this.map { it.toDataModel() }
+fun List<AlcoholEntity>.toUIModelList(): List<AlcoholUIModel> {
+    return this.map { it.toUIModel() }
 }

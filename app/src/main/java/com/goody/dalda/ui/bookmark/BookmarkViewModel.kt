@@ -3,8 +3,8 @@ package com.goody.dalda.ui.bookmark
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.AlcoholUIModel
-import com.goody.dalda.data.model.toDataModelList
-import com.goody.dalda.data.model.toDomainModel
+import com.goody.dalda.data.model.toUIModelList
+import com.goody.dalda.data.model.toDomain
 import com.oyj.domain.usecase.bookmark.DeleteBookmarkAlcoholUseCase
 import com.oyj.domain.usecase.bookmark.GetBookmarkAlcoholListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,13 +27,13 @@ class BookmarkViewModel @Inject constructor(
 
     fun getBookmarkList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _bookmarkList.value = getBookmarkAlcoholListUseCase().toDataModelList().reversed()
+            _bookmarkList.value = getBookmarkAlcoholListUseCase().toUIModelList().reversed()
         }
     }
 
     fun deleteBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomainModel())
+            deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
             getBookmarkList()
         }
     }

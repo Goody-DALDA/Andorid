@@ -11,7 +11,7 @@ data class BlogUIModel(
     val postdate: String,
 )
 
-fun BlogEntity.toAppModel(): BlogUIModel {
+fun BlogEntity.toUIModel(): BlogUIModel {
     return BlogUIModel(
         link = this.link,
         title = this.title,
@@ -23,5 +23,5 @@ fun BlogEntity.toAppModel(): BlogUIModel {
 }
 
 fun List<BlogEntity>.toAppModelList(): List<BlogUIModel> {
-    return this.map { it.toAppModel() }
+    return this.map { it.toUIModel() }
 }
