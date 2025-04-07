@@ -2,7 +2,7 @@ package com.oyj.domain.model
 
 import java.util.Date
 
-data class OAuthTokenDomain(
+data class OAuthTokenEntity(
     val accessToken: String,
     val accessTokenExpiresAt: Date,
     val refreshToken: String,

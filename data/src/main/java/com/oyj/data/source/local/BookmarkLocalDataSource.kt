@@ -1,14 +1,14 @@
 package com.oyj.data.source.local
 
-import com.oyj.domain.Alcohol
+import com.oyj.domain.model.AlcoholEntity
 
 
 interface BookmarkLocalDataSource {
-    suspend fun insertAlcohol(alcoholData: Alcohol)
+    suspend fun insertAlcohol(alcoholEntityData: AlcoholEntity)
 
-    suspend fun deleteAlcohol(alcoholData: Alcohol)
+    suspend fun deleteAlcohol(alcoholEntityData: AlcoholEntity)
 
-    suspend fun getBookmarkAlcoholList(): List<Alcohol>
+    suspend fun getBookmarkAlcoholList(): List<AlcoholEntity>
 
-    suspend fun isBookMark(alcoholData: Alcohol): Boolean
+    suspend fun isBookMark(alcoholEntityData: AlcoholEntity): Boolean
 }

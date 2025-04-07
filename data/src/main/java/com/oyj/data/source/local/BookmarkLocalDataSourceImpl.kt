@@ -3,140 +3,140 @@ package com.oyj.data.source.local
 
 import com.oyj.data.database.dao.BookmarkDao
 import com.oyj.data.database.entity.BookmarkEntity
-import com.oyj.domain.Alcohol
+import com.oyj.domain.model.AlcoholEntity
 import javax.inject.Inject
 
 class BookmarkLocalDataSourceImpl @Inject constructor(
     private val bookmarkDao: BookmarkDao,
 ) : BookmarkLocalDataSource {
-    override suspend fun insertAlcohol(alcoholData: Alcohol) {
-        val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholData)
+    override suspend fun insertAlcohol(alcoholEntityData: AlcoholEntity) {
+        val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholEntityData)
         return bookmarkDao.insertAlcohol(bookmarkEntity)
     }
 
-    override suspend fun deleteAlcohol(alcoholData: Alcohol) {
-        val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholData)
+    override suspend fun deleteAlcohol(alcoholEntityData: AlcoholEntity) {
+        val bookmarkEntity = alcoholDataToBookmarkEntity(alcoholEntityData)
         return bookmarkDao.deleteAlcohol(bookmarkEntity)
     }
 
-    override suspend fun getBookmarkAlcoholList(): List<Alcohol> {
+    override suspend fun getBookmarkAlcoholList(): List<AlcoholEntity> {
         val bookmarkEntityList = bookmarkDao.getAllBookMark()
         return bookmarkEntityList.map {
             bookmarkToAlcohol(it)
         }
     }
 
-    override suspend fun isBookMark(alcoholData: Alcohol): Boolean =
-        bookmarkDao.isBookMark(alcoholData.id, alcoholData.name)
+    override suspend fun isBookMark(alcoholEntityData: AlcoholEntity): Boolean =
+        bookmarkDao.isBookMark(alcoholEntityData.id, alcoholEntityData.name)
 
-    private fun alcoholDataToBookmarkEntity(alcoholData: Alcohol): BookmarkEntity =
-        when (alcoholData) {
-            is Alcohol.Beer -> {
+    private fun alcoholDataToBookmarkEntity(alcoholEntityData: AlcoholEntity): BookmarkEntity =
+        when (alcoholEntityData) {
+            is AlcoholEntity.Beer -> {
                 BookmarkEntity(
-                    id = alcoholData.id,
-                    name = alcoholData.name,
-                    imgUrl = alcoholData.imgUrl,
-                    country = alcoholData.country,
-                    volume = alcoholData.volume,
-                    abv = alcoholData.abv,
+                    id = alcoholEntityData.id,
+                    name = alcoholEntityData.name,
+                    imgUrl = alcoholEntityData.imgUrl,
+                    country = alcoholEntityData.country,
+                    volume = alcoholEntityData.volume,
+                    abv = alcoholEntityData.abv,
                     category = "beer",
-                    appearance = alcoholData.appearance,
-                    flavor = alcoholData.flavor,
-                    mouthfeel = alcoholData.mouthfeel,
-                    aromaFlot = alcoholData.aroma,
-                    type = alcoholData.type,
+                    appearance = alcoholEntityData.appearance,
+                    flavor = alcoholEntityData.flavor,
+                    mouthfeel = alcoholEntityData.mouthfeel,
+                    aromaFlot = alcoholEntityData.aroma,
+                    type = alcoholEntityData.type,
                 )
             }
 
-            is Alcohol.Sake -> {
+            is AlcoholEntity.Sake -> {
                 BookmarkEntity(
-                    id = alcoholData.id,
-                    name = alcoholData.name,
-                    imgUrl = alcoholData.imgUrl,
-                    country = alcoholData.country,
-                    volume = alcoholData.volume,
-                    abv = alcoholData.abv,
+                    id = alcoholEntityData.id,
+                    name = alcoholEntityData.name,
+                    imgUrl = alcoholEntityData.imgUrl,
+                    country = alcoholEntityData.country,
+                    volume = alcoholEntityData.volume,
+                    abv = alcoholEntityData.abv,
                     category = "sake",
-                    aromaStr = alcoholData.aroma,
-                    price = alcoholData.price,
-                    taste = alcoholData.taste,
-                    finish = alcoholData.finish,
+                    aromaStr = alcoholEntityData.aroma,
+                    price = alcoholEntityData.price,
+                    taste = alcoholEntityData.taste,
+                    finish = alcoholEntityData.finish,
                 )
             }
 
-            is Alcohol.Soju -> {
+            is AlcoholEntity.Soju -> {
                 BookmarkEntity(
-                    id = alcoholData.id,
-                    name = alcoholData.name,
-                    imgUrl = alcoholData.imgUrl,
-                    country = alcoholData.country,
-                    volume = alcoholData.volume,
-                    abv = alcoholData.abv,
+                    id = alcoholEntityData.id,
+                    name = alcoholEntityData.name,
+                    imgUrl = alcoholEntityData.imgUrl,
+                    country = alcoholEntityData.country,
+                    volume = alcoholEntityData.volume,
+                    abv = alcoholEntityData.abv,
                     category = "soju",
-                    price = alcoholData.price,
-                    comment = alcoholData.comment,
+                    price = alcoholEntityData.price,
+                    comment = alcoholEntityData.comment,
                 )
             }
 
-            is Alcohol.TraditionalLiquor -> {
+            is AlcoholEntity.TraditionalLiquor -> {
                 BookmarkEntity(
-                    id = alcoholData.id,
-                    name = alcoholData.name,
-                    imgUrl = alcoholData.imgUrl,
-                    country = alcoholData.country,
-                    volume = alcoholData.volume,
-                    abv = alcoholData.abv,
+                    id = alcoholEntityData.id,
+                    name = alcoholEntityData.name,
+                    imgUrl = alcoholEntityData.imgUrl,
+                    country = alcoholEntityData.country,
+                    volume = alcoholEntityData.volume,
+                    abv = alcoholEntityData.abv,
                     category = "traditionalliquor",
-                    type = alcoholData.type,
-                    comment = alcoholData.comment,
-                    ingredient = alcoholData.ingredient,
-                    pairingFood = alcoholData.pairingFood,
-                    brewery = alcoholData.brewery,
+                    type = alcoholEntityData.type,
+                    comment = alcoholEntityData.comment,
+                    ingredient = alcoholEntityData.ingredient,
+                    pairingFood = alcoholEntityData.pairingFood,
+                    brewery = alcoholEntityData.brewery,
                 )
             }
 
-            is Alcohol.Wine -> {
+            is AlcoholEntity.Wine -> {
                 BookmarkEntity(
-                    id = alcoholData.id,
-                    name = alcoholData.name,
-                    imgUrl = alcoholData.imgUrl,
-                    country = alcoholData.country,
-                    volume = alcoholData.volume,
-                    abv = alcoholData.abv,
+                    id = alcoholEntityData.id,
+                    name = alcoholEntityData.name,
+                    imgUrl = alcoholEntityData.imgUrl,
+                    country = alcoholEntityData.country,
+                    volume = alcoholEntityData.volume,
+                    abv = alcoholEntityData.abv,
                     category = "wine",
-                    mouthfeel = alcoholData.mouthfeel,
-                    type = alcoholData.type,
-                    comment = alcoholData.comment,
-                    ingredient = alcoholData.ingredient,
-                    pairingFood = alcoholData.pairingFood,
-                    sugar = alcoholData.sugar,
-                    acid = alcoholData.acid,
-                    winery = alcoholData.winery,
+                    mouthfeel = alcoholEntityData.mouthfeel,
+                    type = alcoholEntityData.type,
+                    comment = alcoholEntityData.comment,
+                    ingredient = alcoholEntityData.ingredient,
+                    pairingFood = alcoholEntityData.pairingFood,
+                    sugar = alcoholEntityData.sugar,
+                    acid = alcoholEntityData.acid,
+                    winery = alcoholEntityData.winery,
                 )
             }
 
-            is Alcohol.Whisky -> {
+            is AlcoholEntity.Whisky -> {
                 BookmarkEntity(
-                    id = alcoholData.id,
-                    name = alcoholData.name,
-                    imgUrl = alcoholData.imgUrl,
-                    country = alcoholData.country,
-                    volume = alcoholData.volume,
-                    abv = alcoholData.abv,
+                    id = alcoholEntityData.id,
+                    name = alcoholEntityData.name,
+                    imgUrl = alcoholEntityData.imgUrl,
+                    country = alcoholEntityData.country,
+                    volume = alcoholEntityData.volume,
+                    abv = alcoholEntityData.abv,
                     category = "whisky",
-                    aromaStr = alcoholData.aroma,
-                    type = alcoholData.type,
-                    price = alcoholData.price,
-                    taste = alcoholData.taste,
-                    finish = alcoholData.finish,
+                    aromaStr = alcoholEntityData.aroma,
+                    type = alcoholEntityData.type,
+                    price = alcoholEntityData.price,
+                    taste = alcoholEntityData.taste,
+                    finish = alcoholEntityData.finish,
                 )
             }
         }
 
-    private fun bookmarkToAlcohol(bookmarkEntity: BookmarkEntity): Alcohol =
+    private fun bookmarkToAlcohol(bookmarkEntity: BookmarkEntity): AlcoholEntity =
         when (bookmarkEntity.category) {
             "beer" -> {
-                Alcohol.Beer(
+                AlcoholEntity.Beer(
                     id = bookmarkEntity.id,
                     name = bookmarkEntity.name,
                     imgUrl = bookmarkEntity.imgUrl,
@@ -152,7 +152,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
             }
 
             "sake" -> {
-                Alcohol.Sake(
+                AlcoholEntity.Sake(
                     id = bookmarkEntity.id,
                     name = bookmarkEntity.name,
                     imgUrl = bookmarkEntity.imgUrl,
@@ -167,7 +167,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
             }
 
             "soju" -> {
-                Alcohol.Soju(
+                AlcoholEntity.Soju(
                     id = bookmarkEntity.id,
                     name = bookmarkEntity.name,
                     imgUrl = bookmarkEntity.imgUrl,
@@ -180,7 +180,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
             }
 
             "traditionalliquor" -> {
-                Alcohol.TraditionalLiquor(
+                AlcoholEntity.TraditionalLiquor(
                     id = bookmarkEntity.id,
                     name = bookmarkEntity.name,
                     imgUrl = bookmarkEntity.imgUrl,
@@ -196,7 +196,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
             }
 
             "wine" -> {
-                Alcohol.Wine(
+                AlcoholEntity.Wine(
                     id = bookmarkEntity.id,
                     name = bookmarkEntity.name,
                     imgUrl = bookmarkEntity.imgUrl,
@@ -215,7 +215,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
             }
 
             "whisky" -> {
-                Alcohol.Whisky(
+                AlcoholEntity.Whisky(
                     id = bookmarkEntity.id,
                     name = bookmarkEntity.name,
                     imgUrl = bookmarkEntity.imgUrl,

@@ -1,6 +1,6 @@
-package com.oyj.domain
+package com.oyj.domain.model
 
-sealed class Alcohol(
+sealed class AlcoholEntity(
     open val id: Int,
     open val name: String,
     open val imgUrl: String,
@@ -20,7 +20,7 @@ sealed class Alcohol(
         val mouthfeel: Float,
         val aroma: Float,
         val type: String,
-    ) : Alcohol(
+    ) : AlcoholEntity(
         id = id,
         name = name,
         imgUrl = imgUrl,
@@ -40,7 +40,7 @@ sealed class Alcohol(
         val taste: String,
         val aroma: String,
         val finish: String,
-    ) : Alcohol(
+    ) : AlcoholEntity(
         id = id,
         name = name,
         imgUrl = imgUrl,
@@ -58,7 +58,7 @@ sealed class Alcohol(
         override val abv: String,
         val price: Int,
         val comment: String,
-    ) : Alcohol(
+    ) : AlcoholEntity(
         id = id,
         name = name,
         imgUrl = imgUrl,
@@ -79,7 +79,7 @@ sealed class Alcohol(
         val comment: String,
         val pairingFood: String,
         val brewery: String,
-    ) : Alcohol(
+    ) : AlcoholEntity(
         id = id,
         name = name,
         imgUrl = imgUrl,
@@ -103,7 +103,7 @@ sealed class Alcohol(
         val comment: String,
         val pairingFood: String,
         val winery: String,
-    ) : Alcohol(
+    ) : AlcoholEntity(
         id = id,
         name = name,
         imgUrl = imgUrl,
@@ -124,7 +124,7 @@ sealed class Alcohol(
         val aroma: String,
         val finish: String,
         val type: String,
-    ) : Alcohol(
+    ) : AlcoholEntity(
         id = id,
         name = name,
         imgUrl = imgUrl,

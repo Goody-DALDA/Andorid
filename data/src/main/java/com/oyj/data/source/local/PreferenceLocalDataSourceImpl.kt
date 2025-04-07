@@ -2,7 +2,7 @@ package com.oyj.data.source.local
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import com.oyj.domain.model.ProfileDomain
+import com.oyj.domain.model.ProfileEntity
 import javax.inject.Inject
 
 @SuppressLint("UseKtx")
@@ -30,18 +30,18 @@ class PreferenceLocalDataSourceImpl @Inject constructor(
         preferenceManager.edit()?.putString(ACCESS_TOKEN, "")?.apply()
     }
 
-    override fun getProfile(): ProfileDomain {
-        return ProfileDomain(
+    override fun getProfile(): ProfileEntity {
+        return ProfileEntity(
             preferenceManager.getString("nickname", "") ?: "",
             preferenceManager.getString("email", "") ?: "",
             preferenceManager.getString("profileImg", "") ?: "",
         )
     }
 
-    override fun setProfile(profileDomain: ProfileDomain) {
-        preferenceManager.edit()?.putString("nickname", profileDomain.nickname)?.apply()
-        preferenceManager.edit()?.putString("email", profileDomain.email)?.apply()
-        preferenceManager.edit()?.putString("profileImg", profileDomain.profileImg)?.apply()
+    override fun setProfile(profileEntity: ProfileEntity) {
+        preferenceManager.edit()?.putString("nickname", profileEntity.nickname)?.apply()
+        preferenceManager.edit()?.putString("email", profileEntity.email)?.apply()
+        preferenceManager.edit()?.putString("profileImg", profileEntity.profileImg)?.apply()
     }
 
     override fun clearProfile() {

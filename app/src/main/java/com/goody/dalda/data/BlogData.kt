@@ -1,6 +1,6 @@
 package com.goody.dalda.data
 
-import com.oyj.domain.model.BlogDataDomain
+import com.oyj.domain.model.BlogEntity
 
 data class BlogData(
     val link: String,
@@ -11,7 +11,7 @@ data class BlogData(
     val postdate: String,
 )
 
-fun BlogDataDomain.toAppModel(): BlogData {
+fun BlogEntity.toAppModel(): BlogData {
     return BlogData(
         link = this.link,
         title = this.title,
@@ -22,6 +22,6 @@ fun BlogDataDomain.toAppModel(): BlogData {
     )
 }
 
-fun List<BlogDataDomain>.toAppModelList(): List<BlogData> {
+fun List<BlogEntity>.toAppModelList(): List<BlogData> {
     return this.map { it.toAppModel() }
 }

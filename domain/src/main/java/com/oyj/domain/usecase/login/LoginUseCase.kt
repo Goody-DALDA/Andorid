@@ -1,7 +1,7 @@
 package com.oyj.domain.usecase.login
 
-import com.oyj.domain.model.OAuthTokenDomain
-import com.oyj.domain.model.ProfileDomain
+import com.oyj.domain.model.OAuthTokenEntity
+import com.oyj.domain.model.ProfileEntity
 import com.oyj.domain.repository.LoginRepository
 import javax.inject.Inject
 
@@ -12,8 +12,8 @@ class LoginUseCase @Inject constructor(
         nickname: String,
         email: String,
         profileImg: String,
-        token: OAuthTokenDomain,
-    ): ProfileDomain? {
+        token: OAuthTokenEntity,
+    ): ProfileEntity? {
         return repository.login(
             nickname = nickname,
             email = email,

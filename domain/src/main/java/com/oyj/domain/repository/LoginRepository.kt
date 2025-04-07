@@ -1,22 +1,22 @@
 package com.oyj.domain.repository
 
-import com.oyj.domain.model.OAuthTokenDomain
-import com.oyj.domain.model.ProfileDomain
-import com.oyj.domain.model.ResultMessageDomain
+import com.oyj.domain.model.OAuthTokenEntity
+import com.oyj.domain.model.ProfileEntity
+import com.oyj.domain.model.ResultMessageEntity
 
 interface LoginRepository {
     suspend fun login(
         nickname: String,
         email: String,
         profileImg: String,
-        token: OAuthTokenDomain,
-    ): ProfileDomain?
+        token: OAuthTokenEntity,
+    ): ProfileEntity?
 
-    suspend fun fetchProfile(): ProfileDomain
+    suspend fun fetchProfile(): ProfileEntity
 
-    suspend fun logout(): ResultMessageDomain
+    suspend fun logout(): ResultMessageEntity
 
-    suspend fun leaveUser(): ResultMessageDomain
+    suspend fun leaveUser(): ResultMessageEntity
 
     fun getOAuthToken(): String
 
@@ -28,9 +28,9 @@ interface LoginRepository {
 
     fun clearAccessToken()
 
-    fun getProfile(): ProfileDomain
+    fun getProfile(): ProfileEntity
 
-    fun setProfile(profileDomain: ProfileDomain)
+    fun setProfile(profileEntity: ProfileEntity)
 
     fun clearProfile()
 }

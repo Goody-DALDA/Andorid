@@ -12,7 +12,7 @@ import com.oyj.data.mapper.AlcoholDtoMapper.dataToAlcohol
 import com.oyj.data.mapper.AlcoholDtoMapper.searchResultDtoToSearchAlcoholData
 import com.oyj.data.source.local.BookmarkLocalDataSource
 import com.oyj.data.source.remote.home.AlcoholDataRemoteDataSource
-import com.oyj.domain.Alcohol
+import com.oyj.domain.model.AlcoholEntity
 import com.oyj.domain.repository.AlcoholRepository
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class AlcoholRepositoryImpl @Inject constructor(
     private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource,
     private val bookmarkLocalDataSource: BookmarkLocalDataSource,
 ) : AlcoholRepository {
-    override suspend fun getAlcoholData(category: String): List<Alcohol> =
+    override suspend fun getAlcoholData(category: String): List<AlcoholEntity> =
         try {
             val response =
                 alcoholDataRemoteDataSource.getAlcoholData(
@@ -39,7 +39,7 @@ class AlcoholRepositoryImpl @Inject constructor(
             emptyList()
         }
 
-    override suspend fun getSearchedAlcoholData(query: String): List<Alcohol> {
+    override suspend fun getSearchedAlcoholData(query: String): List<AlcoholEntity> {
         return try {
             val response = alcoholDataRemoteDataSource.getSearchedAlcoholData(query = query)
 
@@ -74,27 +74,27 @@ class AlcoholRepositoryImpl @Inject constructor(
             emptyList()
         }
 
-    override suspend fun getBookmarkAlcoholList(): List<Alcohol> {
+    override suspend fun getBookmarkAlcoholList(): List<AlcoholEntity> {
         val bookmarkAlcoholList = bookmarkLocalDataSource.getBookmarkAlcoholList()
 
         return bookmarkAlcoholList
     }
 
-    override suspend fun insertBookmarkAlcohol(alcohol: Alcohol) {
-        bookmarkLocalDataSource.insertAlcohol(alcohol)
+    override suspend fun insertBookmarkAlcohol(alcoholEntity: AlcoholEntity) {
+        bookmarkLocalDataSource.insertAlcohol(alcoholEntity)
     }
 
-    override suspend fun deleteBookmarkAlcohol(alcohol: Alcohol) {
-        bookmarkLocalDataSource.deleteAlcohol(alcohol)
+    override suspend fun deleteBookmarkAlcohol(alcoholEntity: AlcoholEntity) {
+        bookmarkLocalDataSource.deleteAlcohol(alcoholEntity)
     }
 
-    override suspend fun isBookmarkAlcohol(alcohol: Alcohol): Boolean =
-        bookmarkLocalDataSource.isBookMark(alcohol)
+    override suspend fun isBookmarkAlcohol(alcoholEntity: AlcoholEntity): Boolean =
+        bookmarkLocalDataSource.isBookMark(alcoholEntity)
 
     private fun alcoholDataDtoToAlcoholData(
         category: String,
         alcoholDataDto: AlcoholDataDto,
-    ): List<Alcohol> {
+    ): List<AlcoholEntity> {
         when (category.lowercase()) {
             "soju" -> {
                 return dataToAlcohol(alcoholDataDto.alcoholDataList.filterIsInstance<Soju>())

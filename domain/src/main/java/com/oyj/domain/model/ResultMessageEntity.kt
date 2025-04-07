@@ -1,6 +1,6 @@
 package com.oyj.domain.model
 
-data class ResultMessageDomain(
+data class ResultMessageEntity(
     val status: String,
     val message: String
 ) {

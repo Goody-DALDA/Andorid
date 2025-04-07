@@ -1,6 +1,6 @@
 package com.oyj.domain.model
 
-data class ProfileDomain(
+data class ProfileEntity(
     val nickname: String = "",
     val email: String = "",
     val profileImg: String = "",

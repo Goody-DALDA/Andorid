@@ -2,7 +2,7 @@ package com.goody.dalda.ui.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.oyj.domain.model.PostDomain
+import com.oyj.domain.model.PostEntity
 
 data class Post(
     val id: Int,
@@ -48,7 +48,7 @@ data class Post(
     }
 }
 
-fun PostDomain.toAppModel(): Post {
+fun PostEntity.toAppModel(): Post {
     return Post(
         id = this.id,
         title = this.title,
@@ -59,7 +59,7 @@ fun PostDomain.toAppModel(): Post {
     )
 }
 
-fun List<PostDomain>.toAppModel(): List<Post> {
+fun List<PostEntity>.toAppModel(): List<Post> {
     return this.map { postDomain ->
         postDomain.toAppModel()
     }

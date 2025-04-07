@@ -5,12 +5,12 @@ import com.goody.dalda.data.dto.PostDto
 import com.goody.dalda.data.dto.ProfileData
 import com.goody.dalda.ui.model.Post
 import com.goody.dalda.ui.model.Profile
-import com.oyj.domain.Alcohol
+import com.oyj.domain.model.AlcoholEntity
 
 object DomainToPresenter {
-    fun Alcohol.toAlcoholData() : AlcoholData {
+    fun AlcoholEntity.toAlcoholData() : AlcoholData {
         return when(this) {
-            is Alcohol.Beer -> AlcoholData.Beer(
+            is AlcoholEntity.Beer -> AlcoholData.Beer(
                 id = id,
                 name = name,
                 imgUrl = imgUrl,
@@ -23,7 +23,7 @@ object DomainToPresenter {
                 aroma = aroma,
                 type = type
             )
-            is Alcohol.Sake -> AlcoholData.Sake(
+            is AlcoholEntity.Sake -> AlcoholData.Sake(
                 id = id,
                 name = name,
                 imgUrl = imgUrl,
@@ -35,7 +35,7 @@ object DomainToPresenter {
                 aroma = aroma,
                 finish = finish
             )
-            is Alcohol.Soju -> AlcoholData.Soju(
+            is AlcoholEntity.Soju -> AlcoholData.Soju(
                 id = id,
                 name = name,
                 imgUrl = imgUrl,
@@ -45,7 +45,7 @@ object DomainToPresenter {
                 price = price,
                 comment = comment
             )
-            is Alcohol.TraditionalLiquor -> AlcoholData.TraditionalLiquor(
+            is AlcoholEntity.TraditionalLiquor -> AlcoholData.TraditionalLiquor(
                 id = id,
                 name = name,
                 imgUrl = imgUrl,
@@ -58,7 +58,7 @@ object DomainToPresenter {
                 pairingFood = pairingFood,
                 brewery = brewery
             )
-            is Alcohol.Whisky -> AlcoholData.Whisky(
+            is AlcoholEntity.Whisky -> AlcoholData.Whisky(
                 id = id,
                 name = name,
                 imgUrl = imgUrl,
@@ -71,7 +71,7 @@ object DomainToPresenter {
                 finish = finish,
                 type = type
             )
-            is Alcohol.Wine -> AlcoholData.Wine(
+            is AlcoholEntity.Wine -> AlcoholData.Wine(
                 id = id,
                 name = name,
                 imgUrl = imgUrl,
@@ -90,7 +90,7 @@ object DomainToPresenter {
         }
     }
 
-    fun List<Alcohol>.toAlcoholDataList(): List<AlcoholData> {
+    fun List<AlcoholEntity>.toAlcoholDataList(): List<AlcoholData> {
         return this.map { it.toAlcoholData() }
     }
 

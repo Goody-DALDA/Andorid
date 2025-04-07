@@ -1,6 +1,6 @@
 package com.goody.dalda.ui.model
 
-import com.oyj.domain.model.ProfileDomain
+import com.oyj.domain.model.ProfileEntity
 
 data class Profile(
     val nickname: String = "",
@@ -9,7 +9,7 @@ data class Profile(
     val isShowConfettiScreen: Boolean = false,
 )
 
-fun ProfileDomain.toAppModel() : Profile {
+fun ProfileEntity.toAppModel() : Profile {
     return Profile(
         nickname = this.nickname,
         email = this.email,

@@ -41,7 +41,7 @@ class LoginViewModel @Inject constructor(
         token: OAuthToken,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val domainToken = com.oyj.domain.model.OAuthTokenDomain(
+            val domainToken = com.oyj.domain.model.OAuthTokenEntity(
                 accessToken = token.accessToken,
                 accessTokenExpiresAt = token.accessTokenExpiresAt,
                 refreshToken = token.refreshToken,

@@ -12,14 +12,14 @@ import com.oyj.data.dto.home.TraditionalLiquor
 import com.oyj.data.dto.home.Whisky
 import com.oyj.data.dto.home.Wine
 import com.oyj.data.dto.search.SearchData
-import com.oyj.domain.Alcohol
-import com.oyj.domain.model.PostDomain
-import com.oyj.domain.model.ProfileDomain
-import com.oyj.domain.model.ResultMessageDomain
+import com.oyj.domain.model.AlcoholEntity
+import com.oyj.domain.model.PostEntity
+import com.oyj.domain.model.ProfileEntity
+import com.oyj.domain.model.ResultMessageEntity
 
 object AlcoholDtoMapper {
 
-    fun dataToAlcohol(data: List<Data>): List<Alcohol> =
+    fun dataToAlcohol(data: List<Data>): List<AlcoholEntity> =
         data.map {
             when (it) {
                 is Beer -> dataToBeer(it)
@@ -31,9 +31,9 @@ object AlcoholDtoMapper {
             }
         }
 
-    private fun dataToBeer(data: Data): Alcohol.Beer =
+    private fun dataToBeer(data: Data): AlcoholEntity.Beer =
         (data as Beer).let {
-            Alcohol.Beer(
+            AlcoholEntity.Beer(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -48,9 +48,9 @@ object AlcoholDtoMapper {
             )
         }
 
-    private fun dataToSake(data: Data): Alcohol.Sake =
+    private fun dataToSake(data: Data): AlcoholEntity.Sake =
         (data as Sake).let {
-            Alcohol.Sake(
+            AlcoholEntity.Sake(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -64,9 +64,9 @@ object AlcoholDtoMapper {
             )
         }
 
-    private fun dataToWhisky(data: Data): Alcohol.Whisky =
+    private fun dataToWhisky(data: Data): AlcoholEntity.Whisky =
         (data as Whisky).let {
-            Alcohol.Whisky(
+            AlcoholEntity.Whisky(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -81,9 +81,9 @@ object AlcoholDtoMapper {
             )
         }
 
-    private fun dataToSoju(data: Data): Alcohol.Soju =
+    private fun dataToSoju(data: Data): AlcoholEntity.Soju =
         (data as Soju).let {
-            Alcohol.Soju(
+            AlcoholEntity.Soju(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -95,9 +95,9 @@ object AlcoholDtoMapper {
             )
         }
 
-    private fun dataToWine(data: Data): Alcohol.Wine =
+    private fun dataToWine(data: Data): AlcoholEntity.Wine =
         (data as Wine).let {
-            Alcohol.Wine(
+            AlcoholEntity.Wine(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -115,9 +115,9 @@ object AlcoholDtoMapper {
             )
         }
 
-    private fun dataToTraditionalLiquor(data: Data): Alcohol.TraditionalLiquor =
+    private fun dataToTraditionalLiquor(data: Data): AlcoholEntity.TraditionalLiquor =
         (data as TraditionalLiquor).let {
-            Alcohol.TraditionalLiquor(
+            AlcoholEntity.TraditionalLiquor(
                 id = it.id,
                 name = it.name,
                 imgUrl = it.img,
@@ -143,7 +143,7 @@ object AlcoholDtoMapper {
                 ).toInt()
         }
 
-    fun searchResultDtoToSearchAlcoholData(searchResultDto: SearchData): List<Alcohol> {
+    fun searchResultDtoToSearchAlcoholData(searchResultDto: SearchData): List<AlcoholEntity> {
         return listOf(
             searchResultDto.soju,
             searchResultDto.beer,
@@ -156,8 +156,8 @@ object AlcoholDtoMapper {
         }
     }
 
-    fun ProfileData.toDomain(): ProfileDomain {
-        return ProfileDomain(
+    fun ProfileData.toDomain(): ProfileEntity {
+        return ProfileEntity(
             nickname = this.nickname,
             email = this.email,
             profileImg = this.profileImg,
@@ -165,22 +165,22 @@ object AlcoholDtoMapper {
         )
     }
 
-    fun LogoutDto.toResultMessageDomain(): ResultMessageDomain {
-        return ResultMessageDomain(
+    fun LogoutDto.toResultMessageDomain(): ResultMessageEntity {
+        return ResultMessageEntity(
             status = this.status,
             message = this.message,
         )
     }
 
-    fun LeaveDto.toResultMessageDomain(): ResultMessageDomain {
-        return ResultMessageDomain(
+    fun LeaveDto.toResultMessageDomain(): ResultMessageEntity {
+        return ResultMessageEntity(
             status = this.status,
             message = this.message,
         )
     }
 
-    fun PostDto.toPostDomain(): PostDomain {
-        return PostDomain(
+    fun PostDto.toPostDomain(): PostEntity {
+        return PostEntity(
             id = this.id,
             content = this.content,
             createdAt = this.createdAt,

@@ -1,6 +1,6 @@
 package com.oyj.domain.model
 
-data class PostDomain(
+data class PostEntity(
     val id: Int,
     val title: String,
     val content: String,

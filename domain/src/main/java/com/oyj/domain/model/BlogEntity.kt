@@ -1,6 +1,6 @@
 package com.oyj.domain.model
 
-data class BlogDataDomain(
+data class BlogEntity(
     val link: String,
     val title: String,
     val description: String,

@@ -1,6 +1,6 @@
 package com.oyj.data.source.local
 
-import com.oyj.domain.model.ProfileDomain
+import com.oyj.domain.model.ProfileEntity
 
 interface PreferenceLocalDataSource {
     fun updateShowOnboarding()
@@ -13,9 +13,9 @@ interface PreferenceLocalDataSource {
 
     fun clearAccessToken()
 
-    fun getProfile(): ProfileDomain
+    fun getProfile(): ProfileEntity
 
-    fun setProfile(profileDomain: ProfileDomain)
+    fun setProfile(profileEntity: ProfileEntity)
 
     fun clearProfile()
 }

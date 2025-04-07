@@ -4,9 +4,9 @@ import com.oyj.data.mapper.AlcoholDtoMapper.toDomain
 import com.oyj.data.mapper.AlcoholDtoMapper.toResultMessageDomain
 import com.oyj.data.source.local.PreferenceLocalDataSource
 import com.oyj.data.source.remote.UserRemoteDataSource
-import com.oyj.domain.model.OAuthTokenDomain
-import com.oyj.domain.model.ProfileDomain
-import com.oyj.domain.model.ResultMessageDomain
+import com.oyj.domain.model.OAuthTokenEntity
+import com.oyj.domain.model.ProfileEntity
+import com.oyj.domain.model.ResultMessageEntity
 import com.oyj.domain.repository.LoginRepository
 import javax.inject.Inject
 
@@ -18,8 +18,8 @@ class LoginRepositoryImpl @Inject constructor(
         nickname: String,
         email: String,
         profileImg: String,
-        token: OAuthTokenDomain,
-    ): ProfileDomain? {
+        token: OAuthTokenEntity,
+    ): ProfileEntity? {
         return try {
             val response = userRemoteDataSource.login(nickname, email, profileImg)
             val loginDto = response.body()
@@ -29,7 +29,7 @@ class LoginRepositoryImpl @Inject constructor(
                 val accessToken = loginDto.data.accessToken
                 preferenceLocalDataSource.setAccessToken(accessToken)
 
-                ProfileDomain(nickname, email, profileImg, loginData.isNewUser)
+                ProfileEntity(nickname, email, profileImg, loginData.isNewUser)
             } else {
                 null
             }
@@ -39,19 +39,19 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchProfile(): ProfileDomain {
+    override suspend fun fetchProfile(): ProfileEntity {
         val response = userRemoteDataSource.fetchProfile()
-        return response.body()!!.data?.toDomain() ?: ProfileDomain()
+        return response.body()!!.data?.toDomain() ?: ProfileEntity()
     }
 
-    override suspend fun logout(): ResultMessageDomain {
+    override suspend fun logout(): ResultMessageEntity {
         return userRemoteDataSource.logout().body()?.toResultMessageDomain()
-            ?: ResultMessageDomain("failed", "data null")
+            ?: ResultMessageEntity("failed", "data null")
     }
 
-    override suspend fun leaveUser(): ResultMessageDomain {
+    override suspend fun leaveUser(): ResultMessageEntity {
         return userRemoteDataSource.leaveUser().body()?.toResultMessageDomain()
-            ?: ResultMessageDomain("failed", "data null")
+            ?: ResultMessageEntity("failed", "data null")
     }
 
     override fun getOAuthToken(): String {
@@ -74,12 +74,12 @@ class LoginRepositoryImpl @Inject constructor(
         preferenceLocalDataSource.clearAccessToken()
     }
 
-    override fun getProfile(): ProfileDomain {
+    override fun getProfile(): ProfileEntity {
         return preferenceLocalDataSource.getProfile()
     }
 
-    override fun setProfile(profileDomain: ProfileDomain) {
-        preferenceLocalDataSource.setProfile(profileDomain)
+    override fun setProfile(profileEntity: ProfileEntity) {
+        preferenceLocalDataSource.setProfile(profileEntity)
     }
 
     override fun clearProfile() {
