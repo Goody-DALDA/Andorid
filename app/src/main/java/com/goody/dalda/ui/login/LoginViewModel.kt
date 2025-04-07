@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.ui.model.Profile
-import com.goody.dalda.ui.model.toAppModel
+import com.goody.dalda.data.model.Profile
+import com.goody.dalda.data.model.toAppModel
 import com.goody.dalda.ui.state.UiState
 import com.kakao.sdk.auth.model.OAuthToken
 import com.oyj.domain.usecase.login.LoginUseCase

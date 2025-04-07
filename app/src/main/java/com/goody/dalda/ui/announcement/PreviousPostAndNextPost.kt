@@ -14,13 +14,13 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.ui.model.Post
+import com.goody.dalda.data.model.PostUIModel
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun PreviousPostAndNextPost(
-    nextPost: Post? = null,
-    prevPost: Post? = null,
+    nextPostUIModel: PostUIModel? = null,
+    prevPostUIModel: PostUIModel? = null,
     onClickNext: () -> Unit = {},
     onClickPrevious: () -> Unit = {},
     modifier: Modifier = Modifier,
@@ -37,16 +37,16 @@ fun PreviousPostAndNextPost(
                     .padding(bottom = 24.dp),
         )
 
-        if (prevPost != null) {
+        if (prevPostUIModel != null) {
             PreviousPose(
-                post = prevPost,
+                postUIModel = prevPostUIModel,
                 onClick = onClickPrevious,
             )
         }
 
-        if (nextPost != null) {
+        if (nextPostUIModel != null) {
             NextPost(
-                post = nextPost,
+                postUIModel = nextPostUIModel,
                 onClick = onClickNext,
             )
         }
@@ -55,7 +55,7 @@ fun PreviousPostAndNextPost(
 
 @Composable
 fun NextPost(
-    post: Post,
+    postUIModel: PostUIModel,
     onClick: () -> Unit = {},
 ) {
     Row(
@@ -73,7 +73,7 @@ fun NextPost(
         )
 
         Text(
-            text = post.title,
+            text = postUIModel.title,
             style = DaldaTextStyle.body3,
             color = colorResource(id = R.color.text),
             maxLines = 1,
@@ -84,7 +84,7 @@ fun NextPost(
 
 @Composable
 fun PreviousPose(
-    post: Post,
+    postUIModel: PostUIModel,
     onClick: () -> Unit = {},
 ) {
     Row(
@@ -101,7 +101,7 @@ fun PreviousPose(
         )
 
         Text(
-            text = post.title,
+            text = postUIModel.title,
             style = DaldaTextStyle.body3,
             color = colorResource(id = R.color.text),
             maxLines = 1,
@@ -113,8 +113,8 @@ fun PreviousPose(
 @Preview(showBackground = true)
 @Composable
 fun PreviousPostAndNextPostPreview() {
-    val nextPost =
-        Post(
+    val nextPostUIModel =
+        PostUIModel(
             2,
             "다음글 제목",
             "다음글 입니다.",
@@ -123,8 +123,8 @@ fun PreviousPostAndNextPostPreview() {
             true,
         )
 
-    val prevPost =
-        Post(
+    val prevPostUIModel =
+        PostUIModel(
             3,
             "이전글 제목",
             "이전글 입니다.",
@@ -134,8 +134,8 @@ fun PreviousPostAndNextPostPreview() {
         )
     MaterialTheme {
         PreviousPostAndNextPost(
-            nextPost = nextPost,
-            prevPost = prevPost,
+            nextPostUIModel = nextPostUIModel,
+            prevPostUIModel = prevPostUIModel,
         )
     }
 }

@@ -4,9 +4,9 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.AlcoholCategoryStatus
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
-import com.goody.dalda.data.toDataModelList
+import com.goody.dalda.data.model.toDataModelList
 import com.oyj.domain.usecase.search.GetAlcoholDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -28,14 +28,14 @@ class CategoryViewModel @Inject constructor(
     val query: StateFlow<String> = _query
 
     // 주류 정보 호출 로직AlcoholData
-    private val _alcoholDataListMap: MutableStateFlow<MutableMap<String, List<AlcoholData>>> =
+    private val _alcoholUIModelListMap: MutableStateFlow<MutableMap<String, List<AlcoholUIModel>>> =
         MutableStateFlow(
             AlcoholType.entries
                 .associate {
-                    it.alcoholName to emptyList<AlcoholData>()
+                    it.alcoholName to emptyList<AlcoholUIModel>()
                 }.toMutableMap(),
         )
-    val alcoholDataListMap: StateFlow<Map<String, List<AlcoholData>>> = _alcoholDataListMap
+    val alcoholUIModelListMap: StateFlow<Map<String, List<AlcoholUIModel>>> = _alcoholUIModelListMap
 
     private val _pagerState = MutableStateFlow(PagerState { _category.value.size })
     val pagerState: StateFlow<PagerState> = _pagerState
@@ -57,7 +57,7 @@ class CategoryViewModel @Inject constructor(
             val key = AlcoholType.entries.first { it.toString() == query }.alcoholName
             val value = getAlcoholDataUseCase(query)
 
-            _alcoholDataListMap.update { currentMap ->
+            _alcoholUIModelListMap.update { currentMap ->
                 currentMap.toMutableMap().apply {
                     this[key] = value.toDataModelList()
                 }
@@ -68,7 +68,7 @@ class CategoryViewModel @Inject constructor(
     fun fetchAlcoholData(categoryIndex: Int) {
         val key = category.value[categoryIndex]
 
-        if (_alcoholDataListMap.value[key]?.isEmpty() == true) {
+        if (_alcoholUIModelListMap.value[key]?.isEmpty() == true) {
             val query =
                 AlcoholType.entries
                     .first { it.alcoholName == category.value[categoryIndex] }

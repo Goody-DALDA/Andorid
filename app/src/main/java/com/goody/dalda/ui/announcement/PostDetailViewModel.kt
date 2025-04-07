@@ -2,8 +2,8 @@ package com.goody.dalda.ui.announcement
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.ui.model.Post
-import com.goody.dalda.ui.model.toAppModel
+import com.goody.dalda.data.model.PostUIModel
+import com.goody.dalda.data.model.toAppModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,36 +16,36 @@ import com.oyj.domain.usecase.FetchNoticeUseCase
 class PostDetailViewModel @Inject constructor(
     private val fetchNoticeUseCase: FetchNoticeUseCase
 ) : ViewModel() {
-    private val _currentPost = MutableStateFlow<Post?>(null)
-    val currentPost: StateFlow<Post?> = _currentPost
+    private val _currentPostUIModel = MutableStateFlow<PostUIModel?>(null)
+    val currentPostUIModel: StateFlow<PostUIModel?> = _currentPostUIModel
 
-    private val _nextPost = MutableStateFlow<Post?>(null)
-    val nextPost: StateFlow<Post?> = _nextPost
+    private val _nextPostUIModel = MutableStateFlow<PostUIModel?>(null)
+    val nextPostUIModel: StateFlow<PostUIModel?> = _nextPostUIModel
 
-    private val _prevPost = MutableStateFlow<Post?>(null)
-    val prevPost: StateFlow<Post?> = _prevPost
+    private val _prevPostUIModel = MutableStateFlow<PostUIModel?>(null)
+    val prevPostUIModel: StateFlow<PostUIModel?> = _prevPostUIModel
 
-    private var postList: List<Post> = emptyList()
+    private var postUIModelList: List<PostUIModel> = emptyList()
 
     private var currentIndex = 0
 
-    fun fetchNoticePost(post: Post) {
+    fun fetchNoticePost(postUIModel: PostUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            postList = fetchNoticeUseCase().toAppModel()
-            setPost(post)
+            postUIModelList = fetchNoticeUseCase().toAppModel()
+            setPost(postUIModel)
             setNextPost()
             setPrevPost()
         }
     }
 
-    private fun setPost(post: Post) {
-        _currentPost.value = post
-        currentIndex = postList.indexOf(post)
+    private fun setPost(postUIModel: PostUIModel) {
+        _currentPostUIModel.value = postUIModel
+        currentIndex = postUIModelList.indexOf(postUIModel)
     }
 
     fun nextPost() {
-        if (currentIndex >= postList.size - 1) return
-        val post = postList[currentIndex + 1]
+        if (currentIndex >= postUIModelList.size - 1) return
+        val post = postUIModelList[currentIndex + 1]
         setPost(post)
         setNextPost()
         setPrevPost()
@@ -54,18 +54,18 @@ class PostDetailViewModel @Inject constructor(
     fun prevPost() {
         if (currentIndex <= 0) return
 
-        val post = postList[currentIndex - 1]
+        val post = postUIModelList[currentIndex - 1]
         setPost(post)
         setNextPost()
         setPrevPost()
     }
 
     private fun setNextPost() {
-        _nextPost.value =
-            if (currentIndex >= postList.size - 1) null else postList[currentIndex + 1]
+        _nextPostUIModel.value =
+            if (currentIndex >= postUIModelList.size - 1) null else postUIModelList[currentIndex + 1]
     }
 
     private fun setPrevPost() {
-        _prevPost.value = if (currentIndex <= 0) null else postList[currentIndex - 1]
+        _prevPostUIModel.value = if (currentIndex <= 0) null else postUIModelList[currentIndex - 1]
     }
 }

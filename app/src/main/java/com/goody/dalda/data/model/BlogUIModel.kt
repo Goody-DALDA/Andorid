@@ -1,8 +1,8 @@
-package com.goody.dalda.data
+package com.goody.dalda.data.model
 
 import com.oyj.domain.model.BlogEntity
 
-data class BlogData(
+data class BlogUIModel(
     val link: String,
     val title: String,
     val description: String,
@@ -11,8 +11,8 @@ data class BlogData(
     val postdate: String,
 )
 
-fun BlogEntity.toAppModel(): BlogData {
-    return BlogData(
+fun BlogEntity.toAppModel(): BlogUIModel {
+    return BlogUIModel(
         link = this.link,
         title = this.title,
         description = this.description,
@@ -22,6 +22,6 @@ fun BlogEntity.toAppModel(): BlogData {
     )
 }
 
-fun List<BlogEntity>.toAppModelList(): List<BlogData> {
+fun List<BlogEntity>.toAppModelList(): List<BlogUIModel> {
     return this.map { it.toAppModel() }
 }

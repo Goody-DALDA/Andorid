@@ -12,14 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.home.component.AlcoholCard
 
 @Composable
 fun AlcoholCardListComponent(
-    alcoholDataList: List<AlcoholData>,
-    onClickCard: (AlcoholData) -> Unit = {},
+    alcoholUIModelList: List<AlcoholUIModel>,
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     modifier: Modifier = Modifier,
     footer: @Composable () -> Unit = {},
 ) {
@@ -30,9 +30,9 @@ fun AlcoholCardListComponent(
         contentPadding = PaddingValues(horizontal = AppPaddingSize.HORIZONTAL.dp),
         modifier = modifier.padding(vertical = 16.dp),
     ) {
-        items(alcoholDataList) { alcoholData ->
+        items(alcoholUIModelList) { alcoholData ->
             AlcoholCard(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholData,
                 onClick = onClickCard,
                 modifier = Modifier,
             )
@@ -46,9 +46,9 @@ fun AlcoholCardListComponent(
 @Preview(showBackground = true)
 @Composable
 private fun AlcoholCardListComponentPreview() {
-    val alcoholDataList =
+    val alcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -62,7 +62,7 @@ private fun AlcoholCardListComponentPreview() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -76,7 +76,7 @@ private fun AlcoholCardListComponentPreview() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -89,7 +89,7 @@ private fun AlcoholCardListComponentPreview() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -99,7 +99,7 @@ private fun AlcoholCardListComponentPreview() {
                 price = 5000,
                 comment = "맛있어요",
             ),
-            AlcoholData.Wine(
+            AlcoholUIModel.Wine(
                 id = 0,
                 name = "와인",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -119,6 +119,6 @@ private fun AlcoholCardListComponentPreview() {
         )
 
     AlcoholCardListComponent(
-        alcoholDataList = alcoholDataList,
+        alcoholUIModelList = alcoholUIModelLists,
     )
 }

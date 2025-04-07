@@ -2,7 +2,7 @@ package com.goody.dalda.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.mapper.DomainToPresenter.toAlcoholDataList
 import com.oyj.domain.usecase.search.DeleteAllSearchWordUseCase
 import com.oyj.domain.usecase.search.DeleteSearchWordUseCase
@@ -50,8 +50,8 @@ class SearchViewModel @Inject constructor(
                 initialValue = emptyList(),
             )
 
-    private val _searchResultList = MutableStateFlow(emptyList<AlcoholData>())
-    val searchResultList: StateFlow<List<AlcoholData>> = _searchResultList
+    private val _searchResultList = MutableStateFlow(emptyList<AlcoholUIModel>())
+    val searchResultList: StateFlow<List<AlcoholUIModel>> = _searchResultList
 
     private val _uiState = MutableStateFlow<SearchUiState>(SearchUiState.RecentSearch)
     val uiState: StateFlow<SearchUiState> = _uiState
@@ -96,11 +96,11 @@ class SearchViewModel @Inject constructor(
 
     private fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
         val searchResult = searchAlcoholUseCase(query).toAlcoholDataList()
-        val alcoholDataList = mutableListOf<AlcoholData>()
+        val alcoholUIModelList = mutableListOf<AlcoholUIModel>()
 
-        alcoholDataList.addAll(searchResult)
+        alcoholUIModelList.addAll(searchResult)
 
-        _searchResultList.value = alcoholDataList
+        _searchResultList.value = alcoholUIModelList
     }
 
     fun queryChanged(query: String) {

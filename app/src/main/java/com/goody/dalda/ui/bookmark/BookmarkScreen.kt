@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.bookmark.component.BookmarkAlcoholCard
 import com.goody.dalda.ui.bookmark.component.BookmarkTopBar
@@ -27,7 +27,7 @@ import com.goody.dalda.ui.error.ErrorPageScreen
 @Composable
 fun BookmarkScreen(
     onClickNavIcon: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     modifier: Modifier = Modifier,
     viewModel: BookmarkViewModel = viewModel(),
 ) {
@@ -38,7 +38,7 @@ fun BookmarkScreen(
     }
 
     BookmarkScreen(
-        alcoholDataList = bookmarkList,
+        alcoholUIModelList = bookmarkList,
         onClickNavIcon = onClickNavIcon,
         onClickCard = onClickCard,
         onClickBookmark = {
@@ -50,10 +50,10 @@ fun BookmarkScreen(
 
 @Composable
 fun BookmarkScreen(
-    alcoholDataList: List<AlcoholData>,
+    alcoholUIModelList: List<AlcoholUIModel>,
     onClickNavIcon: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
-    onClickBookmark: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
+    onClickBookmark: (AlcoholUIModel) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -65,7 +65,7 @@ fun BookmarkScreen(
         containerColor = Color.White,
         modifier = modifier,
     ) { innerPadding ->
-        if (alcoholDataList.isEmpty()) {
+        if (alcoholUIModelList.isEmpty()) {
             ErrorPageScreen(
                 modifier = Modifier.fillMaxSize(),
                 errorMessage = stringResource(id = R.string.text_empty_bookmark),
@@ -78,10 +78,10 @@ fun BookmarkScreen(
                 modifier = Modifier
                     .padding(innerPadding),
             ) {
-                alcoholDataList.forEach {
+                alcoholUIModelList.forEach {
                     item {
                         BookmarkAlcoholCard(
-                            alcoholData = it,
+                            alcoholUIModel = it,
                             onClickCard = onClickCard,
                             onClickBookmark = onClickBookmark,
                             modifier =
@@ -100,9 +100,9 @@ fun BookmarkScreen(
 @Preview
 @Composable
 private fun BookMarkScreenPrev() {
-    val alcoholDataList =
+    val alcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -116,7 +116,7 @@ private fun BookMarkScreenPrev() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -130,7 +130,7 @@ private fun BookMarkScreenPrev() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -143,7 +143,7 @@ private fun BookMarkScreenPrev() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -156,7 +156,7 @@ private fun BookMarkScreenPrev() {
         )
 
     BookmarkScreen(
-        alcoholDataList = alcoholDataList,
+        alcoholUIModelList = alcoholUIModelLists,
         modifier = Modifier.padding(horizontal = 16.dp),
     )
 }

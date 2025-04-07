@@ -5,11 +5,11 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.RecommendAlcohol
-import com.goody.dalda.data.toDataModelList
+import com.goody.dalda.data.model.AlcoholUIModel
+import com.goody.dalda.data.model.RecommendAlcoholUIModel
+import com.goody.dalda.data.model.toDataModelList
 import com.goody.dalda.ui.home.data.UserProfile
-import com.goody.dalda.ui.model.toAppModel
+import com.goody.dalda.data.model.toAppModel
 import com.oyj.domain.usecase.bookmark.GetBookmarkAlcoholListUseCase
 import com.oyj.domain.usecase.login.pref.GetOAuthTokenUseCase
 import com.oyj.domain.usecase.login.FetchProfileUseCase
@@ -27,11 +27,11 @@ class HomeViewModel @Inject constructor(
     private val fetchProfileUseCase: FetchProfileUseCase,
     private val getOAuthTokenUseCase: GetOAuthTokenUseCase
 ) : ViewModel() {
-    private val _bookmarkAlcoholDataList = MutableStateFlow(emptyList<AlcoholData>())
-    val bookmarkList: StateFlow<List<AlcoholData>> = _bookmarkAlcoholDataList
+    private val _bookmarkAlcoholUIModelList = MutableStateFlow(emptyList<AlcoholUIModel>())
+    val bookmarkList: StateFlow<List<AlcoholUIModel>> = _bookmarkAlcoholUIModelList
 
-    private val _recommendAlcoholList = MutableStateFlow(emptyList<RecommendAlcohol>())
-    val recommendAlcoholList: StateFlow<List<RecommendAlcohol>> = _recommendAlcoholList
+    private val _recommendAlcoholUIModelList = MutableStateFlow(emptyList<RecommendAlcoholUIModel>())
+    val recommendAlcoholUIModelList: StateFlow<List<RecommendAlcoholUIModel>> = _recommendAlcoholUIModelList
 
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
@@ -85,7 +85,7 @@ class HomeViewModel @Inject constructor(
     fun fetchBookmarkAlcoholList() {
         viewModelScope.launch {
             try {
-                _bookmarkAlcoholDataList.value = getBookmarkAlcoholListUseCase()
+                _bookmarkAlcoholUIModelList.value = getBookmarkAlcoholListUseCase()
                     .toDataModelList()
                     .asReversed()
             } catch (e: Exception) {

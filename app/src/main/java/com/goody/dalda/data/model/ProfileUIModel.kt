@@ -1,4 +1,4 @@
-package com.goody.dalda.ui.model
+package com.goody.dalda.data.model
 
 import com.oyj.domain.model.ProfileEntity
 

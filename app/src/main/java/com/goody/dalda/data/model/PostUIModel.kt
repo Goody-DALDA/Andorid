@@ -1,10 +1,10 @@
-package com.goody.dalda.ui.model
+package com.goody.dalda.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.oyj.domain.model.PostEntity
 
-data class Post(
+data class PostUIModel(
     val id: Int,
     val title: String,
     val content: String,
@@ -37,19 +37,19 @@ data class Post(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Post> {
-        override fun createFromParcel(parcel: Parcel): Post {
-            return Post(parcel)
+    companion object CREATOR : Parcelable.Creator<PostUIModel> {
+        override fun createFromParcel(parcel: Parcel): PostUIModel {
+            return PostUIModel(parcel)
         }
 
-        override fun newArray(size: Int): Array<Post?> {
+        override fun newArray(size: Int): Array<PostUIModel?> {
             return arrayOfNulls(size)
         }
     }
 }
 
-fun PostEntity.toAppModel(): Post {
-    return Post(
+fun PostEntity.toAppModel(): PostUIModel {
+    return PostUIModel(
         id = this.id,
         title = this.title,
         content = this.content,
@@ -59,7 +59,7 @@ fun PostEntity.toAppModel(): Post {
     )
 }
 
-fun List<PostEntity>.toAppModel(): List<Post> {
+fun List<PostEntity>.toAppModel(): List<PostUIModel> {
     return this.map { postDomain ->
         postDomain.toAppModel()
     }

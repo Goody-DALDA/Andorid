@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.category.component.CategoryTab
@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CategoryScreen(
     alcoholType: AlcoholType,
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickBackIcon: () -> Unit = {},
     onClickCamera: () -> Unit = {},
     modifier: Modifier = Modifier,
@@ -48,7 +48,7 @@ fun CategoryScreen(
     val pagerState by viewModel.pagerState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
 
-    val alcoholDataListNew by viewModel.alcoholDataListMap.collectAsStateWithLifecycle()
+    val alcoholDataListNew by viewModel.alcoholUIModelListMap.collectAsStateWithLifecycle()
 
     LaunchedEffect(
         key1 = isFirst,
@@ -71,7 +71,7 @@ fun CategoryScreen(
         pagerState = pagerState,
         query = query,
         category = category,
-        alcoholDataListMap = alcoholDataListNew,
+        alcoholUIModelListMap = alcoholDataListNew,
         onValueChange = { viewModel.setQuery(it) },
         onClickBackIcon = onClickBackIcon,
         onClickCategory = { index ->
@@ -90,11 +90,11 @@ fun CategoryScreen(
     pagerState: PagerState,
     query: String,
     category: List<String> = emptyList(),
-    alcoholDataListMap: Map<String, List<AlcoholData>> = emptyMap(),
+    alcoholUIModelListMap: Map<String, List<AlcoholUIModel>> = emptyMap(),
     onValueChange: (String) -> Unit = {},
     onClickBackIcon: () -> Unit = {},
     onClickCategory: (Int) -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickTrailingIcon: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -130,8 +130,8 @@ fun CategoryScreen(
             modifier = Modifier.fillMaxSize(),
         ) { currentPage ->
             AlcoholCardListComponent(
-                alcoholDataList =
-                    alcoholDataListMap[category[currentPage]]?.filter {
+                alcoholUIModelList =
+                    alcoholUIModelListMap[category[currentPage]]?.filter {
                         it.name.contains(query, ignoreCase = true)
                     } ?: emptyList(),
                 onClickCard = onClickCard,
@@ -144,9 +144,9 @@ fun CategoryScreen(
 @Preview(showBackground = true)
 @Composable
 private fun CategoryScreenPrev() {
-    val alcoholDataList =
+    val alcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -160,7 +160,7 @@ private fun CategoryScreenPrev() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -174,7 +174,7 @@ private fun CategoryScreenPrev() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -187,7 +187,7 @@ private fun CategoryScreenPrev() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

@@ -18,9 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.search.getCategory
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
@@ -76,9 +75,9 @@ fun SearchAlcoholTab(
 @Preview
 @Composable
 private fun SearchAlcoholTabPrev() {
-    val alcoholDataList =
+    val alcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -92,7 +91,7 @@ private fun SearchAlcoholTabPrev() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -106,7 +105,7 @@ private fun SearchAlcoholTabPrev() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -119,7 +118,7 @@ private fun SearchAlcoholTabPrev() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -131,9 +130,9 @@ private fun SearchAlcoholTabPrev() {
             ),
         )
 
-    val category = alcoholDataList.map { getCategory(it) }.distinct()
+    val category = alcoholUIModelLists.map { getCategory(it) }.distinct()
     val categoryCount =
-        alcoholDataList
+        alcoholUIModelLists
             .groupBy { getCategory(it) }
             .mapValues { it.value.size }
     val pagerState = rememberPagerState { category.size }

@@ -23,23 +23,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 
 @Composable
 fun BookmarkAlcoholCard(
-    alcoholData: AlcoholData,
-    onClickCard: (AlcoholData) -> Unit = {},
-    onClickBookmark: (AlcoholData) -> Unit = {},
+    alcoholUIModel: AlcoholUIModel,
+    onClickCard: (AlcoholUIModel) -> Unit = {},
+    onClickBookmark: (AlcoholUIModel) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier =
         modifier
             .fillMaxWidth()
-            .clickable { onClickCard(alcoholData) },
+            .clickable { onClickCard(alcoholUIModel) },
     ) {
         AsyncImage(
-            model = alcoholData.imgUrl,
+            model = alcoholUIModel.imgUrl,
             contentDescription = "주류 이미지",
             contentScale = ContentScale.FillHeight,
             modifier = Modifier.aspectRatio(1f),
@@ -53,14 +53,14 @@ fun BookmarkAlcoholCard(
                 .weight(1f),
         ) {
             Text(
-                text = alcoholData.name,
+                text = alcoholUIModel.name,
                 maxLines = 1,
                 fontWeight = FontWeight.Bold,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier,
             )
             Image(
-                painter = painterResource(alcoholData.tag),
+                painter = painterResource(alcoholUIModel.tag),
                 contentDescription = "주류 이미지",
                 contentScale = ContentScale.FillHeight,
                 modifier = Modifier.height(20.dp),
@@ -75,7 +75,7 @@ fun BookmarkAlcoholCard(
             Modifier
                 .width(20.dp)
                 .fillMaxHeight()
-                .clickable { onClickBookmark(alcoholData) },
+                .clickable { onClickBookmark(alcoholUIModel) },
         )
     }
 }
@@ -85,8 +85,8 @@ fun BookmarkAlcoholCard(
 private fun BookmarkCardPreview() {
     BookmarkAlcoholCard(
         modifier = Modifier.height(50.dp),
-        alcoholData =
-        AlcoholData.Beer(
+        alcoholUIModel =
+        AlcoholUIModel.Beer(
             id = 1,
             name = "참이슬참이슬참이슬",
             imgUrl = "https://cdn.pixabay.com/photo/2016/11/29/05/45/alcohol-1869862_960_720.jpg",

@@ -2,9 +2,9 @@ package com.goody.dalda.ui.bookmark
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.toDataModelList
-import com.goody.dalda.data.toDomainModel
+import com.goody.dalda.data.model.AlcoholUIModel
+import com.goody.dalda.data.model.toDataModelList
+import com.goody.dalda.data.model.toDomainModel
 import com.oyj.domain.usecase.bookmark.DeleteBookmarkAlcoholUseCase
 import com.oyj.domain.usecase.bookmark.GetBookmarkAlcoholListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,8 +22,8 @@ class BookmarkViewModel @Inject constructor(
     private val _query = MutableStateFlow("")
     val query: StateFlow<String> = _query
 
-    private val _bookmarkList = MutableStateFlow(emptyList<AlcoholData>())
-    val bookmarkList: StateFlow<List<AlcoholData>> = _bookmarkList
+    private val _bookmarkList = MutableStateFlow(emptyList<AlcoholUIModel>())
+    val bookmarkList: StateFlow<List<AlcoholUIModel>> = _bookmarkList
 
     fun getBookmarkList() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,9 +31,9 @@ class BookmarkViewModel @Inject constructor(
         }
     }
 
-    fun deleteBookMark(alcoholData: AlcoholData) {
+    fun deleteBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteBookmarkAlcoholUseCase(alcoholData.toDomainModel())
+            deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomainModel())
             getBookmarkList()
         }
     }

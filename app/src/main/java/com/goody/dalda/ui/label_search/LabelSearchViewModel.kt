@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.data.mapper.DomainToPresenter.toAlcoholDataList
 import com.goody.dalda.ui.dialog.SpiritsSearchResult
@@ -25,10 +25,10 @@ class LabelSearchViewModel @Inject constructor(
     fun requestSearchApi(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val searchResult = searchAlcoholUseCase(query).toAlcoholDataList()
-            val alcoholDataList = mutableListOf<AlcoholData>()
-            alcoholDataList.addAll(searchResult)
+            val alcoholUIModelList = mutableListOf<AlcoholUIModel>()
+            alcoholUIModelList.addAll(searchResult)
 
-            val spirit = alcoholDataList.firstOrNull()
+            val spirit = alcoholUIModelList.firstOrNull()
 
             if (spirit != null) {
                 val results = listOf(
@@ -46,13 +46,13 @@ class LabelSearchViewModel @Inject constructor(
         }
     }
 
-    private fun getCategory(alcoholData: AlcoholData): String =
-        when (alcoholData) {
-            is AlcoholData.Soju -> AlcoholType.SOJU.alcoholName
-            is AlcoholData.Beer -> AlcoholType.BEER.alcoholName
-            is AlcoholData.Sake -> AlcoholType.SAKE.alcoholName
-            is AlcoholData.Wine -> AlcoholType.WINE.alcoholName
-            is AlcoholData.Whisky -> AlcoholType.WHISKY.alcoholName
-            is AlcoholData.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
+    private fun getCategory(alcoholUIModel: AlcoholUIModel): String =
+        when (alcoholUIModel) {
+            is AlcoholUIModel.Soju -> AlcoholType.SOJU.alcoholName
+            is AlcoholUIModel.Beer -> AlcoholType.BEER.alcoholName
+            is AlcoholUIModel.Sake -> AlcoholType.SAKE.alcoholName
+            is AlcoholUIModel.Wine -> AlcoholType.WINE.alcoholName
+            is AlcoholUIModel.Whisky -> AlcoholType.WHISKY.alcoholName
+            is AlcoholUIModel.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
         }
 }

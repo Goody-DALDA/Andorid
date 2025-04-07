@@ -1,4 +1,4 @@
-package com.goody.dalda.data
+package com.goody.dalda.data.model
 
 import androidx.annotation.DrawableRes
 import com.goody.dalda.R
@@ -6,7 +6,7 @@ import com.oyj.domain.model.AlcoholEntity
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class AlcoholData(
+sealed class AlcoholUIModel(
     open val id: Int,
     open val name: String,
     open val imgUrl: String,
@@ -28,7 +28,7 @@ sealed class AlcoholData(
         val mouthfeel: Float,
         val aroma: Float,
         val type: String,
-    ) : AlcoholData(
+    ) : AlcoholUIModel(
             id = id,
             name = name,
             imgUrl = imgUrl,
@@ -50,7 +50,7 @@ sealed class AlcoholData(
         val taste: String,
         val aroma: String,
         val finish: String,
-    ) : AlcoholData(
+    ) : AlcoholUIModel(
             id = id,
             name = name,
             imgUrl = imgUrl,
@@ -70,7 +70,7 @@ sealed class AlcoholData(
         @DrawableRes override val tag: Int = R.drawable.tag_soju,
         val price: Int,
         val comment: String,
-    ) : AlcoholData(
+    ) : AlcoholUIModel(
             id = id,
             name = name,
             imgUrl = imgUrl,
@@ -93,7 +93,7 @@ sealed class AlcoholData(
         val comment: String,
         val pairingFood: String,
         val brewery: String,
-    ) : AlcoholData(
+    ) : AlcoholUIModel(
             id = id,
             name = name,
             imgUrl = imgUrl,
@@ -119,7 +119,7 @@ sealed class AlcoholData(
         val comment: String,
         val pairingFood: String,
         val winery: String,
-    ) : AlcoholData(
+    ) : AlcoholUIModel(
             id = id,
             name = name,
             imgUrl = imgUrl,
@@ -142,7 +142,7 @@ sealed class AlcoholData(
         val aroma: String,
         val finish: String,
         val type: String,
-    ) : AlcoholData(
+    ) : AlcoholUIModel(
             id = id,
             name = name,
             imgUrl = imgUrl,
@@ -156,8 +156,8 @@ sealed class AlcoholData(
 /**
  * App 모델 -> Domain 모델
  * */
-fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
-    is AlcoholData.Beer -> AlcoholEntity.Beer(
+fun AlcoholUIModel.toDomainModel(): AlcoholEntity = when (this) {
+    is AlcoholUIModel.Beer -> AlcoholEntity.Beer(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -170,7 +170,7 @@ fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
         aroma = this.aroma,
         type = this.type
     )
-    is AlcoholData.Sake -> AlcoholEntity.Sake(
+    is AlcoholUIModel.Sake -> AlcoholEntity.Sake(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -182,7 +182,7 @@ fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
         aroma = this.aroma,
         finish = this.finish
     )
-    is AlcoholData.Soju -> AlcoholEntity.Soju(
+    is AlcoholUIModel.Soju -> AlcoholEntity.Soju(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -192,7 +192,7 @@ fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
         price = this.price,
         comment = this.comment
     )
-    is AlcoholData.TraditionalLiquor -> AlcoholEntity.TraditionalLiquor(
+    is AlcoholUIModel.TraditionalLiquor -> AlcoholEntity.TraditionalLiquor(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -205,7 +205,7 @@ fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
         pairingFood = this.pairingFood,
         brewery = this.brewery
     )
-    is AlcoholData.Wine -> AlcoholEntity.Wine(
+    is AlcoholUIModel.Wine -> AlcoholEntity.Wine(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -221,7 +221,7 @@ fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
         pairingFood = this.pairingFood,
         winery = this.winery
     )
-    is AlcoholData.Whisky -> AlcoholEntity.Whisky(
+    is AlcoholUIModel.Whisky -> AlcoholEntity.Whisky(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -239,8 +239,8 @@ fun AlcoholData.toDomainModel(): AlcoholEntity = when (this) {
 /**
  * Domain 모델 -> App 모델
  * */
-fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
-    is AlcoholEntity.Beer -> AlcoholData.Beer(
+fun AlcoholEntity.toDataModel(): AlcoholUIModel = when (this) {
+    is AlcoholEntity.Beer -> AlcoholUIModel.Beer(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -254,7 +254,7 @@ fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
         type = this.type,
         tag = R.drawable.tag_beer
     )
-    is AlcoholEntity.Sake -> AlcoholData.Sake(
+    is AlcoholEntity.Sake -> AlcoholUIModel.Sake(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -267,7 +267,7 @@ fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
         finish = this.finish,
         tag = R.drawable.tag_sake
     )
-    is AlcoholEntity.Soju -> AlcoholData.Soju(
+    is AlcoholEntity.Soju -> AlcoholUIModel.Soju(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -278,7 +278,7 @@ fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
         comment = this.comment,
         tag = R.drawable.tag_soju
     )
-    is AlcoholEntity.TraditionalLiquor -> AlcoholData.TraditionalLiquor(
+    is AlcoholEntity.TraditionalLiquor -> AlcoholUIModel.TraditionalLiquor(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -292,7 +292,7 @@ fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
         brewery = this.brewery,
         tag = R.drawable.tag_traditional_liquor
     )
-    is AlcoholEntity.Wine -> AlcoholData.Wine(
+    is AlcoholEntity.Wine -> AlcoholUIModel.Wine(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -309,7 +309,7 @@ fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
         winery = this.winery,
         tag = R.drawable.tag_wine
     )
-    is AlcoholEntity.Whisky -> AlcoholData.Whisky(
+    is AlcoholEntity.Whisky -> AlcoholUIModel.Whisky(
         id = this.id,
         name = this.name,
         imgUrl = this.imgUrl,
@@ -328,6 +328,6 @@ fun AlcoholEntity.toDataModel(): AlcoholData = when (this) {
 /**
  * Domain 모델 List -> App 모델 List
  * */
-fun List<AlcoholEntity>.toDataModelList(): List<AlcoholData> {
+fun List<AlcoholEntity>.toDataModelList(): List<AlcoholUIModel> {
     return this.map { it.toDataModel() }
 }
