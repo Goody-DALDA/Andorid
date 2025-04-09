@@ -34,9 +34,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.data.AlcoholCategoryStatus
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
-import com.goody.dalda.data.RecommendAlcohol
+import com.goody.dalda.data.model.RecommendAlcoholUIModel
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SimpleMessageDialog
 import com.goody.dalda.ui.error.ErrorPageScreen
@@ -61,13 +61,13 @@ fun HomeScreen(
     onClickAlcohol: (AlcoholType) -> Unit = {},
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickSeeLoginScreen: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickBookmark: () -> Unit = {},
     onClickBack:() -> Unit = {},
     onFinishActivity:() -> Unit = {},
 ) {
     val bookmarkList by viewModel.bookmarkList.collectAsStateWithLifecycle()
-    val recommendAlcoholList by viewModel.recommendAlcoholList.collectAsStateWithLifecycle()
+    val recommendAlcoholList by viewModel.recommendAlcoholUIModelList.collectAsStateWithLifecycle()
     val homeUiState by viewModel.homeUiState.collectAsStateWithLifecycle()
     val authState by viewModel.authState.collectAsStateWithLifecycle()
     val userProfile by viewModel.userProfile.collectAsStateWithLifecycle()
@@ -98,8 +98,8 @@ fun HomeScreen(
             HomeScreen(
                 modifier = modifier,
                 userProfile = userProfile,
-                bookmarkAlcoholDataList = bookmarkList,
-                recommendAlcoholList = recommendAlcoholList,
+                bookmarkAlcoholUIModelList = bookmarkList,
+                recommendAlcoholUIModelList = recommendAlcoholList,
                 authState = authState,
                 drawerState = drawerState,
                 isDialogVisible = isDialogVisible,
@@ -146,8 +146,8 @@ fun HomeScreen(
 fun HomeScreen(
     modifier: Modifier = Modifier,
     userProfile: UserProfile,
-    bookmarkAlcoholDataList: List<AlcoholData> = emptyList(),
-    recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
+    bookmarkAlcoholUIModelList: List<AlcoholUIModel> = emptyList(),
+    recommendAlcoholUIModelList: List<RecommendAlcoholUIModel> = emptyList(),
     authState: AuthState,
     drawerState: DrawerState,
     isDialogVisible: Boolean,
@@ -159,7 +159,7 @@ fun HomeScreen(
     onClickMenu: () -> Unit = {},
     onClickSideMenuItem: (Menu) -> Unit = {},
     onClickLogin: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickBookmark: () -> Unit = {},
     onClickDialogCancel: () -> Unit = {},
     onClickUnServiceAlcohol: () -> Unit = {},
@@ -251,7 +251,7 @@ fun HomeScreen(
                             .wrapContentHeight()
                             .padding(bottom = 40.dp)
                             .fillMaxWidth(),
-                        bookmarkAlcoholDataList = bookmarkAlcoholDataList,
+                        bookmarkAlcoholUIModelList = bookmarkAlcoholUIModelList,
                         onActionClick = onClickBookmark,
                         onClickCard = onClickCard,
                     )
@@ -263,7 +263,7 @@ fun HomeScreen(
                             .alpha(0f)
                             .wrapContentHeight()
                             .fillMaxWidth(),
-                        recommendAlcoholList = recommendAlcoholList,
+                        recommendAlcoholUIModelList = recommendAlcoholUIModelList,
                         onActionClick = { /*TODO*/ },
                         onContentsClick = { /*TODO*/ },
                     )
@@ -292,9 +292,9 @@ private fun HomeScreenPreview() {
         img = "http://www.bing.com/search?q=sagittis"
     )
 
-    val bookmarkAlcoholDataList =
+    val bookmarkAlcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -308,7 +308,7 @@ private fun HomeScreenPreview() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -322,7 +322,7 @@ private fun HomeScreenPreview() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -335,7 +335,7 @@ private fun HomeScreenPreview() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -353,8 +353,8 @@ private fun HomeScreenPreview() {
     HomeScreen(
         modifier = Modifier,
         userProfile = userProfile,
-        bookmarkAlcoholDataList = bookmarkAlcoholDataList,
-        recommendAlcoholList = emptyList(),
+        bookmarkAlcoholUIModelList = bookmarkAlcoholUIModelLists,
+        recommendAlcoholUIModelList = emptyList(),
         authState = authState,
         drawerState = drawerState,
         isDialogVisible = isDialogVisible,

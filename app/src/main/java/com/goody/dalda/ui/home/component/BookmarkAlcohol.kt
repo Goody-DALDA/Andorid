@@ -16,16 +16,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun BookmarkAlcohol(
-    bookmarkAlcoholDataList: List<AlcoholData> = emptyList(),
+    bookmarkAlcoholUIModelList: List<AlcoholUIModel> = emptyList(),
     onActionClick: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -40,7 +39,7 @@ fun BookmarkAlcohol(
                 Modifier
                     .height(30.dp),
         )
-        if (bookmarkAlcoholDataList.isEmpty()) {
+        if (bookmarkAlcoholUIModelList.isEmpty()) {
             Column(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
             ) {
@@ -71,9 +70,9 @@ fun BookmarkAlcohol(
                         .height(231.dp)
                         .fillMaxWidth(),
             ) {
-                items(bookmarkAlcoholDataList.size) { idx ->
+                items(bookmarkAlcoholUIModelList.size) { idx ->
                     AlcoholCard(
-                        alcoholData = bookmarkAlcoholDataList[idx],
+                        alcoholUIModel = bookmarkAlcoholUIModelList[idx],
                         onClick = onClickCard,
                         modifier = Modifier.width(width = 150.dp),
                     )
@@ -86,9 +85,9 @@ fun BookmarkAlcohol(
 @Preview(showBackground = true)
 @Composable
 private fun BookmarkAlcoholPreview() {
-    val alcoholDataList =
+    val alcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -102,7 +101,7 @@ private fun BookmarkAlcoholPreview() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -116,7 +115,7 @@ private fun BookmarkAlcoholPreview() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -129,7 +128,7 @@ private fun BookmarkAlcoholPreview() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -141,7 +140,7 @@ private fun BookmarkAlcoholPreview() {
             ),
         )
     BookmarkAlcohol(
-        bookmarkAlcoholDataList = alcoholDataList,
+        bookmarkAlcoholUIModelList = alcoholUIModelLists,
     )
 }
 

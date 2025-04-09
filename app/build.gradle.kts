@@ -28,31 +28,10 @@ android {
         applicationId = "com.goody.dalda"
         minSdk = 24
         targetSdk = 34
-        versionCode = 4
+        versionCode = 5
         versionName = "1.0"
 
-        buildConfigField(
-            "String",
-            "KAKAO_NATIVE_APP_KEY",
-            localProperties.getProperty("KAKAO_NATIVE_APP_KEY"),
-        )
-        buildConfigField("String", "SERVER_API_URL", localProperties.getProperty("SERVER_API_URL"))
-        buildConfigField(
-            "String",
-            "NAVER_SEARCH_API_URL",
-            localProperties.getProperty("NAVER_SEARCH_API_URL"),
-        )
-        buildConfigField(
-            "String",
-            "NAVER_CLIENT_ID",
-            localProperties.getProperty("NAVER_CLIENT_ID"),
-        )
-        buildConfigField(
-            "String",
-            "NAVER_CLIENT_SECRET",
-            localProperties.getProperty("NAVER_CLIENT_SECRET"),
-        )
-
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", localProperties.getProperty("KAKAO_NATIVE_APP_KEY"),)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders["KAKAO_REDIRECT_URI"] =
@@ -71,6 +50,7 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -87,7 +67,8 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":domain"))
+    implementation(project(":di"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.appcompat)
@@ -100,7 +81,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.hilt.android)
+    implementation(libs.hilt.dagger.android)
     implementation(libs.camera.core)
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)
@@ -120,14 +101,16 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit.junit)
     ksp(libs.androidx.room.compiler)
-
-    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.dagger.compiler)
+    ksp(libs.hilt.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.assertj.core)
     testImplementation(libs.kotlinx.coroutines.test)
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
     // compose
     implementation(libs.androidx.lifecycle.runtime.ktx)

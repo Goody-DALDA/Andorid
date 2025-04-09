@@ -2,9 +2,14 @@ package com.goody.dalda.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.repository.alcohol.AlcoholRepository
-import com.goody.dalda.data.repository.search.SearchRepository
+import com.goody.dalda.data.model.AlcoholUIModel
+import com.goody.dalda.data.model.toUIModelList
+import com.oyj.domain.usecase.search.DeleteAllSearchWordUseCase
+import com.oyj.domain.usecase.search.DeleteSearchWordUseCase
+import com.oyj.domain.usecase.search.GetRecommendAlcoholListUseCase
+import com.oyj.domain.usecase.search.GetRecentSearchWordListUseCase
+import com.oyj.domain.usecase.search.SearchAlcoholUseCase
+import com.oyj.domain.usecase.search.InsertSearchWordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -12,14 +17,19 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
-    private val searchRepository: SearchRepository,
+    private val searchAlcoholUseCase: SearchAlcoholUseCase,
+    private val getRecentSearchWordListUseCase: GetRecentSearchWordListUseCase,
+    private val getRecommendAlcoholListUseCase: GetRecommendAlcoholListUseCase,
+    private val deleteSearchWordUseCase: DeleteSearchWordUseCase,
+    private val deleteAllSearchWordUseCase: DeleteAllSearchWordUseCase,
+    private val insertSearchWordUseCase: InsertSearchWordUseCase
 ) : ViewModel() {
     private val _sideEffect = MutableStateFlow<SearchSideEffect>(SearchSideEffect.Default)
     val sideEffect: StateFlow<SearchSideEffect> = _sideEffect
@@ -33,17 +43,16 @@ class SearchViewModel @Inject constructor(
     private val _recommendAlcoholList = MutableStateFlow(emptyList<String>())
 
     @OptIn(FlowPreview::class)
-    val recommendAlcoholList =
-        _recommendAlcoholList
-            .debounce(500L)
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(),
-                initialValue = emptyList(),
-            )
+    val recommendAlcoholList = _recommendAlcoholList
+        .debounce(500L)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = emptyList(),
+        )
 
-    private val _searchResultList = MutableStateFlow(emptyList<AlcoholData>())
-    val searchResultList: StateFlow<List<AlcoholData>> = _searchResultList
+    private val _searchResultList = MutableStateFlow(emptyList<AlcoholUIModel>())
+    val searchResultList: StateFlow<List<AlcoholUIModel>> = _searchResultList
 
     private val _uiState = MutableStateFlow<SearchUiState>(SearchUiState.RecentSearch)
     val uiState: StateFlow<SearchUiState> = _uiState
@@ -58,26 +67,31 @@ class SearchViewModel @Inject constructor(
 
     private fun updateRecommendAlcoholList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _recommendAlcoholList.value = alcoholRepository.getRecommendAlcoholList(query.value)
+            getRecommendAlcoholListUseCase(query.value)
+                .collect {
+                    _recommendAlcoholList.value = it
+                }
         }
     }
 
     private fun insertSearchWord(searchWord: String) {
         if (searchWord.isBlank()) return
         viewModelScope.launch(Dispatchers.IO) {
-            searchRepository.insertSearchWord(searchWord)
+            insertSearchWordUseCase(searchWord)
         }
     }
 
     private fun deleteAllSearchWord() {
         viewModelScope.launch(Dispatchers.IO) {
-            searchRepository.deleteAllSearchWord()
+            deleteAllSearchWordUseCase()
         }
     }
 
     fun fetchRecentSearchWordList(isDesc: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _recentSearchWordList.value = searchRepository.getSearchWordList(isDesc = isDesc)
+            getRecentSearchWordListUseCase(isDesc = isDesc).collect {
+                _recentSearchWordList.value = it
+            }
         }
     }
 
@@ -86,18 +100,12 @@ class SearchViewModel @Inject constructor(
         fetchRecentSearchWordList(true)
     }
 
-    fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
-        val searchResult = alcoholRepository.getSearchedAlcoholData(query)
-        val alcoholDataList = mutableListOf<AlcoholData>()
-
-        alcoholDataList.addAll(searchResult.beerList)
-        alcoholDataList.addAll(searchResult.sojuList)
-        alcoholDataList.addAll(searchResult.sakeList)
-        alcoholDataList.addAll(searchResult.wineList)
-        alcoholDataList.addAll(searchResult.whiskyList)
-        alcoholDataList.addAll(searchResult.traditionalLiquorList)
-
-        _searchResultList.value = alcoholDataList
+    private fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
+        searchAlcoholUseCase(query)
+            .map { it.toUIModelList() }
+            .collect {
+                _searchResultList.value = it
+            }
     }
 
     fun queryChanged(query: String) {

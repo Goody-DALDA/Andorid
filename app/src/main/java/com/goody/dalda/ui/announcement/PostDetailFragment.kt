@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentPostDetailBinding
 import com.goody.dalda.extention.getParcelableCompat
-import com.goody.dalda.ui.model.Post
+import com.goody.dalda.data.model.PostUIModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,13 +30,13 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
         savedInstanceState: Bundle?,
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        val post = arguments?.getParcelableCompat(POST_KEY, Post::class.java) ?: return view
+        val postUIModel = arguments?.getParcelableCompat(POST_KEY, PostUIModel::class.java) ?: return view
         binding.fragmentPostDetailComposeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
                     PostDetailScreen(
-                        post = post,
+                        postUIModel = postUIModel,
                         onClose = { findNavController().popBackStack() },
                     )
                 }

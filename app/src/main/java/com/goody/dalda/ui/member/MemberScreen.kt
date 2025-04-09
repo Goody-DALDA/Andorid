@@ -43,7 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.goody.dalda.R
-import com.goody.dalda.ui.model.Profile
+import com.goody.dalda.data.model.Profile
 import com.goody.dalda.ui.state.UiState
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import kotlinx.coroutines.launch

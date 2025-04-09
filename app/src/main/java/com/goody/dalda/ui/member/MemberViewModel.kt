@@ -3,11 +3,14 @@ package com.goody.dalda.ui.member
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.repository.LoginRepository
-import com.goody.dalda.ui.model.Profile
+import com.goody.dalda.data.model.Profile
+import com.goody.dalda.data.model.toUIModel
 import com.goody.dalda.ui.state.UiState
-import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.user.UserApiClient
+import com.oyj.domain.usecase.login.FetchProfileUseCase
+import com.oyj.domain.usecase.login.LogoutUseCase
+import com.oyj.domain.usecase.login.pref.ClearAccessTokenUseCase
+import com.oyj.domain.usecase.login.pref.ClearProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,52 +19,56 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MemberViewModel
-    @Inject
-    constructor(
-        private val repository: LoginRepository,
-    ) : ViewModel() {
-        companion object {
-            private const val TAG = "MemberViewModel"
-        }
+class MemberViewModel @Inject constructor(
+    private val fetchProfileUseCase: FetchProfileUseCase,
+    private val logoutUseCase: LogoutUseCase,
+    private val clearAccessTokenUseCase: ClearAccessTokenUseCase,
+    private val clearProfileUseCase: ClearProfileUseCase
+) : ViewModel() {
+    companion object {
+        private const val TAG = "MemberViewModel"
+    }
 
-        private val _profile = MutableStateFlow(Profile())
-        val profile: StateFlow<Profile> = _profile
+    private val _profile = MutableStateFlow(Profile())
+    val profile: StateFlow<Profile> = _profile
 
-        private val _logoutState = MutableStateFlow<UiState<String>>(UiState.Uninitialized)
-        val logoutState: StateFlow<UiState<String>> = _logoutState
+    private val _logoutState = MutableStateFlow<UiState<String>>(UiState.Uninitialized)
+    val logoutState: StateFlow<UiState<String>> = _logoutState
 
-        fun fetchProfileNew() {
-            viewModelScope.launch(Dispatchers.IO) {
-                _profile.value = repository.getProfile()
-            }
-        }
-
-        fun requestLogout() {
-            viewModelScope.launch(Dispatchers.IO) {
-                try {
-                    val response = repository.logout()
-                    if (response.isSuccess()) {
-                        logoutKakao()
-                        PreferenceManager.clearAccessToken()
-                        PreferenceManager.clearProfile()
-                        _logoutState.value = UiState.Success(response.message)
-                    } else {
-                        _logoutState.value = UiState.Error(exception = Exception(response.message))
-                    }
-                } catch (e: Exception) {
-                    _logoutState.value = UiState.Error(exception = e)
-                }
-            }
-        }
-
-        private fun logoutKakao() {
-            UserApiClient.instance.logout { error ->
-                if (error != null) {
-                    Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
-                } else {
-                    Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
-                }
+    fun fetchProfileNew() {
+        viewModelScope.launch(Dispatchers.IO) {
+            fetchProfileUseCase().collect {
+                _profile.value = it.toUIModel()
             }
         }
     }
+
+    fun requestLogout() {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                logoutUseCase().collect { result ->
+                    if (result.isSuccess()) {
+                        logoutKakao()
+                        clearAccessTokenUseCase()
+                        clearProfileUseCase()
+                        _logoutState.value = UiState.Success(result.message)
+                    } else {
+                        _logoutState.value = UiState.Error(exception = Exception(result.message))
+                    }
+                }
+            }.onFailure { e ->
+                _logoutState.value = UiState.Error(exception = e)
+            }
+        }
+    }
+
+    private fun logoutKakao() {
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                Log.e(TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            } else {
+                Log.i(TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+            }
+        }
+    }
+}

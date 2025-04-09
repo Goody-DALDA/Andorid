@@ -140,7 +140,7 @@
         tools:layout="@layout/fragment_liquor_details">
         <argument
             android:name="alcoholData"
-            app:argType="com.goody.dalda.data.AlcoholData" />
+            app:argType="com.goody.dalda.data.model.AlcoholUIModel" />
     </fragment>
     <fragment
         android:id="@+id/policyFragment"
