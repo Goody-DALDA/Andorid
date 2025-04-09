@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.announcement
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.PostUIModel
@@ -25,7 +26,17 @@ class AnnouncementViewModel @Inject constructor(
 
     private fun fetchNoticePost() {
         viewModelScope.launch(Dispatchers.IO) {
-            _posts.value = fetchNoticeUseCase().toUIModel()
+            runCatching {
+                fetchNoticeUseCase().collect {
+                    _posts.value = it.toUIModel()
+                }
+            }.onFailure { throwable ->
+                _posts.value = emptyList()
+                Log.e(TAG, "fetchNoticePost: ${throwable.message}", )
+            }
         }
+    }
+    companion object {
+        private const val TAG = "AnnouncementViewModel"
     }
 }

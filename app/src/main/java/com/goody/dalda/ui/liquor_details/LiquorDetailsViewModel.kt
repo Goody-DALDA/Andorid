@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.liquor_details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.AlcoholUIModel
@@ -27,7 +28,8 @@ class LiquorDetailsViewModel @Inject constructor(
     private val _isBookmark = MutableStateFlow(false)
     val isBookmark: StateFlow<Boolean> = _isBookmark
 
-    private val _blogUIModelList: MutableStateFlow<List<BlogUIModel>> = MutableStateFlow(emptyList())
+    private val _blogUIModelList: MutableStateFlow<List<BlogUIModel>> =
+        MutableStateFlow(emptyList())
     val blogUIModelList: StateFlow<List<BlogUIModel>> = _blogUIModelList
 
     private val _isDialogVisible = MutableStateFlow(false)
@@ -47,7 +49,14 @@ class LiquorDetailsViewModel @Inject constructor(
 
     fun setIsBookmark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isBookmark.value = isBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
+            runCatching {
+                isBookmarkAlcoholUseCase(alcoholUIModel.toDomain()).collect {
+                    _isBookmark.value = it
+                }
+            }.onFailure {
+                Log.e(TAG, "setIsBookmark: ${it.message}")
+                it.printStackTrace()
+            }
         }
     }
 
@@ -67,7 +76,14 @@ class LiquorDetailsViewModel @Inject constructor(
 
     private fun fetchBlogDataListByQuery(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _blogUIModelList.value = getBlogDataListUseCase(query).toAppModelList()
+            runCatching {
+                getBlogDataListUseCase(query).collect {
+                    _blogUIModelList.value = it.toAppModelList()
+                }
+            }.onFailure { throwable ->
+                Log.e(TAG, "fetchBlogDataListByQuery: ${throwable.message}", throwable)
+                _blogUIModelList.value = emptyList()
+            }
         }
     }
 
@@ -89,5 +105,6 @@ class LiquorDetailsViewModel @Inject constructor(
         private const val TEXT_WHISKY = "위스키"
         private const val TEXT_SPACE = " "
         private const val TEXT_EMPTY = ""
+        private const val TAG = "LiquorDetailsViewModel"
     }
 }

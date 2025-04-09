@@ -52,14 +52,16 @@ class CategoryViewModel @Inject constructor(
         )
     val category: StateFlow<List<String>> = _category
 
-    fun fetchAlcoholData(query: String) {
+    private fun fetchAlcoholData(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val key = AlcoholType.entries.first { it.toString() == query }.alcoholName
-            val value = getAlcoholDataUseCase(query)
 
-            _alcoholUIModelListMap.update { currentMap ->
-                currentMap.toMutableMap().apply {
-                    this[key] = value.toUIModelList()
+
+            getAlcoholDataUseCase(query).collect {
+                _alcoholUIModelListMap.update { currentMap ->
+                    currentMap.toMutableMap().apply {
+                        this[key] = it.toUIModelList()
+                    }
                 }
             }
         }
@@ -69,10 +71,9 @@ class CategoryViewModel @Inject constructor(
         val key = category.value[categoryIndex]
 
         if (_alcoholUIModelListMap.value[key]?.isEmpty() == true) {
-            val query =
-                AlcoholType.entries
-                    .first { it.alcoholName == category.value[categoryIndex] }
-                    .toString()
+            val query = AlcoholType.entries
+                .first { it.alcoholName == category.value[categoryIndex] }
+                .toString()
             fetchAlcoholData(query)
         }
     }

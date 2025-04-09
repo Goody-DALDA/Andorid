@@ -6,7 +6,7 @@ import javax.inject.Inject
 class DeleteAllSearchWordUseCase @Inject constructor(
     private val repository: DataSearchRepository
 ) {
-    suspend operator fun invoke() {
+    operator fun invoke() {
         repository.deleteAllSearchWord()
     }
 }

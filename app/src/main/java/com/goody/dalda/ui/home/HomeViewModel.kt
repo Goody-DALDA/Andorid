@@ -30,8 +30,10 @@ class HomeViewModel @Inject constructor(
     private val _bookmarkAlcoholUIModelList = MutableStateFlow(emptyList<AlcoholUIModel>())
     val bookmarkList: StateFlow<List<AlcoholUIModel>> = _bookmarkAlcoholUIModelList
 
-    private val _recommendAlcoholUIModelList = MutableStateFlow(emptyList<RecommendAlcoholUIModel>())
-    val recommendAlcoholUIModelList: StateFlow<List<RecommendAlcoholUIModel>> = _recommendAlcoholUIModelList
+    private val _recommendAlcoholUIModelList =
+        MutableStateFlow(emptyList<RecommendAlcoholUIModel>())
+    val recommendAlcoholUIModelList: StateFlow<List<RecommendAlcoholUIModel>> =
+        _recommendAlcoholUIModelList
 
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
@@ -62,34 +64,34 @@ class HomeViewModel @Inject constructor(
         _selectedItemIndex.value = itemIndex
     }
 
-    fun fetchProfile() {
+    private fun fetchProfile() {
         viewModelScope.launch {
-            try {
-                val profile = fetchProfileUseCase().toUIModel()
-                Log.d(TAG, "fetchProfile: $profile")
-                _userProfile.value = UserProfile(
-                    profile.nickname,
-                    profile.email,
-                    profile.profileImg
-                )
-            } catch (e: IOException) {
-                handleError(e, "네트워크 오류가 발생했습니다.")
-            } catch (e: HttpException) {
-                handleError(e, "서버 오류가 발생했습니다.")
-            } catch (e: Exception) {
-                handleError(e, "알 수 없는 오류가 발생했습니다.")
+            runCatching {
+                fetchProfileUseCase().collect {
+                    _userProfile.value = UserProfile(
+                        it.nickname,
+                        it.email,
+                        it.profileImg
+                    )
+                }
+            }.onFailure { e ->
+                when (e) {
+                    is IOException -> handleError(e, "네트워크 오류가 발생했습니다.")
+                    is HttpException -> handleError(e, "서버 오류가 발생했습니다.")
+                    else -> handleError(e, "알 수 없는 오류가 발생했습니다.")
+                }
             }
         }
     }
 
     fun fetchBookmarkAlcoholList() {
         viewModelScope.launch {
-            try {
-                _bookmarkAlcoholUIModelList.value = getBookmarkAlcoholListUseCase()
-                    .toUIModelList()
-                    .asReversed()
-            } catch (e: Exception) {
-                handleError(e, "북마크 목록을 불러오는데 실패했습니다")
+            runCatching {
+                getBookmarkAlcoholListUseCase().collect { alcoholList ->
+                    _bookmarkAlcoholUIModelList.value = alcoholList.toUIModelList().asReversed()
+                }
+            }.onFailure { e ->
+                handleError(e, e.message ?: "알 수 없는 오류가 발생했습니다.")
             }
         }
     }
@@ -102,7 +104,7 @@ class HomeViewModel @Inject constructor(
         _isDialogVisible.value = isVisible
     }
 
-    private fun handleError(e: Exception, errorMessage: String) {
+    private fun handleError(e: Throwable, errorMessage: String) {
         Log.e(TAG, "$errorMessage: $e")
         _homeUiState.value = HomeUiState.ErrorState(errorMessage)
     }
