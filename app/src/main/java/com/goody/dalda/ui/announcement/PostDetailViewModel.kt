@@ -1,5 +1,6 @@
 package com.goody.dalda.ui.announcement
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goody.dalda.data.model.PostUIModel
@@ -31,10 +32,16 @@ class PostDetailViewModel @Inject constructor(
 
     fun fetchNoticePost(postUIModel: PostUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            postUIModelList = fetchNoticeUseCase().toUIModel()
-            setPost(postUIModel)
-            setNextPost()
-            setPrevPost()
+            runCatching {
+                fetchNoticeUseCase().collect {
+                    postUIModelList = it.toUIModel()
+                    setPost(postUIModel)
+                    setNextPost()
+                    setPrevPost()
+                }
+            }.onFailure { throwable ->
+                Log.e(TAG, "fetchNoticePost: ${throwable.message}")
+            }
         }
     }
 
@@ -67,5 +74,9 @@ class PostDetailViewModel @Inject constructor(
 
     private fun setPrevPost() {
         _prevPostUIModel.value = if (currentIndex <= 0) null else postUIModelList[currentIndex - 1]
+    }
+
+    companion object {
+        private const val TAG = "PostDetailViewModel"
     }
 }

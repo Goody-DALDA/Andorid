@@ -85,9 +85,6 @@ class AlcoholRepositoryImpl @Inject constructor(
         bookmarkLocalDataSource.deleteAlcohol(alcoholEntity)
     }
 
-    override fun isBookmarkAlcohol(alcoholEntity: AlcoholEntity): Flow<Boolean> =
-        bookmarkLocalDataSource.isBookMark(alcoholEntity)
-
     private fun alcoholDataDtoToAlcoholData(
         category: String,
         alcoholDataDto: AlcoholDataDto,

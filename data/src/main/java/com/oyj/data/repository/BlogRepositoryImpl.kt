@@ -4,17 +4,18 @@ import android.util.Log
 import com.oyj.data.source.remote.blog.NaverBlogDataSource
 import com.oyj.domain.model.BlogEntity
 import com.oyj.domain.repository.BlogRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class BlogRepositoryImpl @Inject constructor(
     private val naverBlogDataSource: NaverBlogDataSource
 ) : BlogRepository {
-    override suspend fun getBlogDataList(query: String): List<BlogEntity> {
-        try {
-            val blogSearchDto = naverBlogDataSource.getBlogData(query)
-
-            return if (blogSearchDto.isSuccessful) {
-                blogSearchDto.body()?.items?.map {
+    override suspend fun getBlogDataList(query: String): Flow<List<BlogEntity>> = flow {
+        runCatching {
+            val response = naverBlogDataSource.getBlogData(query)
+            if (response.isSuccessful) {
+                response.body()?.items?.map {
                     BlogEntity(
                         title = it.title.replace("<b>", "").replace("</b>", ""),
                         link = it.link,
@@ -23,14 +24,14 @@ class BlogRepositoryImpl @Inject constructor(
                         bloggerLink = it.bloggerLink,
                         postdate = it.postdate,
                     )
-                } ?: emptyList()
+                }?.let { emit(it) } ?: emit(emptyList())
             } else {
-                Log.e(TAG, "getBlogDataList: ${blogSearchDto.errorBody()}")
-                emptyList()
+                Log.e(TAG, "getBlogDataList: ${response.message()}")
+                emit(emptyList())
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "getBlogDataList: ${e.message}")
-            return emptyList()
+        }.onFailure { throwable ->
+            Log.e(TAG, "Failed to get blog data", throwable)
+            emit(emptyList())
         }
     }
 

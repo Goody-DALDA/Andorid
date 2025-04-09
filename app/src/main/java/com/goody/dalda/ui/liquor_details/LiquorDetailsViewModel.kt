@@ -54,7 +54,7 @@ class LiquorDetailsViewModel @Inject constructor(
                     _isBookmark.value = it
                 }
             }.onFailure {
-                Log.e(TAG, "setIsBookmark: ${it.message}", )
+                Log.e(TAG, "setIsBookmark: ${it.message}")
                 it.printStackTrace()
             }
         }
@@ -76,7 +76,14 @@ class LiquorDetailsViewModel @Inject constructor(
 
     private fun fetchBlogDataListByQuery(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _blogUIModelList.value = getBlogDataListUseCase(query).toAppModelList()
+            runCatching {
+                getBlogDataListUseCase(query).collect {
+                    _blogUIModelList.value = it.toAppModelList()
+                }
+            }.onFailure { throwable ->
+                Log.e(TAG, "fetchBlogDataListByQuery: ${throwable.message}", throwable)
+                _blogUIModelList.value = emptyList()
+            }
         }
     }
 
