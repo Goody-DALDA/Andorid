@@ -1,6 +1,7 @@
 package com.oyj.data.source.local
 
 import com.oyj.domain.model.AlcoholEntity
+import kotlinx.coroutines.flow.Flow
 
 
 interface BookmarkLocalDataSource {
@@ -8,7 +9,7 @@ interface BookmarkLocalDataSource {
 
     suspend fun deleteAlcohol(alcoholEntityData: AlcoholEntity)
 
-    suspend fun getBookmarkAlcoholList(): List<AlcoholEntity>
+    suspend fun getBookmarkAlcoholList(): Flow<List<AlcoholEntity>>
 
     suspend fun isBookMark(alcoholEntityData: AlcoholEntity): Boolean
 }

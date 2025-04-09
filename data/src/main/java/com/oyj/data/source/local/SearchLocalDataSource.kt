@@ -1,5 +1,7 @@
 package com.oyj.data.source.local
 
+import kotlinx.coroutines.flow.Flow
+
 interface SearchLocalDataSource {
     fun insertSearchWord(searchWord: String)
 
@@ -7,5 +9,5 @@ interface SearchLocalDataSource {
 
     fun deleteAllSearchWord()
 
-    fun getSearchWordList(isDesc: Boolean): List<String>
+    fun getSearchWordList(isDesc: Boolean): Flow<List<String>>
 }

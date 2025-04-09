@@ -4,6 +4,9 @@ package com.oyj.data.source.local
 import com.oyj.data.database.dao.BookmarkDao
 import com.oyj.data.database.entity.BookmarkEntity
 import com.oyj.domain.model.AlcoholEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class BookmarkLocalDataSourceImpl @Inject constructor(
@@ -19,10 +22,15 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
         return bookmarkDao.deleteAlcohol(bookmarkEntity)
     }
 
-    override suspend fun getBookmarkAlcoholList(): List<AlcoholEntity> {
-        val bookmarkEntityList = bookmarkDao.getAllBookMark()
-        return bookmarkEntityList.map {
-            bookmarkToAlcohol(it)
+    override suspend fun getBookmarkAlcoholList(): Flow<List<AlcoholEntity>> {
+        return flow {
+            emit(
+                bookmarkDao
+                    .getAllBookMark()
+                    .map {
+                        bookmarkToAlcohol(it)
+                    }
+            )
         }
     }
 

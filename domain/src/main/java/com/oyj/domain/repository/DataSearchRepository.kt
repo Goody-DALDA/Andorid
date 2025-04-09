@@ -1,5 +1,7 @@
 package com.oyj.domain.repository
 
+import kotlinx.coroutines.flow.Flow
+
 interface DataSearchRepository {
     fun insertSearchWord(searchWord: String)
 
@@ -10,5 +12,5 @@ interface DataSearchRepository {
     fun deleteAllSearchWord()
 
     // 최근 검색어 호출
-    fun getSearchWordList(isDesc: Boolean): List<String>
+    fun getSearchWordList(isDesc: Boolean): Flow<List<String>>
 }

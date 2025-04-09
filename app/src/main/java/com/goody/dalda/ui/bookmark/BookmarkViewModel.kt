@@ -27,7 +27,9 @@ class BookmarkViewModel @Inject constructor(
 
     fun getBookmarkList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _bookmarkList.value = getBookmarkAlcoholListUseCase().toUIModelList().reversed()
+            getBookmarkAlcoholListUseCase().collect{
+                _bookmarkList.value = it.toUIModelList().reversed()
+            }
         }
     }
 

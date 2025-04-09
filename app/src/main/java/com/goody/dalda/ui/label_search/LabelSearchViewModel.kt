@@ -12,6 +12,8 @@ import com.goody.dalda.ui.state.UiState
 import com.oyj.domain.usecase.search.SearchAlcoholUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,9 +26,10 @@ class LabelSearchViewModel @Inject constructor(
 
     fun requestSearchApi(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val searchResult = searchAlcoholUseCase(query).toUIModelList()
+            val searchResult: Flow<List<AlcoholUIModel>> = searchAlcoholUseCase(query).map { it.toUIModelList() }
+
             val alcoholUIModelList = mutableListOf<AlcoholUIModel>()
-            alcoholUIModelList.addAll(searchResult)
+            searchResult.collect { alcoholUIModelList.addAll(it) }
 
             val spirit = alcoholUIModelList.firstOrNull()
 

@@ -6,7 +6,7 @@ import javax.inject.Inject
 class InsertSearchWordUseCase @Inject constructor(
     private val repository: DataSearchRepository
 ) {
-    suspend operator fun invoke(searchWord: String) {
+    operator fun invoke(searchWord: String) {
         repository.insertSearchWord(searchWord = searchWord)
     }
 }

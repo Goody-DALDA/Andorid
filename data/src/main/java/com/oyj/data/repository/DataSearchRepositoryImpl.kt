@@ -2,6 +2,7 @@ package com.oyj.data.repository
 
 import com.oyj.data.source.local.SearchLocalDataSource
 import com.oyj.domain.repository.DataSearchRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DataSearchRepositoryImpl @Inject constructor(
@@ -19,7 +20,7 @@ class DataSearchRepositoryImpl @Inject constructor(
         searchLocalDataSource.deleteAllSearchWord()
     }
 
-    override fun getSearchWordList(isDesc: Boolean): List<String> {
+    override fun getSearchWordList(isDesc: Boolean): Flow<List<String>> {
         return searchLocalDataSource.getSearchWordList(
             isDesc = isDesc,
         )

@@ -2,6 +2,8 @@ package com.oyj.data.source.local
 
 import com.oyj.data.database.dao.SearchDao
 import com.oyj.data.database.entity.SearchEntity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SearchLocalDataSourceImpl @Inject constructor(
@@ -10,8 +12,7 @@ class SearchLocalDataSourceImpl @Inject constructor(
     override fun insertSearchWord(searchWord: String) {
         checkSearchWord(searchWord)
 
-        val searchEntity =
-            SearchEntity(
+        val searchEntity = SearchEntity(
                 searchWord = searchWord,
             )
 
@@ -26,11 +27,11 @@ class SearchLocalDataSourceImpl @Inject constructor(
         searchDao.deleteAllSearchWord()
     }
 
-    override fun getSearchWordList(isDesc: Boolean): List<String> {
+    override fun getSearchWordList(isDesc: Boolean): Flow<List<String>> {
         return searchDao.getAllSearchWord(
             isDesc = isDesc,
-        ).map {
-            it.searchWord
+        ).map { searchEntities ->
+            searchEntities.map(SearchEntity::searchWord)
         }
     }
 

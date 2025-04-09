@@ -14,70 +14,67 @@ import com.oyj.data.source.local.BookmarkLocalDataSource
 import com.oyj.data.source.remote.home.AlcoholDataRemoteDataSource
 import com.oyj.domain.model.AlcoholEntity
 import com.oyj.domain.repository.AlcoholRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class AlcoholRepositoryImpl @Inject constructor(
     private val alcoholDataRemoteDataSource: AlcoholDataRemoteDataSource,
     private val bookmarkLocalDataSource: BookmarkLocalDataSource,
 ) : AlcoholRepository {
-    override suspend fun getAlcoholData(category: String): List<AlcoholEntity> =
-        try {
-            val response =
-                alcoholDataRemoteDataSource.getAlcoholData(
-                    category = category,
-                )
-
+    override suspend fun getAlcoholData(category: String): Flow<List<AlcoholEntity>> =
+        flow {
+            val response = alcoholDataRemoteDataSource.getAlcoholData(
+                category = category,
+            )
             if (response.isSuccessful) {
                 val alcoholDataDto = requireNotNull(response.body()) { "Response body is null" }
-                alcoholDataDtoToAlcoholData(category, alcoholDataDto)
+                emit(alcoholDataDtoToAlcoholData(category, alcoholDataDto))
             } else {
                 Log.e(TAG, "getAlcoholData: Failed to get alcohol info")
-                emptyList()
+                emit(emptyList())
             }
-        } catch (e: Exception) {
+        }.catch { e ->
             Log.e(TAG, "getAlcoholData: ${e.message}")
-            emptyList()
+            emit(emptyList())
         }
 
-    override suspend fun getSearchedAlcoholData(query: String): List<AlcoholEntity> {
-        return try {
-            val response = alcoholDataRemoteDataSource.getSearchedAlcoholData(query = query)
-
-            if (response.isSuccessful) {
-                val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
-                searchResultDtoToSearchAlcoholData(searchResultDto.searchData)
-            } else {
-                Log.e(TAG, "getSearchedAlcoholData: Failed to get searched alcohol info")
-                return emptyList()
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "getSearchedAlcoholData: ${e.message}")
-            return emptyList()
+    override suspend fun getSearchedAlcoholData(query: String): Flow<List<AlcoholEntity>> = flow {
+        val response = alcoholDataRemoteDataSource.getSearchedAlcoholData(query = query)
+        if (response.isSuccessful) {
+            val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
+            emit(searchResultDtoToSearchAlcoholData(searchResultDto.searchData))
+        } else {
+            Log.e(TAG, "getSearchedAlcoholData: Failed to get searched alcohol info")
+            emit(emptyList())
         }
+    }.catch { e ->
+        Log.e(TAG, "getSearchedAlcoholData: ${e.message}")
+        emit(emptyList())
     }
 
-    override suspend fun getRecommendAlcoholList(query: String): List<String> =
-        try {
-            val response = alcoholDataRemoteDataSource.getRecommendAlcoholList(query)
-
-            if (response.isSuccessful) {
-                val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
-                searchResultDto.recommendAlcoholInfoList.map {
-                    it.name
-                }
-            } else {
-                Log.e(TAG, "getRecommendAlcoholList: Failed to get recommend alcohol list")
-                emptyList()
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "getRecommendAlcoholList: ${e.message}")
-            emptyList()
+    override suspend fun getRecommendAlcoholList(query: String): Flow<List<String>> = flow {
+        val response = alcoholDataRemoteDataSource.getRecommendAlcoholList(query)
+        if (response.isSuccessful) {
+            val searchResultDto = requireNotNull(response.body()) { "Response body is null" }
+            emit(
+                searchResultDto.recommendAlcoholInfoList
+                    .map {
+                        it.name
+                    }
+            )
+        } else {
+            Log.e(TAG, "getRecommendAlcoholList: Failed to get recommend alcohol list")
+            emit(emptyList())
         }
+    }.catch { e ->
+        Log.e(TAG, "getSearchedAlcoholData: ${e.message}")
+        emit(emptyList())
+    }
 
-    override suspend fun getBookmarkAlcoholList(): List<AlcoholEntity> {
-        val bookmarkAlcoholList = bookmarkLocalDataSource.getBookmarkAlcoholList()
-
-        return bookmarkAlcoholList
+    override suspend fun getBookmarkAlcoholList(): Flow<List<AlcoholEntity>> {
+        return bookmarkLocalDataSource.getBookmarkAlcoholList()
     }
 
     override suspend fun insertBookmarkAlcohol(alcoholEntity: AlcoholEntity) {

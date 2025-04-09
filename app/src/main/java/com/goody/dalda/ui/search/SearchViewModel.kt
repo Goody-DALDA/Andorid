@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,12 +44,12 @@ class SearchViewModel @Inject constructor(
 
     @OptIn(FlowPreview::class)
     val recommendAlcoholList = _recommendAlcoholList
-            .debounce(500L)
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(),
-                initialValue = emptyList(),
-            )
+        .debounce(500L)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = emptyList(),
+        )
 
     private val _searchResultList = MutableStateFlow(emptyList<AlcoholUIModel>())
     val searchResultList: StateFlow<List<AlcoholUIModel>> = _searchResultList
@@ -66,7 +67,10 @@ class SearchViewModel @Inject constructor(
 
     private fun updateRecommendAlcoholList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _recommendAlcoholList.value = getRecommendAlcoholListUseCase(query.value)
+            getRecommendAlcoholListUseCase(query.value)
+                .collect {
+                    _recommendAlcoholList.value = it
+                }
         }
     }
 
@@ -85,7 +89,9 @@ class SearchViewModel @Inject constructor(
 
     fun fetchRecentSearchWordList(isDesc: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            _recentSearchWordList.value = getRecentSearchWordListUseCase(isDesc = isDesc)
+            getRecentSearchWordListUseCase(isDesc = isDesc).collect {
+                _recentSearchWordList.value = it
+            }
         }
     }
 
@@ -95,12 +101,11 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun searchAlcoholData(query: String) = viewModelScope.launch(Dispatchers.IO) {
-        val searchResult = searchAlcoholUseCase(query).toUIModelList()
-        val alcoholUIModelList = mutableListOf<AlcoholUIModel>()
-
-        alcoholUIModelList.addAll(searchResult)
-
-        _searchResultList.value = alcoholUIModelList
+        searchAlcoholUseCase(query)
+            .map { it.toUIModelList() }
+            .collect {
+                _searchResultList.value = it
+            }
     }
 
     fun queryChanged(query: String) {
