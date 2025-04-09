@@ -1,13 +1,14 @@
 package com.oyj.domain.usecase.bookmark
 
 import com.oyj.domain.model.AlcoholEntity
-import com.oyj.domain.repository.AlcoholRepository
+import com.oyj.domain.repository.DataAlcoholRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class IsBookmarkAlcoholUseCase  @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
+    private val dataAlcoholRepository: DataAlcoholRepository,
 ) {
-    suspend operator fun invoke(alcoholEntity: AlcoholEntity): Boolean {
-        return alcoholRepository.isBookmarkAlcohol(alcoholEntity)
+    operator fun invoke(alcoholEntity: AlcoholEntity): Flow<Boolean> {
+        return dataAlcoholRepository.isBookmarkAlcohol(alcoholEntity)
     }
 }

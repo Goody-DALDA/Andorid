@@ -15,6 +15,4 @@ interface AlcoholRepository {
     suspend fun insertBookmarkAlcohol(alcoholEntity: AlcoholEntity)
 
     suspend fun deleteBookmarkAlcohol(alcoholEntity: AlcoholEntity)
-
-    suspend fun isBookmarkAlcohol(alcoholEntity: AlcoholEntity): Boolean
 }

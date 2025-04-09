@@ -11,5 +11,5 @@ interface BookmarkLocalDataSource {
 
     suspend fun getBookmarkAlcoholList(): Flow<List<AlcoholEntity>>
 
-    suspend fun isBookMark(alcoholEntityData: AlcoholEntity): Boolean
+    fun isBookMark(alcoholEntityData: AlcoholEntity): Flow<Boolean>
 }

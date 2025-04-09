@@ -18,5 +18,5 @@ interface DataAlcoholRepository {
 
     suspend fun deleteBookmarkAlcohol(alcoholEntity: AlcoholEntity)
 
-    suspend fun isBookmarkAlcohol(alcoholEntity: AlcoholEntity): Boolean
+    fun isBookmarkAlcohol(alcoholEntity: AlcoholEntity): Flow<Boolean>
 }

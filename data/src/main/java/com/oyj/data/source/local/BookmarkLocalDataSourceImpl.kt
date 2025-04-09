@@ -34,7 +34,7 @@ class BookmarkLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun isBookMark(alcoholEntityData: AlcoholEntity): Boolean =
+    override fun isBookMark(alcoholEntityData: AlcoholEntity): Flow<Boolean> =
         bookmarkDao.isBookMark(alcoholEntityData.id, alcoholEntityData.name)
 
     private fun alcoholDataToBookmarkEntity(alcoholEntityData: AlcoholEntity): BookmarkEntity =

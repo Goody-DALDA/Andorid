@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.oyj.data.database.entity.BookmarkEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookmarkDao {
@@ -19,5 +20,5 @@ interface BookmarkDao {
     suspend fun getAllBookMark(): List<BookmarkEntity>
 
     @Query("SELECT COUNT(*) > 0 FROM bookmarkRepo WHERE id=:id AND name=:name")
-    suspend fun isBookMark(id: Int, name: String): Boolean
+    fun isBookMark(id: Int, name: String): Flow<Boolean>
 }
