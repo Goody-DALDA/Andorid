@@ -19,12 +19,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
-import com.goody.dalda.data.RecommendAlcohol
+import com.goody.dalda.data.model.RecommendAlcoholUIModel
 import com.goody.dalda.ui.component.AutoResizedText
 
 @Composable
 fun AlcoholRecommendation(
-    recommendAlcoholList: List<RecommendAlcohol> = emptyList(),
+    recommendAlcoholUIModelList: List<RecommendAlcoholUIModel> = emptyList(),
     onActionClick: () -> Unit = {},
     onContentsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
@@ -42,14 +42,14 @@ fun AlcoholRecommendation(
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            items(recommendAlcoholList.size) { idx ->
+            items(recommendAlcoholUIModelList.size) { idx ->
                 Box(
                     modifier =
                     Modifier
                         .wrapContentSize(),
                 ) {
                     AsyncImage(
-                        model = recommendAlcoholList[idx].imgRes,
+                        model = recommendAlcoholUIModelList[idx].imgRes,
                         contentDescription = "",
                         placeholder = painterResource(R.drawable.ic_launcher_foreground),
                         contentScale = ContentScale.FillWidth,
@@ -61,7 +61,7 @@ fun AlcoholRecommendation(
                     )
 
                     AutoResizedText(
-                        text = recommendAlcoholList[idx].comment,
+                        text = recommendAlcoholUIModelList[idx].comment,
                         modifier =
                         Modifier
                             .padding(start = 12.dp, bottom = 12.dp)
@@ -77,17 +77,17 @@ fun AlcoholRecommendation(
 @Composable
 private fun AlcoholRecommendationPreview() {
     AlcoholRecommendation(
-        recommendAlcoholList =
+        recommendAlcoholUIModelList =
         listOf(
-            RecommendAlcohol(
+            RecommendAlcoholUIModel(
                 imgRes = "https://picsum.photos/id/217/100/100",
                 comment = "이건 무슨 맛이래유?",
             ),
-            RecommendAlcohol(
+            RecommendAlcoholUIModel(
                 imgRes = "https://picsum.photos/id/2/100/100",
                 comment = "첫번째 행입니다.\n두번째 행입니다.",
             ),
-            RecommendAlcohol(
+            RecommendAlcoholUIModel(
                 imgRes = "https://picsum.photos/id/237/100/100",
                 comment = "이건 어때요?",
             ),

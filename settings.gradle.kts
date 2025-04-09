@@ -22,3 +22,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Dalda"
 include(":app")
+include(":domain")
+include(":di")
+include(":data")

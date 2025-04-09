@@ -1,72 +1,82 @@
 package com.goody.dalda.ui.announcement
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.repository.NoticeRepository
-import com.goody.dalda.ui.model.Post
+import com.goody.dalda.data.model.PostUIModel
+import com.goody.dalda.data.model.toUIModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.oyj.domain.usecase.FetchNoticeUseCase
 
 @HiltViewModel
-class PostDetailViewModel
-    @Inject
-    constructor(
-        private val repository: NoticeRepository,
-    ) : ViewModel() {
-        private val _currentPost = MutableStateFlow<Post?>(null)
-        val currentPost: StateFlow<Post?> = _currentPost
+class PostDetailViewModel @Inject constructor(
+    private val fetchNoticeUseCase: FetchNoticeUseCase
+) : ViewModel() {
+    private val _currentPostUIModel = MutableStateFlow<PostUIModel?>(null)
+    val currentPostUIModel: StateFlow<PostUIModel?> = _currentPostUIModel
 
-        private val _nextPost = MutableStateFlow<Post?>(null)
-        val nextPost: StateFlow<Post?> = _nextPost
+    private val _nextPostUIModel = MutableStateFlow<PostUIModel?>(null)
+    val nextPostUIModel: StateFlow<PostUIModel?> = _nextPostUIModel
 
-        private val _prevPost = MutableStateFlow<Post?>(null)
-        val prevPost: StateFlow<Post?> = _prevPost
+    private val _prevPostUIModel = MutableStateFlow<PostUIModel?>(null)
+    val prevPostUIModel: StateFlow<PostUIModel?> = _prevPostUIModel
 
-        private var postList: List<Post> = emptyList()
+    private var postUIModelList: List<PostUIModel> = emptyList()
 
-        private var currentIndex = 0
+    private var currentIndex = 0
 
-        fun fetchNoticePost(post: Post) {
-            viewModelScope.launch(Dispatchers.IO) {
-                postList = repository.fetchNotice()
-                setPost(post)
-                setNextPost()
-                setPrevPost()
+    fun fetchNoticePost(postUIModel: PostUIModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            runCatching {
+                fetchNoticeUseCase().collect {
+                    postUIModelList = it.toUIModel()
+                    setPost(postUIModel)
+                    setNextPost()
+                    setPrevPost()
+                }
+            }.onFailure { throwable ->
+                Log.e(TAG, "fetchNoticePost: ${throwable.message}")
             }
         }
-
-        private fun setPost(post: Post) {
-            _currentPost.value = post
-            currentIndex = postList.indexOf(post)
-        }
-
-        fun nextPost() {
-            if (currentIndex >= postList.size - 1) return
-            val post = postList[currentIndex + 1]
-            setPost(post)
-            setNextPost()
-            setPrevPost()
-        }
-
-        fun prevPost() {
-            if (currentIndex <= 0) return
-
-            val post = postList[currentIndex - 1]
-            setPost(post)
-            setNextPost()
-            setPrevPost()
-        }
-
-        private fun setNextPost() {
-            _nextPost.value =
-                if (currentIndex >= postList.size - 1) null else postList[currentIndex + 1]
-        }
-
-        private fun setPrevPost() {
-            _prevPost.value = if (currentIndex <= 0) null else postList[currentIndex - 1]
-        }
     }
+
+    private fun setPost(postUIModel: PostUIModel) {
+        _currentPostUIModel.value = postUIModel
+        currentIndex = postUIModelList.indexOf(postUIModel)
+    }
+
+    fun nextPost() {
+        if (currentIndex >= postUIModelList.size - 1) return
+        val post = postUIModelList[currentIndex + 1]
+        setPost(post)
+        setNextPost()
+        setPrevPost()
+    }
+
+    fun prevPost() {
+        if (currentIndex <= 0) return
+
+        val post = postUIModelList[currentIndex - 1]
+        setPost(post)
+        setNextPost()
+        setPrevPost()
+    }
+
+    private fun setNextPost() {
+        _nextPostUIModel.value =
+            if (currentIndex >= postUIModelList.size - 1) null else postUIModelList[currentIndex + 1]
+    }
+
+    private fun setPrevPost() {
+        _prevPostUIModel.value = if (currentIndex <= 0) null else postUIModelList[currentIndex - 1]
+    }
+
+    companion object {
+        private const val TAG = "PostDetailViewModel"
+    }
+}

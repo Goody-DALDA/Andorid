@@ -20,12 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun BasicLiquorInfoSection(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -34,7 +34,7 @@ fun BasicLiquorInfoSection(
         modifier = modifier,
     ) {
         AsyncImage(
-            model = alcoholData.imgUrl,
+            model = alcoholUIModel.imgUrl,
             contentDescription = "주류 이미지",
             contentScale = ContentScale.FillHeight,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
@@ -45,7 +45,7 @@ fun BasicLiquorInfoSection(
         )
 
         BasicInfo(
-            alcoholData = alcoholData,
+            alcoholUIModel = alcoholUIModel,
             modifier = Modifier.fillMaxWidth(),
         )
     }
@@ -53,26 +53,26 @@ fun BasicLiquorInfoSection(
 
 @Composable
 fun BasicInfo(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     modifier: Modifier = Modifier,
 ) {
-    when (alcoholData) {
-        is AlcoholData.Soju,
-        is AlcoholData.Beer,
-        is AlcoholData.Sake,
-        is AlcoholData.Whisky,
+    when (alcoholUIModel) {
+        is AlcoholUIModel.Soju,
+        is AlcoholUIModel.Beer,
+        is AlcoholUIModel.Sake,
+        is AlcoholUIModel.Whisky,
         -> {
             BasicInfoWithCountry(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
 
-        is AlcoholData.TraditionalLiquor,
-        is AlcoholData.Wine,
+        is AlcoholUIModel.TraditionalLiquor,
+        is AlcoholUIModel.Wine,
         -> {
             BasicInfoWithBrewery(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
@@ -81,7 +81,7 @@ fun BasicInfo(
 
 @Composable
 fun BasicInfoWithCountry(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -90,7 +90,7 @@ fun BasicInfoWithCountry(
     ) {
         // 카테고리
         Image(
-            painter = painterResource(alcoholData.tag),
+            painter = painterResource(alcoholUIModel.tag),
             contentDescription = "카테고리",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.width(32.dp),
@@ -98,7 +98,7 @@ fun BasicInfoWithCountry(
 
         // 이름
         Text(
-            text = alcoholData.name,
+            text = alcoholUIModel.name,
             style = DaldaTextStyle.h1,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
@@ -106,13 +106,13 @@ fun BasicInfoWithCountry(
 
         // 나라
         Text(
-            text = alcoholData.country,
+            text = alcoholUIModel.country,
             style = DaldaTextStyle.body3,
         )
 
         // 도수 / 용량
         RowAbvVolume(
-            alcoholData = alcoholData,
+            alcoholUIModel = alcoholUIModel,
             modifier = Modifier.padding(top = 8.dp),
         )
     }
@@ -120,7 +120,7 @@ fun BasicInfoWithCountry(
 
 @Composable
 fun BasicInfoWithBrewery(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -129,7 +129,7 @@ fun BasicInfoWithBrewery(
     ) {
         // 카테고리
         Image(
-            painter = painterResource(alcoholData.tag),
+            painter = painterResource(alcoholUIModel.tag),
             contentDescription = "카테고리",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.width(32.dp),
@@ -137,22 +137,22 @@ fun BasicInfoWithBrewery(
 
         // 이름
         Text(
-            text = alcoholData.name,
+            text = alcoholUIModel.name,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
 
         // 양조장
-        if (alcoholData is AlcoholData.TraditionalLiquor) {
-            Text(alcoholData.brewery)
+        if (alcoholUIModel is AlcoholUIModel.TraditionalLiquor) {
+            Text(alcoholUIModel.brewery)
         }
-        if (alcoholData is AlcoholData.Wine) {
-            Text(alcoholData.winery)
+        if (alcoholUIModel is AlcoholUIModel.Wine) {
+            Text(alcoholUIModel.winery)
         }
 
         // 도수 / 용량
         RowAbvVolume(
-            alcoholData = alcoholData,
+            alcoholUIModel = alcoholUIModel,
             modifier = Modifier.padding(top = 8.dp),
         )
     }
@@ -160,7 +160,7 @@ fun BasicInfoWithBrewery(
 
 @Composable
 fun RowAbvVolume(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -170,7 +170,7 @@ fun RowAbvVolume(
     ) {
         SecondFloorText(
             topText = "도수",
-            bottomText = alcoholData.abv,
+            bottomText = alcoholUIModel.abv,
         )
 
         VerticalDivider(
@@ -178,7 +178,7 @@ fun RowAbvVolume(
         )
         SecondFloorText(
             topText = "용량",
-            bottomText = alcoholData.volume,
+            bottomText = alcoholUIModel.volume,
         )
     }
 }
@@ -209,8 +209,8 @@ fun SecondFloorText(
 @Composable
 private fun LiquorImageSectionPrev_soju() {
     BasicLiquorInfoSection(
-        alcoholData =
-            AlcoholData.Soju(
+        alcoholUIModel =
+            AlcoholUIModel.Soju(
                 id = 7959,
                 name = "대선",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -227,8 +227,8 @@ private fun LiquorImageSectionPrev_soju() {
 @Composable
 private fun LiquorImageSectionPrev_beer() {
     BasicLiquorInfoSection(
-        alcoholData =
-            AlcoholData.Beer(
+        alcoholUIModel =
+            AlcoholUIModel.Beer(
                 id = 7959,
                 name = "1664 블랑",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -248,8 +248,8 @@ private fun LiquorImageSectionPrev_beer() {
 @Composable
 private fun LiquorImageSectionPrev_sake() {
     BasicLiquorInfoSection(
-        alcoholData =
-            AlcoholData.Sake(
+        alcoholUIModel =
+            AlcoholUIModel.Sake(
                 id = 7959,
                 name = "닷사이 준마이 다이긴죠 23",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -269,8 +269,8 @@ private fun LiquorImageSectionPrev_sake() {
 @Composable
 private fun LiquorImageSectionPrev_wine() {
     BasicLiquorInfoSection(
-        alcoholData =
-            AlcoholData.Wine(
+        alcoholUIModel =
+            AlcoholUIModel.Wine(
                 id = 0,
                 name = "이기갈 꼬뜨 뒤 론 화이트",
                 imgUrl = "http://www.bing.com/search?q=sagittis",

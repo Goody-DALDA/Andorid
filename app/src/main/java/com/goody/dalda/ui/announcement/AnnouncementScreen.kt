@@ -28,12 +28,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
-import com.goody.dalda.ui.model.Post
+import com.goody.dalda.data.model.PostUIModel
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun AnnouncementScreen(
-    onClick: (Post) -> Unit,
+    onClick: (PostUIModel) -> Unit,
     onClickBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AnnouncementViewModel = viewModel(),
@@ -41,7 +41,7 @@ fun AnnouncementScreen(
     val posts by viewModel.posts.collectAsStateWithLifecycle()
 
     AnnouncementScreen(
-        postList = posts,
+        postUIModelList = posts,
         onclickPost = onClick,
         onClickBack = onClickBack,
         modifier = modifier,
@@ -51,8 +51,8 @@ fun AnnouncementScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AnnouncementScreen(
-    postList: List<Post>,
-    onclickPost: (Post) -> Unit = {},
+    postUIModelList: List<PostUIModel>,
+    onclickPost: (PostUIModel) -> Unit = {},
     onClickBack: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -94,7 +94,7 @@ fun AnnouncementScreen(
                     .fillMaxSize()
                     .padding(innerPadding),
         ) {
-            items(postList) { item ->
+            items(postUIModelList) { item ->
                 NoticePost(
                     title = item.title,
                     date = item.updatedAt,
@@ -136,9 +136,9 @@ fun NoticePost(
 @Preview(showBackground = true)
 @Composable
 fun AnnouncementScreenPreview() {
-    val postList =
+    val postUIModelLists =
         listOf(
-            Post(
+            PostUIModel(
                 id = 1,
                 title = "title1",
                 content = "content1",
@@ -146,7 +146,7 @@ fun AnnouncementScreenPreview() {
                 updatedAt = "2021-09-01",
                 isActive = true,
             ),
-            Post(
+            PostUIModel(
                 id = 2,
                 title = "title2",
                 content = "content2",
@@ -157,7 +157,7 @@ fun AnnouncementScreenPreview() {
         )
     MaterialTheme {
         AnnouncementScreen(
-            postList = postList,
+            postUIModelList = postUIModelLists,
             onclickPost = {},
             onClickBack = {},
             modifier = Modifier,

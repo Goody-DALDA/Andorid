@@ -4,43 +4,62 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.repository.LoginRepository
-import com.goody.dalda.ui.model.Profile
+import com.goody.dalda.data.model.Profile
+import com.goody.dalda.data.model.toUIModel
 import com.goody.dalda.ui.state.UiState
-import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
+import com.oyj.domain.model.OAuthTokenEntity
+import com.oyj.domain.usecase.login.LoginUseCase
+import com.oyj.domain.usecase.login.pref.GetProfileUseCase
+import com.oyj.domain.usecase.login.pref.IsShowOnboardingUseCase
+import com.oyj.domain.usecase.login.pref.SetProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel
-    @Inject
-    constructor(
-        private val repository: LoginRepository,
-    ) : ViewModel() {
-        private val _state = MutableLiveData<UiState<Profile>>()
-        val state: LiveData<UiState<Profile>> get() = _state
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase,
+    private val isShowOnboardingUseCase: IsShowOnboardingUseCase,
+    private val getProfileUseCase: GetProfileUseCase,
+    private val setProfileUseCase: SetProfileUseCase,
+) : ViewModel() {
+    private val _state = MutableLiveData<UiState<Profile>>()
+    val state: LiveData<UiState<Profile>> get() = _state
 
-        fun checkLogin() {
-            val profile = PreferenceManager.getProfile()
-            if (profile.email.isNotEmpty()) {
-                _state.postValue(UiState.Success(profile))
-            }
+    fun checkLogin() {
+        val profile = getProfileUseCase().toUIModel()
+        if (profile.email.isNotEmpty()) {
+            _state.postValue(UiState.Success(profile))
         }
+    }
 
-        fun login(
-            nickname: String,
-            email: String,
-            profileImg: String,
-            token: OAuthToken,
-        ) {
-            viewModelScope.launch(Dispatchers.IO) {
-                repository.login(nickname, email, profileImg, token)?.let { profile ->
-                    PreferenceManager.setProfile(profile)
-                    _state.postValue(UiState.Success(profile))
+    fun login(
+        nickname: String,
+        email: String,
+        profileImg: String,
+        token: OAuthToken,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val domainToken = OAuthTokenEntity(
+                accessToken = token.accessToken,
+                accessTokenExpiresAt = token.accessTokenExpiresAt,
+                refreshToken = token.refreshToken,
+                refreshTokenExpiresAt = token.refreshTokenExpiresAt,
+                idToken = token.idToken,
+                scopes = token.scopes
+            )
+            loginUseCase(nickname, email, profileImg, domainToken).collect { profile ->
+                profile?.let {
+                    setProfileUseCase(it)
+                    _state.postValue(UiState.Success(it.toUIModel()))
                 }
             }
         }
     }
+
+    fun isShowOnboarding(): Boolean {
+        return isShowOnboardingUseCase()
+    }
+}

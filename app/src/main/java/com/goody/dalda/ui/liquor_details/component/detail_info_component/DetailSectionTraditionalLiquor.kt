@@ -12,19 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.liquor_details.component.TextTitleValue
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun DetailSectionTraditionalLiquor(
-    alcoholData: AlcoholData.TraditionalLiquor,
+    alcoholUIModel: AlcoholUIModel.TraditionalLiquor,
     modifier: Modifier = Modifier,
 ) {
     val infoList = listOf(
-            "스타일" to alcoholData.type,
-            "재료" to alcoholData.ingredient,
-            "양조장" to alcoholData.brewery,
+            "스타일" to alcoholUIModel.type,
+            "재료" to alcoholUIModel.ingredient,
+            "양조장" to alcoholUIModel.brewery,
         )
 
     Column(
@@ -36,7 +36,7 @@ fun DetailSectionTraditionalLiquor(
             text = "술정보",
             style = DaldaTextStyle.h2,
         )
-        if (alcoholData.comment.isNotEmpty()) {
+        if (alcoholUIModel.comment.isNotEmpty()) {
             Text(
                 modifier = Modifier
                     .background(
@@ -44,7 +44,7 @@ fun DetailSectionTraditionalLiquor(
                         shape = RoundedCornerShape(12.dp),
                     )
                     .padding(12.dp),
-                text = alcoholData.comment,
+                text = alcoholUIModel.comment,
                 style = DaldaTextStyle.body3,
             )
         }
@@ -57,7 +57,7 @@ fun DetailSectionTraditionalLiquor(
             )
         }
 
-        if (alcoholData.pairingFood.isNotEmpty()) {
+        if (alcoholUIModel.pairingFood.isNotEmpty()) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = "푸드 페어링",
@@ -72,7 +72,7 @@ fun DetailSectionTraditionalLiquor(
                     )
                     .padding(12.dp)
                     .fillMaxWidth(),
-                text = alcoholData.pairingFood,
+                text = alcoholUIModel.pairingFood,
                 style = DaldaTextStyle.body3,
             )
         }

@@ -12,22 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.liquor_details.component.TextTitleValue
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import java.text.DecimalFormat
 
 @Composable
 fun DetailSectionSoju(
-    alcoholData: AlcoholData.Soju,
+    alcoholUIModel: AlcoholUIModel.Soju,
     modifier: Modifier = Modifier,
 ) {
     val dec = DecimalFormat("#,###")
 
     val infoList =
         listOf(
-            "권장 소비자가" to dec.format(alcoholData.price) + "원",
-            "제조지역" to alcoholData.country,
+            "권장 소비자가" to dec.format(alcoholUIModel.price) + "원",
+            "제조지역" to alcoholUIModel.country,
         )
 
     Column(
@@ -40,7 +40,7 @@ fun DetailSectionSoju(
             style = DaldaTextStyle.h2,
         )
 
-        if(alcoholData.comment.isNotEmpty()){
+        if(alcoholUIModel.comment.isNotEmpty()){
             Text(
                 modifier = Modifier
                     .background(
@@ -49,7 +49,7 @@ fun DetailSectionSoju(
                     )
                     .padding(12.dp)
                     .fillMaxWidth(),
-                text = alcoholData.comment,
+                text = alcoholUIModel.comment,
                 style = DaldaTextStyle.body3,
             )
         }

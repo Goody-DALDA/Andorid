@@ -7,27 +7,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.liquor_details.component.TextTitleValue
 import com.goody.dalda.ui.theme.DaldaTextStyle
 import java.text.DecimalFormat
 
 @Composable
 fun DetailSectionSake(
-    alcoholData: AlcoholData.Sake,
+    alcoholUIModel: AlcoholUIModel.Sake,
     modifier: Modifier = Modifier,
 ) {
     val dec = DecimalFormat("#,###")
 
     val infoList = listOf(
-            "권장 소비자가" to dec.format(alcoholData.price) + "원",
-            "제조지역" to alcoholData.country,
+            "권장 소비자가" to dec.format(alcoholUIModel.price) + "원",
+            "제조지역" to alcoholUIModel.country,
         )
 
     val tasteInfoList = listOf(
-            "아로마" to alcoholData.aroma,
-            "맛" to alcoholData.taste,
-            "마무리" to alcoholData.finish,
+            "아로마" to alcoholUIModel.aroma,
+            "맛" to alcoholUIModel.taste,
+            "마무리" to alcoholUIModel.finish,
         )
 
     Column(

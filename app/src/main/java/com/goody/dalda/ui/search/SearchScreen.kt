@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.AppPaddingSize
 import com.goody.dalda.ui.component.SearchBarComponent
@@ -28,7 +28,7 @@ import com.goody.dalda.ui.search.component.ResentSearch
 fun SearchScreen(
     viewModel: SearchViewModel = viewModel(),
     onClickBack: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickFooter: (AlcoholType) -> Unit = {},
     onClickCamera: () -> Unit = {},
     onClickRequest: () -> Unit = {},
@@ -56,7 +56,7 @@ fun SearchScreen(
             }
 
             is SearchSideEffect.NavigateToLiquorDetail -> {
-                onClickCard((sideEffect as SearchSideEffect.NavigateToLiquorDetail).alcoholData)
+                onClickCard((sideEffect as SearchSideEffect.NavigateToLiquorDetail).alcoholUIModel)
                 viewModel.setSideEffect(SearchSideEffect.Default)
             }
         }
@@ -99,7 +99,7 @@ fun SearchScreen(
 fun SearchScreen(
     uiState: SearchUiState,
     query: String,
-    searchResultList: List<AlcoholData> = emptyList(),
+    searchResultList: List<AlcoholUIModel> = emptyList(),
     recentSearchWordList: List<String> = emptyList(),
     recommendAlcoholList: List<String> = emptyList(),
     onQueryChange: (String) -> Unit,
@@ -108,7 +108,7 @@ fun SearchScreen(
     onClickCamera: () -> Unit = {},
     onClickRequest: () -> Unit = {},
     onClickRecommend: (String) -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickClear: () -> Unit = {},
     onClickFooter: (String) -> Unit = {},
     modifier: Modifier = Modifier,
@@ -130,8 +130,7 @@ fun SearchScreen(
                 onClickBackIcon = onClickBack,
                 onClickLeadingIcon = onSearch,
                 onClickTrailingIcon = onClickCamera,
-                modifier =
-                Modifier
+                modifier = Modifier
                     .fillMaxWidth(),
             )
 
@@ -158,7 +157,7 @@ fun SearchScreen(
                 SearchUiState.SearchResult -> {
                     SearchResult(
                         modifier = Modifier,
-                        alcoholDataList = searchResultList,
+                        alcoholUIModelList = searchResultList,
                         onClickRequest = onClickRequest,
                         onClickCard = onClickCard,
                         onClickFooter = onClickFooter,
@@ -191,7 +190,7 @@ private fun SearchScreenPreview() {
 private fun SearchScreenSearchResultPreview() {
 
     val searchResultList = listOf(
-        AlcoholData.Soju(
+        AlcoholUIModel.Soju(
             id = 2316,
             name = "Justine Long",
             imgUrl = "https://duckduckgo.com/?q=dicunt",

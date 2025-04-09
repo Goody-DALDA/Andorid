@@ -12,27 +12,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.liquor_details.component.DrawBarGraphWithTitle
 import com.goody.dalda.ui.liquor_details.component.TextTitleValue
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun DetailSectionWine(
-    alcoholData: AlcoholData.Wine,
+    alcoholUIModel: AlcoholUIModel.Wine,
     modifier: Modifier = Modifier,
 ) {
     val graphDataList = listOf(
-            "단맛" to alcoholData.sugar,
-            "신맛" to alcoholData.acid,
-            "바디감" to alcoholData.mouthfeel,
+            "단맛" to alcoholUIModel.sugar,
+            "신맛" to alcoholUIModel.acid,
+            "바디감" to alcoholUIModel.mouthfeel,
         )
 
     val infoList = listOf(
-            "포도종" to alcoholData.ingredient,
-            "종류" to alcoholData.type,
-            "제조지역" to alcoholData.country,
-            "양조장" to alcoholData.winery,
+            "포도종" to alcoholUIModel.ingredient,
+            "종류" to alcoholUIModel.type,
+            "제조지역" to alcoholUIModel.country,
+            "양조장" to alcoholUIModel.winery,
         )
 
     Column(
@@ -45,7 +45,7 @@ fun DetailSectionWine(
             style = DaldaTextStyle.h2,
         )
 
-        if(alcoholData.comment.isNotEmpty()) {
+        if(alcoholUIModel.comment.isNotEmpty()) {
             Text(
                 modifier = Modifier
                     .background(
@@ -53,7 +53,7 @@ fun DetailSectionWine(
                         shape = RoundedCornerShape(12.dp),
                     )
                     .padding(12.dp),
-                text = alcoholData.comment,
+                text = alcoholUIModel.comment,
                 style = DaldaTextStyle.body3,
             )
         }
@@ -79,7 +79,7 @@ fun DetailSectionWine(
             )
         }
 
-        if(alcoholData.pairingFood.isNotEmpty()) {
+        if(alcoholUIModel.pairingFood.isNotEmpty()) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = "푸드 페어링",
@@ -94,7 +94,7 @@ fun DetailSectionWine(
                     )
                     .padding(12.dp)
                     .fillMaxWidth(),
-                text = alcoholData.pairingFood,
+                text = alcoholUIModel.pairingFood,
                 style = DaldaTextStyle.body3,
             )
         }
