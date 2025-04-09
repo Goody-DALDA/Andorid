@@ -13,27 +13,25 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 
 @HiltViewModel
-class PolicyViewModel
-    @Inject
-    constructor() : ViewModel() {
-        private val _termsOfUseStateNew = MutableStateFlow("")
-        val termsOfUseStateNew: StateFlow<String> = _termsOfUseStateNew
+class PolicyViewModel @Inject constructor() : ViewModel() {
+    private val _termsOfUseStateNew = MutableStateFlow("")
+    val termsOfUseStateNew: StateFlow<String> = _termsOfUseStateNew
 
-        fun fetchTermsOfUse(
-            assetManager: AssetManager,
-            fileName: String,
-        ) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val sb = StringBuilder()
-                assetManager.open(fileName).use { inputStream ->
-                    val reader = BufferedReader(InputStreamReader(inputStream))
-                    var line: String? = null
+    fun fetchTermsOfUse(
+        assetManager: AssetManager,
+        fileName: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val sb = StringBuilder()
+            assetManager.open(fileName).use { inputStream ->
+                val reader = BufferedReader(InputStreamReader(inputStream))
+                var line: String? = null
 
-                    while ((reader.readLine()?.also { line = it }) != null) {
-                        sb.append(line).append("\n")
-                    }
+                while ((reader.readLine()?.also { line = it }) != null) {
+                    sb.append(line).append("\n")
                 }
-                _termsOfUseStateNew.value = sb.toString()
             }
+            _termsOfUseStateNew.value = sb.toString()
         }
     }
+}

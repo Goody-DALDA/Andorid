@@ -9,26 +9,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.liquor_details.component.DrawBarGraphWithTitle
 import com.goody.dalda.ui.liquor_details.component.TextTitleValue
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun DetailSectionBeer(
-    alcoholData: AlcoholData.Beer,
+    alcoholUIModel: AlcoholUIModel.Beer,
     modifier: Modifier = Modifier,
 ) {
     val valueList = listOf(
-            "아로마" to alcoholData.aroma,
-            "색감" to alcoholData.appearance,
-            "맛" to alcoholData.flavor,
-            "바디감" to alcoholData.mouthfeel,
+            "아로마" to alcoholUIModel.aroma,
+            "색감" to alcoholUIModel.appearance,
+            "맛" to alcoholUIModel.flavor,
+            "바디감" to alcoholUIModel.mouthfeel,
         ).map { (label, value) -> label to value / 2 }
 
     val infoList = listOf(
-            "스타일" to alcoholData.type,
-            "제조지역" to alcoholData.country,
+            "스타일" to alcoholUIModel.type,
+            "제조지역" to alcoholUIModel.country,
         )
 
     Column(
@@ -67,7 +67,7 @@ fun DetailSectionBeer(
 @Preview(showBackground = true)
 @Composable
 private fun DetailSectionBeerPrev() {
-    val alcoholData = AlcoholData.Beer(
+    val alcoholUIModel = AlcoholUIModel.Beer(
         id = 0,
         name = "카스",
         imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -83,6 +83,6 @@ private fun DetailSectionBeerPrev() {
     )
 
     DetailSectionBeer(
-        alcoholData = alcoholData,
+        alcoholUIModel = alcoholUIModel,
     )
 }

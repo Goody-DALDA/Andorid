@@ -22,28 +22,28 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.goody.dalda.R
 import com.goody.dalda.ui.announcement.component.PostDetailTopBar
-import com.goody.dalda.ui.model.Post
+import com.goody.dalda.data.model.PostUIModel
 import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun PostDetailScreen(
     viewModel: PostDetailViewModel = viewModel(),
-    post: Post,
+    postUIModel: PostUIModel,
     modifier: Modifier = Modifier,
     onClose: () -> Unit = {},
 ) {
-    val currentPost by viewModel.currentPost.collectAsStateWithLifecycle()
-    val nextPost by viewModel.nextPost.collectAsStateWithLifecycle()
-    val prevPost by viewModel.prevPost.collectAsStateWithLifecycle()
+    val currentPost by viewModel.currentPostUIModel.collectAsStateWithLifecycle()
+    val nextPost by viewModel.nextPostUIModel.collectAsStateWithLifecycle()
+    val prevPost by viewModel.prevPostUIModel.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchNoticePost(post)
+        viewModel.fetchNoticePost(postUIModel)
     }
 
     PostDetailLayout(
-        currentPost = currentPost ?: post,
-        prevPost = prevPost ?: post,
-        nextPost = nextPost ?: post,
+        currentPostUIModel = currentPost ?: postUIModel,
+        prevPostUIModel = prevPost ?: postUIModel,
+        nextPostUIModel = nextPost ?: postUIModel,
         onClickNextPost = { viewModel.nextPost() },
         onClickPrevPost = { viewModel.prevPost() },
         onClose = onClose,
@@ -53,9 +53,9 @@ fun PostDetailScreen(
 
 @Composable
 fun PostDetailLayout(
-    currentPost: Post,
-    prevPost: Post,
-    nextPost: Post,
+    currentPostUIModel: PostUIModel,
+    prevPostUIModel: PostUIModel,
+    nextPostUIModel: PostUIModel,
     onClickNextPost: () -> Unit = {},
     onClickPrevPost: () -> Unit = {},
     onClose: () -> Unit = {},
@@ -78,12 +78,12 @@ fun PostDetailLayout(
                     .padding(innerPadding),
         ) {
             PostTitleContainer(
-                title = currentPost.title,
-                date = currentPost.createdAt,
+                title = currentPostUIModel.title,
+                date = currentPostUIModel.createdAt,
             )
 
             Text(
-                text = currentPost.content,
+                text = currentPostUIModel.content,
                 style = DaldaTextStyle.body2,
                 color = colorResource(id = R.color.text),
                 modifier =
@@ -94,8 +94,8 @@ fun PostDetailLayout(
             )
 
             PreviousPostAndNextPost(
-                nextPost = nextPost,
-                prevPost = prevPost,
+                nextPostUIModel = nextPostUIModel,
+                prevPostUIModel = prevPostUIModel,
                 onClickNext = onClickNextPost,
                 onClickPrevious = onClickPrevPost,
             )
@@ -130,8 +130,8 @@ fun PostTitleContainer(
 @Preview
 @Composable
 private fun PostDetailScreenNewPrev() {
-    val currentPost =
-        Post(
+    val currentPostUIModel =
+        PostUIModel(
             1,
             "제목",
             "내용영역입니다. 이하 내용은 더미텍스트입니다. 국가원로자문회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 대통령은 내우·외환·천재·지변 또는 중대한 재정·경제상의 위기에 있어서 국가의 안전보장 또는 공공의 안녕질서를 유지하기 위하여 긴급한 조치가 필요하고 국회의 집회를 기다릴 여유가 없을 때에 한하여 최소한으로 필요한 재정·경제상의 처분을 하거나 이에 관하여 법률의 효력을 가지는 명령을 발할 수 있다.\n" +
@@ -141,8 +141,8 @@ private fun PostDetailScreenNewPrev() {
             "2025.01.10",
             true,
         )
-    val nextPost =
-        Post(
+    val nextPostUIModel =
+        PostUIModel(
             2,
             "다음글 제목",
             "다음글 입니다.",
@@ -151,8 +151,8 @@ private fun PostDetailScreenNewPrev() {
             true,
         )
 
-    val prevPost =
-        Post(
+    val prevPostUIModel =
+        PostUIModel(
             3,
             "이전글 제목",
             "이전글 입니다.",
@@ -162,8 +162,8 @@ private fun PostDetailScreenNewPrev() {
         )
 
     PostDetailLayout(
-        currentPost = currentPost,
-        prevPost = prevPost,
-        nextPost = nextPost,
+        currentPostUIModel = currentPostUIModel,
+        prevPostUIModel = prevPostUIModel,
+        nextPostUIModel = nextPostUIModel,
     )
 }

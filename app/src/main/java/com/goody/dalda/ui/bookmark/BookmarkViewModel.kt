@@ -1,9 +1,13 @@
 package com.goody.dalda.ui.bookmark
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.repository.alcohol.AlcoholRepository
+import com.goody.dalda.data.model.AlcoholUIModel
+import com.goody.dalda.data.model.toUIModelList
+import com.goody.dalda.data.model.toDomain
+import com.oyj.domain.usecase.bookmark.DeleteBookmarkAlcoholUseCase
+import com.oyj.domain.usecase.bookmark.GetBookmarkAlcoholListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,24 +17,38 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookmarkViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
+    private val getBookmarkAlcoholListUseCase: GetBookmarkAlcoholListUseCase,
+    private val deleteBookmarkAlcoholUseCase: DeleteBookmarkAlcoholUseCase
 ) : ViewModel() {
-    private val _query = MutableStateFlow("")
-    val query: StateFlow<String> = _query
-
-    private val _bookmarkList = MutableStateFlow(emptyList<AlcoholData>())
-    val bookmarkList: StateFlow<List<AlcoholData>> = _bookmarkList
+    private val _bookmarkList = MutableStateFlow(emptyList<AlcoholUIModel>())
+    val bookmarkList: StateFlow<List<AlcoholUIModel>> = _bookmarkList
 
     fun getBookmarkList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _bookmarkList.value = alcoholRepository.getBookmarkAlcoholList().reversed()
+            runCatching {
+                getBookmarkAlcoholListUseCase().collect{
+                    _bookmarkList.value = it.toUIModelList().reversed()
+                }
+            }.onFailure {
+                it.printStackTrace()
+                Log.e(TAG, "getBookmarkList: ${it.message}", )
+            }
         }
     }
 
-    fun deleteBookMark(alcoholData: AlcoholData) {
+    fun deleteBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            alcoholRepository.deleteBookmarkAlcohol(alcoholData)
-            getBookmarkList()
+            runCatching {
+                deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
+                getBookmarkList()
+            }.onFailure {
+                it.printStackTrace()
+                Log.e(TAG, "deleteBookMark: ${it.message}", )
+            }
         }
+    }
+
+    companion object{
+        private const val TAG = "BookmarkViewModel"
     }
 }

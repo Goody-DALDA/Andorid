@@ -14,26 +14,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.data.AlcoholType
 import com.goody.dalda.ui.error.ErrorPageScreen
 import com.goody.dalda.ui.search.component.AlcoholCardListComponent
 import com.goody.dalda.ui.search.component.OtherAlcoholRecommend
-import com.goody.dalda.ui.search.component.RequestAdditional
 import com.goody.dalda.ui.search.component.SearchAlcoholTab
 import kotlinx.coroutines.launch
 
 @Composable
 fun SearchResult(
-    alcoholDataList: List<AlcoholData> = emptyList(),
+    alcoholUIModelList: List<AlcoholUIModel> = emptyList(),
     onClickRequest: () -> Unit = {},
-    onClickCard: (AlcoholData) -> Unit = {},
+    onClickCard: (AlcoholUIModel) -> Unit = {},
     onClickFooter: (String) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    val category = alcoholDataList.map { getCategory(it) }.distinct()
+    val category = alcoholUIModelList.map { getCategory(it) }.distinct()
     val categoryCount =
-        alcoholDataList
+        alcoholUIModelList
             .groupBy { getCategory(it) }
             .mapValues { it.value.size }
     val pagerState = rememberPagerState(pageCount = { category.size })
@@ -45,7 +44,7 @@ fun SearchResult(
                 .fillMaxSize()
                 .background(Color.White),
     ) {
-        if (alcoholDataList.isEmpty()) {
+        if (alcoholUIModelList.isEmpty()) {
             ErrorPageScreen(
                 modifier = Modifier.fillMaxSize(),
                 errorMessage = stringResource(id = R.string.text_no_search_result),
@@ -70,8 +69,8 @@ fun SearchResult(
                 modifier = Modifier.fillMaxHeight(),
             ) {
                 AlcoholCardListComponent(
-                    alcoholDataList =
-                        alcoholDataList
+                    alcoholUIModelList =
+                        alcoholUIModelList
                             .filter { getCategory(it) == category[pagerState.currentPage] },
                     footer = {
                         OtherAlcoholRecommend(
@@ -87,22 +86,22 @@ fun SearchResult(
     }
 }
 
-fun getCategory(alcoholData: AlcoholData): String =
-    when (alcoholData) {
-        is AlcoholData.Soju -> AlcoholType.SOJU.alcoholName
-        is AlcoholData.Beer -> AlcoholType.BEER.alcoholName
-        is AlcoholData.Sake -> AlcoholType.SAKE.alcoholName
-        is AlcoholData.Wine -> AlcoholType.WINE.alcoholName
-        is AlcoholData.Whisky -> AlcoholType.WHISKY.alcoholName
-        is AlcoholData.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
+fun getCategory(alcoholUIModel: AlcoholUIModel): String =
+    when (alcoholUIModel) {
+        is AlcoholUIModel.Soju -> AlcoholType.SOJU.alcoholName
+        is AlcoholUIModel.Beer -> AlcoholType.BEER.alcoholName
+        is AlcoholUIModel.Sake -> AlcoholType.SAKE.alcoholName
+        is AlcoholUIModel.Wine -> AlcoholType.WINE.alcoholName
+        is AlcoholUIModel.Whisky -> AlcoholType.WHISKY.alcoholName
+        is AlcoholUIModel.TraditionalLiquor -> AlcoholType.TRADITIONALLIQUOR.alcoholName
     }
 
 @Preview(showBackground = true)
 @Composable
 private fun SearchResultPreview() {
-    val alcoholDataList =
+    val alcoholUIModelLists =
         listOf(
-            AlcoholData.Whisky(
+            AlcoholUIModel.Whisky(
                 id = 0,
                 name = "위스키",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -116,7 +115,7 @@ private fun SearchResultPreview() {
                 aroma = "부드러워요",
                 finish = "깔끔해요",
             ),
-            AlcoholData.Beer(
+            AlcoholUIModel.Beer(
                 id = 0,
                 name = "카스",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -130,7 +129,7 @@ private fun SearchResultPreview() {
                 type = "밀맥주",
                 country = "독일",
             ),
-            AlcoholData.Sake(
+            AlcoholUIModel.Sake(
                 id = 0,
                 name = "사케",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -143,7 +142,7 @@ private fun SearchResultPreview() {
                 finish = "시원해요",
                 country = "일본",
             ),
-            AlcoholData.Soju(
+            AlcoholUIModel.Soju(
                 id = 0,
                 name = "소주",
                 imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -155,7 +154,7 @@ private fun SearchResultPreview() {
             ),
         )
     SearchResult(
-        alcoholDataList = alcoholDataList,
+        alcoholUIModelList = alcoholUIModelLists,
     )
 }
 
@@ -164,6 +163,6 @@ private fun SearchResultPreview() {
 private fun SearchResultEmptyPreview() {
 
     SearchResult(
-        alcoholDataList = emptyList(),
+        alcoholUIModelList = emptyList(),
     )
 }

@@ -1,11 +1,16 @@
 package com.goody.dalda.ui.liquor_details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goody.dalda.data.AlcoholData
-import com.goody.dalda.data.BlogData
-import com.goody.dalda.data.repository.alcohol.AlcoholRepository
-import com.goody.dalda.data.repository.blog.BlogRepository
+import com.goody.dalda.data.model.AlcoholUIModel
+import com.goody.dalda.data.model.BlogUIModel
+import com.goody.dalda.data.model.toAppModelList
+import com.goody.dalda.data.model.toDomain
+import com.oyj.domain.usecase.bookmark.DeleteBookmarkAlcoholUseCase
+import com.oyj.domain.usecase.GetBlogDataListUseCase
+import com.oyj.domain.usecase.bookmark.InsertBookmarkAlcoholUseCase
+import com.oyj.domain.usecase.bookmark.IsBookmarkAlcoholUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,33 +20,43 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LiquorDetailsViewModel @Inject constructor(
-    private val alcoholRepository: AlcoholRepository,
-    private val blogRepository: BlogRepository,
+    private val insertBookmarkAlcoholUseCase: InsertBookmarkAlcoholUseCase,
+    private val deleteBookmarkAlcoholUseCase: DeleteBookmarkAlcoholUseCase,
+    private val isBookmarkAlcoholUseCase: IsBookmarkAlcoholUseCase,
+    private val getBlogDataListUseCase: GetBlogDataListUseCase
 ) : ViewModel() {
     private val _isBookmark = MutableStateFlow(false)
     val isBookmark: StateFlow<Boolean> = _isBookmark
 
-    private val _blogDataList: MutableStateFlow<List<BlogData>> = MutableStateFlow(emptyList())
-    val blogDataList: StateFlow<List<BlogData>> = _blogDataList
+    private val _blogUIModelList: MutableStateFlow<List<BlogUIModel>> =
+        MutableStateFlow(emptyList())
+    val blogUIModelList: StateFlow<List<BlogUIModel>> = _blogUIModelList
 
     private val _isDialogVisible = MutableStateFlow(false)
     val isDialogVisible: StateFlow<Boolean> = _isDialogVisible
 
-    fun insertBookMark(alcoholData: AlcoholData) {
+    fun insertBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            alcoholRepository.insertBookmarkAlcohol(alcoholData)
+            insertBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
         }
     }
 
-    fun deleteBookMark(alcoholData: AlcoholData) {
+    fun deleteBookMark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            alcoholRepository.deleteBookmarkAlcohol(alcoholData)
+            deleteBookmarkAlcoholUseCase(alcoholUIModel.toDomain())
         }
     }
 
-    fun setIsBookmark(alcoholData: AlcoholData) {
+    fun setIsBookmark(alcoholUIModel: AlcoholUIModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            _isBookmark.value = alcoholRepository.isBookmarkAlcohol(alcoholData)
+            runCatching {
+                isBookmarkAlcoholUseCase(alcoholUIModel.toDomain()).collect {
+                    _isBookmark.value = it
+                }
+            }.onFailure {
+                Log.e(TAG, "setIsBookmark: ${it.message}")
+                it.printStackTrace()
+            }
         }
     }
 
@@ -53,26 +68,32 @@ class LiquorDetailsViewModel @Inject constructor(
         _isDialogVisible.value = isVisible
     }
 
-    fun fetchBlogDataList(alcoholData: AlcoholData) {
-        val category = gerCategory(alcoholData)
-        val query = "${alcoholData.name} $category".replace(TEXT_SPACE, TEXT_EMPTY)
+    fun fetchBlogDataList(alcoholUIModel: AlcoholUIModel) {
+        val category = gerCategory(alcoholUIModel)
+        val query = "${alcoholUIModel.name} $category".replace(TEXT_SPACE, TEXT_EMPTY)
         fetchBlogDataListByQuery(query)
     }
 
     private fun fetchBlogDataListByQuery(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _blogDataList.value =
-                blogRepository.getBlogDataList(query)
+            runCatching {
+                getBlogDataListUseCase(query).collect {
+                    _blogUIModelList.value = it.toAppModelList()
+                }
+            }.onFailure { throwable ->
+                Log.e(TAG, "fetchBlogDataListByQuery: ${throwable.message}", throwable)
+                _blogUIModelList.value = emptyList()
+            }
         }
     }
 
-    private fun gerCategory(alcoholData: AlcoholData) = when (alcoholData) {
-        is AlcoholData.Beer -> TEXT_BEER
-        is AlcoholData.Sake -> TEXT_SAKE
-        is AlcoholData.Soju -> TEXT_SOJU
-        is AlcoholData.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
-        is AlcoholData.Wine -> TEXT_WINE
-        is AlcoholData.Whisky -> TEXT_WHISKY
+    private fun gerCategory(alcoholUIModel: AlcoholUIModel) = when (alcoholUIModel) {
+        is AlcoholUIModel.Beer -> TEXT_BEER
+        is AlcoholUIModel.Sake -> TEXT_SAKE
+        is AlcoholUIModel.Soju -> TEXT_SOJU
+        is AlcoholUIModel.TraditionalLiquor -> TEXT_TRADITIONAL_LIQUOR
+        is AlcoholUIModel.Wine -> TEXT_WINE
+        is AlcoholUIModel.Whisky -> TEXT_WHISKY
     }
 
     companion object {
@@ -84,5 +105,6 @@ class LiquorDetailsViewModel @Inject constructor(
         private const val TEXT_WHISKY = "위스키"
         private const val TEXT_SPACE = " "
         private const val TEXT_EMPTY = ""
+        private const val TAG = "LiquorDetailsViewModel"
     }
 }

@@ -14,7 +14,6 @@ import com.goody.dalda.base.BaseFragment
 import com.goody.dalda.databinding.FragmentLoginBinding
 import com.goody.dalda.ui.confetti.ConfettiFragment
 import com.goody.dalda.ui.state.UiState
-import com.goody.dalda.util.PreferenceManager
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -45,8 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val isNotShowOnboardingScreen = !PreferenceManager.isShowOnboarding()
-
+        val isNotShowOnboardingScreen = !viewModel.isShowOnboarding()
         if (isNotShowOnboardingScreen) {
             findNavController().navigate(R.id.action_loginFragment_to_onboardingFragment)
         }
@@ -126,7 +124,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun requestUserInfo(token: OAuthToken) {
-        Log.e(TAG, "사용자 정보 요청 실패 ${token.accessToken}")
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.e(TAG, "사용자 정보 요청 실패", error)

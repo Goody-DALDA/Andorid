@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.goody.dalda.R
-import com.goody.dalda.data.AlcoholData
+import com.goody.dalda.data.model.AlcoholUIModel
 import com.goody.dalda.ui.liquor_details.component.detail_info_component.DetailSectionBeer
 import com.goody.dalda.ui.liquor_details.component.detail_info_component.DetailSectionSake
 import com.goody.dalda.ui.liquor_details.component.detail_info_component.DetailSectionSoju
@@ -19,48 +19,48 @@ import com.goody.dalda.ui.theme.DaldaTextStyle
 
 @Composable
 fun DetailLiquorInfoSection(
-    alcoholData: AlcoholData,
+    alcoholUIModel: AlcoholUIModel,
     modifier: Modifier = Modifier,
 ) {
-    when (alcoholData) {
-        is AlcoholData.Beer -> {
+    when (alcoholUIModel) {
+        is AlcoholUIModel.Beer -> {
             DetailSectionBeer(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
 
-        is AlcoholData.Sake -> {
+        is AlcoholUIModel.Sake -> {
             DetailSectionSake(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
 
-        is AlcoholData.Soju -> {
+        is AlcoholUIModel.Soju -> {
             DetailSectionSoju(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
 
-        is AlcoholData.TraditionalLiquor -> {
+        is AlcoholUIModel.TraditionalLiquor -> {
             DetailSectionTraditionalLiquor(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
 
-        is AlcoholData.Whisky -> {
+        is AlcoholUIModel.Whisky -> {
             DetailSectionWhiskey(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
 
-        is AlcoholData.Wine -> {
+        is AlcoholUIModel.Wine -> {
             DetailSectionWine(
-                alcoholData = alcoholData,
+                alcoholUIModel = alcoholUIModel,
                 modifier = modifier,
             )
         }
@@ -96,8 +96,8 @@ fun TextTitleValue(
 private fun LiquorInfoDetailSectionPrev_beer() {
     DetailLiquorInfoSection(
         modifier = Modifier,
-        alcoholData =
-        AlcoholData.Beer(
+        alcoholUIModel =
+        AlcoholUIModel.Beer(
             id = 0,
             name = "카스",
             imgUrl = "http://www.bing.com/search?q=sagittis",
@@ -119,8 +119,8 @@ private fun LiquorInfoDetailSectionPrev_beer() {
 private fun LiquorInfoDetailSectionPrev_wine() {
     DetailLiquorInfoSection(
         modifier = Modifier,
-        alcoholData =
-        AlcoholData.Wine(
+        alcoholUIModel =
+        AlcoholUIModel.Wine(
             id = 0,
             name = "피치니 키안티 리제르바 ‘꼴레지오네 오로’",
             imgUrl = "https://www.shinsegae-lnb.com/upload/product/wine/wine/images/W_005_E.GuigalCotesduRhoneRouge.jpg",
@@ -145,8 +145,8 @@ private fun LiquorInfoDetailSectionPrev_wine() {
 private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
     DetailLiquorInfoSection(
         modifier = Modifier,
-        alcoholData =
-        AlcoholData.TraditionalLiquor(
+        alcoholUIModel =
+        AlcoholUIModel.TraditionalLiquor(
             id = 0,
             name = "벗이랑 강황",
             imgUrl = "https://thesool.com/common/imageView.do?targetId=PR00000950&targetNm=PRODUCT",
@@ -168,8 +168,8 @@ private fun LiquorInfoDetailSectionPrev_traditional_liquor() {
 private fun LiquorInfoDetailSectionPrev_whiskey() {
     DetailLiquorInfoSection(
         modifier = Modifier,
-        alcoholData =
-        AlcoholData.Whisky(
+        alcoholUIModel =
+        AlcoholUIModel.Whisky(
             id = 0,
             name = "와일드터키 8년",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/09/38/1000000120/pm-Wild Turkey 8y.png",
@@ -191,8 +191,8 @@ private fun LiquorInfoDetailSectionPrev_whiskey() {
 private fun LiquorInfoDetailSectionPrev_sake() {
     DetailLiquorInfoSection(
         modifier = Modifier,
-        alcoholData =
-        AlcoholData.Sake(
+        alcoholUIModel =
+        AlcoholUIModel.Sake(
             id = 0,
             name = "츠루우메 유즈",
             imgUrl = "https://kihyatr7690.cdn-nhncommerce.com/data/goods/22/11/45/1000000183/1000000183_detail_032.png",
@@ -213,8 +213,8 @@ private fun LiquorInfoDetailSectionPrev_sake() {
 private fun LiquorInfoDetailSectionPrev_soju() {
     DetailLiquorInfoSection(
         modifier = Modifier,
-        alcoholData =
-        AlcoholData.Soju(
+        alcoholUIModel =
+        AlcoholUIModel.Soju(
             id = 0,
             name = "대선소주",
             imgUrl = "https://arqachylpmku8348141.cdn.ntruss.com/app/product/mst_product/8801137520018_L.jpg",
