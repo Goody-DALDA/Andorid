@@ -8,6 +8,9 @@ import com.oyj.domain.model.OAuthTokenEntity
 import com.oyj.domain.model.ProfileEntity
 import com.oyj.domain.model.ResultMessageEntity
 import com.oyj.domain.repository.LoginRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
@@ -19,8 +22,8 @@ class LoginRepositoryImpl @Inject constructor(
         email: String,
         profileImg: String,
         token: OAuthTokenEntity,
-    ): ProfileEntity? {
-        return try {
+    ): Flow<ProfileEntity?> {
+        return flow {
             val response = userRemoteDataSource.login(nickname, email, profileImg)
             val loginDto = response.body()
 
@@ -29,33 +32,60 @@ class LoginRepositoryImpl @Inject constructor(
                 val accessToken = loginDto.data.accessToken
                 preferenceLocalDataSource.setAccessToken(accessToken)
 
-                ProfileEntity(nickname, email, profileImg, loginData.isNewUser)
+                emit(ProfileEntity(nickname, email, profileImg, loginData.isNewUser))
             } else {
-                null
+                emit(null)
             }
-        } catch (e: Exception) {
+        }.catch {
             preferenceLocalDataSource.setAccessToken("")
-            null
+            emit(null)
         }
     }
 
-    override suspend fun fetchProfile(): ProfileEntity {
+    override suspend fun fetchProfile(): Flow<ProfileEntity> = flow {
         val response = userRemoteDataSource.fetchProfile()
-        return response.body()!!.data?.toDomain() ?: ProfileEntity()
+        if (response.isSuccessful) {
+            emit(response.body()!!.data?.toDomain() ?: ProfileEntity())
+        } else {
+            emit(ProfileEntity())
+        }
     }
 
-    override suspend fun logout(): ResultMessageEntity {
-        return userRemoteDataSource.logout().body()?.toResultMessageDomain()
-            ?: ResultMessageEntity("failed", "data null")
+
+    override suspend fun logout(): Flow<ResultMessageEntity> {
+        return flow {
+            val response = userRemoteDataSource.logout()
+            if (response.isSuccessful) {
+                emit(
+                    response.body()?.toResultMessageDomain() ?: ResultMessageEntity(
+                        "failed",
+                        "data null"
+                    )
+                )
+            } else {
+                emit(ResultMessageEntity("failed", "response not successful"))
+            }
+        }
     }
 
-    override suspend fun leaveUser(): ResultMessageEntity {
-        return userRemoteDataSource.leaveUser().body()?.toResultMessageDomain()
-            ?: ResultMessageEntity("failed", "data null")
+    override suspend fun leaveUser(): Flow<ResultMessageEntity> {
+        return flow {
+            val response = userRemoteDataSource.leaveUser()
+            if (response.isSuccessful) {
+                emit(
+                    response.body()?.toResultMessageDomain() ?: ResultMessageEntity(
+                        "failed",
+                        "data null"
+                    )
+                )
+            } else {
+                emit(ResultMessageEntity("failed", "response not successful"))
+            }
+        }
     }
 
     override fun getOAuthToken(): String {
-       return preferenceLocalDataSource.getAccessToken()
+        return preferenceLocalDataSource.getAccessToken()
     }
 
     override fun updateShowOnboarding() {

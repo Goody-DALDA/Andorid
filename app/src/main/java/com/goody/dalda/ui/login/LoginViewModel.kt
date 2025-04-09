@@ -8,6 +8,7 @@ import com.goody.dalda.data.model.Profile
 import com.goody.dalda.data.model.toUIModel
 import com.goody.dalda.ui.state.UiState
 import com.kakao.sdk.auth.model.OAuthToken
+import com.oyj.domain.model.OAuthTokenEntity
 import com.oyj.domain.usecase.login.LoginUseCase
 import com.oyj.domain.usecase.login.pref.GetProfileUseCase
 import com.oyj.domain.usecase.login.pref.IsShowOnboardingUseCase
@@ -41,7 +42,7 @@ class LoginViewModel @Inject constructor(
         token: OAuthToken,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val domainToken = com.oyj.domain.model.OAuthTokenEntity(
+            val domainToken = OAuthTokenEntity(
                 accessToken = token.accessToken,
                 accessTokenExpiresAt = token.accessTokenExpiresAt,
                 refreshToken = token.refreshToken,
@@ -49,9 +50,11 @@ class LoginViewModel @Inject constructor(
                 idToken = token.idToken,
                 scopes = token.scopes
             )
-            loginUseCase(nickname, email, profileImg, domainToken)?.let { profileDomain ->
-                setProfileUseCase(profileDomain)
-                _state.postValue(UiState.Success(profileDomain.toUIModel()))
+            loginUseCase(nickname, email, profileImg, domainToken).collect { profile ->
+                profile?.let {
+                    setProfileUseCase(it)
+                    _state.postValue(UiState.Success(it.toUIModel()))
+                }
             }
         }
     }

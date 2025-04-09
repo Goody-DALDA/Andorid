@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SetProfileUseCase @Inject constructor(
     private val repository: LoginRepository
 ) {
-    operator fun invoke(profileDomain: ProfileEntity) {
-        repository.setProfile(profileDomain)
+    operator fun invoke(profileEntity: ProfileEntity) {
+        repository.setProfile(profileEntity)
     }
 }

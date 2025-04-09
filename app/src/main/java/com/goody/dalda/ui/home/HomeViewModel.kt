@@ -30,8 +30,10 @@ class HomeViewModel @Inject constructor(
     private val _bookmarkAlcoholUIModelList = MutableStateFlow(emptyList<AlcoholUIModel>())
     val bookmarkList: StateFlow<List<AlcoholUIModel>> = _bookmarkAlcoholUIModelList
 
-    private val _recommendAlcoholUIModelList = MutableStateFlow(emptyList<RecommendAlcoholUIModel>())
-    val recommendAlcoholUIModelList: StateFlow<List<RecommendAlcoholUIModel>> = _recommendAlcoholUIModelList
+    private val _recommendAlcoholUIModelList =
+        MutableStateFlow(emptyList<RecommendAlcoholUIModel>())
+    val recommendAlcoholUIModelList: StateFlow<List<RecommendAlcoholUIModel>> =
+        _recommendAlcoholUIModelList
 
     private val _homeUiState = MutableStateFlow<HomeUiState>(HomeUiState.CommonState)
     val homeUiState: StateFlow<HomeUiState> = _homeUiState
@@ -62,17 +64,16 @@ class HomeViewModel @Inject constructor(
         _selectedItemIndex.value = itemIndex
     }
 
-    fun fetchProfile() {
+    private fun fetchProfile() {
         viewModelScope.launch {
             runCatching {
-                fetchProfileUseCase().toUIModel()
-            }.onSuccess { profile ->
-                Log.d(TAG, "fetchProfile: $profile")
-                _userProfile.value = UserProfile(
-                    profile.nickname,
-                    profile.email,
-                    profile.profileImg
-                )
+                fetchProfileUseCase().collect {
+                    _userProfile.value = UserProfile(
+                        it.nickname,
+                        it.email,
+                        it.profileImg
+                    )
+                }
             }.onFailure { e ->
                 when (e) {
                     is IOException -> handleError(e, "네트워크 오류가 발생했습니다.")
@@ -90,7 +91,7 @@ class HomeViewModel @Inject constructor(
                     _bookmarkAlcoholUIModelList.value = alcoholList.toUIModelList().asReversed()
                 }
             }.onFailure { e ->
-                handleError(e, e.message?: "알 수 없는 오류가 발생했습니다.")
+                handleError(e, e.message ?: "알 수 없는 오류가 발생했습니다.")
             }
         }
     }

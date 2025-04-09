@@ -37,23 +37,26 @@ class MemberViewModel @Inject constructor(
 
     fun fetchProfileNew() {
         viewModelScope.launch(Dispatchers.IO) {
-            _profile.value = fetchProfileUseCase().toUIModel()
+            fetchProfileUseCase().collect {
+                _profile.value = it.toUIModel()
+            }
         }
     }
 
     fun requestLogout() {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = logoutUseCase()
-                if (response.isSuccess()) {
-                    logoutKakao()
-                    clearAccessTokenUseCase()
-                    clearProfileUseCase()
-                    _logoutState.value = UiState.Success(response.message)
-                } else {
-                    _logoutState.value = UiState.Error(exception = Exception(response.message))
+            runCatching {
+                logoutUseCase().collect { result ->
+                    if (result.isSuccess()) {
+                        logoutKakao()
+                        clearAccessTokenUseCase()
+                        clearProfileUseCase()
+                        _logoutState.value = UiState.Success(result.message)
+                    } else {
+                        _logoutState.value = UiState.Error(exception = Exception(result.message))
+                    }
                 }
-            } catch (e: Exception) {
+            }.onFailure { e ->
                 _logoutState.value = UiState.Error(exception = e)
             }
         }

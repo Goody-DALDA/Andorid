@@ -43,18 +43,14 @@ class WithdrawViewModel @Inject constructor(
     fun requestWithdrawNew() {
         _uiState.value = UiState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val response = leaveUserUseCase()
-
-                if (response.isSuccess()) {
+            runCatching {
+                leaveUserUseCase().collect {
                     unlinkKakao()
                     clearAccessTokenUseCase()
                     clearProfileUseCase()
-                    _uiState.value = UiState.Success(response.message)
-                } else {
-                    _uiState.value = UiState.Error()
+                    _uiState.value = UiState.Success(it.message)
                 }
-            } catch (e: Exception) {
+            }.onFailure { e ->
                 _uiState.value = UiState.Error(exception = e)
             }
         }

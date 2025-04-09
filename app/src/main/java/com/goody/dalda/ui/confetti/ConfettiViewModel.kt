@@ -15,7 +15,9 @@ class ConfettiViewModel @Inject constructor(
 ) : ViewModel() {
     fun fetchProfile() {
         viewModelScope.launch(Dispatchers.IO) {
-            val profile = fetchProfileUseCase().toUIModel()
+            fetchProfileUseCase().collect{
+                it.toUIModel()
+            }
         }
     }
 }
